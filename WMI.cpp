@@ -21,6 +21,25 @@ WMI::WMI()
 	pSvc = 0;
 	connectToWMI();
 
+	CPUName = "";
+	CPUIdentifier = "";
+	CPUClock.clear();
+	cpuLoad.clear();
+	cpuTemp.clear();
+
+	GPUName.clear();
+	GPUIdentifier.clear();
+	GPULoad.clear();
+	GPUTemp.clear();
+	GPUFan.clear();
+	GPUClock.clear();
+	GPUMemoryClock.clear();
+
+	HDDName.clear();
+	HDDIdentifier.clear();
+	HDDTemperature.clear();
+	HDDLoad.clear();
+
 	queryCPUName();
 	queryGPUName();
 	
@@ -48,24 +67,9 @@ WMI::~WMI(void)
 
 void WMI::refresh()
 {
-	CPUName = "";
-	CPUIdentifier = "";
-	CPUClock.clear();
-	cpuLoad.clear();
-	cpuTemp.clear();
-	
-	HDDTemperature.clear();
-	HDDLoad.clear();
-	GPUName.clear();
-	GPUIdentifier.clear();
-	GPULoad.clear();
-	GPUTemp.clear();
-	GPUFan.clear();
-	GPUClock.clear();
-	GPUMemoryClock.clear();
-
-	HDDName.clear();
-	HDDIdentifier.clear();
+	CPUText.clear();
+	GPUText.clear();
+	HDDText.clear();
 
 	queryCPUName();
 	queryGPUName();
@@ -82,6 +86,25 @@ void WMI::refresh()
 	queryGPUClock();
 
 	createtext();
+
+	CPUName = "";
+	CPUIdentifier = "";
+	CPUClock.clear();
+	cpuLoad.clear();
+	cpuTemp.clear();
+
+	GPUName.clear();
+	GPUIdentifier.clear();
+	GPULoad.clear();
+	GPUTemp.clear();
+	GPUFan.clear();
+	GPUClock.clear();
+	GPUMemoryClock.clear();
+
+	HDDName.clear();
+	HDDIdentifier.clear();
+	HDDTemperature.clear();
+	HDDLoad.clear();
 }
 
 
@@ -215,6 +238,7 @@ void WMI::queryCPUName()
 				VariantClear(&vtProp);
 
 				pclsObj->Release();
+
 			}
 			pEnumerator->Release();
 

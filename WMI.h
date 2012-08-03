@@ -72,6 +72,7 @@ private:
 	void queryOther();
 
 	void createtext();
+
 	//--------------------------
 	// Datamembers
 	//--------------------------
@@ -103,6 +104,7 @@ private:
 	vector<string> HDDIdentifier;
 	vector<string> HDDTemperature;
 	vector<string> HDDLoad;
+
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is

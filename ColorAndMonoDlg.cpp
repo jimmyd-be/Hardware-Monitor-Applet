@@ -37,6 +37,11 @@ CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
 
 	m_currentHighlightPosition = 1;
 
+	scrollCPUScreen = 0;
+	scrollGPUScreen = 0;
+	scrollHDDScreen = 0;
+
+	time = 500;
 	wmi = new WMI();
 }
 
@@ -81,7 +86,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	InitLCDObjectsMonochrome();
 	//  InitLCDObjectsColor();
 
-	SetTimer(0xabab, 500, NULL); // for scrolling to work smoothly, timer should be pretty fast
+	SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -130,8 +135,14 @@ void CColorAndMonoDlg::OnDestroy( )
 void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	UNREFERENCED_PARAMETER(nIDEvent);
+	time += 30;
 
-	InitLCDObjectsMonochrome();
+	if(time >= 500)
+	{
+		wmi->refresh();
+		InitLCDObjectsMonochrome();
+		time = 0;
+	}
 	CheckButtonPresses();
 
 	m_lcd.Update();
@@ -152,12 +163,10 @@ void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 
 VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 {
-	wmi->refresh();
-
-	vector<string> CPUText;
-	vector<string> GPUText;
-	vector<string> HDDText;
-	vector<string> OtherText;
+	CPUScreen.clear();
+	GPUScreen.clear();
+	HDDScreen.clear();
+	OtherScreen.clear();
 
 	CPUText = wmi->getCPUText();
 	GPUText = wmi->getGPUText();
@@ -169,7 +178,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 	/* FIRST PAGE */
 	/***************/
 
-	for(int i=0; i < CPUText.size(); i++)
+	for(int i=scrollCPUScreen; i < CPUText.size(); i++)
 	{
 		CPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
 		m_lcd.SetOrigin(CPUScreen[CPUScreen.size()-1], 0, (i*7));
@@ -179,6 +188,16 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		m_lcd.SetText(CPUScreen[CPUScreen.size()-1], s2.c_str());
 	}
 
+	if(CPUText.size() < 6)
+	{
+		for(int i=CPUText.size(); i < 6; i++)
+	{
+		CPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		m_lcd.SetOrigin(CPUScreen[CPUScreen.size()-1], 0, (i*7));
+		m_lcd.SetText(CPUScreen[CPUScreen.size()-1], _T(""));
+	}
+	}
+
 	/***************/
 	/* Second PAGE */
 	/***************/
@@ -186,7 +205,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 	m_lcd.AddNewPage();
 	m_lcd.ModifyControlsOnPage(1);
 
-	for(int i=0; i < GPUText.size(); i++)
+	for(int i=scrollGPUScreen; i < GPUText.size(); i++)
 	{
 		GPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
 		m_lcd.SetOrigin(GPUScreen[GPUScreen.size()-1], 0, (i*7));
@@ -196,6 +215,15 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		m_lcd.SetText(GPUScreen[GPUScreen.size()-1], s2.c_str());
 	}
 
+	if(GPUText.size() < 6)
+	{
+		for(int i=GPUText.size(); i < 6; i++)
+	{
+		GPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		m_lcd.SetOrigin(GPUScreen[GPUScreen.size()-1], 0, (i*7));
+		m_lcd.SetText(GPUScreen[GPUScreen.size()-1], _T(""));
+	}
+	}
 
 	/***************/
 	/* Third PAGE */
@@ -203,7 +231,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 	m_lcd.AddNewPage();
 	m_lcd.ModifyControlsOnPage(2);
 
-	for(int i=0; i < HDDText.size(); i++)
+	for(int i=scrollHDDScreen; i < HDDText.size(); i++)
 	{
 		HDDScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
 		m_lcd.SetOrigin(HDDScreen[HDDScreen.size()-1], 0, (i*7));
@@ -212,6 +240,21 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		s2.assign(HDDText[i].begin(), HDDText[i].end());
 		m_lcd.SetText(HDDScreen[HDDScreen.size()-1], s2.c_str());
 	}
+
+	if(HDDText.size() < 6)
+	{
+		for(int i=HDDText.size(); i < 6; i++)
+	{
+		HDDScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		m_lcd.SetOrigin(HDDScreen[HDDScreen.size()-1], 0, (i*7));
+		m_lcd.SetText(HDDScreen[HDDScreen.size()-1], _T(""));
+	}
+	}
+
+	/***************/
+	/* Fourth PAGE */
+	/***************/
+
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
@@ -231,27 +274,68 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 
 	currentPage = m_lcd.GetCurrentPageNumber();
 
+	//Go to next page
 	if (m_lcd.ButtonTriggered(LG_BUTTON_4))
 	{
-		m_lcd.ShowPage((m_lcd.GetCurrentPageNumber() + 1) % m_lcd.GetPageCount());
+		currentPage++;
+
+		if(currentPage >= 3)
+		{
+			currentPage = 0;
+		}
 	}
 
+	//Go to previous page
 	else if(m_lcd.ButtonTriggered(LG_BUTTON_1))
 	{
-		if(m_lcd.GetCurrentPageNumber() - 1 < 0)
+		currentPage--;
+
+		if(currentPage < 0)
 		{
-			m_lcd.ShowPage(m_lcd.GetPageCount()-1);
-		}
-		else
-		{
-			m_lcd.ShowPage((m_lcd.GetCurrentPageNumber() - 1) % m_lcd.GetPageCount());
+			currentPage = 2;
 		}
 	}
 
-	else
+	//Scroll down
+	else if(m_lcd.ButtonTriggered(LG_BUTTON_2))
 	{
-		m_lcd.ShowPage(currentPage% m_lcd.GetPageCount());
+		if(currentPage == 0 && !(scrollCPUScreen+6 >= CPUText.size()))
+		{
+			scrollCPUScreen++;
+		}
+
+		if(currentPage == 1 && !(scrollGPUScreen+6 >= GPUText.size()))
+		{
+			scrollGPUScreen++;
+		}
+
+		if(currentPage == 2 && !(scrollHDDScreen+6 >= HDDText.size()))
+		{
+			scrollHDDScreen++;
+		}
 	}
+
+	//Scroll up
+	else if(m_lcd.ButtonTriggered(LG_BUTTON_3))
+	{
+		if(currentPage == 0 &&scrollCPUScreen != 0)
+		{
+			scrollCPUScreen--;
+		}
+
+		if(currentPage == 1 && scrollGPUScreen != 0)
+		{
+			scrollGPUScreen--;
+		}
+
+		if(currentPage == 2 && scrollHDDScreen != 0)
+		{
+			scrollHDDScreen--;
+		}
+	}
+
+	m_lcd.ShowPage(currentPage);
+
 }
 
 VOID CColorAndMonoDlg::CheckbuttonPressesColor()
@@ -263,8 +347,8 @@ VOID CColorAndMonoDlg::CheckbuttonPressesColor()
 		if (m_currentHighlightPosition >= 1)
 		{
 			--m_currentHighlightPosition;
-			m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-			m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
+//			m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
+		//	m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
 		}
 	}
 
@@ -273,8 +357,8 @@ VOID CColorAndMonoDlg::CheckbuttonPressesColor()
 		if (m_currentHighlightPosition < 1)
 		{
 			++m_currentHighlightPosition;
-			m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-			m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
+			/*m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
+			m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);*/
 		}
 	}
 
