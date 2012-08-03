@@ -17,6 +17,7 @@
 #include <vector>
 #include <sstream>
 #include "stdafx.h"
+#include <algorithm>
 
 //-----------------------------------------------------------------
 // Defines
@@ -67,6 +68,7 @@ private:
 	void queryGPUClock();
 
 	void queryHDName();
+	void queryHDData();
 	void queryOther();
 
 	void createtext();
@@ -99,6 +101,8 @@ private:
 
 	vector<string> HDDName;
 	vector<string> HDDIdentifier;
+	vector<string> HDDTemperature;
+	vector<string> HDDLoad;
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is

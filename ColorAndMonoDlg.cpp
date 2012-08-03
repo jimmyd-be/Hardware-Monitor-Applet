@@ -68,7 +68,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 
 	ShowWindow(SW_HIDE);
 	SetWindowPos(NULL, 0, 0, 0, 0, NULL);
-
+	
 	HRESULT hRes = m_lcd.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, FALSE, TRUE);
 
 	if (hRes != S_OK)
@@ -197,7 +197,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 
 	CPUText = wmi->getCPUText();
 	GPUText = wmi->getGPUText();
-	//HDDText = wmi->getHDDText();
+	HDDText = wmi->getHDDText();
 
 	m_lcd.ModifyDisplay(LG_MONOCHROME);
 
@@ -232,71 +232,21 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		m_lcd.SetText(GPUScreen[GPUScreen.size()-1], s2.c_str());
 	}
 
-	//	GPUText.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-	//m_lcd.SetOrigin(GPUText[GPUText.size()-1], 0, 32);
-	//m_lcd.SetText(GPUText[GPUText.size()-1], _T("Small text is scrolling"));
-	//
+	/***************/
+	/* Third PAGE */
+	/***************/
+	m_lcd.AddNewPage();
+	m_lcd.ModifyControlsOnPage(2);
 
-	//m_lcd.AddNewPage();
-	//  m_lcd.ModifyControlsOnPage(2);
-	//	HDDText.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-	//m_lcd.SetOrigin(HDDText[HDDText.size()-1], 0, 0);
-	//m_lcd.SetText(HDDText[HDDText.size()-1], _T("Small text is scrolling"));
+	for(int i=0; i < HDDText.size(); i++)
+	{
+		HDDScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		m_lcd.SetOrigin(HDDScreen[HDDScreen.size()-1], 0, (i*7));
 
-	//vector<HANDLE> HDDText;
-	//vector<HANDLE> OtherText;
-
-	//   m_smallText1 = m_lcd.AddText(LG_SCROLLING_TEXT, LG_SMALL, DT_CENTER, 70);
-	//   m_lcd.SetOrigin(m_smallText1, 0, 0);
-	//   m_lcd.SetText(m_smallText1, _T("Small text is scrolling"));
-
-	//   m_smallText2 = m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 80);
-	//   m_lcd.SetOrigin(m_smallText2, 80, 0);
-	//   m_lcd.SetText(m_smallText2, _T("Small text is static instead of scrolling"));
-
-	//   m_mediumText = m_lcd.AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, LGLCD_BW_BMP_WIDTH);
-	//   m_lcd.SetOrigin(m_mediumText, 0, 11);
-	//   m_lcd.SetText(m_mediumText, _T("Medium text is centered"));
-
-	//   m_bigText = m_lcd.AddText(LG_STATIC_TEXT, LG_BIG, DT_LEFT, LGLCD_BW_BMP_WIDTH);
-	//   m_lcd.SetOrigin(m_bigText, 0, 25);
-	//   m_lcd.SetText(m_bigText, _T("Big text on left"));
-
-	//   HICON rightIcon_ = static_cast<HICON>(LoadImage(
-	//       AfxGetInstanceHandle(), 
-	//       MAKEINTRESOURCE(IDI_NEXT),
-	//       IMAGE_ICON, 
-	//       16, 
-	//       16, 
-	//       LR_MONOCHROME));
-	//   m_right1 = m_lcd.AddIcon(rightIcon_, 16, 16);
-	//   m_lcd.SetOrigin(m_right1, 142, 35);
-
-	//   /***************/
-	//   /* SECOND PAGE */
-	//   /***************/
-	//   m_lcd.AddNewPage();
-	//   m_lcd.ModifyControlsOnPage(1);
-
-	//   m_progressbar1 = m_lcd.AddProgressBar(LG_DOT_CURSOR);
-	//   m_lcd.SetProgressBarSize(m_progressbar1, 90, 5);
-	//   m_lcd.SetOrigin(m_progressbar1, 70, 0);
-
-	//   m_progressbar2 = m_lcd.AddProgressBar(LG_FILLED);
-	//   m_lcd.SetProgressBarSize(m_progressbar2, 60, 8);
-	//   m_lcd.SetOrigin(m_progressbar2, 70, 10);
-
-	//   m_progressbar3 = m_lcd.AddProgressBar(LG_CURSOR);
-	//   m_lcd.SetProgressBarSize(m_progressbar3, 30, 3);
-	//   m_lcd.SetOrigin(m_progressbar3, 70, 25);
-
-	//   HBITMAP logoBitmap_ = LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_LOGO));
-	//   m_logo = m_lcd.AddBitmap(55, 43);
-	//   m_lcd.SetBitmap(m_logo, logoBitmap_);
-	//   m_lcd.SetOrigin(m_logo, 0, 0);
-
-	//   m_right2 = m_lcd.AddIcon(rightIcon_, 16, 16);
-	//   m_lcd.SetOrigin(m_right2, 142, 35);
+		wstring s2;
+		s2.assign(HDDText[i].begin(), HDDText[i].end());
+		m_lcd.SetText(HDDScreen[HDDScreen.size()-1], s2.c_str());
+	}
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
@@ -335,7 +285,7 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 
 	else
 	{
-		m_lcd.ShowPage(currentPage);
+		m_lcd.ShowPage(currentPage% m_lcd.GetPageCount());
 	}
 }
 

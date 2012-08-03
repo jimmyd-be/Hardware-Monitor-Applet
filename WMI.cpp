@@ -23,8 +23,9 @@ WMI::WMI()
 
 	queryCPUName();
 	queryGPUName();
+	
 	queryHDName();
-
+	queryHDData();
 	queryCPULoad();
 	queryCPUTemp();
 	queryCPUCLock();
@@ -32,6 +33,7 @@ WMI::WMI()
 	queryGPUTemp();
 	queryGPUFan();
 	queryGPUClock();
+
 
 }
 
@@ -52,6 +54,8 @@ void WMI::refresh()
 	cpuLoad.clear();
 	cpuTemp.clear();
 	
+	HDDTemperature.clear();
+	HDDLoad.clear();
 	GPUName.clear();
 	GPUIdentifier.clear();
 	GPULoad.clear();
@@ -65,7 +69,9 @@ void WMI::refresh()
 
 	queryCPUName();
 	queryGPUName();
+
 	queryHDName();
+	queryHDData();
 
 	queryCPULoad();
 	queryCPUTemp();
@@ -313,8 +319,6 @@ void WMI::queryHDName()
 
 				hr = pclsObj->Get(L"Identifier", 0, &vtProp, 0, 0);
 				ws = wstring(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-				HDDName.push_back(string( ws.begin(), ws.end() ));
-
 
 				HDDIdentifier.push_back(string( ws.begin(), ws.end() ));
 				VariantClear(&vtProp);
@@ -763,6 +767,92 @@ void WMI::queryGPUClock()
 	}
 }
 
+void WMI::queryHDData()
+{
+	if(pSvc != 0 && pclsObj != 0)
+	{
+		for(int count =0; count < HDDIdentifier.size(); count++)
+		{
+		// Use the IWbemServices pointer to make requests of WMI ----
+
+		// For example, get the name of the operating system
+		string query = "select * from Sensor where Parent = '";
+		query.append(HDDIdentifier[count]);
+		query.append("' and (SensorType='Load' or SensorType='Temperature')");
+
+		char *a=new char[query.size()+1];
+		a[query.size()]=0;
+		memcpy(a,query.c_str(),query.size());
+
+		hres = pSvc->ExecQuery(
+			bstr_t("WQL"), 
+			bstr_t(a),
+			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY, 
+			NULL,
+			&pEnumerator);
+
+		if (!FAILED(hres))
+		{
+			// Get the data from the query
+
+			ULONG uReturn = 0;
+
+			while (pEnumerator)
+			{
+				HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1, 
+					&pclsObj, &uReturn);
+
+				if(0 == uReturn)
+				{
+					break;
+				}
+
+				VARIANT vtProp;
+
+				// Get the value of the Name property
+
+				hr = pclsObj->Get(L"SensorType", 0, &vtProp, 0, 0);
+				
+				wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+				string sensortype = string( ws.begin(), ws.end() );
+
+				if(sensortype.compare("Load") ==0)
+				{
+					hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
+					
+					int load = vtProp.fltVal;
+					stringstream stringStream;
+				stringStream << load;
+
+				HDDLoad.push_back(stringStream.str());
+				}
+
+				else if(sensortype.compare("Temperature") == 0)
+				{
+					hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
+					int temperature = vtProp.fltVal;
+					stringstream stringStream;
+				stringStream << temperature;
+
+				HDDTemperature.push_back(stringStream.str());
+				}
+				
+
+				VariantClear(&vtProp);
+
+				pclsObj->Release();
+			}
+			pEnumerator->Release();
+		}
+
+		if(HDDTemperature.size() != HDDLoad.size())
+		{
+			HDDTemperature.push_back("");
+		}
+		}
+	}
+}
+
 void WMI::queryOther()
 {
 
@@ -790,7 +880,7 @@ void WMI::createtext()
 	for(int i =0; i< GPUIdentifier.size(); i++)
 	{
 		stringstream ss;//create a stringstream
-   ss << i;//add number to the stream
+		 ss << i;//add number to the stream
    
 		GPUText.push_back(GPUName[i]);
 		GPUText.push_back(string("CC: ").append(GPUClock[i]).append("MHz - MC: ").append(GPUMemoryClock[i]).append("MHz"));
@@ -808,6 +898,21 @@ void WMI::createtext()
 
 		GPUText.push_back(gpuTemp);
 	}
+
+	for(int i=0; i< HDDIdentifier.size(); i++)
+	{
+		if(HDDTemperature[i].empty())
+		{
+			HDDText.push_back(HDDIdentifier[i].append(": ").append(HDDLoad[i]).append("% load"));
+		}
+
+		else
+		{
+			HDDText.push_back(HDDIdentifier[i].append(": ").append(HDDTemperature[i]).append("°C - ").append(HDDLoad[i]).append("% load"));
+		}
+	}
+
+	sort(HDDText.begin(), HDDText.end());
 }
 
 vector<string> WMI::getCPUText()
