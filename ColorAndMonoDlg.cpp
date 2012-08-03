@@ -136,42 +136,6 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 
 	m_lcd.Update();
 
-#ifdef BUTTON_TESTING
-	ExtraTester::DoButtonTestingMono(m_lcd);
-	ExtraTester::DoButtonTestingColor(m_lcd);
-#endif
-
-#ifdef SCREEN_PRIORITY_TESTING
-	ExtraTester::DoScreenPriorityTesting(m_lcd);
-#endif
-
-#ifdef FOREGROUND_TESTING
-	ExtraTester::DoForegroundTesting(m_lcd);
-#endif
-
-#ifdef VISIBLE_TESTING
-	std::vector<HANDLE> handles_;
-	handles_.push_back(m_smallText1);
-	handles_.push_back(m_mediumText);
-	handles_.push_back(m_progressbar2);
-	handles_.push_back(m_logo);
-	handles_.push_back(m_right1);
-	handles_.push_back(m_tinyTextColor1);
-	handles_.push_back(m_smallTextColor);
-	handles_.push_back(m_bigTextColor);
-	handles_.push_back(m_leftColor1);
-	handles_.push_back(m_leftColor2);
-	handles_.push_back(m_highlightColor1);
-	handles_.push_back(m_highlightColor2);
-	handles_.push_back(m_progressbar2Color);
-	handles_.push_back(m_progressbar4Color);
-	handles_.push_back(m_logoColor);
-	ExtraTester::DoVisibleTesting(m_lcd, handles_);
-#endif
-
-#ifdef PAGE_TESTING
-	ExtraTester::DoPageTesting(m_lcd);
-#endif
 }
 
 void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
@@ -231,6 +195,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		s2.assign(GPUText[i].begin(), GPUText[i].end());
 		m_lcd.SetText(GPUScreen[GPUScreen.size()-1], s2.c_str());
 	}
+
 
 	/***************/
 	/* Third PAGE */
