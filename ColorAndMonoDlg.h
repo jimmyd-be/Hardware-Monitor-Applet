@@ -23,15 +23,15 @@ protected:
 
     CEzLcd m_lcd;
 
-    INT m_currentHighlightPosition;
+   // INT m_currentHighlightPosition;
 
     // LCD object handles
 
     // Monochrome
-    vector<HANDLE> CPUScreen;
-	vector<HANDLE> GPUScreen;
-	vector<HANDLE> HDDScreen;
-	vector<HANDLE> OtherScreen;
+    vector<HANDLE> screen;
+	//vector<HANDLE> GPUScreen;
+	//vector<HANDLE> HDDScreen;
+	//vector<HANDLE> OtherScreen;
 
 	int currentPage;
 
@@ -42,10 +42,12 @@ protected:
 	int scrollGPUScreen;
 	int scrollHDDScreen;
 
-	vector<string> CPUText;
-	vector<string> GPUText;
-	vector<string> HDDText;
-	vector<string> OtherText;
+	//vector<string> CPUText;
+	//vector<string> GPUText;
+	//vector<string> HDDText;
+	//vector<string> OtherText;
+
+	vector<string> text;
 
     VOID InitLCDObjectsMonochrome();
     VOID InitLCDObjectsColor();

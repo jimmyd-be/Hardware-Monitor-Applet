@@ -35,11 +35,12 @@ CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
-	m_currentHighlightPosition = 1;
 
 	scrollCPUScreen = 0;
 	scrollGPUScreen = 0;
 	scrollHDDScreen = 0;
+
+	currentPage = 0;
 
 	time = 500;
 	wmi = new WMI();
@@ -74,7 +75,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	ShowWindow(SW_HIDE);
 	SetWindowPos(NULL, 0, 0, 0, 0, NULL);
 	
-	HRESULT hRes = m_lcd.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, FALSE, TRUE);
+	HRESULT hRes = m_lcd.Initialize(_T("Open Hardware Monitor"), /*LG_DUAL_MODE*/LG_MONOCHROME_MODE_ONLY, FALSE, TRUE);
 
 	if (hRes != S_OK)
 	{
@@ -137,9 +138,8 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 	UNREFERENCED_PARAMETER(nIDEvent);
 	time += 30;
 
-	if(time >= 500)
+	if(time > 1000)
 	{
-		wmi->refresh();
 		InitLCDObjectsMonochrome();
 		time = 0;
 	}
@@ -163,103 +163,58 @@ void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 
 VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 {
-	CPUScreen.clear();
-	GPUScreen.clear();
-	HDDScreen.clear();
-	OtherScreen.clear();
-
-	CPUText = wmi->getCPUText();
-	GPUText = wmi->getGPUText();
-	HDDText = wmi->getHDDText();
-
 	m_lcd.ModifyDisplay(LG_MONOCHROME);
 
-	/***************/
-	/* FIRST PAGE */
-	/***************/
+	text.clear();
+	int scroll = 0;
 
-	for(int i=scrollCPUScreen; i < CPUText.size(); i++)
+	if(currentPage == 0)
 	{
-		CPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(CPUScreen[CPUScreen.size()-1], 0, (i*7));
-
-		wstring s2;
-		s2.assign(CPUText[i].begin(), CPUText[i].end());
-		m_lcd.SetText(CPUScreen[CPUScreen.size()-1], s2.c_str());
+		text =wmi->getCPUText();
+		scroll = scrollCPUScreen;
 	}
 
-	if(CPUText.size() < 6)
+	else if(currentPage == 1)
 	{
-		for(int i=CPUText.size(); i < 6; i++)
-	{
-		CPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(CPUScreen[CPUScreen.size()-1], 0, (i*7));
-		m_lcd.SetText(CPUScreen[CPUScreen.size()-1], _T(""));
-	}
+		text =wmi->getGPUText();
+		scroll = scrollGPUScreen;
 	}
 
-	/***************/
-	/* Second PAGE */
-	/***************/
-
-	m_lcd.AddNewPage();
-	m_lcd.ModifyControlsOnPage(1);
-
-	for(int i=scrollGPUScreen; i < GPUText.size(); i++)
+	else if(currentPage == 2)
 	{
-		GPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(GPUScreen[GPUScreen.size()-1], 0, (i*7));
-
-		wstring s2;
-		s2.assign(GPUText[i].begin(), GPUText[i].end());
-		m_lcd.SetText(GPUScreen[GPUScreen.size()-1], s2.c_str());
+		text =wmi->getHDDText();
+		scroll = scrollHDDScreen;
 	}
 
-	if(GPUText.size() < 6)
+	screen.clear();
+
+	for(int i=scroll; i < text.size(); i++)
 	{
-		for(int i=GPUText.size(); i < 6; i++)
+		screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		m_lcd.SetOrigin(screen[screen.size()-1], 0, (i*7));
+
+		wstring ws;
+		ws.assign(text[i].begin(), text[i].end());
+		
+
+		m_lcd.SetText(screen[screen.size()-1], ws.c_str());
+		ws.clear();
+	}
+	
+	if(text.size() < 6)
 	{
-		GPUScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(GPUScreen[GPUScreen.size()-1], 0, (i*7));
-		m_lcd.SetText(GPUScreen[GPUScreen.size()-1], _T(""));
+		for(int i=text.size(); i < 6; i++)
+	{
+		screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		m_lcd.SetOrigin(screen[screen.size()-1], 0, (i*7));
+		m_lcd.SetText(screen[screen.size()-1], _T(""));
 	}
 	}
-
-	/***************/
-	/* Third PAGE */
-	/***************/
-	m_lcd.AddNewPage();
-	m_lcd.ModifyControlsOnPage(2);
-
-	for(int i=scrollHDDScreen; i < HDDText.size(); i++)
-	{
-		HDDScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(HDDScreen[HDDScreen.size()-1], 0, (i*7));
-
-		wstring s2;
-		s2.assign(HDDText[i].begin(), HDDText[i].end());
-		m_lcd.SetText(HDDScreen[HDDScreen.size()-1], s2.c_str());
-	}
-
-	if(HDDText.size() < 6)
-	{
-		for(int i=HDDText.size(); i < 6; i++)
-	{
-		HDDScreen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(HDDScreen[HDDScreen.size()-1], 0, (i*7));
-		m_lcd.SetText(HDDScreen[HDDScreen.size()-1], _T(""));
-	}
-	}
-
-	/***************/
-	/* Fourth PAGE */
-	/***************/
-
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
 {
-
+	
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
@@ -271,8 +226,6 @@ VOID CColorAndMonoDlg::CheckButtonPresses()
 VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 {
 	m_lcd.ModifyDisplay(LG_MONOCHROME);
-
-	currentPage = m_lcd.GetCurrentPageNumber();
 
 	//Go to next page
 	if (m_lcd.ButtonTriggered(LG_BUTTON_4))
@@ -299,17 +252,17 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 	//Scroll down
 	else if(m_lcd.ButtonTriggered(LG_BUTTON_2))
 	{
-		if(currentPage == 0 && !(scrollCPUScreen+6 >= CPUText.size()))
+		if(currentPage == 0 && !(scrollCPUScreen+6 >= text.size()))
 		{
 			scrollCPUScreen++;
 		}
 
-		if(currentPage == 1 && !(scrollGPUScreen+6 >= GPUText.size()))
+		if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
 		{
 			scrollGPUScreen++;
 		}
 
-		if(currentPage == 2 && !(scrollHDDScreen+6 >= HDDText.size()))
+		if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
 		{
 			scrollHDDScreen++;
 		}
@@ -334,7 +287,6 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		}
 	}
 
-	m_lcd.ShowPage(currentPage);
 
 }
 
@@ -344,41 +296,16 @@ VOID CColorAndMonoDlg::CheckbuttonPressesColor()
 
 	if (m_lcd.ButtonTriggered(LG_BUTTON_LEFT))
 	{
-		if (m_currentHighlightPosition >= 1)
-		{
-			--m_currentHighlightPosition;
-//			m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-		//	m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-		}
+
 	}
 
 	if (m_lcd.ButtonTriggered(LG_BUTTON_RIGHT))
 	{
-		if (m_currentHighlightPosition < 1)
-		{
-			++m_currentHighlightPosition;
-			/*m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-			m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);*/
-		}
+
 	}
 
 	if (m_lcd.ButtonTriggered(LG_BUTTON_OK))
 	{
-		if (0 == m_currentHighlightPosition)
-		{
-			if (0 == m_lcd.GetCurrentPageNumber())
-			{
-				m_lcd.ShowPage(m_lcd.GetPageCount() - 1);
-			}
-			else
-			{
-				m_lcd.ShowPage(m_lcd.GetCurrentPageNumber() - 1);
-			}
-
-		}
-		else if (1 == m_currentHighlightPosition)
-		{
-			m_lcd.ShowPage((m_lcd.GetCurrentPageNumber() + 1) % m_lcd.GetPageCount());
-		}
+		
 	}
 }

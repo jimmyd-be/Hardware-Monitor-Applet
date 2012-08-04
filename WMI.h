@@ -45,7 +45,6 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	void refresh();
 	vector<string> getCPUText();
 	vector<string> getGPUText();
 	vector<string> getHDDText();
@@ -71,7 +70,6 @@ private:
 	void queryHDData();
 	void queryOther();
 
-	void createtext();
 
 	//--------------------------
 	// Datamembers
@@ -81,10 +79,6 @@ private:
 	IEnumWbemClassObject* pEnumerator;
 	IWbemClassObject *pclsObj;
 	HRESULT hres;
-
-	vector<string> CPUText;
-	vector<string> GPUText;
-	vector<string> HDDText;
 
 	string CPUName;
 	string CPUIdentifier;
@@ -104,6 +98,8 @@ private:
 	vector<string> HDDIdentifier;
 	vector<string> HDDTemperature;
 	vector<string> HDDLoad;
+
+	vector<string> text;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
