@@ -138,13 +138,12 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 	UNREFERENCED_PARAMETER(nIDEvent);
 	time += 30;
 
+	CheckButtonPresses();
 	if(time > 1000)
 	{
 		InitLCDObjectsMonochrome();
 		time = 0;
 	}
-	CheckButtonPresses();
-
 	m_lcd.Update();
 
 }
@@ -219,12 +218,18 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
 {
-	CheckbuttonPressesMonochrome();
+	if(CheckbuttonPressesMonochrome())
+	{
+		InitLCDObjectsMonochrome();
+		time = 0;
+	}
 	CheckbuttonPressesColor();
 }
 
-VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
+bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 {
+	bool buttonPressed = false;
+
 	m_lcd.ModifyDisplay(LG_MONOCHROME);
 
 	//Go to next page
@@ -236,6 +241,8 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		{
 			currentPage = 0;
 		}
+
+		buttonPressed = true;
 	}
 
 	//Go to previous page
@@ -247,6 +254,7 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		{
 			currentPage = 2;
 		}
+		buttonPressed = true;
 	}
 
 	//Scroll down
@@ -266,6 +274,7 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		{
 			scrollHDDScreen++;
 		}
+		buttonPressed = true;
 	}
 
 	//Scroll up
@@ -285,9 +294,10 @@ VOID CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		{
 			scrollHDDScreen--;
 		}
+		buttonPressed = true;
 	}
 
-
+	return buttonPressed;
 }
 
 VOID CColorAndMonoDlg::CheckbuttonPressesColor()

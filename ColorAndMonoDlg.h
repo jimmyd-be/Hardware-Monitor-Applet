@@ -53,7 +53,7 @@ protected:
     VOID InitLCDObjectsColor();
 
     VOID CheckButtonPresses();
-    VOID CheckbuttonPressesMonochrome();
+    bool CheckbuttonPressesMonochrome();
     VOID CheckbuttonPressesColor();
 
 
