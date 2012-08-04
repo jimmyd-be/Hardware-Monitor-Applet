@@ -18,13 +18,6 @@
 #define new DEBUG_NEW
 #endif
 
-// Defines for testing EZ LCD Wrapper functions that aren't being used in sample
-//#define BUTTON_TESTING
-//#define SCREEN_PRIORITY_TESTING
-//#define FOREGROUND_TESTING
-//#define VISIBLE_TESTING
-//#define PAGE_TESTING
-
 // CColorAndMonoDlg dialog
 
 INT g_2IconsXPositions[2] = {106, 190};
@@ -34,7 +27,6 @@ CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CColorAndMonoDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-
 
 	scrollCPUScreen = 0;
 	scrollGPUScreen = 0;
@@ -74,7 +66,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 
 	ShowWindow(SW_HIDE);
 	SetWindowPos(NULL, 0, 0, 0, 0, NULL);
-	
+
 	HRESULT hRes = m_lcd.Initialize(_T("Open Hardware Monitor"), /*LG_DUAL_MODE*/LG_MONOCHROME_MODE_ONLY, FALSE, TRUE);
 
 	if (hRes != S_OK)
@@ -185,35 +177,43 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		scroll = scrollHDDScreen;
 	}
 
-	screen.clear();
 
-	for(int i=scroll; i < text.size(); i++)
+
+	if(screen.empty())
 	{
-		screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(screen[screen.size()-1], 0, (i*7));
-
-		wstring ws;
-		ws.assign(text[i].begin(), text[i].end());
-		
-
-		m_lcd.SetText(screen[screen.size()-1], ws.c_str());
-		ws.clear();
+		for(int i=scroll; i < 6; i++)
+		{
+			screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
+		}
 	}
-	
+
+	else
+	{
+		for(int i=scroll; i < text.size(); i++)
+		{
+			m_lcd.SetOrigin(screen[i], 0, (i*7));
+
+			wstring ws;
+			ws.assign(text[i].begin(), text[i].end());
+
+			m_lcd.SetText(screen[i], ws.c_str());
+			ws.clear();
+		}
+	}
 	if(text.size() < 6)
 	{
 		for(int i=text.size(); i < 6; i++)
-	{
-		screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-		m_lcd.SetOrigin(screen[screen.size()-1], 0, (i*7));
-		m_lcd.SetText(screen[screen.size()-1], _T(""));
+		{
+			m_lcd.SetOrigin(screen[i], 0, (i*7));
+			m_lcd.SetText(screen[i], _T(""));
+		}
 	}
-	}
+
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
 {
-	
+
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
@@ -316,6 +316,6 @@ VOID CColorAndMonoDlg::CheckbuttonPressesColor()
 
 	if (m_lcd.ButtonTriggered(LG_BUTTON_OK))
 	{
-		
+
 	}
 }
