@@ -937,7 +937,7 @@ vector<string> WMI::getCPUText()
 	queryCPUName();
 	queryCPULoad();
 	queryCPUTemp();
-	queryCPUCLock();
+	//queryCPUCLock();
 
 	text.push_back(CPUName);
 
@@ -948,7 +948,8 @@ vector<string> WMI::getCPUText()
 
 		string tempText = "Core ";
 		tempText = tempText.append(ss.str());
-		tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load - ").append(CPUClock[i]).append("MHz");
+		//tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load - ").append(CPUClock[i]).append("MHz");
+		tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load");
 		text.push_back(tempText);
 
 		ss.clear();
@@ -975,10 +976,12 @@ vector<string> WMI::getGPUText()
 		text.push_back(GPUName[i]);
 		text.push_back(string("CC: ").append(GPUClock[i]).append("MHz - MC: ").append(GPUMemoryClock[i]).append("MHz"));
 
-		string gpuTemp ="GPU ";
+		string gpuTemp = "";
+
+	/*	string gpuTemp ="GPU ";
 
 		gpuTemp = gpuTemp.append(ss.str());
-		gpuTemp = gpuTemp.append(": ");	
+		gpuTemp = gpuTemp.append(": ");	*/
 		gpuTemp = gpuTemp.append(GPUTemp[i]);
 		gpuTemp = gpuTemp.append("°C - ");
 		gpuTemp = gpuTemp.append(GPULoad[i]);
