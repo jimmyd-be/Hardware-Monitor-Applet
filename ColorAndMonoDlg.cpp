@@ -67,7 +67,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	ShowWindow(SW_HIDE);
 	SetWindowPos(NULL, 0, 0, 0, 0, NULL);
 
-	HRESULT hRes = m_lcd.Initialize(_T("Open Hardware Monitor"), /*LG_DUAL_MODE*/LG_MONOCHROME_MODE_ONLY, FALSE, TRUE);
+	HRESULT hRes = m_lcd.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, TRUE, TRUE);
 
 	if (hRes != S_OK)
 	{
@@ -77,7 +77,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	}
 
 	InitLCDObjectsMonochrome();
-	//  InitLCDObjectsColor();
+	InitLCDObjectsColor();
 
 	SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
 
@@ -213,7 +213,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
 {
-
+	m_lcd.ModifyDisplay(LG_COLOR);
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
@@ -314,7 +314,12 @@ VOID CColorAndMonoDlg::CheckbuttonPressesColor()
 
 	}
 
-	if (m_lcd.ButtonTriggered(LG_BUTTON_OK))
+	if (m_lcd.ButtonTriggered(LG_BUTTON_DOWN))
+	{
+
+	}
+
+	if (m_lcd.ButtonTriggered(LG_BUTTON_UP))
 	{
 
 	}
