@@ -45,53 +45,8 @@ WMI::~WMI(void)
 {
 	pSvc->Release();
 	pLoc->Release();
-	//	pEnumerator->Release();
-	//pclsObj->Release();
 	CoUninitialize();
 }
-
-/*void WMI::refresh()
-{
-CPUText.clear();
-GPUText.clear();
-HDDText.clear();
-
-queryCPUName();
-queryGPUName();
-
-queryHDName();
-queryHDData();
-
-queryCPULoad();
-queryCPUTemp();
-queryCPUCLock();
-queryGPULoad();
-queryGPUTemp();
-queryGPUFan();
-queryGPUClock();
-
-createtext();
-
-CPUName = "";
-CPUIdentifier = "";
-CPUClock.clear();
-cpuLoad.clear();
-cpuTemp.clear();
-
-GPUName.clear();
-GPUIdentifier.clear();
-GPULoad.clear();
-GPUTemp.clear();
-GPUFan.clear();
-GPUClock.clear();
-GPUMemoryClock.clear();
-
-HDDName.clear();
-HDDIdentifier.clear();
-HDDTemperature.clear();
-HDDLoad.clear();
-}*/
-
 
 void WMI::connectToWMI()
 {
@@ -925,11 +880,83 @@ void WMI::queryHDData()
 	}
 }
 
-void WMI::queryOther()
+void WMI::queryMemory()
 {
+	memoryLoad = "";
 
+	if(pSvc != 0 && pclsObj != 0)
+	{
+		// Use the IWbemServices pointer to make requests of WMI ----
+
+		// For example, get the name of the operating system
+
+		hres = pSvc->ExecQuery(
+			bstr_t("WQL"), 
+			bstr_t("select * from sensor WHERE name='Memory' and SensorType = 'Load'"),
+			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY, 
+			NULL,
+			&pEnumerator);
+
+		if (!FAILED(hres))
+		{
+			// Get the data from the query
+
+			ULONG uReturn = 0;
+
+			while (pEnumerator)
+			{
+				HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1, 
+					&pclsObj, &uReturn);
+
+				if(0 == uReturn)
+				{
+					break;
+				}
+
+				VARIANT vtProp;
+
+				// Get the value of the Name property
+				hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
+				
+				int memory = vtProp.fltVal;
+				stringstream stringStream;
+				stringStream << memory;
+
+				memoryLoad = (string)stringStream.str();
+
+				stringStream.clear();
+				VariantClear(&vtProp);
+
+				pclsObj->Release();
+
+			}
+			pEnumerator->Release();
+			uReturn = 0;
+		}
+	}
 }
 
+vector<string> WMI::getmemoryText()
+{
+	text.clear();
+	queryMemory();
+
+	if(!memoryLoad.empty())
+	{
+		text.push_back(string("Memory: ").append(memoryLoad).append("% load"));
+	}
+
+	time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+
+    strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
+
+	text.push_back(buf);
+
+	return text;
+}
 
 vector<string> WMI::getCPUText()
 {

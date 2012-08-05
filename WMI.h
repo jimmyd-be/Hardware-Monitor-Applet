@@ -18,6 +18,7 @@
 #include <sstream>
 #include "stdafx.h"
 #include <algorithm>
+#include <ctime>
 
 //-----------------------------------------------------------------
 // Defines
@@ -48,6 +49,7 @@ public:
 	vector<string> getCPUText();
 	vector<string> getGPUText();
 	vector<string> getHDDText();
+	vector<string> getmemoryText();
 
 private:
 	//---------------------------
@@ -68,8 +70,7 @@ private:
 
 	void queryHDName();
 	void queryHDData();
-	void queryOther();
-
+	void queryMemory();
 
 	//--------------------------
 	// Datamembers
@@ -98,6 +99,8 @@ private:
 	vector<string> HDDIdentifier;
 	vector<string> HDDTemperature;
 	vector<string> HDDLoad;
+
+	string memoryLoad;
 
 	vector<string> text;
 

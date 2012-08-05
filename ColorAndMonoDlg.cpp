@@ -177,6 +177,10 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 		scroll = scrollHDDScreen;
 	}
 
+	else if(currentPage == 3)
+	{
+		text = wmi->getmemoryText();
+	}
 
 
 	if(screen.empty())
@@ -237,7 +241,7 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 	{
 		currentPage++;
 
-		if(currentPage >= 3)
+		if(currentPage >= 4)
 		{
 			currentPage = 0;
 		}
@@ -252,7 +256,7 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 
 		if(currentPage < 0)
 		{
-			currentPage = 2;
+			currentPage = 3;
 		}
 		buttonPressed = true;
 	}
