@@ -54,7 +54,7 @@ protected:
 
     VOID CheckButtonPresses();
     bool CheckbuttonPressesMonochrome();
-    VOID CheckbuttonPressesColor();
+    bool CheckbuttonPressesColor();
 
 
     // Generated message map functions

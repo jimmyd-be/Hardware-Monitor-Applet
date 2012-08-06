@@ -77,7 +77,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	}
 
 	InitLCDObjectsMonochrome();
-	InitLCDObjectsColor();
+	//InitLCDObjectsColor();
 
 	SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
 
@@ -134,6 +134,7 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 	if(time > 1000)
 	{
 		InitLCDObjectsMonochrome();
+		//InitLCDObjectsColor();
 		time = 0;
 	}
 	m_lcd.Update();
@@ -195,13 +196,20 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 	{
 		for(int i=scroll; i < text.size(); i++)
 		{
-			m_lcd.SetOrigin(screen[i], 0, (i*7));
+			if(!(i >= (scroll+6)))
+			{
+				m_lcd.SetOrigin(screen[i-scroll], 0, ((i-scroll)*7));
 
-			wstring ws;
-			ws.assign(text[i].begin(), text[i].end());
+				wstring ws;
+				ws.assign(text[i].begin(), text[i].end());
 
-			m_lcd.SetText(screen[i], ws.c_str());
-			ws.clear();
+				m_lcd.SetText(screen[i-scroll], ws.c_str());
+				ws.clear();
+			}
+			else
+			{
+				break;
+			}
 		}
 	}
 	if(text.size() < 6)
@@ -218,6 +226,73 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
 {
 	m_lcd.ModifyDisplay(LG_COLOR);
+
+	text.clear();
+	int scroll = 0;
+
+	if(currentPage == 0)
+	{
+		text =wmi->getCPUText();
+		scroll = scrollCPUScreen;
+	}
+
+	else if(currentPage == 1)
+	{
+		text =wmi->getGPUText();
+		scroll = scrollGPUScreen;
+	}
+
+	else if(currentPage == 2)
+	{
+		text =wmi->getHDDText();
+		scroll = scrollHDDScreen;
+	}
+
+	else if(currentPage == 3)
+	{
+		text = wmi->getmemoryText();
+	}
+
+
+	if(screen.empty())
+	{
+		for(int i=scroll; i < 12; i++)
+		{
+			screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_LEFT, 300));
+		}
+	}
+
+	else
+	{
+		for(int i=scroll; i < text.size(); i++)
+		{
+			if(!(i >= (scroll+12)))
+			{
+				m_lcd.SetOrigin(screen[i], 0, (i*17));
+
+				wstring ws;
+				ws.assign(text[i].begin(), text[i].end());
+
+				m_lcd.SetText(screen[i], ws.c_str());
+				m_lcd.SetTextFontColor(screen[i], RGB(255, 255, 255));
+				ws.clear();
+			}
+			else
+			{
+
+				break;
+
+			}
+		}
+	}
+	if(text.size() < 12)
+	{
+		for(int i=text.size(); i < 12; i++)
+		{
+			m_lcd.SetOrigin(screen[i], 0, (i*17));
+			m_lcd.SetText(screen[i], _T(""));
+		}
+	}
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
@@ -227,7 +302,13 @@ VOID CColorAndMonoDlg::CheckButtonPresses()
 		InitLCDObjectsMonochrome();
 		time = 0;
 	}
-	CheckbuttonPressesColor();
+
+	else if(CheckbuttonPressesColor())
+	{
+		InitLCDObjectsColor();
+		time =0;
+	}
+
 }
 
 bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
@@ -269,12 +350,12 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 			scrollCPUScreen++;
 		}
 
-		if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
+		else if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
 		{
 			scrollGPUScreen++;
 		}
 
-		if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
+		else if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
 		{
 			scrollHDDScreen++;
 		}
@@ -304,27 +385,72 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 	return buttonPressed;
 }
 
-VOID CColorAndMonoDlg::CheckbuttonPressesColor()
+bool CColorAndMonoDlg::CheckbuttonPressesColor()
 {
 	m_lcd.ModifyDisplay(LG_COLOR);
 
-	if (m_lcd.ButtonTriggered(LG_BUTTON_LEFT))
-	{
+	bool buttonPressed = false;
 
+	if (m_lcd.ButtonReleased(LG_BUTTON_RIGHT))
+	{
+		currentPage++;
+
+		if(currentPage >= 4)
+		{
+			currentPage = 0;
+		}
+
+		buttonPressed = true;
 	}
 
-	if (m_lcd.ButtonTriggered(LG_BUTTON_RIGHT))
+	if (m_lcd.ButtonReleased(LG_BUTTON_LEFT))
 	{
+		currentPage--;
 
+		if(currentPage < 0)
+		{
+			currentPage = 3;
+		}
+		buttonPressed = true;
 	}
 
-	if (m_lcd.ButtonTriggered(LG_BUTTON_DOWN))
+	if (m_lcd.ButtonReleased(LG_BUTTON_DOWN))
 	{
+		if(currentPage == 0 && !(scrollCPUScreen+6 >= text.size()))
+		{
+			scrollCPUScreen++;
+		}
 
+		if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
+		{
+			scrollGPUScreen++;
+		}
+
+		if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
+		{
+			scrollHDDScreen++;
+		}
+		buttonPressed = true;
 	}
 
-	if (m_lcd.ButtonTriggered(LG_BUTTON_UP))
+	if (m_lcd.ButtonReleased(LG_BUTTON_UP))
 	{
+		if(currentPage == 0 &&scrollCPUScreen != 0)
+		{
+			scrollCPUScreen--;
+		}
 
+		if(currentPage == 1 && scrollGPUScreen != 0)
+		{
+			scrollGPUScreen--;
+		}
+
+		if(currentPage == 2 && scrollHDDScreen != 0)
+		{
+			scrollHDDScreen--;
+		}
+		buttonPressed = true;
 	}
+
+	return buttonPressed;
 }
