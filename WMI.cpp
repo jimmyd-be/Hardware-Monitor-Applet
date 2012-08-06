@@ -690,8 +690,14 @@ void WMI::queryGPUFan()
 					uReturn =0;
 					pclsObj->Release();
 				}
+				if(count != GPUFan.size()-1)
+				{
+					GPUFan.push_back("");
+				}
 				pEnumerator->Release();
 			}
+
+			
 			delete a;
 		}
 	}
@@ -1012,9 +1018,17 @@ vector<string> WMI::getGPUText()
 		gpuTemp = gpuTemp.append(GPUTemp[i]);
 		gpuTemp = gpuTemp.append("°C - ");
 		gpuTemp = gpuTemp.append(GPULoad[i]);
+
+		if(!GPUFan[i].compare(""))
+		{
 		gpuTemp = gpuTemp.append("% load - ");
 		gpuTemp = gpuTemp.append(GPUFan[i]);
 		gpuTemp = gpuTemp.append("% fan");
+		}
+		else
+		{
+			gpuTemp = gpuTemp.append("% load");
+		}
 
 		text.push_back(gpuTemp);
 

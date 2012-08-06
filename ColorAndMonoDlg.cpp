@@ -76,8 +76,15 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 		return FALSE;
 	}
 
-	InitLCDObjectsMonochrome();
-	//InitLCDObjectsColor();
+	if(m_lcd.IsDeviceAvailable(LG_MONOCHROME))
+		{
+			InitLCDObjectsMonochrome();
+		}
+
+		else if(m_lcd.IsDeviceAvailable(LG_COLOR))
+		{
+			InitLCDObjectsColor();
+		}
 
 	SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
 
