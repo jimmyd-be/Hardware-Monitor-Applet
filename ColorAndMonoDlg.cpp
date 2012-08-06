@@ -131,10 +131,18 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 	time += 30;
 
 	CheckButtonPresses();
+
 	if(time > 1000)
 	{
-		InitLCDObjectsMonochrome();
-		//InitLCDObjectsColor();
+		if(m_lcd.IsDeviceAvailable(LG_MONOCHROME))
+		{
+			InitLCDObjectsMonochrome();
+		}
+
+		else if(m_lcd.IsDeviceAvailable(LG_COLOR))
+		{
+			InitLCDObjectsColor();
+		}
 		time = 0;
 	}
 	m_lcd.Update();
@@ -297,13 +305,13 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
 {
-	if(CheckbuttonPressesMonochrome())
+	if(m_lcd.IsDeviceAvailable(LG_MONOCHROME) && CheckbuttonPressesMonochrome())
 	{
 		InitLCDObjectsMonochrome();
 		time = 0;
 	}
 
-	else if(CheckbuttonPressesColor())
+	else if(m_lcd.IsDeviceAvailable(LG_COLOR) && CheckbuttonPressesColor())
 	{
 		InitLCDObjectsColor();
 		time =0;
@@ -345,26 +353,6 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 	//Scroll down
 	else if(m_lcd.ButtonTriggered(LG_BUTTON_2))
 	{
-		if(currentPage == 0 && !(scrollCPUScreen+6 >= text.size()))
-		{
-			scrollCPUScreen++;
-		}
-
-		else if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
-		{
-			scrollGPUScreen++;
-		}
-
-		else if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
-		{
-			scrollHDDScreen++;
-		}
-		buttonPressed = true;
-	}
-
-	//Scroll up
-	else if(m_lcd.ButtonTriggered(LG_BUTTON_3))
-	{
 		if(currentPage == 0 &&scrollCPUScreen != 0)
 		{
 			scrollCPUScreen--;
@@ -378,6 +366,26 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		if(currentPage == 2 && scrollHDDScreen != 0)
 		{
 			scrollHDDScreen--;
+		}
+		buttonPressed = true;
+	}
+
+	//Scroll up
+	else if(m_lcd.ButtonTriggered(LG_BUTTON_3))
+	{
+		if(currentPage == 0 && !(scrollCPUScreen+6 >= text.size()))
+		{
+			scrollCPUScreen++;
+		}
+
+		else if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
+		{
+			scrollGPUScreen++;
+		}
+
+		else if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
+		{
+			scrollHDDScreen++;
 		}
 		buttonPressed = true;
 	}
