@@ -244,34 +244,50 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 
 	text.clear();
 	int scroll = 0;
-
+	
 	if(currentPage == 0)
 	{
+		m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_CPU, _T("PNG"));
+		HBITMAP bmpBkg_ = m_background.GetHBITMAP();
+		m_lcd.SetBackground(bmpBkg_);
+
 		text =wmi->getCPUText();
 		scroll = scrollCPUScreen;
 	}
 
 	else if(currentPage == 1)
 	{
+		m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_GPU, _T("PNG"));
+		HBITMAP bmpBkg_ = m_background.GetHBITMAP();
+		m_lcd.SetBackground(bmpBkg_);
+
 		text =wmi->getGPUText();
 		scroll = scrollGPUScreen;
 	}
 
 	else if(currentPage == 2)
 	{
+		m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_HDD, _T("PNG"));
+		HBITMAP bmpBkg_ = m_background.GetHBITMAP();
+		m_lcd.SetBackground(bmpBkg_);
+
 		text =wmi->getHDDText();
 		scroll = scrollHDDScreen;
 	}
 
 	else if(currentPage == 3)
 	{
+		m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_RAM, _T("PNG"));
+		HBITMAP bmpBkg_ = m_background.GetHBITMAP();
+		m_lcd.SetBackground(bmpBkg_);
+
 		text = wmi->getmemoryText();
 	}
 
 
 	if(screen.empty())
 	{
-		for(int i=scroll; i < 12; i++)
+		for(int i=scroll; i < 10; i++)
 		{
 			screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_LEFT, 300));
 		}
@@ -281,7 +297,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 	{
 		for(int i=scroll; i < text.size(); i++)
 		{
-			if(!(i >= (scroll+12)))
+			if(!(i >= (scroll+10)))
 			{
 				m_lcd.SetOrigin(screen[i], 0, (i*17));
 
@@ -302,7 +318,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 	}
 	if(text.size() < 12)
 	{
-		for(int i=text.size(); i < 12; i++)
+		for(int i=text.size(); i < 10; i++)
 		{
 			m_lcd.SetOrigin(screen[i], 0, (i*17));
 			m_lcd.SetText(screen[i], _T(""));
@@ -431,17 +447,17 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 
 	if (m_lcd.ButtonReleased(LG_BUTTON_DOWN))
 	{
-		if(currentPage == 0 && !(scrollCPUScreen+6 >= text.size()))
+		if(currentPage == 0 && !(scrollCPUScreen+10 >= text.size()))
 		{
 			scrollCPUScreen++;
 		}
 
-		if(currentPage == 1 && !(scrollGPUScreen+6 >= text.size()))
+		if(currentPage == 1 && !(scrollGPUScreen+10 >= text.size()))
 		{
 			scrollGPUScreen++;
 		}
 
-		if(currentPage == 2 && !(scrollHDDScreen+6 >= text.size()))
+		if(currentPage == 2 && !(scrollHDDScreen+10 >= text.size()))
 		{
 			scrollHDDScreen++;
 		}

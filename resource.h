@@ -8,7 +8,6 @@
 #define IDR_HIGHLIGHT                   129
 #define IDR_NEXT                        130
 #define IDR_PREVIOUS                    131
-#define IDR_BACKGROUND                  132
 #define IDR_LOGO_SMALL                  133
 #define IDR_SLIDER_BASE                 134
 #define IDR_SLIDER_BASE_2               135
@@ -20,6 +19,12 @@
 #define IDB_LOGO                        141
 #define IDI_ICON1                       142
 #define IDI_NEXT                        142
+#define IDI_NEXT                        142
+
+#define IDR_CPU						    132
+#define IDR_GPU						    134
+#define IDR_RAM						    135
+#define IDR_HDD						    136
 
 // Next default values for new objects
 // 

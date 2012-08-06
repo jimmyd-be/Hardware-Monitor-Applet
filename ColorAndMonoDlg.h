@@ -2,6 +2,7 @@
 
 #include "../Src/EZ_LCD.h"
 #include "WMI.h"
+#include "Bitmap.h"
 
 // CColorAndMonoDlg dialog
 class CColorAndMonoDlg : public CDialog
@@ -46,6 +47,9 @@ protected:
 	//vector<string> GPUText;
 	//vector<string> HDDText;
 	//vector<string> OtherText;
+
+	// Bitmaps
+	cBitmap m_background;
 
 	vector<string> text;
 
