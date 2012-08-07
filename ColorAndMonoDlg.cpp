@@ -227,11 +227,15 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 			}
 		}
 	}
+	if(text.size() < 6)
+	{
 		for(int i=text.size(); i < 6; i++)
 		{
 			m_lcd.SetOrigin(screen[i], 0, (i*7));
 			m_lcd.SetText(screen[i], _T(""));
 		}
+	}
+
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
@@ -293,15 +297,15 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 	{
 		for(int i=scroll; i < text.size(); i++)
 		{
-			if(!(i >= (scroll+10)))
+			if(i < (scroll+10))
 			{
-				m_lcd.SetOrigin(screen[i], 0, (i*17));
+				m_lcd.SetOrigin(screen[i-scroll], 0, ((i-scroll)*17));
 
 				wstring ws;
 				ws.assign(text[i].begin(), text[i].end());
 
-				m_lcd.SetText(screen[i], ws.c_str());
-				m_lcd.SetTextFontColor(screen[i], RGB(255, 255, 255));
+				m_lcd.SetText(screen[i-scroll], ws.c_str());
+				m_lcd.SetTextFontColor(screen[i-scroll], RGB(255, 255, 255));
 				ws.clear();
 			}
 			else
@@ -440,17 +444,17 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 
 	if (m_lcd.ButtonReleased(LG_BUTTON_DOWN))
 	{
-		if(currentPage == 0 && !(scrollCPUScreen+10 >= text.size()))
+		if(currentPage == 0 && !((scrollCPUScreen+10) >= text.size()))
 		{
 			scrollCPUScreen++;
 		}
 
-		if(currentPage == 1 && !(scrollGPUScreen+10 >= text.size()))
+		if(currentPage == 1 && !((scrollGPUScreen+10) >= text.size()))
 		{
 			scrollGPUScreen++;
 		}
 
-		if(currentPage == 2 && !(scrollHDDScreen+10 >= text.size()))
+		if(currentPage == 2 && !((scrollHDDScreen+10) >= text.size()))
 		{
 			scrollHDDScreen++;
 		}

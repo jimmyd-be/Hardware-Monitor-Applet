@@ -30,7 +30,7 @@ public:
 
     HRESULT Initialize(LPCTSTR friendlyName, 
         AppletSupportType supportType,
-        BOOL isAutoStartable = FALSE,
+        BOOL isAutoStartable = TRUE,
         BOOL isPersistent = FALSE,
         lgLcdConfigureContext * configContext = NULL,
         lgLcdSoftbuttonsChangedContext * softbuttonChangedContext = NULL);

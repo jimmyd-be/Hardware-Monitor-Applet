@@ -145,7 +145,7 @@ BOOL CLCDConnection::Initialize(lgLcdConnectContextEx & ConnectContext,
     memset(&m_lcdConnectCtxEx, 0, sizeof(m_lcdConnectCtxEx));
     m_lcdConnectCtxEx.appFriendlyName = NULL;
     m_lcdConnectCtxEx.isPersistent = FALSE;
-    m_lcdConnectCtxEx.isAutostartable = FALSE;
+    m_lcdConnectCtxEx.isAutostartable = TRUE;
     m_lcdConnectCtxEx.connection = LGLCD_INVALID_CONNECTION;
 
     // Initialize the added version 3.0 API fields
