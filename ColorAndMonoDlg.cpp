@@ -227,15 +227,11 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 			}
 		}
 	}
-	if(text.size() < 6)
-	{
 		for(int i=text.size(); i < 6; i++)
 		{
 			m_lcd.SetOrigin(screen[i], 0, (i*7));
 			m_lcd.SetText(screen[i], _T(""));
 		}
-	}
-
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
@@ -316,14 +312,11 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 			}
 		}
 	}
-	if(text.size() < 12)
-	{
 		for(int i=text.size(); i < 10; i++)
 		{
 			m_lcd.SetOrigin(screen[i], 0, (i*17));
 			m_lcd.SetText(screen[i], _T(""));
 		}
-	}
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
