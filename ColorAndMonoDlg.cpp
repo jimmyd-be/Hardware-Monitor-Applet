@@ -26,7 +26,7 @@ INT g_iconsOriginHeight = 196;
 CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CColorAndMonoDlg::IDD, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_hIcon = AfxGetApp()->LoadIcon(IDR_LOGO);
 
 	scrollCPUScreen = 0;
 	scrollGPUScreen = 0;
@@ -229,7 +229,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 	}
 	if(text.size() < 6)
 	{
-		for(int i=text.size(); i < 6; i++)
+		for(int i=(int)text.size(); i < 6; i++)
 		{
 			m_lcd.SetOrigin(screen[i], 0, (i*7));
 			m_lcd.SetText(screen[i], _T(""));
@@ -316,7 +316,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 			}
 		}
 	}
-		for(int i=text.size(); i < 10; i++)
+		for(int i=(int)text.size(); i < 10; i++)
 		{
 			m_lcd.SetOrigin(screen[i], 0, (i*17));
 			m_lcd.SetText(screen[i], _T(""));

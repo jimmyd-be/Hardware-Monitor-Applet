@@ -354,7 +354,7 @@ void WMI::queryCPULoad()
 				// Get the value of the Name property
 				hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
 
-				int intValue = vtProp.fltVal;
+				int intValue = (int)vtProp.fltVal;
 				stringstream stringStream;
 				stringStream << intValue;
 
@@ -419,7 +419,7 @@ void WMI::queryCPUTemp()
 				// Get the value of the Name property
 				hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
 
-				int intValue = vtProp.fltVal;
+				int intValue = (int)vtProp.fltVal;
 				stringstream stringStream;
 				stringStream << intValue;
 
@@ -847,7 +847,7 @@ void WMI::queryHDData()
 					{
 						hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
 
-						int load = vtProp.fltVal;
+						int load = (int)vtProp.fltVal;
 						stringstream stringStream;
 						stringStream << load;
 
@@ -859,7 +859,7 @@ void WMI::queryHDData()
 					else if(sensortype.compare("Temperature") == 0)
 					{
 						hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
-						int temperature = vtProp.fltVal;
+						int temperature = (int)vtProp.fltVal;
 						stringstream stringStream;
 						stringStream << temperature;
 
@@ -924,7 +924,7 @@ void WMI::queryMemory()
 				// Get the value of the Name property
 				hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
 				
-				int memory = vtProp.fltVal;
+				int memory = (int)vtProp.fltVal;
 				stringstream stringStream;
 				stringStream << memory;
 
@@ -949,7 +949,7 @@ vector<string> WMI::getmemoryText()
 
 	if(!memoryLoad.empty())
 	{
-		text.push_back(string("Memory: ").append(memoryLoad).append("% load"));
+		text.push_back(string("Memory: ").append(memoryLoad).append("% Used"));
 	}
 
 	time_t     now = time(0);
@@ -981,8 +981,8 @@ vector<string> WMI::getCPUText()
 
 		string tempText = "Core ";
 		tempText = tempText.append(ss.str());
-		//tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load - ").append(CPUClock[i]).append("MHz");
-		tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load");
+		//tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load - ").append(CPUClock[i]).append(" MHz");
+		tempText = tempText.append(": ").append(cpuTemp[i]).append(" °C - ").append(cpuLoad[i]).append("%");
 		text.push_back(tempText);
 
 		ss.clear();
@@ -1007,27 +1007,23 @@ vector<string> WMI::getGPUText()
 		ss << i;//add number to the stream
 
 		text.push_back(GPUName[i]);
-		text.push_back(string("CC: ").append(GPUClock[i]).append("MHz - MC: ").append(GPUMemoryClock[i]).append("MHz"));
+		text.push_back(string("CC/MC: ").append(GPUClock[i]).append(" / ").append(GPUMemoryClock[i]).append(" MHz"));
 
 		string gpuTemp = "";
 
-	/*	string gpuTemp ="GPU ";
-
-		gpuTemp = gpuTemp.append(ss.str());
-		gpuTemp = gpuTemp.append(": ");	*/
 		gpuTemp = gpuTemp.append(GPUTemp[i]);
-		gpuTemp = gpuTemp.append("°C - ");
+		gpuTemp = gpuTemp.append(" °C - ");
 		gpuTemp = gpuTemp.append(GPULoad[i]);
 
 		if(!GPUFan[i].compare(""))
 		{
-		gpuTemp = gpuTemp.append("% load - ");
-		gpuTemp = gpuTemp.append(GPUFan[i]);
-		gpuTemp = gpuTemp.append("% fan");
+			gpuTemp = gpuTemp.append("% - ");
+			gpuTemp = gpuTemp.append(GPUFan[i]);
+			gpuTemp = gpuTemp.append("% fan");
 		}
 		else
 		{
-			gpuTemp = gpuTemp.append("% load");
+			gpuTemp = gpuTemp.append("%");
 		}
 
 		text.push_back(gpuTemp);
@@ -1049,12 +1045,12 @@ vector<string> WMI::getHDDText()
 	{
 		if(HDDTemperature[i].empty())
 		{
-			text.push_back(HDDIdentifier[i].append(": ").append(HDDLoad[i]).append("% load"));
+			text.push_back(HDDIdentifier[i].append(": ").append(HDDLoad[i]).append(" % Used"));
 		}
 
 		else
 		{
-			text.push_back(HDDIdentifier[i].append(": ").append(HDDTemperature[i]).append("°C - ").append(HDDLoad[i]).append("% load"));
+			text.push_back(HDDIdentifier[i].append(": ").append(HDDTemperature[i]).append("°C - ").append(HDDLoad[i]).append("% Used"));
 		}
 	}
 
