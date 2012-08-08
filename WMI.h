@@ -1,7 +1,6 @@
 //-----------------------------------------------------------------
 // WMI Object
 // C++ Header - WMI.h - version v1.0 (2012-08-01)
-// 
 //-----------------------------------------------------------------
 
 #pragma once
@@ -11,14 +10,14 @@
 //-----------------------------------------------------------------
 
 #include <iostream>
-#include <comdef.h>
-#include <Wbemidl.h>
-#include <string>
 #include <vector>
 #include <sstream>
-#include "stdafx.h"
+#include <string>
 #include <algorithm>
 #include <ctime>
+#include <comdef.h>
+#include <Wbemidl.h>
+#include "stdafx.h"
 
 //-----------------------------------------------------------------
 // Defines
@@ -58,10 +57,10 @@ private:
 	void connectToWMI();
 
 	void queryCPUName();
-	void queryCPUCLock();
-	void queryCPULoad();
 	void queryCPUTemp();
-
+	void queryCPULoad();
+	void queryCPUClock();
+	
 	void queryGPUName();
 	void queryGPULoad();
 	void queryGPUTemp();
@@ -83,9 +82,9 @@ private:
 
 	string CPUName;
 	string CPUIdentifier;
-	vector<string> CPUClock;
-	vector<string> cpuLoad;
 	vector<string> cpuTemp;
+	vector<string> cpuLoad;
+	vector<string> CPUClock;
 
 	vector<string> GPUName;
 	vector<string> GPUIdentifier;
@@ -112,4 +111,3 @@ private:
 	WMI(const WMI& t);
 	WMI& operator=(const WMI& t);
 };
-

@@ -366,11 +366,9 @@ void WMI::queryCPULoad()
 				pclsObj->Release();
 			}
 			pEnumerator->Release();
-
 		}
 		delete a;
 	}
-
 }
 
 void WMI::queryCPUTemp()
@@ -437,7 +435,7 @@ void WMI::queryCPUTemp()
 	}
 }
 
-void WMI::queryCPUCLock()
+void WMI::queryCPUClock()
 {
 	CPUClock.clear();
 
@@ -484,7 +482,7 @@ void WMI::queryCPUCLock()
 				hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
 
 				stringstream stringStream;
-				stringStream << vtProp.fltVal;
+				stringStream << floor(vtProp.fltVal + 0.5);
 
 				CPUClock.push_back(stringStream.str());
 
@@ -970,7 +968,7 @@ vector<string> WMI::getCPUText()
 	queryCPUName();
 	queryCPULoad();
 	queryCPUTemp();
-	//queryCPUCLock();
+	queryCPUClock();
 
 	text.push_back(CPUName);
 
@@ -981,8 +979,8 @@ vector<string> WMI::getCPUText()
 
 		string tempText = "Core ";
 		tempText = tempText.append(ss.str());
-		//tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% load - ").append(CPUClock[i]).append(" MHz");
-		tempText = tempText.append(": ").append(cpuTemp[i]).append(" °C - ").append(cpuLoad[i]).append("%");
+		tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
+		//tempText = tempText.append(": ").append(cpuTemp[i]).append(" °C - ").append(cpuLoad[i]).append("%");
 		text.push_back(tempText);
 
 		ss.clear();
@@ -1015,7 +1013,7 @@ vector<string> WMI::getGPUText()
 		gpuTemp = gpuTemp.append(" °C - ");
 		gpuTemp = gpuTemp.append(GPULoad[i]);
 
-		if(!GPUFan[i].compare(""))
+		if(!GPUFan[i].empty())
 		{
 			gpuTemp = gpuTemp.append("% - ");
 			gpuTemp = gpuTemp.append(GPUFan[i]);
@@ -1039,8 +1037,7 @@ vector<string> WMI::getHDDText()
 	text.clear();
 	queryHDName();
 	queryHDData();
-
-
+	
 	for(int i=0; i< HDDIdentifier.size(); i++)
 	{
 		if(HDDTemperature[i].empty())
@@ -1050,7 +1047,7 @@ vector<string> WMI::getHDDText()
 
 		else
 		{
-			text.push_back(HDDIdentifier[i].append(": ").append(HDDTemperature[i]).append("°C - ").append(HDDLoad[i]).append("% Used"));
+			text.push_back(HDDIdentifier[i].append(": ").append(HDDTemperature[i]).append("C - ").append(HDDLoad[i]).append("% Used"));
 		}
 	}
 

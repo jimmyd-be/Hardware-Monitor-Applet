@@ -284,15 +284,13 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 		text = wmi->getmemoryText();
 	}
 
-
 	if(screen.empty())
 	{
 		for(int i=scroll; i < 10; i++)
 		{
-			screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_LEFT, 300));
+			screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_LEFT, 320));
 		}
 	}
-
 	else
 	{
 		for(int i=scroll; i < text.size(); i++)
@@ -308,19 +306,15 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 				m_lcd.SetTextFontColor(screen[i-scroll], RGB(255, 255, 255));
 				ws.clear();
 			}
-			else
-			{
-
-				break;
-
-			}
+			else break;
 		}
 	}
-		for(int i=(int)text.size(); i < 10; i++)
-		{
-			m_lcd.SetOrigin(screen[i], 0, (i*17));
-			m_lcd.SetText(screen[i], _T(""));
-		}
+
+	for(int i=(int)text.size(); i < 10; i++)
+	{
+		m_lcd.SetOrigin(screen[i], 0, (i*17));
+		m_lcd.SetText(screen[i], _T(""));
+	}
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
@@ -336,7 +330,6 @@ VOID CColorAndMonoDlg::CheckButtonPresses()
 		InitLCDObjectsColor();
 		time =0;
 	}
-
 }
 
 bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
