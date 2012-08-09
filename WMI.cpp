@@ -977,7 +977,7 @@ vector<string> WMI::getCPUText()
 		stringstream ss;//create a stringstream
 		ss << i;//add number to the stream
 
-		string tempText = "Core ";
+		string tempText = "";
 		tempText = tempText.append(ss.str());
 		tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
 		//tempText = tempText.append(": ").append(cpuTemp[i]).append(" °C - ").append(cpuLoad[i]).append("%");
