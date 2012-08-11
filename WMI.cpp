@@ -19,6 +19,8 @@ WMI::WMI()
 	pEnumerator = NULL;
 	pLoc = 0;
 	pSvc = 0;
+	pclsObj = 0;
+
 	connectToWMI();
 
 	CPUName = "";
@@ -131,7 +133,7 @@ void WMI::connectToWMI()
 
 void WMI::queryCPUName()
 {
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -192,7 +194,7 @@ void WMI::queryGPUName()
 	GPUName.clear();
 	GPUIdentifier.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -253,7 +255,7 @@ void WMI::queryHDName()
 	HDDName.clear();
 	HDDIdentifier.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -312,7 +314,7 @@ void WMI::queryCPULoad()
 {
 	cpuLoad.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -375,7 +377,7 @@ void WMI::queryCPUTemp()
 {
 	cpuTemp.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -439,7 +441,7 @@ void WMI::queryCPUClock()
 {
 	CPUClock.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -503,7 +505,7 @@ void WMI::queryGPULoad()
 {
 	GPULoad.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		for(int count =0; count < GPUIdentifier.size(); count++)
 		{
@@ -568,7 +570,7 @@ void WMI::queryGPUTemp()
 {
 	GPUTemp.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		for(int count =0; count < GPUIdentifier.size(); count++)
 		{
@@ -634,7 +636,7 @@ void WMI::queryGPUFan()
 
 	GPUFan.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		for(int count =0; count < GPUIdentifier.size(); count++)
 		{
@@ -706,7 +708,7 @@ void WMI::queryGPUClock()
 	GPUClock.clear();
 	GPUMemoryClock.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		for(int count =0; count < GPUIdentifier.size(); count++)
 		{
@@ -791,7 +793,7 @@ void WMI::queryHDData()
 	HDDTemperature.clear();
 	HDDLoad.clear();
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		for(int count =0; count < HDDIdentifier.size(); count++)
 		{
@@ -888,7 +890,7 @@ void WMI::queryMemory()
 {
 	memoryLoad = "";
 
-	if(pSvc != 0 && pclsObj != 0)
+	if(pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -942,6 +944,11 @@ void WMI::queryMemory()
 
 vector<string> WMI::getmemoryText()
 {
+	if(pSvc == 0)
+	{
+		this->connectToWMI();
+	}
+
 	text.clear();
 	queryMemory();
 
@@ -964,6 +971,11 @@ vector<string> WMI::getmemoryText()
 
 vector<string> WMI::getCPUText()
 {
+		if(pSvc == 0)
+	{
+		this->connectToWMI();
+	}
+
 	text.clear();
 	queryCPUName();
 	queryCPULoad();
@@ -991,6 +1003,11 @@ vector<string> WMI::getCPUText()
 
 vector<string> WMI::getGPUText()
 {
+		if(pSvc == 0)
+	{
+		this->connectToWMI();
+	}
+
 	text.clear();
 
 	queryGPUName();
@@ -1034,6 +1051,11 @@ vector<string> WMI::getGPUText()
 
 vector<string> WMI::getHDDText()
 {
+	if(pSvc == 0)
+	{
+		this->connectToWMI();
+	}
+
 	text.clear();
 	queryHDName();
 	queryHDData();
@@ -1042,7 +1064,7 @@ vector<string> WMI::getHDDText()
 	{
 		if(HDDTemperature[i].empty())
 		{
-			text.push_back(HDDIdentifier[i].append(": ").append(HDDLoad[i]).append(" % Used"));
+			text.push_back(HDDIdentifier[i].append(": ").append(HDDLoad[i]).append("% Used"));
 		}
 
 		else
