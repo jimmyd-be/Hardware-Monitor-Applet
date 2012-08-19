@@ -971,7 +971,7 @@ vector<string> WMI::getmemoryText()
 
 vector<string> WMI::getCPUText()
 {
-		if(pSvc == 0)
+	if(pSvc == 0)
 	{
 		this->connectToWMI();
 	}
@@ -984,15 +984,26 @@ vector<string> WMI::getCPUText()
 
 	text.push_back(CPUName);
 
-	for(int i =0; i < cpuTemp.size(); i++)
+	int tempsize = cpuTemp.size();
+
+	for(int i =0; i < cpuLoad.size(); i++)
 	{
 		stringstream ss;//create a stringstream
 		ss << i;//add number to the stream
 
 		string tempText = "";
 		tempText = tempText.append(ss.str());
-		tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
-		//tempText = tempText.append(": ").append(cpuTemp[i]).append(" °C - ").append(cpuLoad[i]).append("%");
+
+		if(i < tempsize)
+		{
+			tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
+		}
+
+		else
+		{
+			tempText = tempText.append(": ").append(cpuTemp[tempsize-1]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
+		}
+
 		text.push_back(tempText);
 
 		ss.clear();
