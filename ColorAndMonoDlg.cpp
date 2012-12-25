@@ -76,6 +76,8 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 		return FALSE;
 	}
 
+	m_lcd.SetAsForeground(true);
+
 	if(m_lcd.IsDeviceAvailable(LG_MONOCHROME))
 		{
 			InitLCDObjectsMonochrome();
