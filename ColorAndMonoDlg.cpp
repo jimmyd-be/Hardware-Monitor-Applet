@@ -151,6 +151,9 @@ void CColorAndMonoDlg::OnDestroy()
 
 void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 {
+	try
+	{
+
 	UNREFERENCED_PARAMETER(nIDEvent);
 	time += 30;
 
@@ -171,6 +174,12 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 	m_lcd.Update();
 
+	}
+	catch (exception e)
+	{
+		Error::writeMessage("Something goes wrong in OnTimer " + (string) e.what());
+	}
+
 }
 
 void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
@@ -183,6 +192,7 @@ void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 	}
 
 	CDialog::OnWindowPosChanging(lpwndpos);
+
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
@@ -258,7 +268,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 	}
 	catch (exception e)
 	{
-		Error::writeMessage("Something goes wrong in InitLCDObjectsMonochrome" + (string) e.what());
+		Error::writeMessage("Something goes wrong in InitLCDObjectsMonochrome " + (string) e.what());
 	}
 
 }
@@ -345,7 +355,7 @@ VOID CColorAndMonoDlg::InitLCDObjectsColor()
 	}
 	catch (exception e)
 	{
-		Error::writeMessage("Something goes wrong in InitLCDObjectsColor" + (string) e.what());
+		Error::writeMessage("Something goes wrong in InitLCDObjectsColor " + (string) e.what());
 	}
 }
 
@@ -367,7 +377,7 @@ VOID CColorAndMonoDlg::CheckButtonPresses()
 	}
 	catch (exception e)
 	{
-		Error::writeMessage("Button pressed Problem in CheckButtonPresses" + (string) e.what());
+		Error::writeMessage("Button pressed Problem in CheckButtonPresses " + (string) e.what());
 	}
 }
 
@@ -446,7 +456,7 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 	}
 	catch (exception e)
 	{
-		Error::writeMessage("Button pressed Problem in CheckbuttonPressesMonochrome" + (string) e.what());
+		Error::writeMessage("Button pressed Problem in CheckbuttonPressesMonochrome " + (string) e.what());
 	}
 	return buttonPressed;
 }
@@ -522,7 +532,7 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 	}
 	catch (exception e)
 	{
-		Error::writeMessage("Button pressed Problem in CheckbuttonPressesColor" + (string) e.what());
+		Error::writeMessage("Button pressed Problem in CheckbuttonPressesColor " + (string) e.what());
 	}
 	return buttonPressed;
 }
