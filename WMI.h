@@ -17,6 +17,8 @@
 #include <ctime>
 #include <comdef.h>
 #include <Wbemidl.h>
+
+#include "Error.h"
 #include "stdafx.h"
 
 //-----------------------------------------------------------------

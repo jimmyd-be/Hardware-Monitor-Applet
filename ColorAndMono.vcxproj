@@ -219,6 +219,7 @@
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="ColorAndMono.cpp" />
     <ClCompile Include="ColorAndMonoDlg.cpp" />
+    <ClCompile Include="Error.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -455,6 +456,7 @@
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="ColorAndMono.h" />
     <ClInclude Include="ColorAndMonoDlg.h" />
+    <ClInclude Include="Error.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\..\Src\EZ_LCD.h" />

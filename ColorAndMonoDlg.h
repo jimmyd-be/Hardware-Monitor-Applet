@@ -3,6 +3,7 @@
 #include "../Src/EZ_LCD.h"
 #include "WMI.h"
 #include "Bitmap.h"
+#include "Error.h"
 
 // CColorAndMonoDlg dialog
 class CColorAndMonoDlg : public CDialog
