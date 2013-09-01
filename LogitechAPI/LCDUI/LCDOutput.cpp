@@ -71,38 +71,38 @@ void CLCDOutput::SetGfx(CLCDGfxBase *gfx)
 // CLCDOutput::Open
 //
 //************************************************************************
-
-BOOL CLCDOutput::Open(lgLcdOpenContext & OpenContext)
-{
-    //Close the old device if there is one
-    Close();
-
-    DWORD res = lgLcdOpen(&OpenContext);
-    if (ERROR_SUCCESS != res)
-    {
-        if( res == ERROR_INVALID_PARAMETER )
-        {
-            LCDUITRACE( _T("Open failed: invalid parameter.\n") );
-            return FALSE;
-        }
-        else if( res == ERROR_ALREADY_EXISTS )
-        {
-            LCDUITRACE( _T("Open failed: already exists.\n") );
-            return FALSE;
-        }
-        return FALSE;
-    }
-
-    m_hDevice = OpenContext.device;
-    m_dwButtonState = 0;
-
-    // restores
-    SetAsForeground(m_bSetAsForeground);
-
-    OnOpenedDevice(m_hDevice);
-
-    return TRUE;
-}
+//
+//BOOL CLCDOutput::Open(lgLcdOpenContext & OpenContext)
+//{
+//    //Close the old device if there is one
+//    //Close();
+//
+//    //DWORD res = lgLcdOpen(&OpenContext);
+//    //if (ERROR_SUCCESS != res)
+//    //{
+//    //    if( res == ERROR_INVALID_PARAMETER )
+//    //    {
+//    //        LCDUITRACE( _T("Open failed: invalid parameter.\n") );
+//    //        return FALSE;
+//    //    }
+//    //    else if( res == ERROR_ALREADY_EXISTS )
+//    //    {
+//    //        LCDUITRACE( _T("Open failed: already exists.\n") );
+//    //        return FALSE;
+//    //    }
+//    //    return FALSE;
+//    //}
+//
+//    //m_hDevice = OpenContext.device;
+//    //m_dwButtonState = 0;
+//
+//    //// restores
+//    //SetAsForeground(m_bSetAsForeground);
+//
+//    //OnOpenedDevice(m_hDevice);
+//
+//    return TRUE;
+//}
 
 
 //************************************************************************

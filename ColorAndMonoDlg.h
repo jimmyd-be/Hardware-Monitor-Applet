@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Src/EZ_LCD.h"
+#include <EZ_LCD.h>
 #include "WMI.h"
 #include "Bitmap.h"
 #include "Error.h"

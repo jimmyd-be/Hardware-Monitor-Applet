@@ -14,7 +14,7 @@
 
 #include "EZ_LCD_Defines.h"
 #include "EZ_LCD_Page.h"
-#include "LCDConnection.h"
+#include "LCDUI/LCDConnection.h"
 
 
 enum AppletSupportType { LG_MONOCHROME_MODE_ONLY, LG_COLOR_MODE_ONLY, LG_DUAL_MODE, LG_NONE };
