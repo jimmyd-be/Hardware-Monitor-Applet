@@ -557,7 +557,7 @@ void WMI::queryGPULoad()
 
 		if (pSvc != 0)
 		{
-			for (int count = 0; count < GPUIdentifier.size(); count++)
+			for (int count = 0; count < (int)GPUIdentifier.size(); count++)
 			{
 				// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -629,7 +629,7 @@ void WMI::queryGPUTemp()
 
 		if (pSvc != 0)
 		{
-			for (int count = 0; count < GPUIdentifier.size(); count++)
+			for (int count = 0; count < (int)GPUIdentifier.size(); count++)
 			{
 				// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -701,7 +701,7 @@ void WMI::queryGPUFan()
 
 		if (pSvc != 0)
 		{
-			for (int count = 0; count < GPUIdentifier.size(); count++)
+			for (int count = 0; count < (int)GPUIdentifier.size(); count++)
 			{
 				// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -753,7 +753,7 @@ void WMI::queryGPUFan()
 						uReturn = 0;
 						pclsObj->Release();
 					}
-					if (count != GPUFan.size() - 1)
+					if (count != (int)GPUFan.size() - 1)
 					{
 						GPUFan.push_back("");
 					}
@@ -780,7 +780,7 @@ void WMI::queryGPUClock()
 
 		if (pSvc != 0)
 		{
-			for (int count = 0; count < GPUIdentifier.size(); count++)
+			for (int count = 0; count < (int)GPUIdentifier.size(); count++)
 			{
 				// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -872,7 +872,7 @@ void WMI::queryHDData()
 
 		if (pSvc != 0)
 		{
-			for (int count = 0; count < HDDIdentifier.size(); count++)
+			for (int count = 0; count < (int)HDDIdentifier.size(); count++)
 			{
 				// Use the IWbemServices pointer to make requests of WMI ----
 
@@ -1077,7 +1077,7 @@ vector<string> WMI::getCPUText()
 
 		int tempsize = (int)cpuTemp.size();
 
-		for (int i = 0; i < cpuLoad.size(); i++)
+		for (int i = 0; i < (int)cpuLoad.size(); i++)
 		{
 			stringstream ss;//create a stringstream
 			ss << i;//add number to the stream
@@ -1125,7 +1125,7 @@ vector<string> WMI::getGPUText()
 		queryGPULoad();
 		queryGPUTemp();
 
-		for (int i = 0; i < GPUIdentifier.size(); i++)
+		for (int i = 0; i < (int)GPUIdentifier.size(); i++)
 		{
 			stringstream ss;//create a stringstream
 			ss << i;//add number to the stream
@@ -1176,7 +1176,7 @@ vector<string> WMI::getHDDText()
 		queryHDName();
 		queryHDData();
 
-		for (int i = 0; i < HDDIdentifier.size(); i++)
+		for (int i = 0; i < (int)HDDIdentifier.size(); i++)
 		{
 			if (HDDTemperature[i].empty())
 			{
