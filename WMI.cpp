@@ -636,7 +636,7 @@ void WMI::queryGPUMemoryLoad()
 				// For example, get the name of the operating system
 				string query = "select * from Sensor where Parent = '";
 				query.append(GPUIdentifier[count]);
-				query.append("' and SensorType='Load' and Name='GPU Memory'");
+				query.append("' and SensorType='Load' and Index=3");
 
 				char *a = new char[query.size() + 1];
 				a[query.size()] = 0;
@@ -1015,6 +1015,12 @@ void WMI::queryHDData()
 							HDDTemperature.push_back(stringStream.str());
 
 							stringStream.clear();
+						}
+
+						else
+						{
+							HDDLoad.push_back("");
+							HDDTemperature.push_back("");
 						}
 
 
