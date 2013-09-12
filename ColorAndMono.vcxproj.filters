@@ -45,9 +45,6 @@
     <ClCompile Include="Bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Error.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LogitechAPI\EZ_LCD.cpp">
       <Filter>EZLCDWrapperFiles</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
     <ClCompile Include="LogitechAPI\LCDUI\LCDText.cpp">
       <Filter>Shared\LCDUI\Src</Filter>
     </ClCompile>
+    <ClCompile Include="Error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorAndMono.h">
@@ -132,9 +132,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LogitechAPI\EZ_LCD.h">
@@ -211,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="LogitechAPI\lglcd.h">
       <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

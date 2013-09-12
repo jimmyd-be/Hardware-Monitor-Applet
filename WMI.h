@@ -68,6 +68,7 @@ private:
 	void queryGPUTemp();
 	void queryGPUFan();
 	void queryGPUClock();
+	void queryGPUMemoryLoad();
 
 	void queryHDName();
 	void queryHDData();
@@ -95,6 +96,7 @@ private:
 	vector<string> GPUFan;
 	vector<string> GPUClock;
 	vector<string> GPUMemoryClock;
+	vector<string> GPUMemoryLoad;
 
 	vector<string> HDDName;
 	vector<string> HDDIdentifier;

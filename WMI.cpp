@@ -621,6 +621,78 @@ void WMI::queryGPULoad()
 	}
 }
 
+void WMI::queryGPUMemoryLoad()
+{
+	try
+	{
+		GPULoad.clear();
+
+		if (pSvc != 0)
+		{
+			for (int count = 0; count < (int) GPUIdentifier.size(); count++)
+			{
+				// Use the IWbemServices pointer to make requests of WMI ----
+
+				// For example, get the name of the operating system
+				string query = "select * from Sensor where Parent = '";
+				query.append(GPUIdentifier[count]);
+				query.append("' and SensorType='Load' and Name='GPU Memory'");
+
+				char *a = new char[query.size() + 1];
+				a[query.size()] = 0;
+				memcpy(a, query.c_str(), query.size());
+
+				hres = pSvc->ExecQuery(
+					bstr_t("WQL"),
+					bstr_t(a),
+					WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+					NULL,
+					&pEnumerator);
+
+				if (!FAILED(hres))
+				{
+					// Get the data from the query
+
+					ULONG uReturn = 0;
+
+					while (pEnumerator)
+					{
+						HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
+							&pclsObj, &uReturn);
+
+						if (0 == uReturn)
+						{
+							break;
+						}
+
+						VARIANT vtProp;
+
+						// Get the value of the Name property
+
+						hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
+
+						stringstream stringStream;
+						stringStream << vtProp.fltVal;
+
+						GPUMemoryLoad.push_back(stringStream.str());
+
+						stringStream.clear();
+						VariantClear(&vtProp);
+						uReturn = 0;
+						pclsObj->Release();
+					}
+					pEnumerator->Release();
+				}
+				delete a;
+			}
+		}
+	}
+	catch (exception e)
+	{
+		Error::writeMessage("Can't read GPU Memory from WMI database.  " + (string) e.what());
+	}
+}
+
 void WMI::queryGPUTemp()
 {
 	try
@@ -1138,16 +1210,20 @@ vector<string> WMI::getGPUText()
 			gpuTemp = gpuTemp.append(GPUTemp[i]);
 			gpuTemp = gpuTemp.append(" °C - ");
 			gpuTemp = gpuTemp.append(GPULoad[i]);
+			gpuTemp = gpuTemp.append("% L");
 
 			if (!GPUFan[i].empty())
 			{
-				gpuTemp = gpuTemp.append("% - ");
+				gpuTemp = gpuTemp.append(" - ");
 				gpuTemp = gpuTemp.append(GPUFan[i]);
-				gpuTemp = gpuTemp.append("% fan");
+				gpuTemp = gpuTemp.append("% F");
 			}
-			else
+
+			if (!GPUMemoryLoad.empty() && !GPUFan[i].empty())
 			{
-				gpuTemp = gpuTemp.append("%");
+				gpuTemp = gpuTemp.append(" - ");
+				gpuTemp = gpuTemp.append(GPUMemoryLoad[i]);
+				gpuTemp = gpuTemp.append("% M");
 			}
 
 			text.push_back(gpuTemp);

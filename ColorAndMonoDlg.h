@@ -25,15 +25,8 @@ protected:
 
     CEzLcd m_lcd;
 
-   // INT m_currentHighlightPosition;
-
-    // LCD object handles
-
     // Monochrome
     vector<HANDLE> screen;
-	//vector<HANDLE> GPUScreen;
-	//vector<HANDLE> HDDScreen;
-	//vector<HANDLE> OtherScreen;
 
 	int currentPage;
 
@@ -43,11 +36,6 @@ protected:
 	int scrollCPUScreen;
 	int scrollGPUScreen;
 	int scrollHDDScreen;
-
-	//vector<string> CPUText;
-	//vector<string> GPUText;
-	//vector<string> HDDText;
-	//vector<string> OtherText;
 
 	// Bitmaps
 	cBitmap m_background;
