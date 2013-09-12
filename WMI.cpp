@@ -1017,12 +1017,6 @@ void WMI::queryHDData()
 							stringStream.clear();
 						}
 
-						else
-						{
-							HDDLoad.push_back("");
-							HDDTemperature.push_back("");
-						}
-
 
 						VariantClear(&vtProp);
 						uReturn = 0;
@@ -1031,9 +1025,15 @@ void WMI::queryHDData()
 					pEnumerator->Release();
 				}
 
-				if (HDDTemperature.size() != HDDLoad.size())
+				if (HDDTemperature.size() != count+1)
 				{
 					HDDTemperature.push_back("");
+				}
+
+
+				if (HDDLoad.size() != count+1)
+				{
+					HDDLoad.push_back("");
 				}
 
 				delete a;
