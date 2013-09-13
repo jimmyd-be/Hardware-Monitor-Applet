@@ -625,7 +625,7 @@ void WMI::queryGPUMemoryLoad()
 {
 	try
 	{
-		GPULoad.clear();
+		GPUMemoryLoad.clear();
 
 		if (pSvc != 0)
 		{
@@ -1025,13 +1025,13 @@ void WMI::queryHDData()
 					pEnumerator->Release();
 				}
 
-				if (HDDTemperature.size() != count+1)
+				if ((int)HDDTemperature.size() != count+1)
 				{
 					HDDTemperature.push_back("");
 				}
 
 
-				if (HDDLoad.size() != count+1)
+				if ((int) HDDLoad.size() != count + 1)
 				{
 					HDDLoad.push_back("");
 				}
@@ -1202,6 +1202,7 @@ vector<string> WMI::getGPUText()
 		queryGPUFan();
 		queryGPULoad();
 		queryGPUTemp();
+		queryGPUMemoryLoad();
 
 		for (int i = 0; i < (int)GPUIdentifier.size(); i++)
 		{
