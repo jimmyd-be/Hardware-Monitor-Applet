@@ -15,6 +15,8 @@
 #include <iostream>
 #include <fstream>
 #include <time.h>
+#include <Shlobj.h>
+#include <direct.h>
 #include "stdafx.h"
 
 using namespace std;
@@ -39,12 +41,13 @@ public:
 	//---------------------------
 	static void writeMessage(string message);
 	static string getCurrentTime();
-	ofstream openLogFile();
 
 private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
+
+	wstring getHomePath();
 
 
 	// -------------------------

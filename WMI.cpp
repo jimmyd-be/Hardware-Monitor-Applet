@@ -127,9 +127,30 @@ void WMI::connectToWMI()
 							EOAC_NONE                    // proxy capabilities 
 							);
 
+						if (FAILED(hres))
+						{
+							Error::writeMessage("CoSetProxyBlanket failed.");
+						}
+					}
+					else
+					{
+						Error::writeMessage("ConnectServer failed.");
 					}
 				}
+				else
+				{
+					Error::writeMessage("CoCreateInstance failed.");
+				}
 			}
+			else
+			{
+				Error::writeMessage("CoInitializeSecurity failed.");
+			}
+		}
+
+		else
+		{
+			Error::writeMessage("CoInitializeEx failed to connect. ");
 		}
 	}
 	catch (exception e)
@@ -435,7 +456,6 @@ void WMI::queryCPUTemp()
 
 			if (!FAILED(hres))
 			{
-
 				// Get the data from the query
 
 				ULONG uReturn = 0;
@@ -755,6 +775,7 @@ void WMI::queryGPUTemp()
 					}
 					pEnumerator->Release();
 				}
+
 				delete a;
 			}
 		}
@@ -831,7 +852,6 @@ void WMI::queryGPUFan()
 					}
 					pEnumerator->Release();
 				}
-
 
 				delete a;
 			}
@@ -925,6 +945,7 @@ void WMI::queryGPUClock()
 					}
 					pEnumerator->Release();
 				}
+
 				delete a;
 			}
 		}
@@ -1153,8 +1174,6 @@ vector<string> WMI::getCPUText()
 
 		text.push_back(CPUName);
 
-		int tempsize = (int)cpuTemp.size();
-
 		for (int i = 0; i < (int)cpuLoad.size(); i++)
 		{
 			stringstream ss;//create a stringstream
@@ -1162,15 +1181,37 @@ vector<string> WMI::getCPUText()
 
 			string tempText = "";
 			tempText = tempText.append(ss.str());
+			tempText = tempText.append(": ");
 
-			if (i < tempsize)
+
+			if (i < (int)cpuTemp.size())
 			{
-				tempText = tempText.append(": ").append(cpuTemp[i]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
+				tempText = tempText.append(cpuTemp[i]).append("°C");
 			}
 
-			else
+			else if ((int)cpuTemp.size() == 1)
 			{
-				tempText = tempText.append(": ").append(cpuTemp[tempsize - 1]).append("°C - ").append(cpuLoad[i]).append("% - ").append(CPUClock[i]).append("MHz");
+				tempText = tempText.append(cpuTemp[0]).append("°C");
+			}
+
+			if (i < (int)cpuLoad.size())
+			{
+				if (i < (int)cpuTemp.size())
+				{
+					tempText = tempText.append(" - ");
+				}
+
+				tempText = tempText.append(cpuLoad[i]).append("%");
+			}
+
+			if (i < (int)CPUClock.size())
+			{
+				if (i < (int)cpuTemp.size() || i < (int)cpuLoad.size())
+				{
+					tempText = tempText.append(" - ");
+				}
+
+				tempText = tempText.append(CPUClock[i]).append("MHz");
 			}
 
 			text.push_back(tempText);

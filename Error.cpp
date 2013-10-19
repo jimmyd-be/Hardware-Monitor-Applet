@@ -27,22 +27,17 @@ Error::~Error()
 	// nothing to destroy
 }
 
-
-ofstream Error::openLogFile()
-{
-	ofstream logFile;
-
-	string filePath = "C:\\OHM.log";
-	logFile.open(filePath, ios::app);
-
-	return logFile;
-}
-
 void Error::writeMessage(string message)
 {
 	Error* error = new Error();
 
-	ofstream logFile = error->openLogFile();
+	ofstream logFile;
+
+	wstring filename = _T("\\OHM.log");
+
+	wstring filePath = error->getHomePath().append(filename);
+
+	logFile.open(filePath, ios::app);
 
 	if (logFile.is_open())
 	{
@@ -52,6 +47,21 @@ void Error::writeMessage(string message)
 	logFile.close();
 }
 
+wstring Error::getHomePath()
+{
+	wstring homeDir;
+
+	TCHAR szFolderPath[MAX_PATH];
+
+	if (!SHGetSpecialFolderPath(NULL, szFolderPath, CSIDL_APPDATA, FALSE))
+	{
+		// Uh-oh! An error occurred; handle it.
+	}
+
+	homeDir = szFolderPath;
+
+	return homeDir;
+}
 
 string Error::getCurrentTime()
 {
