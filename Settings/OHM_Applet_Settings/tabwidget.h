@@ -2,7 +2,7 @@
 #define TABWIDGET_H
 
 #include <QWidget>
-
+#include "linewidget.h"
 namespace Ui {
 
 class TabWidget;
@@ -18,11 +18,13 @@ public:
     explicit TabWidget(MainWindow*, QWidget *parent = 0);
     ~TabWidget();
 
-    void setId(int id);
+private slots:
+    void addLine();
+
 
 private:
     Ui::TabWidget *ui;
-    int id_;
+
 };
 
 #endif // TABWIDGET_H

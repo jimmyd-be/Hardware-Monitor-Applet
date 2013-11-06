@@ -3,12 +3,13 @@
 #include "mainwindow.h"
 
 TabWidget::TabWidget(MainWindow *mainWindow, QWidget *parent) :
-    /*mainWindow_(mainWindow),*/ QWidget(parent),
+    QWidget(parent),
     ui(new Ui::TabWidget)
 {
     ui->setupUi(this);
 
     connect(ui->removePageButton, SIGNAL(clicked()), mainWindow, SLOT(removePage()));
+    connect(ui->addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
 }
 
 TabWidget::~TabWidget()
@@ -16,7 +17,12 @@ TabWidget::~TabWidget()
     delete ui;
 }
 
-void TabWidget::setId(int id)
+void TabWidget::addLine()
 {
-    id_ = id;
+    QLayout* layout = this->layout();
+
+    layout->addWidget(new LineWidget(layout->count()-2+1));
+
+    layout->removeItem(ui->verticalSpacer);
+    layout->addItem(ui->verticalSpacer);
 }

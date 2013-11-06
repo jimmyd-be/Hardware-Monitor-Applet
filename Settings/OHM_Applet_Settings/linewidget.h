@@ -17,7 +17,6 @@ public:
 
 private:
     Ui::LineWidget *ui;
-
     int id_;
 };
 

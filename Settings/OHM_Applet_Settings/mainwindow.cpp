@@ -30,8 +30,6 @@ void MainWindow::addNewPage()
 
     TabWidget * newTab = new TabWidget(this);
     int id = ui->tabWidget->addTab(newTab, tabName);
-
-    newTab->setId(id);
 }
 
 void MainWindow::removePage()
@@ -41,7 +39,14 @@ void MainWindow::removePage()
 
     if(totalTabs > 1)
     {
-        ui->tabWidget->removeTab(currentTab);
+        for(int i= currentTab; i< totalTabs-1; i++)
+        {
+            QString tabName = "Page ";
+            tabName.append(QString::number(i+1));
 
+            ui->tabWidget->setTabText(i+1, tabName);
+        }
+
+         ui->tabWidget->removeTab(currentTab);
     }
 }
