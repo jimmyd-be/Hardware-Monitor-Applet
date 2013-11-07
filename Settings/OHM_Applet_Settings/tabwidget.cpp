@@ -21,8 +21,26 @@ void TabWidget::addLine()
 {
     QLayout* layout = this->layout();
 
-    layout->addWidget(new LineWidget(layout->count()-2+1));
+     LineWidget* lineWidget = new LineWidget(this, layout->count()-2+1);
+    layout->addWidget(lineWidget);
 
+    lineWidgets.append(lineWidget);
     layout->removeItem(ui->verticalSpacer);
     layout->addItem(ui->verticalSpacer);
+}
+
+void TabWidget::removeLine(LineWidget *line)
+{
+    QLayout* layout = this->layout();
+    layout->removeWidget(line);
+
+    int lineIndex = lineWidgets.indexOf(line);
+
+    lineWidgets.removeOne(line);
+    delete line;
+
+    for(int i = lineIndex; i < lineWidgets.size(); i++)
+    {
+        lineWidgets[i]->setId(i+1);
+    }
 }

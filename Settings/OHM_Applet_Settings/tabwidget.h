@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "linewidget.h"
+
 namespace Ui {
 
 class TabWidget;
@@ -18,12 +19,14 @@ public:
     explicit TabWidget(MainWindow*, QWidget *parent = 0);
     ~TabWidget();
 
-private slots:
+public slots:
     void addLine();
+    void removeLine(LineWidget* line);
 
 
 private:
     Ui::TabWidget *ui;
+    QList<LineWidget*> lineWidgets;
 
 };
 
