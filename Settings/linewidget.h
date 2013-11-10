@@ -2,7 +2,8 @@
 #define LINEWIDGET_H
 
 #include <QWidget>
-//#include "tabwidget.h"
+#include "datawindow.h"
+#include "WMI.h"
 
 namespace Ui {
 class LineWidget;
@@ -15,7 +16,7 @@ class LineWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit LineWidget(TabWidget*, int id, QWidget *parent = 0);
+    explicit LineWidget(WMI* wmi, TabWidget*, int id, QWidget *parent = 0);
     ~LineWidget();
 
     void setId(int id);
@@ -23,11 +24,13 @@ public:
 
 private slots:
     void removeLine();
+	void openDataWindow();
 
 private:
     Ui::LineWidget *ui;
     int id_;
     TabWidget * tabWidget_;
+	WMI * wmi_;
 };
 
 #endif // LINEWIDGET_H

@@ -23,6 +23,9 @@ WMI::WMI()
 	sensorList.clear();
 
 	connectToWMI();
+
+//	querySensors();
+//	queryHardware();
 }
 
 WMI::~WMI(void)
@@ -121,6 +124,8 @@ void WMI::connectToWMI()
 
 void WMI::querySensors()
 {
+	sensorList.clear();
+
 	if (pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
@@ -192,7 +197,9 @@ void WMI::querySensors()
 				VariantClear(&vtProp);
 
 				hr = pclsObj->Get(L"InstanceId", 0, &vtProp, 0, 0);
-				sensor.instanceId = vtProp.intVal;
+				ws = wstring(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+				sensor.instanceId = string(ws.begin(), ws.end());
+				ws.clear();
 				VariantClear(&vtProp);
 
 				hr = pclsObj->Get(L"Max", 0, &vtProp, 0, 0);
@@ -221,6 +228,8 @@ void WMI::querySensors()
 
 void WMI::queryHardware()
 {
+	hardwareList.clear();
+
 	if (pSvc != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
@@ -280,7 +289,9 @@ void WMI::queryHardware()
 				VariantClear(&vtProp);
 
 				hr = pclsObj->Get(L"InstanceId", 0, &vtProp, 0, 0);
-				hardware.InstanceId = vtProp.intVal;
+				ws = wstring(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+				hardware.InstanceId = string(ws.begin(), ws.end());
+				ws.clear();
 				VariantClear(&vtProp);
 				
 				hr = pclsObj->Get(L"HardwareType", 0, &vtProp, 0, 0);
@@ -299,4 +310,20 @@ void WMI::queryHardware()
 		}
 	}
 
+}
+
+void WMI::refresh()
+{
+	queryHardware();
+	querySensors();
+}
+
+vector<Sensor> WMI::getSensors()
+{
+	return sensorList;
+}
+
+vector<Hardware> WMI::getHardware()
+{
+	return hardwareList;
 }

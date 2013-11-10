@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include "tabwidget.h"
+#include "WMI.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(WMI* wmi, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -25,6 +26,7 @@ private:
     Ui::MainWindow *ui;
 
     QPushButton* addPageButton;
+	WMI * wmi_;
 };
 
 #endif // MAINWINDOW_H

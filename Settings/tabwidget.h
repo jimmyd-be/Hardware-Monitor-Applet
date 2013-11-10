@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "linewidget.h"
+#include "WMI.h"
 
 namespace Ui {
 
@@ -16,7 +17,7 @@ class TabWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit TabWidget(MainWindow*, QWidget *parent = 0);
+    explicit TabWidget(WMI* wmi, MainWindow*, QWidget *parent = 0);
     ~TabWidget();
 
 public slots:
@@ -28,6 +29,7 @@ private:
     Ui::TabWidget *ui;
     QList<LineWidget*> lineWidgets;
 
+	WMI * wmi_;
 };
 
 #endif // TABWIDGET_H

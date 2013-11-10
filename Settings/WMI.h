@@ -26,9 +26,9 @@ struct Sensor {
 	string parent;
 	string processId;
 	string sensorType;
-	
+	string instanceId;
+
 	int index;
-	int instanceId;
 
 	double max;
 	double min;
@@ -38,7 +38,7 @@ struct Sensor {
 struct Hardware{
 	string hardwaretype;
 	string identifier;
-	int InstanceId;
+	string InstanceId;
 	string name;
 	string parent;
 	string processId;
@@ -71,10 +71,10 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	vector<string> getCPUText();
-	vector<string> getGPUText();
-	vector<string> getHDDText();
-	vector<string> getmemoryText();
+	vector<Sensor> getSensors();
+	vector<Hardware> getHardware();
+
+	void refresh();
 
 private:
 	//---------------------------

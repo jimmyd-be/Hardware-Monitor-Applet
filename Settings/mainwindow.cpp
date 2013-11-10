@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+MainWindow::MainWindow(WMI* wmi, QWidget *parent) :
+    wmi_(wmi), QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -28,7 +28,7 @@ void MainWindow::addNewPage()
     QString tabName = "Page ";
     tabName.append(QString::number(totalTabs));
 
-    TabWidget * newTab = new TabWidget(this);
+    TabWidget * newTab = new TabWidget(wmi_, this);
     int id = ui->tabWidget->addTab(newTab, tabName);
 }
 

@@ -2,8 +2,8 @@
 #include "ui_linewidget.h"
 #include "tabwidget.h"
 
-LineWidget::LineWidget(TabWidget * tabWidget, int id, QWidget *parent) :
-    tabWidget_(tabWidget), id_(id), QWidget(parent),
+LineWidget::LineWidget(WMI* wmi, TabWidget * tabWidget, int id, QWidget *parent) :
+    wmi_(wmi), tabWidget_(tabWidget), id_(id), QWidget(parent),
     ui(new Ui::LineWidget)
 {
     ui->setupUi(this);
@@ -14,6 +14,7 @@ LineWidget::LineWidget(TabWidget * tabWidget, int id, QWidget *parent) :
     ui->label->setText(lineName);
 
     connect(ui->removeLineButton, SIGNAL(clicked()), this, SLOT(removeLine()));
+	connect(ui->AddDataButton, SIGNAL(clicked()), this, SLOT(openDataWindow()));
 }
 
 LineWidget::~LineWidget()
@@ -39,4 +40,10 @@ void LineWidget::setId(int id)
     lineName.append(QString::number(id));
 
     ui->label->setText(lineName);
+}
+
+void LineWidget::openDataWindow()
+{
+	DataWindow window(wmi_, ui->lineEdit->text());
+	window.exec();
 }

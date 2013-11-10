@@ -2,8 +2,8 @@
 #include "ui_tabwidget.h"
 #include "mainwindow.h"
 
-TabWidget::TabWidget(MainWindow *mainWindow, QWidget *parent) :
-    QWidget(parent),
+TabWidget::TabWidget(WMI* wmi, MainWindow *mainWindow, QWidget *parent) :
+    wmi_(wmi), QWidget(parent),
     ui(new Ui::TabWidget)
 {
     ui->setupUi(this);
@@ -21,7 +21,7 @@ void TabWidget::addLine()
 {
     QLayout* layout = this->layout();
 
-     LineWidget* lineWidget = new LineWidget(this, layout->count()-2+1);
+     LineWidget* lineWidget = new LineWidget(wmi_, this, layout->count()-2+1);
     layout->addWidget(lineWidget);
 
     lineWidgets.append(lineWidget);
