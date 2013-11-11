@@ -46,4 +46,9 @@ void LineWidget::openDataWindow()
 {
 	DataWindow window(wmi_, ui->lineEdit->text());
 	window.exec();
+
+	if(window.getLinetext() != "")
+	{
+		ui->lineEdit->setText(window.getLinetext());
+	}
 }

@@ -16,10 +16,18 @@ public:
     explicit DataWindow(WMI* wmi, QString lineText, QWidget *parent = 0);
     ~DataWindow();
 
-private:
+	QString getLinetext();
 
+	public slots:
+		void hardwareButtonClicked();
+		void sensorButtonClicked();
+		void accept();
+		void reject();
+
+private:
 	void fillCells();
 	void clearTables();
+	QString generateCode(QString, QString, QString, int);
 
     Ui::DataWindow *ui;
 
