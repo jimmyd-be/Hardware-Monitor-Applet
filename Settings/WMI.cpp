@@ -203,15 +203,15 @@ void WMI::querySensors()
 				VariantClear(&vtProp);
 
 				hr = pclsObj->Get(L"Max", 0, &vtProp, 0, 0);
-				sensor.max = vtProp.dblVal;
+				sensor.max = vtProp.fltVal;
 				VariantClear(&vtProp);
 
 				hr = pclsObj->Get(L"Min", 0, &vtProp, 0, 0);
-				sensor.min = vtProp.dblVal;
+				sensor.min = vtProp.fltVal;
 				VariantClear(&vtProp);
 
 				hr = pclsObj->Get(L"Value", 0, &vtProp, 0, 0);
-				sensor.value = vtProp.dblVal;
+				sensor.value = vtProp.fltVal;
 				VariantClear(&vtProp);
 
 				pclsObj->Release();

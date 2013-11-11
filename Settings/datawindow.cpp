@@ -10,9 +10,6 @@ DataWindow::DataWindow(WMI * wmi, QString lineText, QWidget *parent) :
 
 	ui->lineEdit->setText(lineText_);
 
-	//ui->hardWareTableWidget->hideColumn(0);
-	//ui->sensorTableWidget->hideColumn(0);
-
 	connect(ui->hardwarePushButton, SIGNAL(clicked()), this, SLOT(hardwareButtonClicked()));
 	connect(ui->sensorPushButton, SIGNAL(clicked()), this, SLOT(sensorButtonClicked()));
 
@@ -44,9 +41,9 @@ void DataWindow::fillCells()
 		QTableWidgetItem* item1 = new QTableWidgetItem(QString::fromStdString(hardware[i].name));
 		QTableWidgetItem* item2 = new QTableWidgetItem(QString::fromStdString(hardware[i].hardwaretype));
 
-		ui->hardWareTableWidget->setItem(i, 0, item);
-		ui->hardWareTableWidget->setItem(i, 1, item1);
-		ui->hardWareTableWidget->setItem(i, 2, item2);
+		ui->hardWareTableWidget->setVerticalHeaderItem(i, item);
+		ui->hardWareTableWidget->setItem(i, 0, item1);
+		ui->hardWareTableWidget->setItem(i, 1, item2);
 	}
 
 	for(int i =0; i < sensor.size(); i++)
@@ -59,12 +56,12 @@ void DataWindow::fillCells()
 		QTableWidgetItem* item4 = new QTableWidgetItem(QString::number(sensor[i].min));
 		QTableWidgetItem* item5 = new QTableWidgetItem(QString::number(sensor[i].value));
 
-		ui->sensorTableWidget->setItem(i, 0, item);
-		ui->sensorTableWidget->setItem(i, 1, item1);
-		ui->sensorTableWidget->setItem(i, 2, item2);
-		ui->sensorTableWidget->setItem(i, 3, item3);
-		ui->sensorTableWidget->setItem(i, 4, item4);
-		ui->sensorTableWidget->setItem(i, 5, item5);
+		ui->sensorTableWidget->setVerticalHeaderItem(i, item);
+		ui->sensorTableWidget->setItem(i, 0, item1);
+		ui->sensorTableWidget->setItem(i, 1, item2);
+		ui->sensorTableWidget->setItem(i, 2, item3);
+		ui->sensorTableWidget->setItem(i, 3, item4);
+		ui->sensorTableWidget->setItem(i, 4, item5);
 	}
 }
 
@@ -119,7 +116,7 @@ void DataWindow::hardwareButtonClicked()
 		int row = items[0]->row();
 		int column = items[0]->column();
 
-		QString id = ui->hardWareTableWidget->itemAt(0, row)->text();
+		QString id = ui->hardWareTableWidget->verticalHeaderItem(row)->text();
 		QString item = ui->hardWareTableWidget->horizontalHeaderItem(column)->text();
 
 		QString code = generateCode("Hardware", id, item, 0);
@@ -140,7 +137,7 @@ void DataWindow::sensorButtonClicked()
 		int row = items[0]->row();
 		int column = items[0]->column();
 
-		QString id = ui->sensorTableWidget->itemAt(0, row)->text();
+		QString id = ui->sensorTableWidget->verticalHeaderItem(row)->text();
 		QString item = ui->sensorTableWidget->horizontalHeaderItem(column)->text();
 
 		QString code = generateCode("Sensor", id, item, ui->spinBox->value());

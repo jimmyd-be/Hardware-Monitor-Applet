@@ -30,9 +30,9 @@ struct Sensor {
 
 	int index;
 
-	double max;
-	double min;
-	double value;
+	float max;
+	float min;
+	float value;
 };
 
 struct Hardware{
