@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QFileDialog>
+#include <QDesktopServices>
 #include "tabwidget.h"
 #include "WMI.h"
 
@@ -21,6 +23,8 @@ public:
 private slots:
     void addNewPage();
     void removePage();
+	void browseBackground();
+	void reportIssue();
 
 private:
     Ui::MainWindow *ui;

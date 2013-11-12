@@ -10,6 +10,8 @@ MainWindow::MainWindow(WMI* wmi, QWidget *parent) :
     addPageButton = new QPushButton("Add page");
 
     connect(addPageButton, SIGNAL(clicked()), this, SLOT(addNewPage()));
+	connect(ui->browseButton, SIGNAL(clicked()), this, SLOT(browseBackground()));
+	connect(ui->actionReport_issue, SIGNAL(triggered()), this, SLOT(reportIssue()));
 
     ui->tabWidget->setCornerWidget(addPageButton);
 
@@ -49,4 +51,27 @@ void MainWindow::removePage()
 
          ui->tabWidget->removeTab(currentTab);
     }
+}
+
+void MainWindow::browseBackground()
+{
+//	QStringList filters;
+//	filters << "Image files (*.png *.jpg)";
+//
+//	//QFileDialog dialog;
+//
+//	//dialog.setNameFilters(filters);
+//	//dialog.exec();
+//
+//	//QStringList fileList = dialog.selectedFiles();
+//	QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "", tr("Image Files (*.png *.jpg *.bmp)"));
+
+	//QString test = fileList.at(0);
+	//ui->browseLine->setText();
+}
+
+void MainWindow::reportIssue()
+{
+	QUrl url("https://bitbucket.org/jimmyD/open-hardware-monitor-applet/issues?status=new&status=open");
+	QDesktopServices::openUrl(url);
 }

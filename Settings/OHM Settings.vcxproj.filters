@@ -126,5 +126,8 @@
     <ClInclude Include="GeneratedFiles\ui_datawindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="Structures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

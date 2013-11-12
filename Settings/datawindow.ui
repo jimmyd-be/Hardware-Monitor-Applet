@@ -119,7 +119,7 @@
        </column>
        <column>
         <property name="text">
-         <string>Type</string>
+         <string>HardwareType</string>
         </property>
        </column>
       </widget>
@@ -141,22 +141,22 @@
          </column>
          <column>
           <property name="text">
-           <string>Type</string>
+           <string>SensorType</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Max value</string>
+           <string>Max</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Min value</string>
+           <string>Min</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Current value</string>
+           <string>Value</string>
           </property>
          </column>
         </widget>

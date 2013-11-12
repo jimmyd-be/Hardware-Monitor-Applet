@@ -17,33 +17,10 @@
 #include <ctime>
 #include <comdef.h>
 #include <Wbemidl.h>
+#include "Structures.h"
+#include <qstring.h>
 
 using namespace std;
-
-struct Sensor {
-  	string identifier;
-	string name;
-	string parent;
-	string processId;
-	string sensorType;
-	string instanceId;
-
-	int index;
-
-	float max;
-	float min;
-	float value;
-};
-
-struct Hardware{
-	string hardwaretype;
-	string identifier;
-	string InstanceId;
-	string name;
-	string parent;
-	string processId;
-};
-
 
 //-----------------------------------------------------------------
 // Defines
@@ -76,6 +53,10 @@ public:
 
 	void refresh();
 
+	QString generateCode(QString, QString, QString, int);
+	string convertCodeToLine(string);
+	string queryCode(QueryCode);
+
 private:
 	//---------------------------
 	// Private Methods
@@ -95,6 +76,7 @@ private:
 	IWbemClassObject *pclsObj;
 	HRESULT hres;
 
+	vector<QueryCode> codes;
 	vector<Hardware> hardwareList;
 	vector<Sensor> sensorList;
 

@@ -309,7 +309,6 @@ void WMI::queryHardware()
 
 		}
 	}
-
 }
 
 void WMI::refresh()
@@ -326,4 +325,170 @@ vector<Sensor> WMI::getSensors()
 vector<Hardware> WMI::getHardware()
 {
 	return hardwareList;
+}
+
+QString WMI::generateCode(QString type, QString id, QString name, int round)
+{
+	QString code = "{";
+
+	if(type == "Hardware")
+	{
+		code.append("H,");
+	}
+	else if(type == "Sensor")
+	{
+		code.append("S,");
+	}
+
+	code.append(id);
+	code.append(",");
+
+	code.append(name);
+	
+	if(round != 0)
+	{
+		code.append(",");
+		code.append(QString::number(round));
+	}
+
+	code.append("}");
+
+	return code;
+}
+
+string WMI::convertCodeToLine(string code)
+{
+	int index =0;
+	int startPosition = -1;
+	QueryCode query;
+
+	for(int i=0; i < code.size(); i++)
+	{
+		if(code[i] == '{')
+		{
+			startPosition = i;
+		}
+
+		else if(code[i] == '}')
+		{
+			string test = code.substr(startPosition+1, i-1-startPosition);
+
+			switch(index)
+			{
+			case 0:	query.type = test;
+				break;
+			case 1: query.id = test;
+				break;
+			case 2: query.name = test;
+				break;
+			case 3: int value = atoi(test.c_str());
+				query.round = value;
+				break;
+			}
+
+			if(query.type == "S")
+			{
+				query.type = "Sensor";
+			}
+			else if(query.type == "H")
+			{
+				query.type = "Hardware";
+			}
+
+			if(index < 3)
+			{
+				query.round = 0;
+			}
+			codes.push_back(query);
+
+			startPosition = -1;
+			index = 0;
+		}
+
+		else if(code[i] == ',')
+		{
+			string test = code.substr(startPosition+1, i-1-startPosition);
+			startPosition = i;
+
+			switch(index)
+			{
+			case 0:	query.type = test;
+				break;
+			case 1: query.id = test;
+				break;
+			case 2: query.name = test;
+				break;
+			case 3:	int value = atoi(test.c_str());
+				query.round = value;
+				break;
+			}
+
+			index++;
+		}
+	}
+
+	return "";
+}
+
+string WMI::queryCode(QueryCode code)
+{
+	string returnValue = "";
+
+	string query = "select ";
+	query.append(code.name);
+	query.append(" from ");
+	query.append(code.type);
+	query.append("where InstanceId = ");
+	query.append(code.id);
+
+	if (pSvc != 0)
+	{
+		// Use the IWbemServices pointer to make requests of WMI ----
+
+		// For example, get the name of the operating system
+
+		hres = pSvc->ExecQuery(
+			bstr_t("WQL"),
+			bstr_t(query.c_str()),
+			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+			NULL,
+			&pEnumerator);
+
+		if (!FAILED(hres))
+		{
+
+			// Get the data from the query
+
+			ULONG uReturn = 0;
+
+			while (pEnumerator)
+			{
+				HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
+					&pclsObj, &uReturn);
+
+				if (0 == uReturn)
+				{
+					break;
+				}
+
+				VARIANT vtProp;
+
+				wstring stemp = std::wstring(code.name.begin(), code.name.end());
+
+				hr = pclsObj->Get(stemp.c_str(), 0, &vtProp, 0, 0);
+				wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+				returnValue = string(ws.begin(), ws.end());
+
+				ws.clear();
+				VariantClear(&vtProp);
+				uReturn = 0;
+				pclsObj->Release();
+
+			}
+			pEnumerator->Release();
+
+		}
+	}
+
+	return returnValue;
 }

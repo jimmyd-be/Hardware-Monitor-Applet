@@ -27,7 +27,7 @@ public:
 private:
 	void fillCells();
 	void clearTables();
-	QString generateCode(QString, QString, QString, int);
+	
 
     Ui::DataWindow *ui;
 

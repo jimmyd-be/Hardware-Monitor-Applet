@@ -153,6 +153,7 @@
     <ClInclude Include="GeneratedFiles\ui_linewidget.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
     <ClInclude Include="GeneratedFiles\ui_tabwidget.h" />
+    <ClInclude Include="Structures.h" />
     <ClInclude Include="WMI.h" />
     <CustomBuild Include="tabwidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

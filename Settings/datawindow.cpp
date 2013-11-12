@@ -5,6 +5,7 @@ DataWindow::DataWindow(WMI * wmi, QString lineText, QWidget *parent) :
     lineText_(lineText), wmi_(wmi), QDialog(parent),
     ui(new Ui::DataWindow)
 {
+
 	this->setWindowFlags(Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint);
     ui->setupUi(this);
 
@@ -78,35 +79,6 @@ void DataWindow::clearTables()
 	}
 }
 
-QString DataWindow::generateCode(QString type, QString id, QString name, int round)
-{
-	QString code = "${";
-
-	if(type == "Hardware")
-	{
-		code.append("H, ");
-	}
-	else if(type == "Sensor")
-	{
-		code.append("S, ");
-	}
-
-	code.append(id);
-	code.append(", ");
-
-	code.append(name);
-	
-	if(round != 0)
-	{
-		code.append(", ");
-		code.append(QString::number(round));
-	}
-
-	code.append("}");
-
-	return code;
-}
-
 void DataWindow::hardwareButtonClicked()
 {
 	QList <QTableWidgetItem  *> items = ui->hardWareTableWidget->selectedItems();
@@ -119,7 +91,7 @@ void DataWindow::hardwareButtonClicked()
 		QString id = ui->hardWareTableWidget->verticalHeaderItem(row)->text();
 		QString item = ui->hardWareTableWidget->horizontalHeaderItem(column)->text();
 
-		QString code = generateCode("Hardware", id, item, 0);
+		QString code = wmi_->generateCode("Hardware", id, item, 0);
 
 		QString text = ui->lineEdit->text();
 		text.append(code);
@@ -140,12 +112,14 @@ void DataWindow::sensorButtonClicked()
 		QString id = ui->sensorTableWidget->verticalHeaderItem(row)->text();
 		QString item = ui->sensorTableWidget->horizontalHeaderItem(column)->text();
 
-		QString code = generateCode("Sensor", id, item, ui->spinBox->value());
+		QString code = wmi_->generateCode("Sensor", id, item, ui->spinBox->value());
 
 		QString text = ui->lineEdit->text();
 		text.append(code);
 
 		ui->lineEdit->setText(text);
+
+		wmi_->convertCodeToLine(text.toUtf8().constData());
 	}
 }
 
