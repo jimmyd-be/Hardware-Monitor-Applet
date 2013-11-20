@@ -15,6 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
@@ -27,6 +29,9 @@ class Ui_TabWidget
 public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_5;
+    QLabel *label_3;
+    QLineEdit *browseLine;
+    QPushButton *browseButton;
     QSpacerItem *horizontalSpacer_5;
     QPushButton *addLineButton;
     QPushButton *removePageButton;
@@ -41,6 +46,21 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        label_3 = new QLabel(TabWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        horizontalLayout_5->addWidget(label_3);
+
+        browseLine = new QLineEdit(TabWidget);
+        browseLine->setObjectName(QStringLiteral("browseLine"));
+
+        horizontalLayout_5->addWidget(browseLine);
+
+        browseButton = new QPushButton(TabWidget);
+        browseButton->setObjectName(QStringLiteral("browseButton"));
+
+        horizontalLayout_5->addWidget(browseButton);
+
         horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer_5);
@@ -71,6 +91,8 @@ public:
     void retranslateUi(QWidget *TabWidget)
     {
         TabWidget->setWindowTitle(QApplication::translate("TabWidget", "Form", 0));
+        label_3->setText(QApplication::translate("TabWidget", "Background:", 0));
+        browseButton->setText(QApplication::translate("TabWidget", "Browse", 0));
         addLineButton->setText(QApplication::translate("TabWidget", "Add line", 0));
         removePageButton->setText(QApplication::translate("TabWidget", "Remove page", 0));
     } // retranslateUi

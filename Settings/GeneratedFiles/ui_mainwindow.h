@@ -23,12 +23,12 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -47,7 +47,11 @@ public:
     QAction *actionLoad_default_settings;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label_4;
+    QRadioButton *monochromeRadioButton;
+    QRadioButton *colorRadioButton;
+    QSpacerItem *horizontalSpacer_5;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QFontComboBox *fontComboBox;
@@ -55,7 +59,7 @@ public:
     QLabel *label_2;
     QSpinBox *spinBox;
     QSpacerItem *horizontalSpacer_4;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *backgroundHorizontalLayout;
     QLabel *label_3;
     QLineEdit *browseLine;
     QPushButton *browseButton;
@@ -64,13 +68,13 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
+    QPushButton *clearSettingsButton;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
-    QMenu *menuKeyboard;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QButtonGroup *keyboardGroup;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -103,9 +107,36 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        label_4 = new QLabel(centralWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        horizontalLayout_4->addWidget(label_4);
+
+        monochromeRadioButton = new QRadioButton(centralWidget);
+        keyboardGroup = new QButtonGroup(MainWindow);
+        keyboardGroup->setObjectName(QStringLiteral("keyboardGroup"));
+        keyboardGroup->addButton(monochromeRadioButton);
+        monochromeRadioButton->setObjectName(QStringLiteral("monochromeRadioButton"));
+
+        horizontalLayout_4->addWidget(monochromeRadioButton);
+
+        colorRadioButton = new QRadioButton(centralWidget);
+        keyboardGroup->addButton(colorRadioButton);
+        colorRadioButton->setObjectName(QStringLiteral("colorRadioButton"));
+        colorRadioButton->setChecked(true);
+
+        horizontalLayout_4->addWidget(colorRadioButton);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_5);
+
+
+        gridLayout->addLayout(horizontalLayout_4, 0, 0, 1, 1);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -130,6 +161,7 @@ public:
 
         spinBox = new QSpinBox(centralWidget);
         spinBox->setObjectName(QStringLiteral("spinBox"));
+        spinBox->setValue(8);
 
         horizontalLayout->addWidget(spinBox);
 
@@ -138,39 +170,39 @@ public:
         horizontalLayout->addItem(horizontalSpacer_4);
 
 
-        verticalLayout->addLayout(horizontalLayout);
+        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        backgroundHorizontalLayout = new QHBoxLayout();
+        backgroundHorizontalLayout->setSpacing(6);
+        backgroundHorizontalLayout->setObjectName(QStringLiteral("backgroundHorizontalLayout"));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
-        horizontalLayout_2->addWidget(label_3);
+        backgroundHorizontalLayout->addWidget(label_3);
 
         browseLine = new QLineEdit(centralWidget);
         browseLine->setObjectName(QStringLiteral("browseLine"));
 
-        horizontalLayout_2->addWidget(browseLine);
+        backgroundHorizontalLayout->addWidget(browseLine);
 
         browseButton = new QPushButton(centralWidget);
         browseButton->setObjectName(QStringLiteral("browseButton"));
 
-        horizontalLayout_2->addWidget(browseButton);
+        backgroundHorizontalLayout->addWidget(browseButton);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_2->addItem(horizontalSpacer_2);
+        backgroundHorizontalLayout->addItem(horizontalSpacer_2);
 
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        gridLayout->addLayout(backgroundHorizontalLayout, 2, 0, 1, 1);
 
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setTabsClosable(false);
         tabWidget->setMovable(true);
 
-        verticalLayout->addWidget(tabWidget);
+        gridLayout->addWidget(tabWidget, 3, 0, 1, 1);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -184,16 +216,13 @@ public:
 
         horizontalLayout_3->addWidget(pushButton_2);
 
-        pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        clearSettingsButton = new QPushButton(centralWidget);
+        clearSettingsButton->setObjectName(QStringLiteral("clearSettingsButton"));
 
-        horizontalLayout_3->addWidget(pushButton_3);
-
-
-        verticalLayout->addLayout(horizontalLayout_3);
+        horizontalLayout_3->addWidget(clearSettingsButton);
 
 
-        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+        gridLayout->addLayout(horizontalLayout_3, 4, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -203,8 +232,6 @@ public:
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
-        menuKeyboard = new QMenu(menuBar);
-        menuKeyboard->setObjectName(QStringLiteral("menuKeyboard"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -214,16 +241,12 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuFile->menuAction());
-        menuBar->addAction(menuKeyboard->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(actionSave);
         menuFile->addAction(actionLoad_default_settings);
         menuFile->addAction(actionExit);
         menuHelp->addAction(actionAbout);
         menuHelp->addAction(actionReport_issue);
-        menuHelp->addAction(actionHelp);
-        menuKeyboard->addAction(actionMonochrome);
-        menuKeyboard->addAction(actionColor);
 
         retranslateUi(MainWindow);
 
@@ -245,15 +268,17 @@ public:
         actionHelp->setText(QApplication::translate("MainWindow", "Help", 0));
         actionReport_issue->setText(QApplication::translate("MainWindow", "Report issue", 0));
         actionLoad_default_settings->setText(QApplication::translate("MainWindow", "Load default settings", 0));
+        label_4->setText(QApplication::translate("MainWindow", "Keyboard:", 0));
+        monochromeRadioButton->setText(QApplication::translate("MainWindow", "Monochrome (G15, G510, ...)", 0));
+        colorRadioButton->setText(QApplication::translate("MainWindow", "Color (G19)", 0));
         label->setText(QApplication::translate("MainWindow", "Font:", 0));
         label_2->setText(QApplication::translate("MainWindow", "Font size:", 0));
         label_3->setText(QApplication::translate("MainWindow", "Main background:", 0));
         browseButton->setText(QApplication::translate("MainWindow", "Browse", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "Save", 0));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Reset settings", 0));
+        clearSettingsButton->setText(QApplication::translate("MainWindow", "Clear settings", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
-        menuKeyboard->setTitle(QApplication::translate("MainWindow", "Keyboard", 0));
     } // retranslateUi
 
 };

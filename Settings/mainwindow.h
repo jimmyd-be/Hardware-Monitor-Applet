@@ -7,6 +7,7 @@
 #include <QDesktopServices>
 #include "tabwidget.h"
 #include "WMI.h"
+#include "aboutwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,8 @@ private slots:
     void removePage();
 	void browseBackground();
 	void reportIssue();
+	void openAboutWindow();
+	void keyboardLayoutChanged(QAbstractButton*);
 
 private:
     Ui::MainWindow *ui;
