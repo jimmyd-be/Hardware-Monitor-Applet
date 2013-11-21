@@ -2,6 +2,7 @@
 #define TABWIDGET_H
 
 #include <QWidget>
+ #include <QList>
 #include "linewidget.h"
 #include "WMI.h"
 
@@ -21,6 +22,9 @@ public:
     ~TabWidget();
 	
 	void disableBrowse(bool);
+
+	QString getbackground();
+	QVector<QString> getLines();
 
 public slots:
     void addLine();

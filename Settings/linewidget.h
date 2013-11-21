@@ -21,6 +21,7 @@ public:
 
     void setId(int id);
     int getId();
+	QString getText();
 
 private slots:
     void removeLine();

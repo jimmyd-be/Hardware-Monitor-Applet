@@ -52,3 +52,8 @@ void LineWidget::openDataWindow()
 		ui->lineEdit->setText(window.getLinetext());
 	}
 }
+
+QString LineWidget::getText()
+{
+	return ui->lineEdit->text();
+}

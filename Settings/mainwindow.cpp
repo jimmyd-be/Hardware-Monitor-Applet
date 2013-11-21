@@ -14,8 +14,13 @@ MainWindow::MainWindow(WMI* wmi, QWidget *parent) :
 	connect(ui->actionReport_issue, SIGNAL(triggered()), this, SLOT(reportIssue()));
 	connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(openAboutWindow()));
 	connect(ui->keyboardGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(keyboardLayoutChanged(QAbstractButton*)));
+	connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
+	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveSettings()));
+	connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveSettings()));
+	connect(ui->undoButton, SIGNAL(clicked()), this, SLOT(loadSettings()));
 
 	ui->tabWidget->setCornerWidget(addPageButton);
+	ui->browseLine->setDisabled(true);
 
 	addNewPage();
 }
@@ -66,9 +71,8 @@ void MainWindow::browseBackground()
 	if (dialog.exec())
 	{
 		selectedFiles = dialog.selectedFiles();
-	}
-
-	QString test = selectedFiles.at(0);
+		QString test = selectedFiles.at(0);
+	}	
 }
 
 void MainWindow::reportIssue()
@@ -88,7 +92,6 @@ void MainWindow::keyboardLayoutChanged(QAbstractButton* button)
 	if(ui->monochromeRadioButton == button)
 	{
 		ui->browseButton->setDisabled(true);
-		ui->browseLine->setDisabled(true);
 
 		for(int i= 0; i< ui->tabWidget->count(); i++)
 		{
@@ -101,7 +104,6 @@ void MainWindow::keyboardLayoutChanged(QAbstractButton* button)
 	else
 	{
 		ui->browseButton->setDisabled(false);
-		ui->browseLine->setDisabled(false);
 
 		for(int i= 0; i< ui->tabWidget->count(); i++)
 		{
@@ -111,4 +113,48 @@ void MainWindow::keyboardLayoutChanged(QAbstractButton* button)
 			tab->disableBrowse(false);
 		}
 	}
+}
+
+void MainWindow::close()
+{
+	QApplication::quit();
+}
+
+void MainWindow::loadSettings()
+{
+
+}
+
+void MainWindow::saveSettings()
+{
+	QSettings settings(QSettings::IniFormat, QSettings::UserScope, "OHM Applet", "Settings");
+
+	settings.beginGroup("General");
+	settings.setValue("TotalPages", ui->tabWidget->count());
+	settings.setValue("Font", ui->fontComboBox->currentFont().toString());
+	settings.setValue("FontSize", ui->fontSpinBox->value());
+	settings.setValue("Background", ui->browseLine->text());
+	settings.endGroup();
+
+	for(int i= 0; i< ui->tabWidget->count(); i++)
+	{
+		QWidget* widget = ui->tabWidget->widget(i);
+		TabWidget* tab =static_cast<TabWidget*>(widget);
+
+		QString pageText = "Page";
+		pageText.append(QString::number(i+1));
+
+		settings.beginGroup(pageText);
+		settings.setValue("Background", tab->getbackground());
+		settings.setValue("TotalLines", tab->getLines().size());
+
+		for(int j=0; j < tab->getLines().size(); j++)
+		{
+			QString lineText = "Line";
+			lineText.append(QString::number(j+1));
+			settings.setValue(lineText, tab->getLines().at(j));
+		}
+
+		settings.endGroup();
+	}	
 }
