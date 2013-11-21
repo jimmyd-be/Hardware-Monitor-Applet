@@ -19,6 +19,8 @@ class TabWidget : public QWidget
 public:
     explicit TabWidget(WMI* wmi, MainWindow*, QWidget *parent = 0);
     ~TabWidget();
+	
+	void disableBrowse(bool);
 
 public slots:
     void addLine();

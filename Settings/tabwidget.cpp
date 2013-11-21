@@ -44,3 +44,9 @@ void TabWidget::removeLine(LineWidget *line)
         lineWidgets[i]->setId(i+1);
     }
 }
+
+void TabWidget::disableBrowse(bool disable)
+{
+	ui->browseButton->setDisabled(disable);
+	ui->browseLine->setDisabled(disable);
+}

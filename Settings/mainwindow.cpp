@@ -2,68 +2,73 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(WMI* wmi, QWidget *parent) :
-    wmi_(wmi), QMainWindow(parent),
-    ui(new Ui::MainWindow)
+	wmi_(wmi), QMainWindow(parent),
+	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
-    addPageButton = new QPushButton("Add page");
+	addPageButton = new QPushButton("Add page");
 
-    connect(addPageButton, SIGNAL(clicked()), this, SLOT(addNewPage()));
+	connect(addPageButton, SIGNAL(clicked()), this, SLOT(addNewPage()));
 	connect(ui->browseButton, SIGNAL(clicked()), this, SLOT(browseBackground()));
 	connect(ui->actionReport_issue, SIGNAL(triggered()), this, SLOT(reportIssue()));
 	connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(openAboutWindow()));
 	connect(ui->keyboardGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(keyboardLayoutChanged(QAbstractButton*)));
 
-    ui->tabWidget->setCornerWidget(addPageButton);
+	ui->tabWidget->setCornerWidget(addPageButton);
 
-    addNewPage();
+	addNewPage();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete ui;
 }
 
 void MainWindow::addNewPage()
 {
-    int totalTabs = ui->tabWidget->count()+1;
+	int totalTabs = ui->tabWidget->count()+1;
 
-    QString tabName = "Page ";
-    tabName.append(QString::number(totalTabs));
+	QString tabName = "Page ";
+	tabName.append(QString::number(totalTabs));
 
-    TabWidget * newTab = new TabWidget(wmi_, this);
-    int id = ui->tabWidget->addTab(newTab, tabName);
+	TabWidget * newTab = new TabWidget(wmi_, this);
+	int id = ui->tabWidget->addTab(newTab, tabName);
 }
 
 void MainWindow::removePage()
 {
-    int currentTab = ui->tabWidget->currentIndex();
-    int totalTabs = ui->tabWidget->count();
+	int currentTab = ui->tabWidget->currentIndex();
+	int totalTabs = ui->tabWidget->count();
 
-    if(totalTabs > 1)
-    {
-        for(int i= currentTab; i< totalTabs-1; i++)
-        {
-            QString tabName = "Page ";
-            tabName.append(QString::number(i+1));
+	if(totalTabs > 1)
+	{
+		for(int i= currentTab; i< totalTabs-1; i++)
+		{
+			QString tabName = "Page ";
+			tabName.append(QString::number(i+1));
 
-            ui->tabWidget->setTabText(i+1, tabName);
-        }
+			ui->tabWidget->setTabText(i+1, tabName);
+		}
 
-         ui->tabWidget->removeTab(currentTab);
-    }
+		ui->tabWidget->removeTab(currentTab);
+	}
 }
 
 void MainWindow::browseBackground()
 {
 	QFileDialog dialog;
+	QStringList	selectedFiles;
+
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter("Images (*.png *.jpg)");
 
-	dialog.exec();
+	if (dialog.exec())
+	{
+		selectedFiles = dialog.selectedFiles();
+	}
 
-	QStringList	selectedFiles = dialog.selectedFiles();
+	QString test = selectedFiles.at(0);
 }
 
 void MainWindow::reportIssue()
@@ -84,10 +89,26 @@ void MainWindow::keyboardLayoutChanged(QAbstractButton* button)
 	{
 		ui->browseButton->setDisabled(true);
 		ui->browseLine->setDisabled(true);
+
+		for(int i= 0; i< ui->tabWidget->count(); i++)
+		{
+			QWidget* widget = ui->tabWidget->widget(i);
+			TabWidget* tab =static_cast<TabWidget*>(widget);
+
+			tab->disableBrowse(true);
+		}
 	}
 	else
 	{
 		ui->browseButton->setDisabled(false);
 		ui->browseLine->setDisabled(false);
+
+		for(int i= 0; i< ui->tabWidget->count(); i++)
+		{
+			QWidget* widget = ui->tabWidget->widget(i);
+			TabWidget* tab =static_cast<TabWidget*>(widget);
+
+			tab->disableBrowse(false);
+		}
 	}
 }
