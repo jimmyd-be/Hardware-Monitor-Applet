@@ -9,6 +9,7 @@
 #include <qimage.h>
 #include <qfile.h>
 #include <QMessageBox>
+#include <qfileinfo.h>
 #include <QDesktopServices>
 #include "tabwidget.h"
 #include "WMI.h"

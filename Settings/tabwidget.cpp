@@ -85,7 +85,7 @@ void TabWidget::browseBackground()
 
 		QImage image(selectedFiles.at(0));
 
-		if(image.height() != 320 && image.width() != 240)
+		if(image.height() != 240 && image.width() != 320)
 		{
 			QMessageBox messageBox;
 			messageBox.setText("File is not an image or the dimension is not 320x240");

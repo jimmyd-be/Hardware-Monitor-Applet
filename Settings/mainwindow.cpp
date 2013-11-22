@@ -75,7 +75,7 @@ void MainWindow::browseBackground()
 
 		QImage image(selectedFiles.at(0));
 
-		if(image.height() != 320 && image.width() != 240)
+		if(image.height() != 240 && image.width() != 320)
 		{
 			QMessageBox messageBox;
 			messageBox.setText("File is not an image or the dimension is not 320x240");
@@ -144,7 +144,7 @@ void MainWindow::saveSettings()
 {
 	QString dir = QDir::homePath();
 
-	dir.append("/OHM Applet/Images/");
+	dir.append("/AppData/Roaming/OHM Applet/Images/");
 
 	QDir directory(dir);
 
@@ -155,21 +155,24 @@ void MainWindow::saveSettings()
 
 	QFile file(ui->browseLine->text());
 
-	if(file.exists())
-	{
-		QString dir2 = dir;
-
-		file.copy(dir2.append(file.fileName()));
-	}
-
-
 	QSettings settings(QSettings::IniFormat, QSettings::UserScope, "OHM Applet", "Settings");
 
 	settings.beginGroup("General");
 	settings.setValue("TotalPages", ui->tabWidget->count());
 	settings.setValue("Font", ui->fontComboBox->currentFont().toString());
 	settings.setValue("FontSize", ui->fontSpinBox->value());
-	settings.setValue("Background", file.fileName());
+
+	if(file.exists())
+	{
+		QString dir2 = dir;
+
+		QFileInfo info(file);
+
+		bool test = file.copy(dir2.append(info.fileName()));
+		settings.setValue("Background", info.fileName());
+	}
+
+
 	settings.endGroup();
 
 	for(int i= 0; i< ui->tabWidget->count(); i++)
@@ -178,20 +181,27 @@ void MainWindow::saveSettings()
 		TabWidget* tab =static_cast<TabWidget*>(widget);
 
 		QString pageText = "Page";
+		pageText.append(QString::number(i+1));
 
 		QFile tabFile(tab->getbackground());
+
+		settings.beginGroup(pageText);
 
 		if(tabFile.exists())
 		{
 			QString dir2 = dir;
+			QFileInfo info2(tabFile);
 
-			tabFile.copy(dir2.append(tabFile.fileName()));
+			tabFile.copy(dir2.append(info2.fileName()));
+			settings.setValue("Background", info2.fileName());
+		}
+		else
+		{
+			settings.setValue("Background", "");
 		}
 
 		pageText.append(QString::number(i+1));
 
-		settings.beginGroup(pageText);
-		settings.setValue("Background", tabFile.fileName());
 		settings.setValue("TotalLines", tab->getLines().size());
 
 		for(int j=0; j < tab->getLines().size(); j++)
