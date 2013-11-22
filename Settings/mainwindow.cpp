@@ -71,7 +71,20 @@ void MainWindow::browseBackground()
 	if (dialog.exec())
 	{
 		selectedFiles = dialog.selectedFiles();
-		QString test = selectedFiles.at(0);
+
+		QImage image(selectedFiles.at(0));
+
+		if(image.height() != 320 && image.width() != 240)
+		{
+			QMessageBox messageBox;
+			messageBox.setText("File is not an image or the dimension is not 320x240");
+			messageBox.exec();
+		}
+
+		else
+		{
+			ui->browseLine->setText(selectedFiles.at(0));
+		}
 	}	
 }
 
@@ -127,13 +140,34 @@ void MainWindow::loadSettings()
 
 void MainWindow::saveSettings()
 {
+	QString dir = QDir::homePath();
+
+	dir.append("/OHM Applet/Images/");
+
+	QDir directory(dir);
+
+	if(!directory.exists())
+	{
+		directory.mkpath(dir);
+	}
+
+	QFile file(ui->browseLine->text());
+
+	if(file.exists())
+	{
+		QString dir2 = dir;
+
+		file.copy(dir2.append(file.fileName()));
+	}
+
+
 	QSettings settings(QSettings::IniFormat, QSettings::UserScope, "OHM Applet", "Settings");
 
 	settings.beginGroup("General");
 	settings.setValue("TotalPages", ui->tabWidget->count());
 	settings.setValue("Font", ui->fontComboBox->currentFont().toString());
 	settings.setValue("FontSize", ui->fontSpinBox->value());
-	settings.setValue("Background", ui->browseLine->text());
+	settings.setValue("Background", file.fileName());
 	settings.endGroup();
 
 	for(int i= 0; i< ui->tabWidget->count(); i++)
@@ -142,10 +176,20 @@ void MainWindow::saveSettings()
 		TabWidget* tab =static_cast<TabWidget*>(widget);
 
 		QString pageText = "Page";
+
+		QFile tabFile(tab->getbackground());
+
+		if(tabFile.exists())
+		{
+			QString dir2 = dir;
+
+			tabFile.copy(dir2.append(tabFile.fileName()));
+		}
+
 		pageText.append(QString::number(i+1));
 
 		settings.beginGroup(pageText);
-		settings.setValue("Background", tab->getbackground());
+		settings.setValue("Background", tabFile.fileName());
 		settings.setValue("TotalLines", tab->getLines().size());
 
 		for(int j=0; j < tab->getLines().size(); j++)

@@ -5,6 +5,10 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QFileDialog>
+#include <qdir.h>
+#include <qimage.h>
+#include <qfile.h>
+#include <QMessageBox>
 #include <QDesktopServices>
 #include "tabwidget.h"
 #include "WMI.h"
