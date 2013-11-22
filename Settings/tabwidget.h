@@ -29,6 +29,7 @@ public:
 public slots:
     void addLine();
     void removeLine(LineWidget* line);
+	void browseBackground();
 
 
 private:

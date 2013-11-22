@@ -10,6 +10,7 @@ TabWidget::TabWidget(WMI* wmi, MainWindow *mainWindow, QWidget *parent) :
 
 	connect(ui->removePageButton, SIGNAL(clicked()), mainWindow, SLOT(removePage()));
 	connect(ui->addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
+	connect(ui->browseButton, SIGNAL(clicked()), this, SLOT(browseBackground()));
 
 	ui->browseLine->setDisabled(true);
 }
@@ -67,4 +68,34 @@ QVector<QString> TabWidget::getLines()
 	}
 
 	return list;
+}
+
+void TabWidget::browseBackground()
+{
+	QFileDialog dialog;
+	QStringList	selectedFiles;
+
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter("Images (*.png *.jpg)");
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+
+	if (dialog.exec())
+	{
+		selectedFiles = dialog.selectedFiles();
+
+		QImage image(selectedFiles.at(0));
+
+		if(image.height() != 320 && image.width() != 240)
+		{
+			QMessageBox messageBox;
+			messageBox.setText("File is not an image or the dimension is not 320x240");
+			messageBox.exec();
+		}
+
+		else
+		{
+			 ui->browseLine->setText(selectedFiles.at(0));
+		}
+	}	
+
 }

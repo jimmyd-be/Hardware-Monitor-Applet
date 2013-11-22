@@ -67,6 +67,7 @@ void MainWindow::browseBackground()
 
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter("Images (*.png *.jpg)");
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
 
 	if (dialog.exec())
 	{
@@ -83,9 +84,10 @@ void MainWindow::browseBackground()
 
 		else
 		{
-			ui->browseLine->setText(selectedFiles.at(0));
+			 ui->browseLine->setText(selectedFiles.at(0));
 		}
 	}	
+
 }
 
 void MainWindow::reportIssue()
