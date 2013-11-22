@@ -57,3 +57,8 @@ QString LineWidget::getText()
 {
 	return ui->lineEdit->text();
 }
+
+void LineWidget::setText(QString text)
+{
+	ui->lineEdit->setText(text);
+}

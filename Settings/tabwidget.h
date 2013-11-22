@@ -24,7 +24,9 @@ public:
 	void disableBrowse(bool);
 
 	QString getbackground();
+	void setBackground(QString);
 	QVector<QString> getLines();
+	void setLines(QVector<QString>);
 
 public slots:
     void addLine();

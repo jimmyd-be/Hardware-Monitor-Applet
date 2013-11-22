@@ -99,3 +99,16 @@ void TabWidget::browseBackground()
 	}	
 
 }
+
+void TabWidget::setBackground(QString background)
+{
+	ui->browseLine->setText(background);
+}
+
+void TabWidget::setLines(QVector<QString> lines)
+{
+	for(int i = 0; i < lines.size(); i++)
+	{
+		lineWidgets[i]->setText(lines.at(i));
+	}
+}

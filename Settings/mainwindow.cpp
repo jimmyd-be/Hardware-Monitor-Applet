@@ -23,6 +23,8 @@ MainWindow::MainWindow(WMI* wmi, QWidget *parent) :
 	ui->browseLine->setDisabled(true);
 
 	addNewPage();
+
+	loadSettings();
 }
 
 MainWindow::~MainWindow()
@@ -137,7 +139,60 @@ void MainWindow::close()
 
 void MainWindow::loadSettings()
 {
+	QSettings settings(QSettings::IniFormat, QSettings::UserScope, "OHM Applet", "Settings");
 
+	//Read General settigns
+	settings.beginGroup("General");
+	int totalPages = settings.value("TotalPages").toInt();
+	
+	ui->fontComboBox->setCurrentFont(QFont(settings.value("Font").toString()));
+	ui->fontSpinBox->setValue(settings.value("FontSize").toInt());
+	ui->browseLine->setText(settings.value("Background").toString());
+	
+	settings.endGroup();
+
+	for(int i = 0; i < ui->tabWidget->count(); i++)
+	{
+		ui->tabWidget->removeTab(i);
+	}
+
+	for(int i= 0; i< totalPages; i++)
+	{
+		QString pageText = "Page";
+		pageText.append(QString::number(i+1));
+
+		settings.beginGroup(pageText);
+
+		int totalLines = settings.value("TotalLines").toInt();
+
+		if(ui->tabWidget->count() <= i)
+		{
+			addNewPage();
+		}
+
+		QWidget* widget = ui->tabWidget->widget(i);
+		TabWidget* tab =static_cast<TabWidget*>(widget);
+
+		tab->setBackground(settings.value("Background").toString());
+
+		QVector<QString> lines;
+
+		for(int j=0; j < totalLines; j++)
+		{
+			if(tab->getLines().size() <= j)
+			{
+				tab->addLine();
+			}
+			QString lineText = "Line";
+			lineText.append(QString::number(j+1));
+			
+			lines.push_back(settings.value(lineText).toString());
+		}
+
+		tab->setLines(lines);
+
+		settings.endGroup();
+	}
 }
 
 void MainWindow::saveSettings()

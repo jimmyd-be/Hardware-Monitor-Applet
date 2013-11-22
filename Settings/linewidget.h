@@ -22,6 +22,7 @@ public:
     void setId(int id);
     int getId();
 	QString getText();
+	void setText(QString);
 
 private slots:
     void removeLine();
