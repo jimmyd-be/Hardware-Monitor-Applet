@@ -39,9 +39,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WMI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,7 +108,7 @@
     <ClCompile Include="LogitechAPI\LCDUI\LCDText.cpp">
       <Filter>Shared\LCDUI\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Error.cpp">
+    <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,9 +123,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WMI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
@@ -209,7 +203,7 @@
     <ClInclude Include="LogitechAPI\lglcd.h">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="Error.h">
+    <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

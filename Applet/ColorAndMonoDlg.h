@@ -1,10 +1,8 @@
 #pragma once
 
 #include <EZ_LCD.h>
-#include "WMI.h"
 #include "Bitmap.h"
-#include "Error.h"
-
+#include "Settings.h"
 // CColorAndMonoDlg dialog
 class CColorAndMonoDlg : public CDialog
 {
@@ -30,12 +28,7 @@ protected:
 
 	int currentPage;
 
-	WMI * wmi;
 	int time;
-	
-	int scrollCPUScreen;
-	int scrollGPUScreen;
-	int scrollHDDScreen;
 
 	// Bitmaps
 	cBitmap m_background;

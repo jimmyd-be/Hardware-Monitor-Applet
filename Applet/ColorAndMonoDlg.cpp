@@ -26,23 +26,14 @@ INT g_iconsOriginHeight = 196;
 CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CColorAndMonoDlg::IDD, pParent)
 {
-	try
-	{
 		m_hIcon = AfxGetApp()->LoadIcon(IDR_LOGO);
-
-		scrollCPUScreen = 0;
-		scrollGPUScreen = 0;
-		scrollHDDScreen = 0;
 
 		currentPage = 0;
 
 		time = 500;
-		wmi = new WMI();
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Something goes wrong in constructor CColorAndMonoDlg" + (string) e.what());
-	}
+
+		Settings * tet = new Settings();
+		delete tet;
 }
 
 void CColorAndMonoDlg::DoDataExchange(CDataExchange* pDX)
@@ -66,8 +57,6 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	try
-	{
 		// Set the icon for this dialog.  The framework does this automatically
 		//  when the application's main window is not a dialog
 		SetIcon(m_hIcon, TRUE);			// Set big icon
@@ -98,12 +87,6 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 		}
 
 		SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
-
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Can't open connection to Logitecht LCD" + (string) e.what());
-	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -151,35 +134,26 @@ void CColorAndMonoDlg::OnDestroy()
 
 void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	try
-	{
 
-	UNREFERENCED_PARAMETER(nIDEvent);
-	time += 30;
+	//UNREFERENCED_PARAMETER(nIDEvent);
+	//time += 30;
 
-	CheckButtonPresses();
+	//CheckButtonPresses();
 
-	if (time > 1000)
-	{
-		if (m_lcd.IsDeviceAvailable(LG_MONOCHROME))
-		{
-			InitLCDObjectsMonochrome();
-		}
+	//if (time > 1000)
+	//{
+	//	if (m_lcd.IsDeviceAvailable(LG_MONOCHROME))
+	//	{
+	//		InitLCDObjectsMonochrome();
+	//	}
 
-		else if (m_lcd.IsDeviceAvailable(LG_COLOR))
-		{
-			InitLCDObjectsColor();
-		}
-		time = 0;
-	}
-	m_lcd.Update();
-
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Something goes wrong in OnTimer " + (string) e.what());
-	}
-
+	//	else if (m_lcd.IsDeviceAvailable(LG_COLOR))
+	//	{
+	//		InitLCDObjectsColor();
+	//	}
+	//	time = 0;
+	//}
+	//m_lcd.Update();
 }
 
 void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
@@ -197,172 +171,20 @@ void CColorAndMonoDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 
 VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 {
-	try
-	{
 		m_lcd.ModifyDisplay(LG_MONOCHROME);
 
-		text.clear();
-		int scroll = 0;
 
-		if (currentPage == 0)
-		{
-			text = wmi->getCPUText();
-			scroll = scrollCPUScreen;
-		}
-
-		else if (currentPage == 1)
-		{
-			text = wmi->getGPUText();
-			scroll = scrollGPUScreen;
-		}
-
-		else if (currentPage == 2)
-		{
-			text = wmi->getHDDText();
-			scroll = scrollHDDScreen;
-		}
-
-		else if (currentPage == 3)
-		{
-			text = wmi->getmemoryText();
-		}
-
-
-		if (screen.empty())
-		{
-			for (int i = scroll; i < 6; i++)
-			{
-				screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 155));
-			}
-		}
-
-		else
-		{
-			for (int i = scroll; i < (int)text.size(); i++)
-			{
-				if (!(i >= (scroll + 6)))
-				{
-					m_lcd.SetOrigin(screen[i - scroll], 0, ((i - scroll) * 7));
-
-					wstring ws;
-					ws.assign(text[i].begin(), text[i].end());
-
-					m_lcd.SetText(screen[i - scroll], ws.c_str());
-					ws.clear();
-				}
-				else
-				{
-					break;
-				}
-			}
-		}
-		if (text.size() < 6)
-		{
-			for (int i = (int) text.size(); i < 6; i++)
-			{
-				m_lcd.SetOrigin(screen[i], 0, (i * 7));
-				m_lcd.SetText(screen[i], _T(""));
-			}
-		}
-
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Something goes wrong in InitLCDObjectsMonochrome " + (string) e.what());
-	}
 
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
 {
-	try
-	{
 		m_lcd.ModifyDisplay(LG_COLOR);
 
-		text.clear();
-		int scroll = 0;
-
-		if (currentPage == 0)
-		{
-			m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_CPU, _T("PNG"));
-			HBITMAP bmpBkg_ = m_background.GetHBITMAP();
-			m_lcd.SetBackground(bmpBkg_);
-
-			text = wmi->getCPUText();
-			scroll = scrollCPUScreen;
-		}
-
-		else if (currentPage == 1)
-		{
-			m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_GPU, _T("PNG"));
-			HBITMAP bmpBkg_ = m_background.GetHBITMAP();
-			m_lcd.SetBackground(bmpBkg_);
-
-			text = wmi->getGPUText();
-			scroll = scrollGPUScreen;
-		}
-
-		else if (currentPage == 2)
-		{
-			m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_HDD, _T("PNG"));
-			HBITMAP bmpBkg_ = m_background.GetHBITMAP();
-			m_lcd.SetBackground(bmpBkg_);
-
-			text = wmi->getHDDText();
-			scroll = scrollHDDScreen;
-		}
-
-		else if (currentPage == 3)
-		{
-			m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_RAM, _T("PNG"));
-			HBITMAP bmpBkg_ = m_background.GetHBITMAP();
-			m_lcd.SetBackground(bmpBkg_);
-
-			text = wmi->getmemoryText();
-		}
-
-		if (screen.empty())
-		{
-			for (int i = scroll; i < 10; i++)
-			{
-				screen.push_back(m_lcd.AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_LEFT, 320));
-			}
-		}
-		else
-		{
-			for (int i = scroll; i < (int)text.size(); i++)
-			{
-				if (i < (scroll + 10))
-				{
-					m_lcd.SetOrigin(screen[i - scroll], 0, ((i - scroll) * 17));
-
-					wstring ws;
-					ws.assign(text[i].begin(), text[i].end());
-
-					m_lcd.SetText(screen[i - scroll], ws.c_str());
-					m_lcd.SetTextFontColor(screen[i - scroll], RGB(255, 255, 255));
-					ws.clear();
-				}
-				else break;
-			}
-		}
-
-		for (int i = (int) text.size(); i < 10; i++)
-		{
-			m_lcd.SetOrigin(screen[i], 0, (i * 17));
-			m_lcd.SetText(screen[i], _T(""));
-		}
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Something goes wrong in InitLCDObjectsColor " + (string) e.what());
-	}
 }
 
 VOID CColorAndMonoDlg::CheckButtonPresses()
 {
-	try
-	{
 		if (m_lcd.IsDeviceAvailable(LG_MONOCHROME) && CheckbuttonPressesMonochrome())
 		{
 			InitLCDObjectsMonochrome();
@@ -374,18 +196,12 @@ VOID CColorAndMonoDlg::CheckButtonPresses()
 			InitLCDObjectsColor();
 			time = 0;
 		}
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Button pressed Problem in CheckButtonPresses " + (string) e.what());
-	}
 }
 
 bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 {
 	bool buttonPressed = false;
-	try
-	{
+
 		m_lcd.ModifyDisplay(LG_MONOCHROME);
 
 		//Go to next page
@@ -416,48 +232,43 @@ bool CColorAndMonoDlg::CheckbuttonPressesMonochrome()
 		//Scroll down
 		else if (m_lcd.ButtonTriggered(LG_BUTTON_2))
 		{
-			if (currentPage == 0 && scrollCPUScreen != 0)
-			{
-				scrollCPUScreen--;
-			}
+			//if (currentPage == 0 && scrollCPUScreen != 0)
+			//{
+			//	scrollCPUScreen--;
+			//}
 
-			if (currentPage == 1 && scrollGPUScreen != 0)
-			{
-				scrollGPUScreen--;
-			}
+			//if (currentPage == 1 && scrollGPUScreen != 0)
+			//{
+			//	scrollGPUScreen--;
+			//}
 
-			if (currentPage == 2 && scrollHDDScreen != 0)
-			{
-				scrollHDDScreen--;
-			}
+			//if (currentPage == 2 && scrollHDDScreen != 0)
+			//{
+			//	scrollHDDScreen--;
+			//}
 			buttonPressed = true;
 		}
 
 		//Scroll up
 		else if (m_lcd.ButtonTriggered(LG_BUTTON_3))
 		{
-			if (currentPage == 0 && !(scrollCPUScreen + 6 >= (int)text.size()))
-			{
-				scrollCPUScreen++;
-			}
+			//if (currentPage == 0 && !(scrollCPUScreen + 6 >= (int)text.size()))
+			//{
+			//	scrollCPUScreen++;
+			//}
 
-			else if (currentPage == 1 && !(scrollGPUScreen + 6 >= (int) text.size()))
-			{
-				scrollGPUScreen++;
-			}
+			//else if (currentPage == 1 && !(scrollGPUScreen + 6 >= (int) text.size()))
+			//{
+			//	scrollGPUScreen++;
+			//}
 
-			else if (currentPage == 2 && !(scrollHDDScreen + 6 >= (int) text.size()))
-			{
-				scrollHDDScreen++;
-			}
+			//else if (currentPage == 2 && !(scrollHDDScreen + 6 >= (int) text.size()))
+			//{
+			//	scrollHDDScreen++;
+			//}
 			buttonPressed = true;
 		}
 
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Button pressed Problem in CheckbuttonPressesMonochrome " + (string) e.what());
-	}
 	return buttonPressed;
 }
 
@@ -467,8 +278,6 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 
 	bool buttonPressed = false;
 
-	try
-	{
 		if (m_lcd.ButtonReleased(LG_BUTTON_RIGHT))
 		{
 			currentPage++;
@@ -494,7 +303,7 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 
 		if (m_lcd.ButtonReleased(LG_BUTTON_DOWN))
 		{
-			if (currentPage == 0 && !((scrollCPUScreen + 10) >= (int) text.size()))
+			/*if (currentPage == 0 && !((scrollCPUScreen + 10) >= (int) text.size()))
 			{
 				scrollCPUScreen++;
 			}
@@ -507,13 +316,13 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 			if (currentPage == 2 && !((scrollHDDScreen + 10) >= (int) text.size()))
 			{
 				scrollHDDScreen++;
-			}
+			}*/
 			buttonPressed = true;
 		}
 
 		if (m_lcd.ButtonReleased(LG_BUTTON_UP))
 		{
-			if (currentPage == 0 && scrollCPUScreen != 0)
+			/*if (currentPage == 0 && scrollCPUScreen != 0)
 			{
 				scrollCPUScreen--;
 			}
@@ -526,13 +335,9 @@ bool CColorAndMonoDlg::CheckbuttonPressesColor()
 			if (currentPage == 2 && scrollHDDScreen != 0)
 			{
 				scrollHDDScreen--;
-			}
+			}*/
 			buttonPressed = true;
 		}
-	}
-	catch (exception e)
-	{
-		Error::writeMessage("Button pressed Problem in CheckbuttonPressesColor " + (string) e.what());
-	}
+
 	return buttonPressed;
 }
