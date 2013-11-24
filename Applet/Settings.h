@@ -15,8 +15,15 @@ public:
 	Settings(void);
 	virtual ~Settings(void);
 
-	string getValueString(string key, string region);
-	int getValueInt(string key, string region);
+	string getValueString(string region, string key);
+	int getValueInt(string region, string key);
+	
+	int totalPages();
+	int fontSize();
+	string font();
+	vector<string> backgrounds();
+	vector<string*> lines();
+	vector<int> totalLines();
 
 private:
 	string getSettingsPath();

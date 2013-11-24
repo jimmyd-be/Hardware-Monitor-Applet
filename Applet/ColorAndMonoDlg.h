@@ -23,8 +23,10 @@ protected:
 
     CEzLcd m_lcd;
 
+	Settings * settings_;
+
     // Monochrome
-    vector<HANDLE> screen;
+    //vector<HANDLE> screen;
 
 	int currentPage;
 
@@ -33,7 +35,7 @@ protected:
 	// Bitmaps
 	cBitmap m_background;
 
-	vector<string> text;
+	vector<HANDLE> pages_;
 
     VOID InitLCDObjectsMonochrome();
     VOID InitLCDObjectsColor();

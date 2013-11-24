@@ -24,16 +24,13 @@ INT g_2IconsXPositions[2] = { 106, 190 };
 INT g_iconsOriginHeight = 196;
 
 CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CColorAndMonoDlg::IDD, pParent)
+	: CDialog(CColorAndMonoDlg::IDD, pParent), settings_(new Settings())
 {
 		m_hIcon = AfxGetApp()->LoadIcon(IDR_LOGO);
 
 		currentPage = 0;
 
-		time = 500;
-
-		Settings * tet = new Settings();
-		delete tet;
+		time = 500;		
 }
 
 void CColorAndMonoDlg::DoDataExchange(CDataExchange* pDX)
@@ -129,7 +126,7 @@ HCURSOR CColorAndMonoDlg::OnQueryDragIcon()
 
 void CColorAndMonoDlg::OnDestroy()
 {
-
+	delete settings_;
 }
 
 void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
@@ -173,13 +170,26 @@ VOID CColorAndMonoDlg::InitLCDObjectsMonochrome()
 {
 		m_lcd.ModifyDisplay(LG_MONOCHROME);
 
+		m_lcd.AddNumberOfPages(settings_->totalPages());
 
+		vector<string*> linePages = settings_->lines();
 
+		for(int i=0; i < linePages.size(); i++)
+		{
+
+		}
 }
 
 VOID CColorAndMonoDlg::InitLCDObjectsColor()
 {
 		m_lcd.ModifyDisplay(LG_COLOR);
+
+		m_lcd.AddNumberOfPages(settings_->totalPages());
+
+
+	/*	m_background.LoadFromResource(NULL, AfxGetInstanceHandle(), IDR_CPU, _T("PNG"));
+			HBITMAP bmpBkg_ = m_background.GetHBITMAP();
+			m_lcd.SetBackground(bmpBkg_);*/
 
 }
 
