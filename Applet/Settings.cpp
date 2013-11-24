@@ -9,7 +9,6 @@ Settings::Settings(void)
 	readFile();
 }
 
-
 Settings::~Settings(void)
 {
 	for(unsigned int i =0; i < lines_.size(); i++)
@@ -71,21 +70,40 @@ void Settings::readFile()
 
 string Settings::getValueString(string key, string region)
 {
+	region.append("/");
 	region.append(key);
 	map<string,string>::iterator it = values_.find(region);
 
-	return it->second;
+	if(it != values_.end())
+	{
+		return it->second;
+	}
+
+	return "";
 }
 
 int Settings::getValueInt(string key, string region)
 {
+	int value = -1;
+
+	region.append("/");
 	region.append(key);
 	map<string,string>::iterator it = values_.find(region);
 
-	string temp = it->second;
-	istringstream buffer(temp);
-	int value;
-	buffer >> value;
+	if(it != values_.end())
+	{
+		string temp = it->second;
+
+		try
+		{
+			istringstream buffer(temp);
+			buffer >> value;
+		}
+		catch(exception e)
+		{
+
+		}
+	}
 
 	return value;
 }

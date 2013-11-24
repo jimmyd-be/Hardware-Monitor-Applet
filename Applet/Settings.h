@@ -9,7 +9,6 @@
 #include <map>
 using namespace std;
 
-
 class Settings
 {
 public:

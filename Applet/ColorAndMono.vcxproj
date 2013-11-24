@@ -452,6 +452,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WMI.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
@@ -485,6 +488,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Structures.h" />
+    <ClInclude Include="WMI.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OpenHardwareMonitorApplet.rc" />
