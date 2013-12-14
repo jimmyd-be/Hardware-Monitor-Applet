@@ -188,6 +188,7 @@ QueryCode WMI::convertCodeToLine(string code)
 			index++;
 		}
 	}
+	return query;
 }
 
 string WMI::queryCode(QueryCode code)

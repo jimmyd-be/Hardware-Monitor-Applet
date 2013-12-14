@@ -14,112 +14,115 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="EZLCDWrapperFiles">
-      <UniqueIdentifier>{0517a091-8b5f-4f6f-b499-c9307b2e46e6}</UniqueIdentifier>
+      <UniqueIdentifier>{895e824f-78ab-4d72-916d-54d7352c153e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared">
-      <UniqueIdentifier>{bb49845c-9f6c-42d4-b93e-c292f00b91f9}</UniqueIdentifier>
+      <UniqueIdentifier>{0385300f-3efa-4a1f-a329-f317b0ba3c14}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared\LCDUI">
-      <UniqueIdentifier>{f5abb318-8bdd-45a2-9783-66fa28755c97}</UniqueIdentifier>
+      <UniqueIdentifier>{d2c623d8-337f-4080-9bf4-c3fa4bd85e10}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared\LCDUI\Include">
-      <UniqueIdentifier>{ffcb73c3-aa2a-4765-95f8-51401b68402b}</UniqueIdentifier>
+      <UniqueIdentifier>{48a88d98-f26f-4710-89cf-527393fab40f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared\LCDUI\Src">
-      <UniqueIdentifier>{0ea5a3b7-86b5-4368-acb1-fed17cef7c5b}</UniqueIdentifier>
+      <UniqueIdentifier>{8934e981-7ff4-47f3-8499-75f37b66e808}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ColorAndMono.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColorAndMonoDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExtraTester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bitmap.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Src\LCDUI\LCDAnimatedBitmap.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
     </ClCompile>
-    <ClCompile Include="LogitechAPI\EZ_LCD.cpp">
+    <ClCompile Include="Src\LCDUI\LCDBase.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDBitmap.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDCollection.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDColorProgressBar.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDColorText.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDConnection.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDGfxBase.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDGfxColor.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDGfxMono.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDIcon.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDOutput.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDPage.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDPaginateText.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDPopup.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDProgressBar.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDScrollingText.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDSkinnedProgressBar.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDStreamingText.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LCDUI\LCDText.cpp">
+      <Filter>Shared\LCDUI\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\EZ_LCD.cpp">
       <Filter>EZLCDWrapperFiles</Filter>
     </ClCompile>
-    <ClCompile Include="LogitechAPI\EZ_LCD_Page.cpp">
+    <ClCompile Include="Src\EZ_LCD_Page.cpp">
       <Filter>EZLCDWrapperFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDOutput.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDAnimatedBitmap.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDBase.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDBitmap.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDCollection.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDColorProgressBar.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDColorText.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDConnection.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDGfxBase.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDGfxColor.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDGfxMono.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDIcon.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDPage.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDPaginateText.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDPopup.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDProgressBar.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDScrollingText.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDSkinnedProgressBar.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDStreamingText.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="LogitechAPI\LCDUI\LCDText.cpp">
-      <Filter>Shared\LCDUI\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WMI.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bitmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ColorAndMono.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ColorAndMonoDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraTester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -128,117 +131,140 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bitmap.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Src\LCDUI\LCDAnimatedBitmap.h">
+      <Filter>Shared\LCDUI\Include</Filter>
     </ClInclude>
-    <ClInclude Include="LogitechAPI\EZ_LCD.h">
+    <ClInclude Include="Src\LCDUI\LCDBase.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDBitmap.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDCollection.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDColorProgressBar.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDColorText.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDConnection.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDGfxBase.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDGfxColor.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDGfxMono.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDIcon.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDOutput.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDPage.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDPaginateText.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDPopup.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDProgressBar.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDScrollingText.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDSkinnedProgressBar.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDStreamingText.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDText.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LCDUI\LCDUI.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\lglcd.h">
+      <Filter>Shared\LCDUI\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\EZ_LCD.h">
       <Filter>EZLCDWrapperFiles</Filter>
     </ClInclude>
-    <ClInclude Include="LogitechAPI\EZ_LCD_Defines.h">
+    <ClInclude Include="Src\EZ_LCD_Defines.h">
       <Filter>EZLCDWrapperFiles</Filter>
     </ClInclude>
-    <ClInclude Include="LogitechAPI\EZ_LCD_Page.h">
+    <ClInclude Include="Src\EZ_LCD_Page.h">
       <Filter>EZLCDWrapperFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDOutput.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDUI.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDAnimatedBitmap.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDBase.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDBitmap.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDCollection.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDColorProgressBar.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDColorText.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDConnection.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDGfxBase.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDGfxColor.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDGfxMono.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDIcon.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDPage.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDPaginateText.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDPopup.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDProgressBar.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDScrollingText.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDSkinnedProgressBar.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDStreamingText.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\LCDUI\LCDText.h">
-      <Filter>Shared\LCDUI\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="LogitechAPI\lglcd.h">
-      <Filter>Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WMI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Structures.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\logo.ico">
+    <Image Include="res\ColorAndMono.ico">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\G15.ttf">
+    </Image>
+    <Image Include="res\highlight.png">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\cpu.png">
+    </Image>
+    <Image Include="res\icon_next_24.png">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\gpu.png">
+    </Image>
+    <Image Include="res\icon_previous_24.png">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\hdd.png">
+    </Image>
+    <Image Include="res\logitech_logo.bmp">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\ram.png">
+    </Image>
+    <Image Include="res\logitech_logo_light.png">
       <Filter>Resource Files</Filter>
-    </None>
+    </Image>
+    <Image Include="res\Logitech_logo_small - Copy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Logitech_logo_small.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\next.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_base.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_base2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_hilite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_hilite2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_mid.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\volume_slider_right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="OpenHardwareMonitorApplet.rc">
+    <ResourceCompile Include="ColorAndMono.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\ColorAndMono.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

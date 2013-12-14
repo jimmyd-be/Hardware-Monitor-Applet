@@ -14,7 +14,7 @@
 
 #include "EZ_LCD_Defines.h"
 #include "EZ_LCD_Page.h"
-#include "LCDUI/LCDConnection.h"
+#include "LCDConnection.h"
 
 
 enum AppletSupportType { LG_MONOCHROME_MODE_ONLY, LG_COLOR_MODE_ONLY, LG_DUAL_MODE, LG_NONE };
@@ -30,7 +30,7 @@ public:
 
     HRESULT Initialize(LPCTSTR friendlyName, 
         AppletSupportType supportType,
-        BOOL isAutoStartable = TRUE,
+        BOOL isAutoStartable = FALSE,
         BOOL isPersistent = FALSE,
         lgLcdConfigureContext * configContext = NULL,
         lgLcdSoftbuttonsChangedContext * softbuttonChangedContext = NULL);

@@ -44,7 +44,7 @@ public:
     void ShowPage(CLCDPage *pPage, BOOL bShow = TRUE);
     CLCDPage* GetShowingPage(void);
 
-   // BOOL Open(lgLcdOpenContext &OpenContext);
+    BOOL Open(lgLcdOpenContext &OpenContext);
     BOOL OpenByType(lgLcdOpenByTypeContext &OpenContext);
     void Close(void);
     void Shutdown(void);
