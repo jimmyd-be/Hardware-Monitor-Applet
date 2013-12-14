@@ -20,7 +20,6 @@ Thumbs.db
 *.sdf
 [Bb]in
 [Dd]ebug*/
-*.lib
 *.sbr
 obj/
 ipch/
