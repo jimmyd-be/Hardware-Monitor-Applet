@@ -39,9 +39,6 @@
     <ClCompile Include="ColorAndMonoDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExtraTester.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,6 +108,12 @@
     <ClCompile Include="Src\EZ_LCD_Page.cpp">
       <Filter>EZLCDWrapperFiles</Filter>
     </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WMI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h">
@@ -120,9 +123,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ColorAndMonoDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtraTester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -206,65 +206,24 @@
     <ClInclude Include="Src\EZ_LCD_Page.h">
       <Filter>EZLCDWrapperFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WMI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\ColorAndMono.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\highlight.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\icon_next_24.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\icon_previous_24.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\logitech_logo.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\logitech_logo_light.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Logitech_logo_small - Copy.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Logitech_logo_small.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\next.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_base.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_base2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_hilite.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_hilite2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_left.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_mid.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\volume_slider_right.png">
+    <Image Include="res\logo.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ColorAndMono.rc">
+    <ResourceCompile Include="Resources.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\ColorAndMono.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -214,7 +214,12 @@
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="ColorAndMono.cpp" />
     <ClCompile Include="ColorAndMonoDlg.cpp" />
-    <ClCompile Include="ExtraTester.cpp" />
+    <ClCompile Include="Settings.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Src\EZ_LCD.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -353,13 +358,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WMI.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="ColorAndMono.h" />
     <ClInclude Include="ColorAndMonoDlg.h" />
-    <ClInclude Include="ExtraTester.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="Src\EZ_LCD.h" />
     <ClInclude Include="Src\EZ_LCD_Defines.h" />
     <ClInclude Include="Src\EZ_LCD_Page.h" />
@@ -386,30 +397,14 @@
     <ClInclude Include="Src\LCDUI\LCDUI.h" />
     <ClInclude Include="Src\lglcd.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Structures.h" />
+    <ClInclude Include="WMI.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\ColorAndMono.ico" />
-    <Image Include="res\highlight.png" />
-    <Image Include="res\icon_next_24.png" />
-    <Image Include="res\icon_previous_24.png" />
-    <Image Include="res\logitech_logo.bmp" />
-    <Image Include="res\logitech_logo_light.png" />
-    <Image Include="res\Logitech_logo_small - Copy.png" />
-    <Image Include="res\Logitech_logo_small.png" />
-    <Image Include="res\next.ico" />
-    <Image Include="res\volume_slider_base.png" />
-    <Image Include="res\volume_slider_base2.png" />
-    <Image Include="res\volume_slider_hilite.png" />
-    <Image Include="res\volume_slider_hilite2.png" />
-    <Image Include="res\volume_slider_left.png" />
-    <Image Include="res\volume_slider_mid.png" />
-    <Image Include="res\volume_slider_right.png" />
+    <Image Include="res\logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ColorAndMono.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\ColorAndMono.rc2" />
+    <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

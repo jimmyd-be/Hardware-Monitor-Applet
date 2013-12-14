@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -64,8 +62,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\ColorAndMono.ico"
-IDI_NEXT                ICON                    "res\\next.ico"
+Logo                    ICON                    "res\\logo.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -129,7 +126,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_COLORANDMONO_DIALOG, DIALOG
     BEGIN
@@ -141,32 +138,7 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
-IDR_HIGHLIGHT           PNG                     "res\\highlight.png"
-IDR_NEXT                PNG                     "res\\icon_next_24.png"
-IDR_PREVIOUS            PNG                     "res\\icon_previous_24.png"
-IDR_BACKGROUND          PNG                     "res\\logitech_logo_light.png"
-IDR_LOGO_SMALL          PNG                     "res\\Logitech_logo_small.png"
-IDR_SLIDER_BASE         PNG                     "res\\volume_slider_base.png"
-IDR_SLIDER_BASE_2       PNG                     "res\\volume_slider_base2.png"
-IDR_SLIDER_HIGHLIGHT    PNG                     "res\\volume_slider_hilite.png"
-IDR_SLIDER_HIGHLIGHT_2  PNG                     "res\\volume_slider_hilite2.png"
-IDR_SLIDER_LEFT         PNG                     "res\\volume_slider_left.png"
-IDR_SLIDER_MID          PNG                     "res\\volume_slider_mid.png"
-IDR_SLIDER_RIGHT        PNG                     "res\\volume_slider_right.png"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Bitmap
-//
-
-IDB_LOGO                BITMAP                  "res\\logitech_logo.bmp"
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
