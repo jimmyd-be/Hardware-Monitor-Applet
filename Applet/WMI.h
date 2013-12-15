@@ -69,7 +69,6 @@ private:
 	IWbemClassObject *pclsObj;
 	HRESULT hres;
 
-
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is

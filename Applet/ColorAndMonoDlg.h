@@ -13,6 +13,8 @@
 
 #include "EZ_LCD.h"
 #include "Bitmap.h"
+#include "WMI.h"
+#include "Settings.h"
 
 // CColorAndMonoDlg dialog
 class CColorAndMonoDlg : public CDialog
@@ -35,6 +37,8 @@ protected:
     CEzLcd m_lcd;
 
     INT m_currentHighlightPosition;
+
+	Settings* settings_;
 
     // LCD object handles
 

@@ -19,7 +19,6 @@ WMI::WMI()
 	pSvc = 0;
 	pclsObj = 0;
 
-
 	connectToWMI();
 
 	//	querySensors();
