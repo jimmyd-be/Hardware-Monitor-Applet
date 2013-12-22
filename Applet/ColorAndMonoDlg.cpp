@@ -24,16 +24,19 @@ INT g_2IconsXPositions[2] = { 106, 190 };
 INT g_iconsOriginHeight = 196;
 
 CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
-: CDialog(CColorAndMonoDlg::IDD, pParent), settings_(nullptr), textLines_(0), currentPage_(0)
+: CDialog(CColorAndMonoDlg::IDD, pParent), settings_(nullptr), textLines_(0), currentPage_(0), wmi_(nullptr)
 {
 	icon_ = AfxGetApp()->LoadIcon(LOGO);
 
 	settings_ = new Settings();
+	wmi_ = new WMI();
 
 	if (settings_->totalPages() > 0)
 	{
 		textLines_ = new vector<HANDLE>[settings_->totalPages()];
 	}
+
+	wmi_->convertLine(settings_->lines()[0][1]);
 }
 
 void CColorAndMonoDlg::DoDataExchange(CDataExchange* pDX)

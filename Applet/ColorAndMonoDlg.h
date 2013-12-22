@@ -15,6 +15,7 @@
 #include "Bitmap.h"
 #include "WMI.h"
 #include "Settings.h"
+#include "WMI.h"
 
 // CColorAndMonoDlg dialog
 class CColorAndMonoDlg : public CDialog
@@ -40,6 +41,7 @@ protected:
 	int time_;
 
 	Settings* settings_;
+	WMI* wmi_;
 
     // LCD object handles
 

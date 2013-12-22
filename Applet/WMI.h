@@ -18,6 +18,7 @@
 #include <comdef.h>
 #include <Wbemidl.h>
 #include "Structures.h"
+#include <exception>
 
 using namespace std;
 

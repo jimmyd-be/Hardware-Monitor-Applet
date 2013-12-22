@@ -1,7 +1,6 @@
 //-----------------------------------------------------------------
 // WMI Object
 // C++ Source - WMI.cpp - version v1.0 (2012-08-01)
-// 
 //-----------------------------------------------------------------
 
 //-----------------------------------------------------------------
@@ -196,7 +195,7 @@ string WMI::queryCode(QueryCode code)
 	query.append(code.name);
 	query.append(" from ");
 	query.append(code.type);
-	query.append("where InstanceId = ");
+	query.append(" where InstanceId = ");
 	query.append(code.id);
 
 	if (pSvc_ != 0)
@@ -234,10 +233,11 @@ string WMI::queryCode(QueryCode code)
 				wstring stemp = std::wstring(code.name.begin(), code.name.end());
 
 				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, 0, 0);
+
 				wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
 				returnValue = string(ws.begin(), ws.end());
-
 				ws.clear();
+				
 				VariantClear(&vtProp);
 				uReturn = 0;
 				pclsObj_->Release();
@@ -249,4 +249,24 @@ string WMI::queryCode(QueryCode code)
 	}
 
 	return returnValue;
+}
+
+string WMI::convertLine(string line)
+{
+	int position = line.find_first_of("{");
+	int position2 = line.find_first_of("}");
+
+	while (position != -1 || position2 != -1)
+	{
+		string code = line.substr(position, position2 - position + 1);
+		QueryCode queryCode1 = convertCodeToLine(code);
+		string result = queryCode(queryCode1);
+
+		line.replace(position, position2 - position + 1, result);
+		position = line.find_first_of("{");
+		position2 = line.find_first_of("}");
+	}
+
+
+	return line;
 }
