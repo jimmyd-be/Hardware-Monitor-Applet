@@ -14,21 +14,19 @@
 //-----------------------------------------------------------------
 WMI::WMI()
 {
-	pEnumerator = NULL;
-	pLoc = 0;
-	pSvc = 0;
-	pclsObj = 0;
+	pEnumerator_ = NULL;
+	pLoc_ = 0;
+	pSvc_ = 0;
+	pclsObj_ = 0;
 
 	connectToWMI();
 
-	//	querySensors();
-	//	queryHardware();
 }
 
 WMI::~WMI(void)
 {
-	pSvc->Release();
-	pLoc->Release();
+	pSvc_->Release();
+	pLoc_->Release();
 	CoUninitialize();
 }
 
@@ -36,9 +34,9 @@ void WMI::connectToWMI()
 {
 	// Initialize COM. ------------------------------------------
 
-	hres = CoInitializeEx(0, COINIT_MULTITHREADED);
+	hres_ = CoInitializeEx(0, COINIT_MULTITHREADED);
 
-	if (!FAILED(hres))
+	if (!FAILED(hres_))
 	{
 
 		// Set general COM security levels --------------------------
@@ -47,7 +45,7 @@ void WMI::connectToWMI()
 		// a SOLE_AUTHENTICATION_LIST structure in the pAuthList ----
 		// parameter of CoInitializeSecurity ------------------------
 
-		hres = CoInitializeSecurity(
+		hres_ = CoInitializeSecurity(
 			NULL,
 			-1,                          // COM authentication
 			NULL,                        // Authentication services
@@ -60,18 +58,18 @@ void WMI::connectToWMI()
 			);
 
 
-		if (!FAILED(hres))
+		if (!FAILED(hres_))
 		{
 
 			// Obtain the initial locator to WMI -------------------------
 
-			hres = CoCreateInstance(
+			hres_ = CoCreateInstance(
 				CLSID_WbemLocator,
 				0,
 				CLSCTX_INPROC_SERVER,
-				IID_IWbemLocator, (LPVOID *) &pLoc);
+				IID_IWbemLocator, (LPVOID *) &pLoc_);
 
-			if (!FAILED(hres))
+			if (!FAILED(hres_))
 			{
 
 				// Connect to WMI through the IWbemLocator::ConnectServer method
@@ -80,7 +78,7 @@ void WMI::connectToWMI()
 				// Connect to the root\cimv2 namespace with
 				// the current user and obtain pointer pSvc
 				// to make IWbemServices calls.
-				hres = pLoc->ConnectServer(
+				hres_ = pLoc_->ConnectServer(
 					_bstr_t(L"ROOT\\OpenHardwareMonitor"), // Object path of WMI namespace
 					NULL,                    // User name. NULL = current user
 					NULL,                    // User password. NULL = current
@@ -88,16 +86,16 @@ void WMI::connectToWMI()
 					NULL,                    // Security flags.
 					0,                       // Authority (e.g. Kerberos)
 					0,                       // Context object 
-					&pSvc                    // pointer to IWbemServices proxy
+					&pSvc_                    // pointer to IWbemServices proxy
 					);
 
-				if (!FAILED(hres))
+				if (!FAILED(hres_))
 				{
 
 					// Set security levels on the proxy -------------------------
 
-					hres = CoSetProxyBlanket(
-						pSvc,                        // Indicates the proxy to set
+					hres_ = CoSetProxyBlanket(
+						pSvc_,                        // Indicates the proxy to set
 						RPC_C_AUTHN_WINNT,           // RPC_C_AUTHN_xxx
 						RPC_C_AUTHZ_NONE,            // RPC_C_AUTHZ_xxx
 						NULL,                        // Server principal name 
@@ -201,30 +199,30 @@ string WMI::queryCode(QueryCode code)
 	query.append("where InstanceId = ");
 	query.append(code.id);
 
-	if (pSvc != 0)
+	if (pSvc_ != 0)
 	{
 		// Use the IWbemServices pointer to make requests of WMI ----
 
 		// For example, get the name of the operating system
 
-		hres = pSvc->ExecQuery(
+		hres_ = pSvc_->ExecQuery(
 			bstr_t("WQL"),
 			bstr_t(query.c_str()),
 			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
 			NULL,
-			&pEnumerator);
+			&pEnumerator_);
 
-		if (!FAILED(hres))
+		if (!FAILED(hres_))
 		{
 
 			// Get the data from the query
 
 			ULONG uReturn = 0;
 
-			while (pEnumerator)
+			while (pEnumerator_)
 			{
-				HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
-					&pclsObj, &uReturn);
+				HRESULT hr = pEnumerator_->Next(WBEM_INFINITE, 1,
+					&pclsObj_, &uReturn);
 
 				if (0 == uReturn)
 				{
@@ -235,17 +233,17 @@ string WMI::queryCode(QueryCode code)
 
 				wstring stemp = std::wstring(code.name.begin(), code.name.end());
 
-				hr = pclsObj->Get(stemp.c_str(), 0, &vtProp, 0, 0);
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, 0, 0);
 				wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
 				returnValue = string(ws.begin(), ws.end());
 
 				ws.clear();
 				VariantClear(&vtProp);
 				uReturn = 0;
-				pclsObj->Release();
+				pclsObj_->Release();
 
 			}
-			pEnumerator->Release();
+			pEnumerator_->Release();
 
 		}
 	}

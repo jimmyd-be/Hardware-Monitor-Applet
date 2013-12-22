@@ -32,48 +32,39 @@ protected:
 
     // Implementation
 protected:
-    HICON m_hIcon;
+    HICON icon_;
 
-    CEzLcd m_lcd;
+    CEzLcd lcd_;
 
-    INT m_currentHighlightPosition;
+    int currentPage_;
+	int time_;
 
 	Settings* settings_;
 
     // LCD object handles
 
-    // Monochrome
-    HANDLE m_smallText1;
-    HANDLE m_smallText2;
-    HANDLE m_mediumText;
-    HANDLE m_bigText;
-    HANDLE m_progressbar1;
-    HANDLE m_progressbar2;
-    HANDLE m_progressbar3;
-    HANDLE m_logo;
-    HANDLE m_right1;
-    HANDLE m_right2;
+	vector<HANDLE> * textLines_;
 
     // Color
-    HANDLE m_tinyTextColor1;
-    HANDLE m_tinyTextColor2;
-    HANDLE m_smallTextColor;
-    HANDLE m_mediumTextColor;
-    HANDLE m_bigTextColor;
-    HANDLE m_leftColor1;
-    HANDLE m_leftColor2;
-    HANDLE m_rightColor1;
-    HANDLE m_rightColor2;
-    HANDLE m_highlightColor1;
-    HANDLE m_highlightColor2;
-    HANDLE m_progressbar1Color;
-    HANDLE m_progressbar2Color;
-    HANDLE m_progressbar3Color;
-    HANDLE m_progressbar4Color;
-    HANDLE m_logoColor;
+    //HANDLE m_tinyTextColor1;
+    //HANDLE m_tinyTextColor2;
+    //HANDLE m_smallTextColor;
+    //HANDLE m_mediumTextColor;
+    //HANDLE m_bigTextColor;
+    //HANDLE m_leftColor1;
+    //HANDLE m_leftColor2;
+    //HANDLE m_rightColor1;
+    //HANDLE m_rightColor2;
+    //HANDLE m_highlightColor1;
+    //HANDLE m_highlightColor2;
+    //HANDLE m_progressbar1Color;
+    //HANDLE m_progressbar2Color;
+    //HANDLE m_progressbar3Color;
+    //HANDLE m_progressbar4Color;
+    //HANDLE m_logoColor;
 
     // Bitmaps
-    cBitmap m_background;
+ /*   cBitmap m_background;
     cBitmap m_next;
     cBitmap m_previous;
     cBitmap m_highlight;
@@ -87,19 +78,19 @@ protected:
     cBitmap m_sliderHighlight2;
     cBitmap m_next2;
     cBitmap m_previous2;
-    cBitmap m_highlight2;
+    cBitmap m_highlight2;*/
 
 
-    VOID InitLCDObjectsMonochrome();
-    VOID InitLCDObjectsColor();
+    VOID initLCDObjectsMonochrome();
+    VOID initLCDObjectsColor();
 
-    VOID CheckButtonPresses();
-    VOID CheckbuttonPressesMonochrome();
-    VOID CheckbuttonPressesColor();
+    VOID checkButtonPresses();
+    VOID checkbuttonPressesMonochrome();
+    VOID checkbuttonPressesColor();
 
-    VOID UpdateProgressBars();
-    VOID UpdateProgressBarsMonochrome();
-    VOID UpdateProgressBarsColor();
+    VOID updatePage();
+    VOID updatePageMonochrome();
+    VOID updatePageColor();
 
     // Generated message map functions
     virtual BOOL OnInitDialog();

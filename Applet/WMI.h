@@ -50,24 +50,24 @@ public:
 	vector<Sensor> getSensors();
 	vector<Hardware> getHardware();
 
-	QueryCode convertCodeToLine(string);
-	string queryCode(QueryCode);
+	string convertLine(string);
 
 private:
 	//---------------------------
 	// Private Methods
 	//---------------------------
 	void connectToWMI();
-
+	QueryCode convertCodeToLine(string);
+	string queryCode(QueryCode);
 
 	//--------------------------
 	// Datamembers
 	//--------------------------
-	IWbemLocator *pLoc;
-	IWbemServices *pSvc;
-	IEnumWbemClassObject* pEnumerator;
-	IWbemClassObject *pclsObj;
-	HRESULT hres;
+	IWbemLocator *pLoc_;
+	IWbemServices *pSvc_;
+	IEnumWbemClassObject* pEnumerator_;
+	IWbemClassObject *pclsObj_;
+	HRESULT hres_;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
