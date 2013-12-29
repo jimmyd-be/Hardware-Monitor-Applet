@@ -1,27 +1,35 @@
-//************************************************************************
-//  The Logitech LCD SDK, including all acompanying documentation,
-//  is protected by intellectual property laws.  All use of the Logitech
-//  LCD SDK is subject to the License Agreement found in the
-//  "Logitech LCD SDK License Agreement" file and in the Reference Manual.  
-//  All rights not expressly granted by Logitech are reserved.
-//************************************************************************
-
-// ColorAndMonoDlg.h : header file
-//
+//-----------------------------------------------------------------
+// CColorAndMonoDlg Object
+// C++ Header - CColorAndMonoDlg.h - version v3.0 (2013-12-29)
+//-----------------------------------------------------------------
 
 #pragma once
+
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
 
 #include "EZ_LCD.h"
 #include "Bitmap.h"
 #include "WMI.h"
 #include "Settings.h"
 #include "WMI.h"
+#include <vector>
 
-// CColorAndMonoDlg dialog
+//-----------------------------------------------------------------
+// Defines
+//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+// CColorAndMonoDlg Class
+//-----------------------------------------------------------------
 class CColorAndMonoDlg : public CDialog
 {
-    // Construction
+  
 public:
+	//---------------------------
+	// Constructor(s)
+	//---------------------------
     CColorAndMonoDlg(CWnd* pParent = NULL);	// standard constructor
 
     // Dialog Data
@@ -96,10 +104,17 @@ protected:
 
     // Generated message map functions
     virtual BOOL OnInitDialog();
-    afx_msg void OnPaint();
-    afx_msg HCURSOR OnQueryDragIcon();
     afx_msg void OnDestroy( );
     afx_msg void OnTimer(UINT_PTR nIDEvent);
     afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
     DECLARE_MESSAGE_MAP()
+
+private:
+	// -------------------------
+	// Disabling default copy constructor and default assignment operator.
+	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
+	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
+	// -------------------------
+	CColorAndMonoDlg(const CColorAndMonoDlg& t);
+	CColorAndMonoDlg& operator=(const CColorAndMonoDlg& t);
 };

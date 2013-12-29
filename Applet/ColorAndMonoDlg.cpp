@@ -1,18 +1,15 @@
-//************************************************************************
-//  The Logitech LCD SDK, including all acompanying documentation,
-//  is protected by intellectual property laws.  All use of the Logitech
-//  LCD SDK is subject to the License Agreement found in the
-//  "Logitech LCD SDK License Agreement" file and in the Reference Manual.  
-//  All rights not expressly granted by Logitech are reserved.
-//************************************************************************
+//-----------------------------------------------------------------
+// CColorAndMonoDlg Object
+// C++ Source - CColorAndMonoDlg.cpp - version v3.0 (2013-12-29)
+//-----------------------------------------------------------------
 
-// ColorAndMonoDlg.cpp : implementation file
-//
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
 
 #include "stdafx.h"
 #include "ColorAndMono.h"
 #include "ColorAndMonoDlg.h"
-#include <vector>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -23,8 +20,12 @@
 INT g_2IconsXPositions[2] = { 106, 190 };
 INT g_iconsOriginHeight = 196;
 
+//-----------------------------------------------------------------
+// CColorAndMonoDlg methods
+//-----------------------------------------------------------------
+
 CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
-: CDialog(CColorAndMonoDlg::IDD, pParent), settings_(nullptr), textLines_(0), currentPage_(0), wmi_(nullptr)
+: CDialog(CColorAndMonoDlg::IDD, pParent), settings_(nullptr), textLines_(0), currentPage_(0), wmi_(nullptr), time_(0)
 {
 	icon_ = AfxGetApp()->LoadIcon(LOGO);
 
@@ -35,8 +36,6 @@ CColorAndMonoDlg::CColorAndMonoDlg(CWnd* pParent /*=NULL*/)
 	{
 		textLines_ = new vector<HANDLE>[settings_->totalPages()];
 	}
-
-	wmi_->convertLine(settings_->lines()[0][1]);
 }
 
 void CColorAndMonoDlg::DoDataExchange(CDataExchange* pDX)
@@ -45,16 +44,11 @@ void CColorAndMonoDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CColorAndMonoDlg, CDialog)
-	ON_WM_PAINT()
-	ON_WM_QUERYDRAGICON()
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
 	ON_WM_WINDOWPOSCHANGING()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-
-// CColorAndMonoDlg message handlers
 
 BOOL CColorAndMonoDlg::OnInitDialog()
 {
@@ -68,7 +62,7 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	ShowWindow(SW_HIDE);
 	SetWindowPos(NULL, 0, 0, 0, 0, NULL);
 
-	HRESULT hRes = lcd_.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, FALSE, TRUE);
+	HRESULT hRes = lcd_.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, TRUE, TRUE);
 
 	if (hRes != S_OK)
 	{
@@ -83,42 +77,6 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
-}
-
-// If you add a minimize button to your dialog, you will need the code below
-//  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework.
-
-void CColorAndMonoDlg::OnPaint()
-{
-	if (IsIconic())
-	{
-		CPaintDC dc(this); // device context for painting
-
-		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
-
-		// Center icon in client rectangle
-		int cxIcon = GetSystemMetrics(SM_CXICON);
-		int cyIcon = GetSystemMetrics(SM_CYICON);
-		CRect rect;
-		GetClientRect(&rect);
-		int x = (rect.Width() - cxIcon + 1) / 2;
-		int y = (rect.Height() - cyIcon + 1) / 2;
-
-		// Draw the icon
-		dc.DrawIcon(x, y, icon_);
-	}
-	else
-	{
-		CDialog::OnPaint();
-	}
-}
-
-// The system calls this function to obtain the cursor to display while the user drags
-//  the minimized window.
-HCURSOR CColorAndMonoDlg::OnQueryDragIcon()
-{
-	return static_cast<HCURSOR>(icon_);
 }
 
 void CColorAndMonoDlg::OnDestroy()
@@ -144,9 +102,10 @@ void CColorAndMonoDlg::OnTimer(UINT_PTR nIDEvent)
 
 	checkButtonPresses();
 
-	if (time_ >= 500)
+	if (time_ >= 1000)
 	{
 		updatePage();
+		time_ = 0;
 	}
 
 	lcd_.Update();
@@ -185,7 +144,7 @@ VOID CColorAndMonoDlg::initLCDObjectsMonochrome()
 		{
 			HANDLE temp = lcd_.AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 160);
 			lcd_.SetOrigin(temp, 0, -1 + (7 * line));
-			lcd_.SetText(temp, _T("Small text is static instead of scrolling"));
+			lcd_.SetText(temp, _T(""));
 
 			lines.push_back(temp);
 		}
@@ -392,46 +351,6 @@ VOID CColorAndMonoDlg::checkbuttonPressesColor()
 		 }
 		 lcd_.ShowPage(currentPage_);
 	 }
-
-	/* if (m_lcd.ButtonTriggered(LG_BUTTON_LEFT))
-	 {
-	 if (m_currentHighlightPosition >= 1)
-	 {
-	 --m_currentHighlightPosition;
-	 m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-	 m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-	 }
-	 }
-
-	 if (m_lcd.ButtonTriggered(LG_BUTTON_RIGHT))
-	 {
-	 if (m_currentHighlightPosition < 1)
-	 {
-	 ++m_currentHighlightPosition;
-	 m_lcd.SetOrigin(m_highlightColor1, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-	 m_lcd.SetOrigin(m_highlightColor2, g_2IconsXPositions[m_currentHighlightPosition] - 12, g_iconsOriginHeight - 4);
-	 }
-	 }
-
-	 if (m_lcd.ButtonTriggered(LG_BUTTON_OK))
-	 {
-	 if (0 == m_currentHighlightPosition)
-	 {
-	 if (0 == m_lcd.GetCurrentPageNumber())
-	 {
-	 m_lcd.ShowPage(m_lcd.GetPageCount() - 1);
-	 }
-	 else
-	 {
-	 m_lcd.ShowPage(m_lcd.GetCurrentPageNumber() - 1);
-	 }
-
-	 }
-	 else if (1 == m_currentHighlightPosition)
-	 {
-	 m_lcd.ShowPage((m_lcd.GetCurrentPageNumber() + 1) % m_lcd.GetPageCount());
-	 }
-	 }*/
 }
 
 VOID CColorAndMonoDlg::updatePage()
@@ -442,19 +361,23 @@ VOID CColorAndMonoDlg::updatePage()
 
 VOID CColorAndMonoDlg::updatePageMonochrome()
 {
-	/*  m_lcd.ModifyDisplay(LG_MONOCHROME);
+	lcd_.ModifyDisplay(LG_MONOCHROME);
 
-	  static INT currentValue_ = 0;
+	vector<string*> lines = settings_->lines();
 
-	  if (1 == m_lcd.GetCurrentPageNumber())
-	  {
-	  m_lcd.SetProgressBarPosition(m_progressbar1, static_cast<FLOAT>(currentValue_ % 100));
-	  m_lcd.SetProgressBarPosition(m_progressbar2, static_cast<FLOAT>(currentValue_ % 100));
-	  m_lcd.SetProgressBarPosition(m_progressbar3, static_cast<FLOAT>(currentValue_ % 100));
+	string * lineText = lines[currentPage_];
+	int totalLines = settings_->totalLines()[currentPage_];
 
-	  ++currentValue_;
-	  }*/
+	vector<HANDLE> handelers = textLines_[currentPage_];
 
+	for (int i = 0; i < totalLines; i++)
+	{
+		string temp = wmi_->convertLine(lineText[i]);
+		wstring ws;
+		ws.assign(temp.begin(), temp.end());
+		lcd_.SetText(handelers[i], ws.c_str());
+		ws.clear();
+	}
 }
 
 VOID CColorAndMonoDlg::updatePageColor()

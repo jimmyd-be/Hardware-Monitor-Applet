@@ -248,7 +248,11 @@ string WMI::queryCode(QueryCode code)
 					else if (pType == CIM_REAL32 && pType != CIM_EMPTY && pType != CIM_ILLEGAL)
 					{
 						float temp = vtProp.fltVal;
-						returnValue = to_string(temp);
+						
+						stringstream ss;
+						ss << setprecision(code.round) << fixed << temp;
+
+						returnValue = ss.str();
 					}
 
 				}
@@ -282,6 +286,7 @@ string WMI::convertLine(string line)
 		position2 = line.find_first_of("}");
 	}
 
-
+	line.erase(0, 1);
+	line.erase(line.size()-1, 1);
 	return line;
 }
