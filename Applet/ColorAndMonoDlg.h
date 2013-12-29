@@ -74,8 +74,8 @@ protected:
     //HANDLE m_logoColor;
 
     // Bitmaps
- /*   cBitmap m_background;
-    cBitmap m_next;
+    vector<cBitmap> backgrounds_;
+ /*   cBitmap m_next;
     cBitmap m_previous;
     cBitmap m_highlight;
     cBitmap m_logoSmall;
