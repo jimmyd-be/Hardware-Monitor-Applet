@@ -217,6 +217,7 @@ string WMI::queryCode(QueryCode code)
 			// Get the data from the query
 
 			ULONG uReturn = 0;
+			CIMTYPE pType;
 
 			while (pEnumerator_)
 			{
@@ -232,11 +233,25 @@ string WMI::queryCode(QueryCode code)
 
 				wstring stemp = std::wstring(code.name.begin(), code.name.end());
 
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, 0, 0);
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
-				wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-				returnValue = string(ws.begin(), ws.end());
-				ws.clear();
+				if (!FAILED(hr))
+				{
+					//check if the property is a string 
+					if (pType == CIM_STRING && pType != CIM_EMPTY && pType != CIM_ILLEGAL)
+					{
+						wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+						returnValue = string(ws.begin(), ws.end());
+						ws.clear();
+					}
+					//check if the property is a float
+					else if (pType == CIM_REAL32 && pType != CIM_EMPTY && pType != CIM_ILLEGAL)
+					{
+						float temp = vtProp.fltVal;
+						returnValue = to_string(temp);
+					}
+
+				}
 				
 				VariantClear(&vtProp);
 				uReturn = 0;
