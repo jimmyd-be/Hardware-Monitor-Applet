@@ -24,9 +24,10 @@ public:
 	vector<string> backgrounds();
 	vector<string*> lines();
 	vector<int> totalLines();
+	string getSettingsPath();
 
 private:
-	string getSettingsPath();
+	
 	void readFile();
 
 	map<string, string> values_;
