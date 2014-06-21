@@ -20,12 +20,13 @@
 // Defines
 //-----------------------------------------------------------------
 
+
 //-----------------------------------------------------------------
 // CColorAndMonoDlg Class
 //-----------------------------------------------------------------
 class CColorAndMonoDlg : public CDialog
 {
-  
+	typedef unsigned long DWORD, *PDWORD, *LPDWORD;
 public:
 	//---------------------------
 	// Constructor(s)
@@ -101,6 +102,8 @@ protected:
     VOID updatePage();
     VOID updatePageMonochrome();
     VOID updatePageColor();
+
+	DWORD OpenSettings(int, const PVOID);
 
     // Generated message map functions
     virtual BOOL OnInitDialog();

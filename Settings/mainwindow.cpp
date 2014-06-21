@@ -141,7 +141,6 @@ void MainWindow::loadSettings()
 {
 	QSettings settings(QSettings::IniFormat, QSettings::UserScope, "OHM Applet", "Settings");
 
-
 	//Read General settigns
 	settings.beginGroup("General");
 	int totalPages = settings.value("TotalPages").toInt();

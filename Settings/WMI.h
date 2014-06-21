@@ -19,6 +19,7 @@
 #include <Wbemidl.h>
 #include "Structures.h"
 #include <qstring.h>
+#include <qstringlist.h>
 
 using namespace std;
 
@@ -48,7 +49,7 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	vector<Sensor> getSensors();
+	vector<Sensor> getSensors(vector<string> hardwareCode);
 	vector<Hardware> getHardware();
 
 	void refresh();
@@ -56,6 +57,8 @@ public:
 	QString generateCode(QString, QString, QString, int);
 	string convertCodeToLine(string);
 	string queryCode(QueryCode);
+
+	vector<string> getHardwareIdentifier(QString);
 
 private:
 	//---------------------------

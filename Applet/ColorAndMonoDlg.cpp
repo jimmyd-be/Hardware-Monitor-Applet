@@ -62,6 +62,9 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	ShowWindow(SW_HIDE);
 	SetWindowPos(NULL, 0, 0, 0, 0, NULL);
 
+	lgLcdConfigureContext*configContext = new lgLcdConfigureContext();
+	configContext->configCallback(&CColorAndMonoDlg::OpenSettings);
+
 	HRESULT hRes = lcd_.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, TRUE, TRUE);
 
 	if (hRes != S_OK)
@@ -77,6 +80,13 @@ BOOL CColorAndMonoDlg::OnInitDialog()
 	SetTimer(0xabab, 30, NULL); // for scrolling to work smoothly, timer should be pretty fast
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
+}
+
+DWORD CColorAndMonoDlg::OpenSettings(int connection, const PVOID pContext)
+{
+	DWORD returnValue;
+
+	return returnValue;
 }
 
 void CColorAndMonoDlg::OnDestroy()

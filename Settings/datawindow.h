@@ -20,12 +20,14 @@ public:
 
 	public slots:
 		void hardwareButtonClicked();
+		void hardwareButtonChanged();
 		void sensorButtonClicked();
 		void accept();
 		void reject();
 
 private:
-	void fillCells();
+	void fillCells(vector<string>);
+	void fillComboBox();
 	void clearTables();
 	
 

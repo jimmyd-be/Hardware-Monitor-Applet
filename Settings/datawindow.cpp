@@ -11,13 +11,17 @@ DataWindow::DataWindow(WMI * wmi, QString lineText, QWidget *parent) :
 
 	ui->lineEdit->setText(lineText_);
 
-	connect(ui->hardwarePushButton, SIGNAL(clicked()), this, SLOT(hardwareButtonClicked()));
+	connect(ui->AddHardwareButton, SIGNAL(clicked()), this, SLOT(hardwareButtonClicked()));
+	connect(ui->hardwareNames, SIGNAL(currentIndexChanged(int)), this, SLOT(hardwareButtonChanged()));
 	connect(ui->sensorPushButton, SIGNAL(clicked()), this, SLOT(sensorButtonClicked()));
 
 	 connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
      connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-	fillCells();
+	 vector<string> list;
+
+	 fillComboBox();
+	 fillCells(list);
 }
 
 DataWindow::~DataWindow()
@@ -26,26 +30,15 @@ DataWindow::~DataWindow()
 }
 
 
-void DataWindow::fillCells()
+void DataWindow::fillCells(vector<string> hardwareCode)
 {
+	clearTables();
+
 	wmi_->refresh();
 
-	vector<Hardware> hardware = wmi_->getHardware();
-	vector<Sensor> sensor = wmi_->getSensors();
+	vector<Sensor> sensor = wmi_->getSensors(hardwareCode);
 	
-	ui->hardWareTableWidget->setRowCount(hardware.size());
 	ui->sensorTableWidget->setRowCount(sensor.size());
-
-	for(int i =0; i < hardware.size(); i++)
-	{
-		QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(hardware[i].InstanceId));
-		QTableWidgetItem* item1 = new QTableWidgetItem(QString::fromStdString(hardware[i].name));
-		QTableWidgetItem* item2 = new QTableWidgetItem(QString::fromStdString(hardware[i].hardwaretype));
-
-		ui->hardWareTableWidget->setVerticalHeaderItem(i, item);
-		ui->hardWareTableWidget->setItem(i, 0, item1);
-		ui->hardWareTableWidget->setItem(i, 1, item2);
-	}
 
 	for(int i =0; i < sensor.size(); i++)
 	{
@@ -66,13 +59,20 @@ void DataWindow::fillCells()
 	}
 }
 
+void DataWindow::fillComboBox()
+{
+	vector<Hardware> hardware = wmi_->getHardware();
+
+	ui->hardwareNames->addItem(QString::fromStdString("All"));
+
+	for (int i = 0; i < hardware.size(); i++)
+	{
+		ui->hardwareNames->addItem(QString::fromStdString(hardware[i].name));
+	}
+}
+
 void DataWindow::clearTables()
 {
-	while (ui->hardWareTableWidget->rowCount() > 0)
-	{
-		ui->hardWareTableWidget->removeRow(0);
-	}
-
 	while (ui->sensorTableWidget->rowCount() > 0)
 	{
 		ui->sensorTableWidget->removeRow(0);
@@ -81,22 +81,31 @@ void DataWindow::clearTables()
 
 void DataWindow::hardwareButtonClicked()
 {
-	QList <QTableWidgetItem  *> items = ui->hardWareTableWidget->selectedItems();
+	vector<string> hardWareId = wmi_->getHardwareIdentifier(ui->hardwareNames->currentText());
 
-	if(items.size() != 0)
+	if (!hardWareId.empty())
 	{
-		int row = items[0]->row();
-		int column = items[0]->column();
-
-		QString id = ui->hardWareTableWidget->verticalHeaderItem(row)->text();
-		QString item = ui->hardWareTableWidget->horizontalHeaderItem(column)->text();
-
-		QString code = wmi_->generateCode("Hardware", id, item, 0);
+		QString code = wmi_->generateCode("Hardware", QString::fromStdString(hardWareId[0]), "Name", 0);
 
 		QString text = ui->lineEdit->text();
 		text.append(code);
 
 		ui->lineEdit->setText(text);
+	}
+}
+
+void DataWindow::hardwareButtonChanged()
+{
+	QString hardwareName = ui->hardwareNames->currentText();
+
+	if (hardwareName == "All")
+	{
+		vector<string> temp;
+		fillCells(temp);
+	}
+	else
+	{
+		fillCells(wmi_->getHardwareIdentifier(hardwareName));
 	}
 }
 
