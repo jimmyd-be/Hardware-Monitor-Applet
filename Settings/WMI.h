@@ -49,7 +49,7 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	vector<Sensor> getSensors(vector<string> hardwareCode);
+	vector<Sensor> getSensors(vector<string> hardwareCode, vector<string> sensorType);
 	vector<Hardware> getHardware();
 
 	void refresh();
@@ -58,7 +58,8 @@ public:
 	string convertCodeToLine(string);
 	string queryCode(QueryCode);
 
-	vector<string> getHardwareIdentifier(QString);
+	vector<string> getHardwareIdentifier(QString name);
+	string getSensorIdentifier(QString id);
 
 private:
 	//---------------------------
@@ -66,7 +67,7 @@ private:
 	//---------------------------
 	void connectToWMI();
 
-	void querySensors();
+	vector<Sensor> querySensors(string query);
 	void queryHardware();
 
 
@@ -81,7 +82,7 @@ private:
 
 	vector<QueryCode> codes;
 	vector<Hardware> hardwareList;
-	vector<Sensor> sensorList;
+	//vector<Sensor> sensorList;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

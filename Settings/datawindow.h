@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "WMI.h"
+#include <QButtonGroup>
 
 namespace Ui {
 class DataWindow;
@@ -20,13 +21,15 @@ public:
 
 	public slots:
 		void hardwareButtonClicked();
-		void hardwareButtonChanged();
+		//void hardwareButtonChanged();
 		void sensorButtonClicked();
+		void selectDeselectClicked();
 		void accept();
 		void reject();
+		void filter();
 
 private:
-	void fillCells(vector<string>);
+	void fillCells(vector<string>, vector<string>);
 	void fillComboBox();
 	void clearTables();
 	
