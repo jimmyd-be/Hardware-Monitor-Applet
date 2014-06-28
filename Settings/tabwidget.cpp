@@ -1,7 +1,18 @@
+//-----------------------------------------------------------------
+// TabWidget File
+// C++ Source - TabWidget.cpp - version 0.1 (2014/06/28)
+//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
 #include "tabwidget.h"
 #include "ui_tabwidget.h"
 #include "mainwindow.h"
 
+//-----------------------------------------------------------------
+// TabWidget methods
+//-----------------------------------------------------------------
 TabWidget::TabWidget(WMI* wmi, MainWindow *mainWindow, QWidget *parent) :
 	wmi_(wmi), QWidget(parent),
 	ui(new Ui::TabWidget)

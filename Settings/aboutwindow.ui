@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -42,7 +42,7 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Developed by: Jimmy Dom</string>
+       <string>Developed by: JimmyD</string>
       </property>
      </widget>
     </item>

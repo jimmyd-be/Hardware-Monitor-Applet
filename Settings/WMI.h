@@ -23,6 +23,7 @@
 
 using namespace std;
 
+
 //-----------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------
@@ -51,25 +52,23 @@ public:
 	//---------------------------
 	vector<Sensor> getSensors(vector<string> hardwareCode, vector<string> sensorType);
 	vector<Hardware> getHardware();
+	vector<string> getHardwareIdentifier(QString name);
 
 	void refresh();
 
-	QString generateCode(QString, QString, QString, int);
 	string convertCodeToLine(string);
 	string queryCode(QueryCode);
-
-	vector<string> getHardwareIdentifier(QString name);
 	string getSensorIdentifier(QString id);
 
+	QString generateCode(QString, QString, QString, int);
+	
 private:
 	//---------------------------
 	// Private Methods
 	//---------------------------
 	void connectToWMI();
-
-	vector<Sensor> querySensors(string query);
 	void queryHardware();
-
+	vector<Sensor> querySensors(string query);
 
 	//--------------------------
 	// Datamembers
@@ -82,7 +81,6 @@ private:
 
 	vector<QueryCode> codes;
 	vector<Hardware> hardwareList;
-	//vector<Sensor> sensorList;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

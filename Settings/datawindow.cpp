@@ -1,6 +1,17 @@
+//-----------------------------------------------------------------
+// DataWindow File
+// C++ Source - DataWindow.cpp - version 0.1 (2014/06/28)
+//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
 #include "datawindow.h"
 #include "ui_datawindow.h"
 
+//-----------------------------------------------------------------
+// DataWindow methods
+//-----------------------------------------------------------------
 DataWindow::DataWindow(WMI * wmi, QString lineText, QWidget *parent) :
 lineText_(lineText), wmi_(wmi), QDialog(parent),
 ui(new Ui::DataWindow)

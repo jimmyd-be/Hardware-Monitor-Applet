@@ -1,7 +1,18 @@
+//-----------------------------------------------------------------
+// LineWidget File
+// C++ Source - LineWidget.cpp - version 0.1 (2014/06/28)
+//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
 #include "linewidget.h"
 #include "ui_linewidget.h"
 #include "tabwidget.h"
 
+//-----------------------------------------------------------------
+// LineWidget methods
+//-----------------------------------------------------------------
 LineWidget::LineWidget(WMI* wmi, TabWidget * tabWidget, int id, QWidget *parent) :
     wmi_(wmi), tabWidget_(tabWidget), id_(id), QWidget(parent),
     ui(new Ui::LineWidget)

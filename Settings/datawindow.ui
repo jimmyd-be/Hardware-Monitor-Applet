@@ -121,6 +121,9 @@
            <property name="text">
             <string>Clocks</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -139,6 +142,9 @@
            </property>
            <property name="text">
             <string>Data</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -159,6 +165,9 @@
            <property name="text">
             <string>Fans</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -178,6 +187,9 @@
            <property name="text">
             <string>Load</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -196,6 +208,9 @@
            </property>
            <property name="text">
             <string>Temperatures</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -220,6 +235,9 @@
            <property name="text">
             <string>Controls</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -238,6 +256,9 @@
            </property>
            <property name="text">
             <string>Data Rate</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -258,6 +279,9 @@
            <property name="text">
             <string>Levels</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -277,6 +301,9 @@
            <property name="text">
             <string>Powers</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -295,6 +322,9 @@
            </property>
            <property name="text">
             <string>Voltages</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -388,6 +418,9 @@
          </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
          </property>
          <column>
           <property name="text">
