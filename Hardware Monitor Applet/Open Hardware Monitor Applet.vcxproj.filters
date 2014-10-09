@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{2ea7580a-160a-49dd-871a-e3e27d4fb93b}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{16c09b27-d1ae-469d-b85d-42a0432610a4}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{497c24f3-0a62-4175-8201-5ff57e565d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\Logitech">
+      <UniqueIdentifier>{e7df7239-802b-433b-bea0-d2fae0df84cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\Logitech\LCDUI">
+      <UniqueIdentifier>{70410b27-5831-47ac-88af-a6099c555a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\qtsingleapplication">
+      <UniqueIdentifier>{eb473c75-0f5e-44af-bd25-c71b5efe26e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{54717977-7ef8-4dcf-b0ef-8ad14775dda1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mainwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_mainwindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Controller.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Controller.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logitech.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Logitech.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Logitech.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="external\QSingleApplication\qtlocalpeer.cpp">
+      <Filter>external\qtsingleapplication</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qtlocalpeer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qtlocalpeer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\EZ_LCD.cpp">
+      <Filter>external\Logitech</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\EZ_LCD_Page.cpp">
+      <Filter>external\Logitech</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDAnimatedBitmap.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDBase.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDBitmap.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDCollection.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDColorProgressBar.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDColorText.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDConnection.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDGfxBase.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDGfxColor.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDGfxMono.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDIcon.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDOutput.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDPage.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDPaginateText.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDPopup.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDProgressBar.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDScrollingText.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDSkinnedProgressBar.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDStreamingText.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\Logitech\LCDUI\LCDText.cpp">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="external\QSingleApplication\qtsingleapplication.cpp">
+      <Filter>external\qtsingleapplication</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qtsingleapplication.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qtsingleapplication.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Logitech.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="NormalScreenWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="NormalLineWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ScreenSelectionDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="external\QSingleApplication\qtlocalpeer.h">
+      <Filter>external\qtsingleapplication</Filter>
+    </CustomBuild>
+    <CustomBuild Include="external\QSingleApplication\qtsingleapplication.h">
+      <Filter>external\qtsingleapplication</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_NormalScreenWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_NormalLineWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ScreenSelectionDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\EZ_LCD.h">
+      <Filter>external\Logitech</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\EZ_LCD_Defines.h">
+      <Filter>external\Logitech</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\EZ_LCD_Page.h">
+      <Filter>external\Logitech</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\lglcd.h">
+      <Filter>external\Logitech</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDAnimatedBitmap.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDBase.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDBitmap.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDCollection.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDColorProgressBar.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDColorText.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDConnection.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDGfxBase.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDGfxColor.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDGfxMono.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDIcon.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDOutput.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDPage.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDPaginateText.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDPopup.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDProgressBar.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDScrollingText.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDSkinnedProgressBar.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDStreamingText.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDText.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="external\Logitech\LCDUI\LCDUI.h">
+      <Filter>external\Logitech\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalScreen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphScreen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScreen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

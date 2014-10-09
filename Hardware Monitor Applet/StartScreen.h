@@ -1,0 +1,50 @@
+//-----------------------------------------------------------------
+// StartScreen File
+// C++ Header - StartScreen.h - version 0.1 (2013/06/13)
+//-----------------------------------------------------------------
+#pragma once
+
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
+#include "Screen.h"
+
+//-----------------------------------------------------------------
+// StartScreen Class
+//-----------------------------------------------------------------
+class StartScreen: public Screen
+{
+public:
+	//---------------------------
+	// Constructor(s)
+	//---------------------------
+	StartScreen(KeyboardTypes, CEzLcd*);
+
+	//---------------------------
+	// Destructor
+	//---------------------------
+	virtual ~StartScreen();
+
+	//---------------------------
+	// General Methods
+	//---------------------------
+	ScreenType getScreenType();
+	void update();
+	
+	void drawColor();
+	void drawMonochrome();
+
+private:
+	// -------------------------
+	// Datamembers
+	// -------------------------
+	
+	
+	// -------------------------
+	// Disabling default copy constructor and default assignment operator.
+	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
+	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
+	// -------------------------
+	StartScreen(const StartScreen& t);
+	StartScreen& operator=(const StartScreen& t);
+};

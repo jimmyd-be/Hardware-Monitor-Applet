@@ -36,3 +36,6 @@ Makefile*
 Open Hardware Monitor/external/HWiNFO/hwisenssm2.h
 Open Hardware Monitor/HWiNFO.cpp
 Open Hardware Monitor/HWiNFO.h
+Hardware Monitor Applet/external/HWiNFO/hwisenssm2.h
+Hardware Monitor Applet/HWiNFO.cpp
+Hardware Monitor Applet/HWiNFO.h
