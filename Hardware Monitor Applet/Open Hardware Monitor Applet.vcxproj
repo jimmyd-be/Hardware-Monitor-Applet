@@ -225,13 +225,18 @@
     <ClCompile Include="NormalScreen.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="StartScreen.cpp" />
+    <ClCompile Include="Tools\HWiNFO.cpp" />
+    <ClCompile Include="Tools\WMI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\HWiNFO\hwisenssm2.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
     <ClInclude Include="GeneratedFiles\ui_NormalLineWidget.h" />
     <ClInclude Include="GeneratedFiles\ui_NormalScreenWidget.h" />
     <ClInclude Include="GeneratedFiles\ui_ScreenSelectionDialog.h" />
     <ClInclude Include="GraphScreen.h" />
+    <ClInclude Include="Tools\HWiNFO.h" />
+    <ClInclude Include="Tools\WMI.h" />
     <CustomBuild Include="GUI\mainwindow.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing mainwindow.h...</Message>

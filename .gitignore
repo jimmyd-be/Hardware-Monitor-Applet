@@ -39,3 +39,5 @@ Open Hardware Monitor/HWiNFO.h
 Hardware Monitor Applet/external/HWiNFO/hwisenssm2.h
 Hardware Monitor Applet/HWiNFO.cpp
 Hardware Monitor Applet/HWiNFO.h
+Hardware Monitor Applet/Tools/HWiNFO.cpp
+Hardware Monitor Applet/Tools/HWiNFO.h

@@ -48,6 +48,12 @@
     <Filter Include="Screen">
       <UniqueIdentifier>{54717977-7ef8-4dcf-b0ef-8ad14775dda1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{765ead6a-bc1d-46fd-b770-d7ed1ea27a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\HWiNFO">
+      <UniqueIdentifier>{4b02a467-6dd5-4e4f-bb46-d3b174faf0ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -178,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\HWiNFO.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\WMI.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +326,15 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_ScreenSelectionDialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\HWiNFO.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\WMI.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="external\HWiNFO\hwisenssm2.h">
+      <Filter>external\HWiNFO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
