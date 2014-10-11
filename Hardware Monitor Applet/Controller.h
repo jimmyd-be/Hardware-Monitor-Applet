@@ -8,7 +8,7 @@
 // Include Files
 //-----------------------------------------------------------------
 #include "external\QSingleApplication\qtsingleapplication.h"
-#include "mainwindow.h"
+#include "GUI\mainwindow.h"
 #include "Logitech.h"
 #include "StartScreen.h"
 

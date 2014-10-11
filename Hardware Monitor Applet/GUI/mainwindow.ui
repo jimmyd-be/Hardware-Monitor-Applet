@@ -236,7 +236,16 @@
       <string>Temperature Unit</string>
      </property>
      <addaction name="actionCelsius"/>
+     <addaction name="actionFahrenheit"/>
     </widget>
+    <widget class="QMenu" name="menuMonitor_tool">
+     <property name="title">
+      <string>Monitor tool</string>
+     </property>
+     <addaction name="actionHWiNFO"/>
+     <addaction name="actionOpen_Hardware_Monitor"/>
+    </widget>
+    <addaction name="menuMonitor_tool"/>
     <addaction name="menuTemperature_Unit"/>
     <addaction name="actionGeneral_Background"/>
    </widget>
@@ -292,6 +301,12 @@
    </property>
   </action>
   <action name="actionCelsius">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Celsius</string>
    </property>
@@ -301,10 +316,37 @@
     <string>General Background</string>
    </property>
   </action>
+  <action name="actionFahrenheit">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fahrenheit</string>
+   </property>
+  </action>
+  <action name="actionHWiNFO">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>HWiNFO</string>
+   </property>
+  </action>
+  <action name="actionOpen_Hardware_Monitor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Open Hardware Monitor</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="mainwindow.qrc"/>
+  <include location="../mainwindow.qrc"/>
  </resources>
  <connections/>
 </ui>

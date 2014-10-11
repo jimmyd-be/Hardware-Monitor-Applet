@@ -5,6 +5,7 @@
 #include <qpixmap.h>
 #include <QtWinExtras\qwinfunctions.h>
 #include <QVector>
+#include <qactiongroup.h>
 #include <qobject.h>
 #include <qtimer.h>
 #include <qfont.h>

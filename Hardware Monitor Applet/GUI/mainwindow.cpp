@@ -1,16 +1,35 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(KeyboardTypes type, QWidget *parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent), temperatureActionGroup_(nullptr), monitorToolActionGroup_(nullptr)
 {
 	ui.setupUi(this);
+
+	temperatureActionGroup_ = new QActionGroup(this);
+	monitorToolActionGroup_ = new QActionGroup(this);
+
+	temperatureActionGroup_->addAction(ui.actionCelsius);
+	temperatureActionGroup_->addAction(ui.actionFahrenheit);
+
+	monitorToolActionGroup_->addAction(ui.actionHWiNFO);
+	monitorToolActionGroup_->addAction(ui.actionOpen_Hardware_Monitor);
 
 	keyboardChanged(type);
 }
 
 MainWindow::~MainWindow()
 {
+	if (temperatureActionGroup_ != nullptr)
+	{
+		delete temperatureActionGroup_;
+		temperatureActionGroup_ = nullptr;
+	}
 
+	if (monitorToolActionGroup_ != nullptr)
+	{
+		delete monitorToolActionGroup_;
+		monitorToolActionGroup_ = nullptr;
+	}
 }
 
 void MainWindow::keyboardChanged(KeyboardTypes type)

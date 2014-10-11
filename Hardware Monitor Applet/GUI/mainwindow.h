@@ -3,7 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
-#include "Defines.h"
+#include "../Defines.h"
 
 class MainWindow : public QMainWindow
 {
@@ -17,6 +17,9 @@ public:
 
 private:
 	Ui::MainWindowClass ui;
+
+	QActionGroup * temperatureActionGroup_;
+	QActionGroup * monitorToolActionGroup_;
 };
 
 #endif // MAINWINDOW_H
