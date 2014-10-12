@@ -47,3 +47,8 @@ void Screen::update()
 {
 	//Nothing to do
 }
+
+QString Screen::getName()
+{
+	return name_;
+}

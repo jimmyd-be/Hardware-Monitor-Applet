@@ -35,6 +35,7 @@ public:
 	//---------------------------
 	bool initKeyboard();
 	KeyboardTypes getKeyboardType();
+	QVector<Screen *> getScreenList();
 
 private:
 	void initLCDObjectsMonochrome();

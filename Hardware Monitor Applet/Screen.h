@@ -28,6 +28,7 @@ public:
 	// General Methods
 	//---------------------------
 	virtual ScreenType getScreenType();
+	QString getName();
 	virtual void update();
 
 protected:
