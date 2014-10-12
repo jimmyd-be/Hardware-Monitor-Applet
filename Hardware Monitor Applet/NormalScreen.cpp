@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // NormalScreen methods
 //-----------------------------------------------------------------
-NormalScreen::NormalScreen(KeyboardTypes keyboardType, CEzLcd * logitech) : Screen(keyboardType, logitech)
+NormalScreen::NormalScreen(KeyboardTypes keyboardType, CEzLcd * logitech, QString name) : Screen(keyboardType, logitech, name)
 {
 	// nothing to create
 }

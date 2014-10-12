@@ -18,7 +18,7 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	GraphScreen(KeyboardTypes, CEzLcd *);
+	GraphScreen(KeyboardTypes, CEzLcd *, QString);
 
 	//---------------------------
 	// Destructor

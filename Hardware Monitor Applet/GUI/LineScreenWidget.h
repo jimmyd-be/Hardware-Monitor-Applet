@@ -13,6 +13,8 @@ public:
 	LineScreenWidget(NormalScreenWidget * widget, QWidget *parent = 0);
 	virtual ~LineScreenWidget();
 
+	QString getText();
+
 private:
 	NormalScreenWidget * normalScreenWidget_;
 

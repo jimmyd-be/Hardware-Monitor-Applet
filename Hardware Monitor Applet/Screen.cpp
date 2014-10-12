@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // Screen methods
 //-----------------------------------------------------------------
-Screen::Screen(KeyboardTypes keyboardType, CEzLcd * logitech) : keyboardType_(keyboardType), lcd_(logitech), background_(nullptr)
+Screen::Screen(KeyboardTypes keyboardType, CEzLcd * logitech, QString name) : keyboardType_(keyboardType), lcd_(logitech), background_(nullptr), name_(name)
 {
 	screenId_ = lcd_->AddNewPage();
 }

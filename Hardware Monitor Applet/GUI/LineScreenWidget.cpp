@@ -18,3 +18,8 @@ void LineScreenWidget::removeLine()
 {
 	normalScreenWidget_->removeWidget(this);
 }
+
+QString LineScreenWidget::getText()
+{
+	return lineText->text();
+}

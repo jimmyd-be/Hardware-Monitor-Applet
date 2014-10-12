@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(KeyboardTypes type, Logitech * lcd, QWidget *parent)
-	: QMainWindow(parent), temperatureActionGroup_(nullptr), monitorToolActionGroup_(nullptr), lcd_(lcd), mainWidget_(nullptr)
+	: QMainWindow(parent), temperatureActionGroup_(nullptr), monitorToolActionGroup_(nullptr), lcd_(lcd)
 {
 	ui.setupUi(this);
 
@@ -77,17 +77,26 @@ void MainWindow::openSelectionDialog()
 
 void MainWindow::createScreen(QString name, ScreenType type)
 {
+	if (mainWidget_ != nullptr)
+	{
+		ui.widgetLayout->removeWidget(mainWidget_);
+		delete mainWidget_;
+		mainWidget_ = nullptr;
+	}
+
 	if (type == ScreenType::Normal)
 	{
-		mainWidget_ = new NormalScreenWidget();
+		lcd_->createPage(name, type);
+		mainWidget_ = new NormalScreenWidget(name);
 
 		ui.widgetLayout->addWidget(mainWidget_);
 	}
 
 	else if(type == ScreenType::Graph)
 	{
-		mainWidget_ = new GraphScreenWidget();
+		mainWidget_ = new GraphScreenWidget(name);
 
 		ui.widgetLayout->addWidget(mainWidget_);
 	}
+
 }

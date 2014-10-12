@@ -11,6 +11,8 @@
 #include "Defines.h"
 
 #include "StartScreen.h"
+#include "NormalScreen.h"
+#include "GraphScreen.h"
 
 //-----------------------------------------------------------------
 // Logitech Class
@@ -36,6 +38,8 @@ public:
 	bool initKeyboard();
 	KeyboardTypes getKeyboardType();
 	QVector<Screen *> getScreenList();
+	Screen * getScreenData(QString);
+	void createPage(QString name, ScreenType type);
 
 private:
 	void initLCDObjectsMonochrome();

@@ -1,7 +1,7 @@
 #include "NormalScreenWidget.h"
 
-NormalScreenWidget::NormalScreenWidget(QWidget *parent)
-	: QWidget(parent)
+NormalScreenWidget::NormalScreenWidget(QString name, QWidget *parent)
+	: QWidget(parent), name_(name)
 {
 	setupUi(this);
 

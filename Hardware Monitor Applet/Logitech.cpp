@@ -152,3 +152,30 @@ QVector<Screen *> Logitech::getScreenList()
 {
 	return screenList_;
 }
+
+void Logitech::createPage(QString name, ScreenType type)
+{
+	if (type == ScreenType::Normal)
+	{
+		Screen * newScreen = new NormalScreen(keyboardType_, &lcd_, name);
+
+		screenList_.push_back(newScreen);
+	}
+	else if (type == ScreenType::Graph)
+	{
+		Screen * newScreen = new GraphScreen(keyboardType_, &lcd_, name);
+
+		screenList_.push_back(newScreen);
+	}
+}
+
+Screen * Logitech::getScreenData(QString name)
+{
+	for (Screen * screen : screenList_)
+	{
+		if (screen->getName() == name)
+		{
+			return screen;
+		}
+	}
+}

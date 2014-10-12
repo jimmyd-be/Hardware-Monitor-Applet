@@ -9,7 +9,7 @@ class NormalScreenWidget :
 	Q_OBJECT
 
 public:
-	NormalScreenWidget(QWidget *parent = 0);
+	NormalScreenWidget(QString name, QWidget *parent = 0);
 	virtual ~NormalScreenWidget();
 
 	void removeWidget(LineScreenWidget *);
@@ -20,5 +20,6 @@ private slots:
 
 private:
 	QVector<LineScreenWidget *> lineList_;
+	QString name_;
 };
 

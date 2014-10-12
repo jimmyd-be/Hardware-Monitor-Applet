@@ -1,7 +1,7 @@
 #include "GraphScreenWidget.h"
 
-GraphScreenWidget::GraphScreenWidget(QWidget *parent)
-	: QWidget(parent)
+GraphScreenWidget::GraphScreenWidget(QString name, QWidget *parent)
+	: QWidget(parent), name_(name)
 {
 	setupUi(this);
 }

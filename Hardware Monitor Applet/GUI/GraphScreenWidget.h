@@ -8,7 +8,9 @@ class GraphScreenWidget :
 	Q_OBJECT
 
 public:
-	GraphScreenWidget(QWidget *parent = 0);
+	GraphScreenWidget(QString name, QWidget *parent = 0);
 	virtual ~GraphScreenWidget();
+private:
+	QString name_;
 };
 
