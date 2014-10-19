@@ -29,3 +29,11 @@ struct LineText{
 	QMap<QString, Query> queryMap;
 	HANDLE textHandle;
 };
+
+struct HardwareSensor{
+	QString id;
+	QString name;
+	float value;
+	float max;
+	float min;
+};

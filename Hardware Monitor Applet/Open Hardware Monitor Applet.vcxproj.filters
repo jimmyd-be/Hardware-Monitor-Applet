@@ -230,6 +230,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_LineScreenWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\Tool.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\DataDialog.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DataDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DataDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -275,6 +287,12 @@
       <Filter>GUI</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\LineScreenWidget.h">
+      <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\DataDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\DataDialog.h">
       <Filter>GUI</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -391,6 +409,12 @@
       <Filter>external\HWiNFO</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_GraphScreenWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Tool.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DataDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

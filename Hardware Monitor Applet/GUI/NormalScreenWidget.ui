@@ -109,6 +109,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="refreshDataButton">
+         <property name="text">
+          <string>Refresh</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer_5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -129,8 +136,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>verticalSpacer_2</zorder>
-  <zorder>verticalSpacer</zorder>
  </widget>
  <resources/>
  <connections/>

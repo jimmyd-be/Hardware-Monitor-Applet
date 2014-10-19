@@ -108,3 +108,8 @@ void MainWindow::createScreen(QString name, ScreenType type)
 void MainWindow::removeCurrentScreen()
 {
 }
+
+void MainWindow::openDataDialog()
+{
+
+}

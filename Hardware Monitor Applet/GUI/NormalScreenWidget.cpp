@@ -7,6 +7,7 @@ NormalScreenWidget::NormalScreenWidget(QString name, Logitech * lcd, QWidget *pa
 
 	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataScreen()));
 	connect(addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
+	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataDialog()));
 }
 
 
@@ -24,7 +25,7 @@ NormalScreenWidget::~NormalScreenWidget()
 
 void NormalScreenWidget::openDataScreen()
 {
-
+	
 }
 
 void NormalScreenWidget::addLine()

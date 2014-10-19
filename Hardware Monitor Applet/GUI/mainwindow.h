@@ -34,6 +34,7 @@ private:
 private slots:
 
 	void openSelectionDialog();
+	void openDataDialog();
 	void removeCurrentScreen();
 };
 
