@@ -18,7 +18,7 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	StartScreen(KeyboardTypes, CEzLcd*);
+	StartScreen(CEzLcd*, QString);
 
 	//---------------------------
 	// Destructor

@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // Screen methods
 //-----------------------------------------------------------------
-Screen::Screen(KeyboardTypes keyboardType, CEzLcd * logitech, QString name) : keyboardType_(keyboardType), lcd_(logitech), background_(nullptr), name_(name)
+Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nullptr), name_(name)
 {
 	screenId_ = lcd_->AddNewPage();
 }
@@ -29,11 +29,6 @@ Screen::~Screen()
 		DeleteObject(background_);
 		background_ = nullptr;
 	}
-
-	/*for (int i = 0; i < lineHandles_.size(); i++)
-	{
-		CloseHandle(lineHandles_[i]);
-	}*/
 
 	screenLines_.clear();
 }
@@ -51,4 +46,23 @@ void Screen::update()
 QString Screen::getName()
 {
 	return name_;
+}
+
+QList<LineText> Screen::getLines()
+{
+	return screenLines_;
+}
+
+void Screen::clearLines()
+{
+	screenLines_.clear();
+}
+
+void Screen::addLine(QString text)
+{
+	LineText line;
+
+	line.text = text;
+
+	screenLines_.append(line);
 }

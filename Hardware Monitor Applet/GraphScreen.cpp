@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // GraphScreen methods
 //-----------------------------------------------------------------
-GraphScreen::GraphScreen(KeyboardTypes keyboardType, CEzLcd * logitech, QString name) : Screen(keyboardType, logitech, name)
+GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name)
 {
 	// nothing to create
 }

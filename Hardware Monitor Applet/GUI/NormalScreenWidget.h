@@ -2,6 +2,7 @@
 #include "../Defines.h"
 #include "LineScreenWidget.h"
 #include "ui_NormalScreenWidget.h"
+#include "../Logitech.h"
 
 class NormalScreenWidget :
 	public QWidget, private Ui_NormscreenWidget
@@ -9,10 +10,11 @@ class NormalScreenWidget :
 	Q_OBJECT
 
 public:
-	NormalScreenWidget(QString name, QWidget *parent = 0);
+	NormalScreenWidget(QString name, Logitech *, QWidget *parent = 0);
 	virtual ~NormalScreenWidget();
 
 	void removeWidget(LineScreenWidget *);
+	void lineScreenTextChanged();
 
 private slots:
 	void openDataScreen();
@@ -21,5 +23,7 @@ private slots:
 private:
 	QVector<LineScreenWidget *> lineList_;
 	QString name_;
+
+	Logitech * lcd_;
 };
 

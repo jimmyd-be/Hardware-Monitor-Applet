@@ -40,6 +40,9 @@ public:
 	QVector<Screen *> getScreenList();
 	Screen * getScreenData(QString);
 	void createPage(QString name, ScreenType type);
+	void addLine(QString pageName, QString text);
+	void clearPage(QString name);
+	void removePage(QString name);
 
 private:
 	void initLCDObjectsMonochrome();
@@ -57,6 +60,7 @@ private:
 	int time_;
 	KeyboardTypes keyboardType_;
 	QVector<Screen *> screenList_;
+	int currentPage_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

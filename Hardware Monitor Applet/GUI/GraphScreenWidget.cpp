@@ -1,6 +1,6 @@
 #include "GraphScreenWidget.h"
 
-GraphScreenWidget::GraphScreenWidget(QString name, QWidget *parent)
+GraphScreenWidget::GraphScreenWidget(QString name, Logitech *, QWidget *parent)
 	: QWidget(parent), name_(name)
 {
 	setupUi(this);

@@ -17,7 +17,7 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Screen(KeyboardTypes, CEzLcd*, QString name);
+	Screen(CEzLcd*, QString name);
 
 	//---------------------------
 	// Destructor
@@ -31,13 +31,17 @@ public:
 	QString getName();
 	virtual void update();
 
+	QList<LineText> getLines();
+
+	void clearLines();
+	void addLine(QString);
+
 protected:
 	// -------------------------
 	// Datamembers
 	// -------------------------
 	HBITMAP background_;
 	QString name_;
-	KeyboardTypes keyboardType_;
 	CEzLcd * lcd_;
 	int screenId_;
 

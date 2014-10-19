@@ -1,13 +1,12 @@
 #include "NormalScreenWidget.h"
 
-NormalScreenWidget::NormalScreenWidget(QString name, QWidget *parent)
-	: QWidget(parent), name_(name)
+NormalScreenWidget::NormalScreenWidget(QString name, Logitech * lcd, QWidget *parent)
+	: QWidget(parent), name_(name), lcd_(lcd)
 {
 	setupUi(this);
 
 	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataScreen()));
 	connect(addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
-	
 }
 
 
@@ -47,4 +46,16 @@ void NormalScreenWidget::removeWidget(LineScreenWidget * deleteWidget)
 
 	delete deleteWidget;
 	deleteWidget = nullptr;
+
+	lineScreenTextChanged();
+}
+
+void NormalScreenWidget::lineScreenTextChanged()
+{
+	lcd_->clearPage(name_);
+
+	for (LineScreenWidget * widget : lineList_)
+	{
+		lcd_->addLine(name_, widget->getText());
+	}
 }

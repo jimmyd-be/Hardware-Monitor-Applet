@@ -18,7 +18,7 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	NormalScreen(KeyboardTypes, CEzLcd*, QString);
+	NormalScreen(CEzLcd*, QString);
 
 	//---------------------------
 	// Destructor
@@ -29,6 +29,10 @@ public:
 	// General Methods
 	//---------------------------
 	ScreenType getScreenType();
+	void update();
+
+	void drawColor();
+	void drawMonochrome();
 
 private:
 	// -------------------------

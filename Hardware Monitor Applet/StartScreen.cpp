@@ -15,13 +15,13 @@
 //-----------------------------------------------------------------
 // StartScreen methods
 //-----------------------------------------------------------------
-StartScreen::StartScreen(KeyboardTypes keyboardType, CEzLcd * logitech) : Screen(keyboardType, logitech)
+StartScreen::StartScreen(CEzLcd * logitech, QString name) : Screen(logitech, name)
 {
-	if (keyboardType == KeyboardTypes::Monochrome)
+	if (logitech->IsDeviceAvailable(LG_MONOCHROME))
 	{
 		drawMonochrome();
 	}
-	else if (keyboardType == KeyboardTypes::Color)
+	else if (logitech->IsDeviceAvailable(LG_COLOR))
 	{
 		drawColor();
 	}

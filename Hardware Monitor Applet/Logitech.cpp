@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // Logitech methods
 //-----------------------------------------------------------------
-Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0), timer_(nullptr)
+Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0), timer_(nullptr), currentPage_(0)
 {
 }
 
@@ -46,14 +46,14 @@ bool Logitech::initKeyboard()
 		{
 			keyboardType_ = KeyboardTypes::Color;
 
-			screenList_.push_back(new StartScreen(keyboardType_, &lcd_));
+			screenList_.push_back(new StartScreen(&lcd_, "StartScreen"));
 		}
 
 		else if (lcd_.IsDeviceAvailable(LG_MONOCHROME))
 		{
 			keyboardType_ = KeyboardTypes::Monochrome;
 
-			screenList_.push_back(new StartScreen(keyboardType_, &lcd_));
+			screenList_.push_back(new StartScreen(&lcd_, "StartScreen"));
 		}
 
 		timer_ = new QTimer(this);
@@ -140,7 +140,14 @@ VOID Logitech::checkbuttonPressesColor()
 
 void Logitech::updatePage()
 {
+	if (!screenList_.isEmpty())
+	{
+		screenList_[currentPage_]->update();
+	}
+	else
+	{
 
+	}
 }
 
 KeyboardTypes Logitech::getKeyboardType()
@@ -157,16 +164,18 @@ void Logitech::createPage(QString name, ScreenType type)
 {
 	if (type == ScreenType::Normal)
 	{
-		Screen * newScreen = new NormalScreen(keyboardType_, &lcd_, name);
+		Screen * newScreen = new NormalScreen(&lcd_, name);
 
 		screenList_.push_back(newScreen);
 	}
 	else if (type == ScreenType::Graph)
 	{
-		Screen * newScreen = new GraphScreen(keyboardType_, &lcd_, name);
+		Screen * newScreen = new GraphScreen(&lcd_, name);
 
 		screenList_.push_back(newScreen);
 	}
+
+	currentPage_ = screenList_.size() - 1;
 }
 
 Screen * Logitech::getScreenData(QString name)
@@ -178,4 +187,24 @@ Screen * Logitech::getScreenData(QString name)
 			return screen;
 		}
 	}
+}
+
+void Logitech::addLine(QString pageName, QString text)
+{
+	Screen * editScreen = getScreenData(pageName);
+
+	editScreen->addLine(text);
+}
+
+void Logitech::clearPage(QString name)
+{
+	Screen * editScreen = getScreenData(name);
+
+	editScreen->clearLines();
+}
+
+void Logitech::removePage(QString name)
+{
+	Screen * editScreen = getScreenData(name);
+
 }

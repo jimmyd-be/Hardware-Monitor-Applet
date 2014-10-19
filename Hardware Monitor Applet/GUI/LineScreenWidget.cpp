@@ -7,6 +7,7 @@ LineScreenWidget::LineScreenWidget(NormalScreenWidget * widget, QWidget *parent)
 	setupUi(this);
 
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(removeLine()));
+	connect(lineText, SIGNAL(textEdited(QString)), this, SLOT(textChanged(QString)));
 }
 
 
@@ -22,4 +23,9 @@ void LineScreenWidget::removeLine()
 QString LineScreenWidget::getText()
 {
 	return lineText->text();
+}
+
+void LineScreenWidget::textChanged(QString text)
+{
+	normalScreenWidget_->lineScreenTextChanged();
 }
