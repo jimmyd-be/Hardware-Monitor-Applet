@@ -25,7 +25,15 @@ NormalScreenWidget::~NormalScreenWidget()
 
 void NormalScreenWidget::openDataScreen()
 {
-	
+	dataDialog_ = new DataDialog(this);
+
+	dataDialog_->exec();
+
+	if (dataDialog_ != nullptr)
+	{
+		delete dataDialog_;
+		dataDialog_ = nullptr;
+	}
 }
 
 void NormalScreenWidget::addLine()

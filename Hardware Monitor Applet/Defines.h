@@ -31,9 +31,9 @@ struct LineText{
 };
 
 struct HardwareSensor{
-	QString id;
-	QString name;
-	float value;
-	float max;
-	float min;
+	string id;
+	string name;
+	double value;
+	double max;
+	double min;
 };

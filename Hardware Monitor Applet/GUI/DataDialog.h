@@ -4,13 +4,14 @@
 #include "Screen.h"
 #include <QMessageBox>
 #include "ui_DataDialog.h"
+#include "../Tools/HWiNFO.h"
 
 class DataDialog: public QDialog
 {
 	Q_OBJECT
 
 public:
-	DataDialog(QWidget *parent, QVector<Screen *> screenList);
+	DataDialog(QWidget *parent);
 	virtual ~DataDialog();
 
 private slots:

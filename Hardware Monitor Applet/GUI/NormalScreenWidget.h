@@ -3,6 +3,7 @@
 #include "LineScreenWidget.h"
 #include "ui_NormalScreenWidget.h"
 #include "../Logitech.h"
+#include "DataDialog.h"
 
 class NormalScreenWidget :
 	public QWidget, private Ui_NormscreenWidget
@@ -22,6 +23,7 @@ private slots:
 
 private:
 	QVector<LineScreenWidget *> lineList_;
+	DataDialog * dataDialog_;
 	QString name_;
 
 	Logitech * lcd_;

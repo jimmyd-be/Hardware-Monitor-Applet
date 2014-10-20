@@ -116,5 +116,106 @@ QVector<HardwareSensor> WMI::getAllSensors()
 {
 	QVector<HardwareSensor> sensors;
 
+	string query = "select * from Sensor";
+
+	if (pSvc_ != 0)
+	{
+
+		hres_ = pSvc_->ExecQuery(
+			bstr_t("WQL"),
+			bstr_t(query.c_str()),
+			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+			NULL,
+			&pEnumerator_);
+
+		if (!FAILED(hres_))
+		{
+			ULONG uReturn = 0;
+			CIMTYPE pType;
+
+			while (pEnumerator_)
+			{
+				HardwareSensor currentSensor;
+
+				HRESULT hr = pEnumerator_->Next(WBEM_INFINITE, 1,
+					&pclsObj_, &uReturn);
+
+				if (0 == uReturn)
+				{
+					break;
+				}
+
+				VARIANT vtProp;
+
+				wstring stemp = _T("Identifier");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+						wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+						currentSensor.id = string(ws.begin(), ws.end());
+						ws.clear();
+
+						hr = 0;
+				}
+
+				stemp = _T("Max");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					currentSensor.max = vtProp.dblVal;
+
+					hr = 0;
+				}
+
+				stemp = _T("Min");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					currentSensor.min = vtProp.dblVal;
+
+					hr = 0;
+				}
+
+				stemp = _T("Value");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					currentSensor.value = vtProp.dblVal;
+
+					hr = 0;
+				}
+
+				stemp = _T("Name");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+					currentSensor.name = string(ws.begin(), ws.end());
+					ws.clear();
+
+					hr = 0;
+				}
+
+				VariantClear(&vtProp);
+				uReturn = 0;
+				pclsObj_->Release();
+
+				sensors.push_back(currentSensor);
+
+			}
+			pEnumerator_->Release();
+		}
+	}
+
 	return sensors;
 }
