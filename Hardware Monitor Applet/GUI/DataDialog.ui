@@ -132,6 +132,9 @@
      </item>
      <item>
       <widget class="QTableWidget" name="sensorTable">
+       <property name="editTriggers">
+        <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked</set>
+       </property>
        <column>
         <property name="text">
          <string>ID</string>
@@ -205,6 +208,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="clearTableButton">
+         <property name="text">
+          <string>Clear Table</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -236,7 +246,40 @@
       </spacer>
      </item>
      <item>
-      <widget class="QTableWidget" name="selectedSensorTable"/>
+      <widget class="QTableWidget" name="selectedSensorTable">
+       <property name="editTriggers">
+        <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="textElideMode">
+        <enum>Qt::ElideLeft</enum>
+       </property>
+       <column>
+        <property name="text">
+         <string>ID</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>System</string>
+        </property>
+       </column>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer_7">

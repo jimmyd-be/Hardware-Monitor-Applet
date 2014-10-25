@@ -9,8 +9,18 @@ DataDialog::DataDialog(QWidget *parent)
 	connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(ui.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	connect(ui.MonitorSystemButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(radioButtonChanged(int)));
-
+	connect(ui.addButton, SIGNAL(clicked()), this, SLOT(addSensor()));
+	connect(ui.removeButton, SIGNAL(clicked()), this, SLOT(removeSensor()));
+	connect(ui.clearTableButton, SIGNAL(clicked()), this, SLOT(clearSelectionTable()));
+	
 	setWindowFlags(Qt::Window);
+
+	ui.selectedSensorTable->setHorizontalHeaderItem(0, new QTableWidgetItem("ID"));
+	ui.selectedSensorTable->setHorizontalHeaderItem(1, new QTableWidgetItem("Name"));
+	ui.selectedSensorTable->setHorizontalHeaderItem(2, new QTableWidgetItem("Type"));
+	ui.selectedSensorTable->setHorizontalHeaderItem(3, new QTableWidgetItem("System"));
+
+	ui.selectedSensorTable->setColumnHidden(0, true);
 
 	fillinData();
 }
@@ -25,19 +35,70 @@ void DataDialog::accept()
 	
 }
 
+void DataDialog::addSensor()
+{
+	QList<QTableWidgetItem*> items = ui.sensorTable->selectedItems();
+
+	for (QTableWidgetItem * tableItem : items)
+	{
+		int row = ui.selectedSensorTable->rowCount();
+
+		ui.selectedSensorTable->insertRow(row);
+
+		QTableWidgetItem * selectedItem = new QTableWidgetItem();
+		QTableWidgetItem * selectedName = new QTableWidgetItem();
+		QTableWidgetItem * selectedColumn = new QTableWidgetItem();
+		QTableWidgetItem * selectedSystem = new QTableWidgetItem();
+
+		selectedItem->setText(ui.sensorTable->item(tableItem->row(), 0)->text());
+		selectedName->setText(ui.sensorTable->item(tableItem->row(), 1)->text());
+		selectedColumn->setText(ui.sensorTable->horizontalHeaderItem(tableItem->column())->text());
+		selectedSystem->setText(getSelectedSystemString());
+
+		selectedColumn->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		selectedSystem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		selectedItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+		ui.selectedSensorTable->setItem(row, 0, selectedItem);
+		ui.selectedSensorTable->setItem(row, 1, selectedName);
+		ui.selectedSensorTable->setItem(row, 2, selectedColumn);
+		ui.selectedSensorTable->setItem(row, 3, selectedSystem);
+	}
+}
+
+void DataDialog::removeSensor()
+{
+	QList<QTableWidgetItem*> items = ui.selectedSensorTable->selectedItems();
+
+	ui.selectedSensorTable->removeRow(items[0]->row());
+}
+
 void DataDialog::reject()
 {
+	ui.sensorTable->clear();
+	ui.selectedSensorTable->clear();
 
+	close();
 }
 
 void DataDialog::closeEvent(QCloseEvent * event)
 {
-
+	reject();
 }
 
-void DataDialog::radioButtonChanged(int)
+void DataDialog::radioButtonChanged(int button)
 {
+	fillinData();
+}
 
+void DataDialog::clearSelectionTable()
+{
+	ui.selectedSensorTable->clearContents();
+
+	while (ui.selectedSensorTable->rowCount() > 0)
+	{
+		ui.selectedSensorTable->removeRow(0);
+	}
 }
 
 void DataDialog::addHeaders()
@@ -53,7 +114,12 @@ void DataDialog::addHeaders()
 
 void DataDialog::fillinData()
 {
-	ui.sensorTable->clear();
+	ui.sensorTable->clearContents();
+
+	while (ui.sensorTable->rowCount() > 0)
+	{
+		ui.sensorTable->removeRow(0);
+	}
 
 	addHeaders();
 
@@ -65,11 +131,21 @@ void DataDialog::fillinData()
 
 		ui.sensorTable->insertRow(row);
 
-		ui.sensorTable->setItem(row - 1, 0, new QTableWidgetItem(QString::fromStdString(hardwareSensors.id)));
-		ui.sensorTable->setItem(row - 1, 1, new QTableWidgetItem(QString::fromStdString(hardwareSensors.name)));
-		ui.sensorTable->setItem(row - 1, 2, new QTableWidgetItem(QString::number(hardwareSensors.value)));
-		ui.sensorTable->setItem(row - 1, 3, new QTableWidgetItem(QString::number(hardwareSensors.max)));
-		ui.sensorTable->setItem(row - 1, 4, new QTableWidgetItem(QString::number(hardwareSensors.min)));
+		QTableWidgetItem * itemId = new QTableWidgetItem(QString::fromStdString(hardwareSensors.id));
+		QTableWidgetItem * itemValue = new QTableWidgetItem(QString::number(hardwareSensors.value));
+		QTableWidgetItem * itemMin = new QTableWidgetItem(QString::number(hardwareSensors.min));
+		QTableWidgetItem * itemMax = new QTableWidgetItem(QString::number(hardwareSensors.max));
+
+		itemId->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		itemValue->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		itemMin->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		itemMax->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+		ui.sensorTable->setItem(row, 0, itemId);
+		ui.sensorTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(hardwareSensors.name)));
+		ui.sensorTable->setItem(row, 2, itemValue);
+		ui.sensorTable->setItem(row, 3, itemMax);
+		ui.sensorTable->setItem(row, 4, itemMin);
 	}
 }
 
@@ -85,4 +161,19 @@ MonitorSystem DataDialog::getSelectedSystem()
 	}
 
 	return MonitorSystem::NONE;
+}
+
+QString DataDialog::getSelectedSystemString()
+{
+	switch (getSelectedSystem())
+	{
+		case MonitorSystem::HWiNFO:
+			return QString("HWiNFO");
+		break;
+		
+		case MonitorSystem::OHM:
+			return QString("OHM");
+		break;
+	};
+	return "";
 }

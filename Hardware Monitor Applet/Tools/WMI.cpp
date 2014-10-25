@@ -24,8 +24,18 @@ WMI::WMI()
 
 WMI::~WMI(void)
 {
-	pSvc_->Release();
-	pLoc_->Release();
+	if (pSvc_ != 0)
+	{
+		pSvc_->Release();
+		pSvc_ = 0;
+	}
+
+	if (pLoc_ != 0)
+	{
+		pLoc_->Release();
+		pLoc_ = 0;
+	}
+
 	CoUninitialize();
 }
 

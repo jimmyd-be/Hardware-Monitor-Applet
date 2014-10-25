@@ -19,12 +19,16 @@ private slots:
 	void reject();
 	void closeEvent(QCloseEvent * event);
 	void radioButtonChanged(int);
+	void addSensor();
+	void removeSensor();
+	void clearSelectionTable();
 
 private:
 
 	MonitorSystem getSelectedSystem();
 	void fillinData();
 	void addHeaders();
+	QString getSelectedSystemString();
 
 	Ui::DataDialog ui;
 };
