@@ -336,14 +336,6 @@
      <addaction name="actionCelsius"/>
      <addaction name="actionFahrenheit"/>
     </widget>
-    <widget class="QMenu" name="menuMonitor_tool">
-     <property name="title">
-      <string>Monitor tool</string>
-     </property>
-     <addaction name="actionHWiNFO"/>
-     <addaction name="actionOpen_Hardware_Monitor"/>
-    </widget>
-    <addaction name="menuMonitor_tool"/>
     <addaction name="menuTemperature_Unit"/>
     <addaction name="actionGeneral_Background"/>
    </widget>

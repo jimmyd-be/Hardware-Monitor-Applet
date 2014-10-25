@@ -219,3 +219,8 @@ QVector<HardwareSensor> WMI::getAllSensors()
 
 	return sensors;
 }
+
+MonitorSystem WMI::getMonitorSystem()
+{
+	return MonitorSystem::OHM;
+}

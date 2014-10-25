@@ -48,6 +48,7 @@ public:
 	// General Methods
 	//---------------------------
 	QVector<HardwareSensor> getAllSensors();
+	MonitorSystem getMonitorSystem();
 
 private:
 	//---------------------------

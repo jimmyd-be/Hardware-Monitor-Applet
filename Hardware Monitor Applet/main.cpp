@@ -1,6 +1,7 @@
 #include <QtWidgets/QApplication>
 #include <external\QSingleApplication\qtsingleapplication.h>
 #include "Controller.h"
+#include "Tools\Data.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +29,8 @@ int main(int argc, char *argv[])
 	}
 
 	a.exec();
+
+	Data::removeInstance();
 
 	if (controller != nullptr)
 	{

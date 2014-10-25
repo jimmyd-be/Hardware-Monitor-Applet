@@ -187,6 +187,8 @@ Screen * Logitech::getScreenData(QString name)
 			return screen;
 		}
 	}
+
+	return nullptr;
 }
 
 void Logitech::addLine(QString pageName, QString text)

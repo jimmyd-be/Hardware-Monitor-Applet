@@ -31,3 +31,8 @@ QVector<HardwareSensor> Tool::getAllSensors()
 
 	return sensors;
 }
+
+MonitorSystem Tool::getMonitorSystem()
+{
+	return MonitorSystem::NONE;
+}

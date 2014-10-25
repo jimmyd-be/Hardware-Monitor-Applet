@@ -242,6 +242,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_DataDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\Data.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -416,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DataDialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Data.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

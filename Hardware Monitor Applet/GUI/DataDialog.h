@@ -4,7 +4,7 @@
 #include "Screen.h"
 #include <QMessageBox>
 #include "ui_DataDialog.h"
-#include "../Tools/HWiNFO.h"
+#include "../Tools/Data.h"
 
 class DataDialog: public QDialog
 {
@@ -17,8 +17,14 @@ public:
 private slots:
 	void accept();
 	void reject();
+	void closeEvent(QCloseEvent * event);
+	void radioButtonChanged(int);
 
 private:
+
+	MonitorSystem getSelectedSystem();
+	void fillinData();
+	void addHeaders();
+
 	Ui::DataDialog ui;
 };
-

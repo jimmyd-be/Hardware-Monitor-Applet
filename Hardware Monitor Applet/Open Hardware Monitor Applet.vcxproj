@@ -271,6 +271,7 @@
     <ClCompile Include="NormalScreen.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="StartScreen.cpp" />
+    <ClCompile Include="Tools\Data.cpp" />
     <ClCompile Include="Tools\HWiNFO.cpp" />
     <ClCompile Include="Tools\Tool.cpp" />
     <ClCompile Include="Tools\WMI.cpp" />
@@ -374,6 +375,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtNetwork"</Command>
     </CustomBuild>
+    <ClInclude Include="Tools\Data.h" />
     <ClInclude Include="Tools\HWiNFO.h" />
     <ClInclude Include="Tools\Tool.h" />
     <ClInclude Include="Tools\WMI.h" />
