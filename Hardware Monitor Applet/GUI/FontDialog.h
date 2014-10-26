@@ -12,6 +12,7 @@ class FontDialog: public QDialog
 public:
 	FontDialog(Screen *, QWidget *parent);
 	virtual ~FontDialog();
+	AppletFont getFont();
 
 private slots:
 	void accept();
@@ -22,4 +23,5 @@ private slots:
 private:
 	Screen * screenData_;
 	Ui::FontDialog ui;
+	AppletFont font_;
 };

@@ -88,4 +88,10 @@ void NormalScreenWidget::lineScreenTextChanged()
 void NormalScreenWidget::openFontDialog()
 {
 	FontDialog * dialog = new FontDialog(lcd_->getScreenData(name_), this);
+
+	dialog->exec();
+
+	AppletFont font = dialog->getFont();
+
+	delete dialog;
 }

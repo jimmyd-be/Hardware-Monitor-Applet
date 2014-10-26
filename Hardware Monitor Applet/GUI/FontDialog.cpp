@@ -14,6 +14,8 @@ FontDialog::FontDialog(Screen * screenData, QWidget *parent)
 	QPalette pal = ui.colorLabel->palette();
 	pal.setColor(QPalette::Window, screenData_->getFont().color);
 	ui.colorLabel->setPalette(pal);*/
+
+	font_.color = QColor(Qt::white);
 }
 
 
@@ -23,6 +25,9 @@ FontDialog::~FontDialog()
 
 void FontDialog::accept()
 {
+	font_.height = ui.fontSizeSpinBox->value();
+	font_.lineSpace = ui.lineSpaceSpinBox->value();
+	font_.name = ui.fontComboBox->currentFont();
 	close();
 }
 
@@ -46,8 +51,15 @@ void FontDialog::openColorPicker()
 
 	QColor color = dialog.selectedColor();
 
+	font_.color = color;
+
 	ui.colorLabel->setAutoFillBackground(true);
 	QPalette pal = ui.colorLabel->palette();
 	pal.setColor(QPalette::Window, color);
 	ui.colorLabel->setPalette(pal);
+}
+
+AppletFont FontDialog::getFont()
+{
+	return font_;
 }

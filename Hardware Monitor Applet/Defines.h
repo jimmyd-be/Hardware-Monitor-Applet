@@ -31,7 +31,7 @@ struct LineText{
 };
 
 struct AppletFont{
-	QString name;
+	QFont name;
 	int height;
 	double lineSpace;
 	QColor color;
