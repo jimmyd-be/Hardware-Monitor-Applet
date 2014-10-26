@@ -4,6 +4,7 @@
 #include "ui_NormalScreenWidget.h"
 #include "../Logitech.h"
 #include "DataDialog.h"
+#include "FontDialog.h"
 
 class NormalScreenWidget :
 	public QWidget, private Ui_NormscreenWidget
@@ -20,6 +21,7 @@ public:
 private slots:
 	void openDataScreen();
 	void addLine();
+	void openFontDialog();
 
 private:
 	QVector<LineScreenWidget *> lineList_;

@@ -50,18 +50,10 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 	else if (type == KeyboardTypes::Monochrome)
 	{
 		ui.keyboardLabel->setText("Logitech monochrome (G15, G15s, G510) keyboard found!!");
-
-		ui.backgroundBrowseButton->hide();
-		ui.backgroundLabel->hide();
-		ui.backgroundLine->hide();
 	}
 	else
 	{
 		ui.keyboardLabel->setText("Logitech color (G19, G19s) keyboard found!!");
-		
-		ui.backgroundBrowseButton->show();
-		ui.backgroundLabel->show();
-		ui.backgroundLine->show();
 	}
 
 }
@@ -102,14 +94,9 @@ void MainWindow::createScreen(QString name, ScreenType type)
 
 		ui.widgetLayout->addWidget(mainWidget_);
 	}
-
 }
 
 void MainWindow::removeCurrentScreen()
-{
-}
-
-void MainWindow::openDataDialog()
 {
 
 }

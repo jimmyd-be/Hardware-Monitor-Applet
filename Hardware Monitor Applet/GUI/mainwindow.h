@@ -32,10 +32,8 @@ private:
 	Logitech * lcd_;
 
 private slots:
-
 	void openSelectionDialog();
-	void openDataDialog();
 	void removeCurrentScreen();
-};
+}; 
 
 #endif // MAINWINDOW_H

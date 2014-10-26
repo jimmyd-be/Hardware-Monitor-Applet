@@ -66,3 +66,8 @@ void Screen::addLine(QString text)
 
 	screenLines_.append(line);
 }
+
+AppletFont Screen::getFont()
+{
+	return font_;
+}

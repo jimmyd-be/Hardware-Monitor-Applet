@@ -26,9 +26,15 @@ struct Query{
 
 struct LineText{
 	QString text;
-	QFont font;
 	QMap<QString, Query> queryMap;
 	HANDLE textHandle;
+};
+
+struct AppletFont{
+	QString name;
+	int height;
+	double lineSpace;
+	QColor color;
 };
 
 struct HardwareSensor{

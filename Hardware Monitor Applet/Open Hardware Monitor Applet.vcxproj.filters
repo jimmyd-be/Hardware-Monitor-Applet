@@ -245,6 +245,15 @@
     <ClCompile Include="Tools\Data.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\FontDialog.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FontDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FontDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -297,6 +306,12 @@
     </CustomBuild>
     <CustomBuild Include="GUI\DataDialog.h">
       <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\FontDialog.h">
+      <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\FontDialog.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -422,6 +437,9 @@
     </ClInclude>
     <ClInclude Include="Tools\Data.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_FontDialog.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

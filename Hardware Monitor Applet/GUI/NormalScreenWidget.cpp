@@ -8,6 +8,22 @@ NormalScreenWidget::NormalScreenWidget(QString name, Logitech * lcd, QWidget *pa
 	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataScreen()));
 	connect(addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
 	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataDialog()));
+	connect(fontButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
+
+	KeyboardTypes type = lcd_->getKeyboardType();
+
+	if (type == KeyboardTypes::Monochrome)
+	{
+		backgroundBrowseButton->hide();
+		backgroundLabel->hide();
+		backgroundLine->hide();
+	}
+	else
+	{
+		backgroundBrowseButton->show();
+		backgroundLabel->show();
+		backgroundLine->show();
+	}
 }
 
 
@@ -25,7 +41,7 @@ NormalScreenWidget::~NormalScreenWidget()
 
 void NormalScreenWidget::openDataScreen()
 {
-	dataDialog_ = new DataDialog(this);
+	dataDialog_ = new DataDialog(lcd_->getScreenData(name_), this);
 
 	dataDialog_->exec();
 
@@ -42,7 +58,7 @@ void NormalScreenWidget::addLine()
 
 	linesLayout->addWidget(widget);
 
-	lineList_.push_back(widget);	
+	lineList_.push_back(widget);
 }
 
 void NormalScreenWidget::removeWidget(LineScreenWidget * deleteWidget)
@@ -67,4 +83,9 @@ void NormalScreenWidget::lineScreenTextChanged()
 	{
 		lcd_->addLine(name_, widget->getText());
 	}
+}
+
+void NormalScreenWidget::openFontDialog()
+{
+	FontDialog * dialog = new FontDialog(lcd_->getScreenData(name_), this);
 }

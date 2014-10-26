@@ -1,8 +1,8 @@
 #include "DataDialog.h"
 
 
-DataDialog::DataDialog(QWidget *parent)
-	: QDialog(parent)
+DataDialog::DataDialog(Screen * screenData, QWidget *parent)
+	: QDialog(parent), screenData_(screenData)
 {
 	ui.setupUi(this);
 

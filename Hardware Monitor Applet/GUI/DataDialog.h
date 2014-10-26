@@ -11,7 +11,7 @@ class DataDialog: public QDialog
 	Q_OBJECT
 
 public:
-	DataDialog(QWidget *parent);
+	DataDialog(Screen *, QWidget *parent);
 	virtual ~DataDialog();
 
 private slots:
@@ -29,6 +29,7 @@ private:
 	void fillinData();
 	void addHeaders();
 	QString getSelectedSystemString();
+	Screen * screenData_;
 
 	Ui::DataDialog ui;
 };
