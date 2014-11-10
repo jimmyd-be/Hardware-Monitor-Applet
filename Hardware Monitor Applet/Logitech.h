@@ -40,7 +40,7 @@ public:
 	QVector<Screen *> getScreenList();
 	Screen * getScreenData(QString);
 	void createPage(QString name, ScreenType type);
-	void addLine(QString pageName, QString text);
+	void addLine(QString pageName, QString text, QMap<QString, Query> dataMap);
 	void clearPage(QString name);
 	void removePage(QString name);
 

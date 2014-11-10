@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="MainWindow">
+    <file>Resources/NormalScreen.png</file>
     <file alias="Default">Resources/Default.png</file>
   </qresource>
 </RCC>

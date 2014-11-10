@@ -254,7 +254,6 @@
      <addaction name="actionFahrenheit"/>
     </widget>
     <addaction name="menuTemperature_Unit"/>
-    <addaction name="actionGeneral_Background"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -291,7 +290,7 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>Close Applet</string>
    </property>
   </action>
   <action name="actionClose_settigns">

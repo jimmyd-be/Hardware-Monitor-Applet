@@ -58,11 +58,12 @@ void Screen::clearLines()
 	screenLines_.clear();
 }
 
-void Screen::addLine(QString text)
+void Screen::addLine(QString text, QMap<QString, Query> data)
 {
 	LineText line;
 
 	line.text = text;
+	line.queryMap = data;
 
 	screenLines_.append(line);
 }

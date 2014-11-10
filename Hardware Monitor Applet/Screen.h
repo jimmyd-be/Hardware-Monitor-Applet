@@ -36,7 +36,7 @@ public:
 	AppletFont getFont();
 
 	void clearLines();
-	void addLine(QString);
+	void addLine(QString, QMap<QString, Query>);
 
 protected:
 	// -------------------------

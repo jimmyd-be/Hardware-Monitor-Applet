@@ -21,6 +21,7 @@ DataDialog::DataDialog(Screen * screenData, QWidget *parent)
 	ui.selectedSensorTable->setHorizontalHeaderItem(3, new QTableWidgetItem("System"));
 
 	ui.selectedSensorTable->setColumnHidden(0, true);
+	
 
 	fillinData();
 }
@@ -28,11 +29,59 @@ DataDialog::DataDialog(Screen * screenData, QWidget *parent)
 
 DataDialog::~DataDialog()
 {
+	
 }
 
 void DataDialog::accept()
 {
-	
+	data_.clear();
+
+	for (int row = 0; row < ui.selectedSensorTable->rowCount(); row++)
+	{
+		Query newQuery;
+
+		newQuery.identifier = ui.selectedSensorTable->item(row, 0)->text();
+
+		QString systemString = ui.selectedSensorTable->item(row, 3)->text();
+
+		if (systemString == "OHM")
+		{
+			newQuery.system = MonitorSystem::OHM;
+		}
+		else if (systemString == "HWiNFO")
+		{
+			newQuery.system = MonitorSystem::HWiNFO;
+		}
+		else
+		{
+			newQuery.system = MonitorSystem::NONE;
+		}
+
+		QString valueString = ui.selectedSensorTable->item(row, 2)->text();
+
+		if (valueString == "Max")
+		{
+			newQuery.value = QueryValue::Max;
+		}
+		else if (valueString == "Min")
+		{
+			newQuery.value = QueryValue::Min;
+		}
+		else if (valueString == "Value")
+		{
+			newQuery.value = QueryValue::Current;
+		}
+		else if (valueString == "Name")
+		{
+			newQuery.value = QueryValue::Name;
+		}
+
+		newQuery.name = ui.selectedSensorTable->item(row, 1)->text();
+		
+		data_.push_back(newQuery);
+	}
+
+	hide();
 }
 
 void DataDialog::addSensor()
@@ -176,4 +225,9 @@ QString DataDialog::getSelectedSystemString()
 		break;
 	};
 	return "";
+}
+
+QVector<Query> DataDialog::getData()
+{
+	return data_;
 }

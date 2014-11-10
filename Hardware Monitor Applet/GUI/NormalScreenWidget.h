@@ -27,6 +27,7 @@ private:
 	QVector<LineScreenWidget *> lineList_;
 	DataDialog * dataDialog_;
 	QString name_;
+	QMap<QString, Query> dataMap_;
 
 	Logitech * lcd_;
 };

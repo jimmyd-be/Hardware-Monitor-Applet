@@ -24,6 +24,8 @@ NormalScreenWidget::NormalScreenWidget(QString name, Logitech * lcd, QWidget *pa
 		backgroundLabel->show();
 		backgroundLine->show();
 	}
+
+	dataTableWidget->setColumnHidden(0, true);
 }
 
 
@@ -44,6 +46,69 @@ void NormalScreenWidget::openDataScreen()
 	dataDialog_ = new DataDialog(lcd_->getScreenData(name_), this);
 
 	dataDialog_->exec();
+
+	dataTableWidget->clearContents();
+	dataMap_.clear();
+
+	for (Query data : dataDialog_->getData())
+	{
+		int row = dataTableWidget->rowCount();
+
+		dataTableWidget->insertRow(row);
+
+		QTableWidgetItem * idItem = new QTableWidgetItem();
+		QTableWidgetItem * nameItem = new QTableWidgetItem();
+		QTableWidgetItem * systemItem = new QTableWidgetItem();
+		QTableWidgetItem * valueItem = new QTableWidgetItem();
+		QTableWidgetItem * symbolItem = new QTableWidgetItem();
+
+		idItem->setFlags(Qt::ItemIsEnabled);
+		nameItem->setFlags(Qt::ItemIsEnabled);
+		systemItem->setFlags(Qt::ItemIsEnabled);
+		valueItem->setFlags(Qt::ItemIsEnabled);
+		symbolItem->setFlags(Qt::ItemIsEnabled);
+
+		idItem->setText(data.identifier);
+		nameItem->setText(data.name);
+
+		switch (data.system)
+		{
+		case MonitorSystem::HWiNFO:
+			systemItem->setText("HWiNFO");
+			break;
+		case MonitorSystem::OHM:
+			systemItem->setText("OHM");
+			break;
+		};
+
+		switch (data.value)
+		{
+		case QueryValue::Current:
+			valueItem->setText("Current");
+			break;
+
+		case QueryValue::Max:
+			valueItem->setText("Max");
+			break;
+		case QueryValue::Min:
+			valueItem->setText("Min");
+			break;
+		case QueryValue::Name:
+			valueItem->setText("Name");
+			break;
+		};
+
+		QString querySymbol = "$" + QString::number(row + 1);
+		symbolItem->setText(querySymbol);
+
+		dataTableWidget->setItem(row, 0, idItem);
+		dataTableWidget->setItem(row, 1, symbolItem);
+		dataTableWidget->setItem(row, 2, nameItem);
+		dataTableWidget->setItem(row, 3, systemItem);
+		dataTableWidget->setItem(row, 4, valueItem);
+
+		dataMap_.insert(querySymbol, data);
+	}
 
 	if (dataDialog_ != nullptr)
 	{
@@ -81,7 +146,23 @@ void NormalScreenWidget::lineScreenTextChanged()
 
 	for (LineScreenWidget * widget : lineList_)
 	{
-		lcd_->addLine(name_, widget->getText());
+		QMap<QString, Query> dataMap;
+
+		QString lineText = widget->getText();
+
+		QMapIterator<QString, Query> iter(dataMap_);
+
+		while (iter.hasNext())
+		{
+			iter.next();
+
+			if (lineText.contains(iter.key()))
+			{
+				dataMap.insert(iter.key(), iter.value());
+			}
+		}
+
+		lcd_->addLine(name_, lineText, dataMap);
 	}
 }
 

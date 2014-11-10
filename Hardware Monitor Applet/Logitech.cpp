@@ -191,11 +191,11 @@ Screen * Logitech::getScreenData(QString name)
 	return nullptr;
 }
 
-void Logitech::addLine(QString pageName, QString text)
+void Logitech::addLine(QString pageName, QString text, QMap<QString, Query> dataMap)
 {
 	Screen * editScreen = getScreenData(pageName);
 
-	editScreen->addLine(text);
+	editScreen->addLine(text, dataMap);
 }
 
 void Logitech::clearPage(QString name)
@@ -208,5 +208,4 @@ void Logitech::clearPage(QString name)
 void Logitech::removePage(QString name)
 {
 	Screen * editScreen = getScreenData(name);
-
 }

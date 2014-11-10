@@ -13,14 +13,13 @@
 
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, No};
-//enum QueryType {Sensor, Hardware};
 enum QueryValue {Name, Current, Max, Min};
 enum MonitorSystem { OHM, HWiNFO, NONE };
 
 struct Query{
 	MonitorSystem system;
 	QString identifier;
-	//QueryType type;
+	QString name;
 	QueryValue value;
 };
 

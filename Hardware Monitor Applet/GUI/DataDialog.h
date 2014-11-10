@@ -13,6 +13,7 @@ class DataDialog: public QDialog
 public:
 	DataDialog(Screen *, QWidget *parent);
 	virtual ~DataDialog();
+	QVector < Query> getData();
 
 private slots:
 	void accept();
@@ -30,6 +31,8 @@ private:
 	void addHeaders();
 	QString getSelectedSystemString();
 	Screen * screenData_;
+
+	QVector<Query> data_;
 
 	Ui::DataDialog ui;
 };

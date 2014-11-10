@@ -218,12 +218,6 @@
     <ClCompile Include="GUI\LineScreenWidget.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_NormalScreenWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_NormalScreenWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_LineScreenWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -252,6 +246,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_FontDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NormalScreenWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_NormalScreenWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
