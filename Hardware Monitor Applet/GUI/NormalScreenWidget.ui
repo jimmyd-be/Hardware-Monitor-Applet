@@ -219,7 +219,7 @@
          <item>
           <widget class="QPushButton" name="refreshDataButton">
            <property name="text">
-            <string>Refresh</string>
+            <string>Optimize</string>
            </property>
           </widget>
          </item>

@@ -9,6 +9,7 @@ NormalScreenWidget::NormalScreenWidget(QString name, Logitech * lcd, QWidget *pa
 	connect(addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
 	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataDialog()));
 	connect(fontButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
+	connect(backgroundBrowseButton, SIGNAL(clicked()), this, SLOT(openbackgroundDialog()));
 
 	KeyboardTypes type = lcd_->getKeyboardType();
 
@@ -175,4 +176,10 @@ void NormalScreenWidget::openFontDialog()
 	AppletFont font = dialog->getFont();
 
 	delete dialog;
+}
+
+void NormalScreenWidget::openbackgroundDialog()
+{
+	//QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Select background"), "", tr("Image Files (*.jpg, *.png)"));
+
 }
