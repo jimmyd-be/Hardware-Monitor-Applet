@@ -51,18 +51,7 @@ NormalScreenWidget::NormalScreenWidget(Screen * screen, Logitech * lcd, QWidget 
 
 	dataTableWidget->setColumnHidden(0, true);
 
-	fontLine->setText(screen->getFont().name.toString());
-	backgroundLine->setText(screen->getBackground());
-
-	for (LineText line : screen->getLines())
-	{
-		addLine(line.text);
-
-		/*for (Query lineQuery : line.queryMap)
-		{
-			addDataMap()
-		}*/
-	}
+	fillinData(screen);
 
 	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataScreen()));
 	connect(addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
@@ -84,18 +73,60 @@ NormalScreenWidget::~NormalScreenWidget()
 	}
 }
 
+void NormalScreenWidget::fillinData(Screen * screen)
+{
+	fontLine->setText(screen->getFont().name.toString());
+	backgroundLine->setText(screen->getBackground());
+
+	QMap<QString, Query> mapData;
+
+	for (LineText line : screen->getLines())
+	{
+		addLine(line.text);
+
+		QMapIterator<QString, Query> iter(line.queryMap);
+
+		while (iter.hasNext())
+		{
+			iter.next();
+			if (!mapData.contains(iter.key()))
+			{
+				QString test = iter.key();
+				mapData.insert(iter.key(), iter.value());
+			}
+		}
+	}
+	
+	QMapIterator<QString, Query> iter(mapData);
+
+	while (iter.hasNext())
+	{
+		iter.next();
+		addDataMap(iter.value(), iter.key());
+	}
+}
+
 void NormalScreenWidget::openDataScreen()
 {
-	dataDialog_ = new DataDialog(lcd_->getScreenData(name_), this);
+	dataDialog_ = new DataDialog(dataMap_, this);
 
 	dataDialog_->exec();
 
 	dataTableWidget->clearContents();
+
+	while (dataTableWidget->rowCount() != 0)
+	{
+		dataTableWidget->removeRow(0);
+	}
+
 	dataMap_.clear();
 
-	for (Query data : dataDialog_->getData())
+	QMapIterator<QString, Query> iter(dataDialog_->getData());
+
+	while (iter.hasNext())
 	{
-		addDataMap(data);
+		iter.next();
+		addDataMap(iter.value(), iter.key());
 	}
 
 	if (dataDialog_ != nullptr)
@@ -106,6 +137,15 @@ void NormalScreenWidget::openDataScreen()
 }
 
 void NormalScreenWidget::addDataMap(Query data)
+{
+	int row = dataTableWidget->rowCount();
+
+	QString querySymbol = "$" + QString::number(row + 1);
+	
+	addDataMap(data, querySymbol);	
+}
+
+void NormalScreenWidget::addDataMap(Query data, QString querySymbol)
 {
 	int row = dataTableWidget->rowCount();
 
@@ -130,7 +170,6 @@ void NormalScreenWidget::addDataMap(Query data)
 
 	valueItem->setText(Defines::translateQueryValueEnum(data.value));
 
-	QString querySymbol = "$" + QString::number(row + 1);
 	symbolItem->setText(querySymbol);
 
 	dataTableWidget->setItem(row, 0, idItem);

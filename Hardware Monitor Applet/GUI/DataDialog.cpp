@@ -1,8 +1,8 @@
 #include "DataDialog.h"
 
 
-DataDialog::DataDialog(Screen * screenData, QWidget *parent)
-	: QDialog(parent), screenData_(screenData)
+DataDialog::DataDialog(QMap<QString, Query> screenData, QWidget *parent)
+	: QDialog(parent)
 {
 	ui.setupUi(this);
 
@@ -19,11 +19,12 @@ DataDialog::DataDialog(Screen * screenData, QWidget *parent)
 	ui.selectedSensorTable->setHorizontalHeaderItem(1, new QTableWidgetItem("Name"));
 	ui.selectedSensorTable->setHorizontalHeaderItem(2, new QTableWidgetItem("Type"));
 	ui.selectedSensorTable->setHorizontalHeaderItem(3, new QTableWidgetItem("System"));
+	ui.selectedSensorTable->setHorizontalHeaderItem(4, new QTableWidgetItem("Symbol"));
 
 	ui.selectedSensorTable->setColumnHidden(0, true);
-	
 
 	fillinData();
+	fillinSelectedData(screenData);
 }
 
 
@@ -44,44 +45,55 @@ void DataDialog::accept()
 
 		QString systemString = ui.selectedSensorTable->item(row, 3)->text();
 
-		if (systemString == "OHM")
-		{
-			newQuery.system = MonitorSystem::OHM;
-		}
-		else if (systemString == "HWiNFO")
-		{
-			newQuery.system = MonitorSystem::HWiNFO;
-		}
-		else
-		{
-			newQuery.system = MonitorSystem::NONE;
-		}
+		newQuery.system = Defines::translateMonitorSystemEnum(systemString);
 
 		QString valueString = ui.selectedSensorTable->item(row, 2)->text();
 
-		if (valueString == "Max")
-		{
-			newQuery.value = QueryValue::Max;
-		}
-		else if (valueString == "Min")
-		{
-			newQuery.value = QueryValue::Min;
-		}
-		else if (valueString == "Value")
-		{
-			newQuery.value = QueryValue::Current;
-		}
-		else if (valueString == "Name")
-		{
-			newQuery.value = QueryValue::Name;
-		}
+		newQuery.value = Defines::translateQueryValueEnum(valueString);
 
 		newQuery.name = ui.selectedSensorTable->item(row, 1)->text();
 		
-		data_.push_back(newQuery);
+		data_.insert(ui.selectedSensorTable->item(row, 4)->text(), newQuery);
 	}
 
 	hide();
+}
+
+void DataDialog::fillinSelectedData(QMap<QString, Query> data)
+{
+	ui.selectedSensorTable->clearContents();
+
+	QMapIterator<QString, Query> iter(data);
+
+	while (iter.hasNext())
+	{
+		iter.next();
+		
+		int row = ui.selectedSensorTable->rowCount();
+		Query query = iter.value();
+
+		ui.selectedSensorTable->insertRow(row);
+
+		QTableWidgetItem * selectedItem = new QTableWidgetItem();
+		QTableWidgetItem * selectedName = new QTableWidgetItem();
+		QTableWidgetItem * selectedColumn = new QTableWidgetItem();
+		QTableWidgetItem * selectedSystem = new QTableWidgetItem();
+		QTableWidgetItem * symbol = new QTableWidgetItem();
+
+		selectedItem->setText(query.identifier);
+		selectedName->setText(query.name);
+
+		selectedColumn->setText(Defines::translateQueryValueEnum(query.value));
+		selectedSystem->setText(Defines::translateMonitorSystemEnum(query.system));
+
+		symbol->setText(iter.key());
+
+		ui.selectedSensorTable->setItem(row, 0, selectedItem);
+		ui.selectedSensorTable->setItem(row, 1, selectedName);
+		ui.selectedSensorTable->setItem(row, 2, selectedColumn);
+		ui.selectedSensorTable->setItem(row, 3, selectedSystem);
+		ui.selectedSensorTable->setItem(row, 4, symbol);
+	}
 }
 
 void DataDialog::addSensor()
@@ -90,28 +102,35 @@ void DataDialog::addSensor()
 
 	for (QTableWidgetItem * tableItem : items)
 	{
-		int row = ui.selectedSensorTable->rowCount();
+		if (!containsItems(ui.sensorTable->item(tableItem->row(), 0)->text(), ui.sensorTable->horizontalHeaderItem(tableItem->column())->text(), getSelectedSystemString()))
+		{
+			int row = ui.selectedSensorTable->rowCount();
 
-		ui.selectedSensorTable->insertRow(row);
+			ui.selectedSensorTable->insertRow(row);
 
-		QTableWidgetItem * selectedItem = new QTableWidgetItem();
-		QTableWidgetItem * selectedName = new QTableWidgetItem();
-		QTableWidgetItem * selectedColumn = new QTableWidgetItem();
-		QTableWidgetItem * selectedSystem = new QTableWidgetItem();
+			QTableWidgetItem * selectedItem = new QTableWidgetItem();
+			QTableWidgetItem * selectedName = new QTableWidgetItem();
+			QTableWidgetItem * selectedColumn = new QTableWidgetItem();
+			QTableWidgetItem * selectedSystem = new QTableWidgetItem();
+			QTableWidgetItem * symbol = new QTableWidgetItem();
 
-		selectedItem->setText(ui.sensorTable->item(tableItem->row(), 0)->text());
-		selectedName->setText(ui.sensorTable->item(tableItem->row(), 1)->text());
-		selectedColumn->setText(ui.sensorTable->horizontalHeaderItem(tableItem->column())->text());
-		selectedSystem->setText(getSelectedSystemString());
+			symbol->setText(findSymbol());
 
-		selectedColumn->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		selectedSystem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		selectedItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			selectedItem->setText(ui.sensorTable->item(tableItem->row(), 0)->text());
+			selectedName->setText(ui.sensorTable->item(tableItem->row(), 1)->text());
+			selectedColumn->setText(ui.sensorTable->horizontalHeaderItem(tableItem->column())->text());
+			selectedSystem->setText(getSelectedSystemString());
 
-		ui.selectedSensorTable->setItem(row, 0, selectedItem);
-		ui.selectedSensorTable->setItem(row, 1, selectedName);
-		ui.selectedSensorTable->setItem(row, 2, selectedColumn);
-		ui.selectedSensorTable->setItem(row, 3, selectedSystem);
+			selectedColumn->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			selectedSystem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			selectedItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+			ui.selectedSensorTable->setItem(row, 0, selectedItem);
+			ui.selectedSensorTable->setItem(row, 1, selectedName);
+			ui.selectedSensorTable->setItem(row, 2, selectedColumn);
+			ui.selectedSensorTable->setItem(row, 3, selectedSystem);
+			ui.selectedSensorTable->setItem(row, 4, symbol);
+		}
 	}
 }
 
@@ -128,6 +147,19 @@ void DataDialog::reject()
 	ui.selectedSensorTable->clear();
 
 	close();
+}
+
+bool DataDialog::containsItems(QString identifier, QString value, QString system)
+{
+	for (int row = 0; row < ui.selectedSensorTable->rowCount(); row++)
+	{
+		if (ui.selectedSensorTable->item(row, 0)->text() == identifier && ui.selectedSensorTable->item(row, 2)->text() == value && ui.selectedSensorTable->item(row, 3)->text() == system)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void DataDialog::closeEvent(QCloseEvent * event)
@@ -227,7 +259,35 @@ QString DataDialog::getSelectedSystemString()
 	return "";
 }
 
-QVector<Query> DataDialog::getData()
+QMap<QString, Query> DataDialog::getData()
 {
 	return data_;
+}
+
+QString DataDialog::findSymbol()
+{
+	QVector<QString> symbols;
+	int count = 1;
+	bool found = false;
+	QString returnSymbol;
+
+	for (int row = 0; row < ui.selectedSensorTable->rowCount()-1; row++)
+	{
+		symbols.push_back(ui.selectedSensorTable->item(row, 4)->text());
+	}
+
+	while (!found)
+	{
+		QString symbol = "$" + QString::number(count);
+
+		if (!symbols.contains(symbol))
+		{
+			returnSymbol = symbol;
+			found = true;
+		}
+
+		count++;
+	}
+
+	return returnSymbol;
 }

@@ -11,9 +11,9 @@ class DataDialog: public QDialog
 	Q_OBJECT
 
 public:
-	DataDialog(Screen *, QWidget *parent);
+	DataDialog(QMap<QString, Query>, QWidget *parent);
 	virtual ~DataDialog();
-	QVector < Query> getData();
+	QMap<QString, Query> getData();
 
 private slots:
 	void accept();
@@ -25,14 +25,15 @@ private slots:
 	void clearSelectionTable();
 
 private:
-
+	QString findSymbol();
 	MonitorSystem getSelectedSystem();
 	void fillinData();
+	void fillinSelectedData(QMap<QString, Query>);
 	void addHeaders();
 	QString getSelectedSystemString();
-	Screen * screenData_;
+	bool containsItems(QString, QString, QString);
 
-	QVector<Query> data_;
+	QMap<QString, Query> data_;
 
 	Ui::DataDialog ui;
 };

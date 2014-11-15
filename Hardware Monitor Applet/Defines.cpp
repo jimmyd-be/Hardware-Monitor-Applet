@@ -90,20 +90,24 @@ MonitorSystem Defines::translateMonitorSystemEnum(QString string)
 
 QueryValue Defines::translateQueryValueEnum(QString string)
 {
+	QueryValue value;
+
 		if (string == "Current")
 		{
-			return QueryValue::Current;
+			value = QueryValue::Current;
 		}
 		else if (string == "Max")
 		{
-			return QueryValue::Max;
+			value = QueryValue::Max;
 		}
 		else if (string == "Min")
 		{
-			return QueryValue::Min;
+			value = QueryValue::Min;
 		}
 		else if (string == "Name")
 		{
-			return QueryValue::Name;
+			value = QueryValue::Name;
 		}
+
+		return value;
 }

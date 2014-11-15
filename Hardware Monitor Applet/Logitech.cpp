@@ -142,14 +142,14 @@ VOID Logitech::checkbuttonPressesColor()
 
 void Logitech::updatePage()
 {
-	if (!screenList_.isEmpty())
+	/*if (!screenList_.isEmpty())
 	{
 		screenList_[currentPage_]->update();
 	}
 	else
 	{
 
-	}
+	}*/
 }
 
 KeyboardTypes Logitech::getKeyboardType()

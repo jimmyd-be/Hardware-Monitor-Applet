@@ -29,6 +29,8 @@ private slots:
 private:
 	void addLine(QString);
 	void addDataMap(Query);
+	void addDataMap(Query, QString);
+	void fillinData(Screen *);
 
 	QVector<LineScreenWidget *> lineList_;
 	DataDialog * dataDialog_;
