@@ -10,6 +10,17 @@ LineScreenWidget::LineScreenWidget(NormalScreenWidget * widget, QWidget *parent)
 	connect(lineText, SIGNAL(textEdited(QString)), this, SLOT(textChanged(QString)));
 }
 
+LineScreenWidget::LineScreenWidget(QString text, NormalScreenWidget * widget, QWidget *parent)
+	: QWidget(parent), normalScreenWidget_(widget)
+{
+	setupUi(this);
+
+	lineText->setText(text);
+
+	connect(removeButton, SIGNAL(clicked()), this, SLOT(removeLine()));
+	connect(lineText, SIGNAL(textEdited(QString)), this, SLOT(textChanged(QString)));
+}
+
 
 LineScreenWidget::~LineScreenWidget()
 {

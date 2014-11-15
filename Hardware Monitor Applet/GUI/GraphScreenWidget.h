@@ -10,6 +10,7 @@ class GraphScreenWidget :
 
 public:
 	GraphScreenWidget(QString name, Logitech *, QWidget *parent = 0);
+	GraphScreenWidget(Screen * data, Logitech *, QWidget *parent = 0);
 	virtual ~GraphScreenWidget();
 private:
 	QString name_;

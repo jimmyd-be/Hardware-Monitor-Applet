@@ -40,6 +40,8 @@ public:
 	void addFont(AppletFont font);
 	void addbackground(QString background);
 
+	QString getBackground();
+
 protected:
 	// -------------------------
 	// Datamembers

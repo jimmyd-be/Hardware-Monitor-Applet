@@ -59,6 +59,11 @@ class Defines
 {
 	public:
 		static QString getSettingsFolder();
+		static QString translateMonitorSystemEnum(MonitorSystem);
+		static QString translateQueryValueEnum(QueryValue);
+
+		static MonitorSystem translateMonitorSystemEnum(QString);
+		static QueryValue translateQueryValueEnum(QString);
 
 
 	private:

@@ -29,6 +29,48 @@ NormalScreenWidget::NormalScreenWidget(QString name, Logitech * lcd, QWidget *pa
 	dataTableWidget->setColumnHidden(0, true);
 }
 
+NormalScreenWidget::NormalScreenWidget(Screen * screen, Logitech * lcd, QWidget *parent)
+	: QWidget(parent), name_(screen->getName()), lcd_(lcd)
+{
+	setupUi(this);
+
+	KeyboardTypes type = lcd_->getKeyboardType();
+
+	if (type == KeyboardTypes::Monochrome)
+	{
+		backgroundBrowseButton->hide();
+		backgroundLabel->hide();
+		backgroundLine->hide();
+	}
+	else
+	{
+		backgroundBrowseButton->show();
+		backgroundLabel->show();
+		backgroundLine->show();
+	}
+
+	dataTableWidget->setColumnHidden(0, true);
+
+	fontLine->setText(screen->getFont().name.toString());
+	backgroundLine->setText(screen->getBackground());
+
+	for (LineText line : screen->getLines())
+	{
+		addLine(line.text);
+
+		/*for (Query lineQuery : line.queryMap)
+		{
+			addDataMap()
+		}*/
+	}
+
+	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataScreen()));
+	connect(addLineButton, SIGNAL(clicked()), this, SLOT(addLine()));
+	connect(addDataButton, SIGNAL(clicked()), this, SLOT(openDataDialog()));
+	connect(fontButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
+	connect(backgroundBrowseButton, SIGNAL(clicked()), this, SLOT(openbackgroundDialog()));
+}
+
 
 NormalScreenWidget::~NormalScreenWidget()
 {
@@ -53,62 +95,7 @@ void NormalScreenWidget::openDataScreen()
 
 	for (Query data : dataDialog_->getData())
 	{
-		int row = dataTableWidget->rowCount();
-
-		dataTableWidget->insertRow(row);
-
-		QTableWidgetItem * idItem = new QTableWidgetItem();
-		QTableWidgetItem * nameItem = new QTableWidgetItem();
-		QTableWidgetItem * systemItem = new QTableWidgetItem();
-		QTableWidgetItem * valueItem = new QTableWidgetItem();
-		QTableWidgetItem * symbolItem = new QTableWidgetItem();
-
-		idItem->setFlags(Qt::ItemIsEnabled);
-		nameItem->setFlags(Qt::ItemIsEnabled);
-		systemItem->setFlags(Qt::ItemIsEnabled);
-		valueItem->setFlags(Qt::ItemIsEnabled);
-		symbolItem->setFlags(Qt::ItemIsEnabled);
-
-		idItem->setText(data.identifier);
-		nameItem->setText(data.name);
-
-		switch (data.system)
-		{
-		case MonitorSystem::HWiNFO:
-			systemItem->setText("HWiNFO");
-			break;
-		case MonitorSystem::OHM:
-			systemItem->setText("OHM");
-			break;
-		};
-
-		switch (data.value)
-		{
-		case QueryValue::Current:
-			valueItem->setText("Current");
-			break;
-
-		case QueryValue::Max:
-			valueItem->setText("Max");
-			break;
-		case QueryValue::Min:
-			valueItem->setText("Min");
-			break;
-		case QueryValue::Name:
-			valueItem->setText("Name");
-			break;
-		};
-
-		QString querySymbol = "$" + QString::number(row + 1);
-		symbolItem->setText(querySymbol);
-
-		dataTableWidget->setItem(row, 0, idItem);
-		dataTableWidget->setItem(row, 1, symbolItem);
-		dataTableWidget->setItem(row, 2, nameItem);
-		dataTableWidget->setItem(row, 3, systemItem);
-		dataTableWidget->setItem(row, 4, valueItem);
-
-		dataMap_.insert(querySymbol, data);
+		addDataMap(data);
 	}
 
 	if (dataDialog_ != nullptr)
@@ -118,9 +105,55 @@ void NormalScreenWidget::openDataScreen()
 	}
 }
 
+void NormalScreenWidget::addDataMap(Query data)
+{
+	int row = dataTableWidget->rowCount();
+
+	dataTableWidget->insertRow(row);
+
+	QTableWidgetItem * idItem = new QTableWidgetItem();
+	QTableWidgetItem * nameItem = new QTableWidgetItem();
+	QTableWidgetItem * systemItem = new QTableWidgetItem();
+	QTableWidgetItem * valueItem = new QTableWidgetItem();
+	QTableWidgetItem * symbolItem = new QTableWidgetItem();
+
+	idItem->setFlags(Qt::ItemIsEnabled);
+	nameItem->setFlags(Qt::ItemIsEnabled);
+	systemItem->setFlags(Qt::ItemIsEnabled);
+	valueItem->setFlags(Qt::ItemIsEnabled);
+	symbolItem->setFlags(Qt::ItemIsEnabled);
+
+	idItem->setText(data.identifier);
+	nameItem->setText(data.name);
+
+	systemItem->setText(Defines::translateMonitorSystemEnum(data.system));
+
+	valueItem->setText(Defines::translateQueryValueEnum(data.value));
+
+	QString querySymbol = "$" + QString::number(row + 1);
+	symbolItem->setText(querySymbol);
+
+	dataTableWidget->setItem(row, 0, idItem);
+	dataTableWidget->setItem(row, 1, symbolItem);
+	dataTableWidget->setItem(row, 2, nameItem);
+	dataTableWidget->setItem(row, 3, systemItem);
+	dataTableWidget->setItem(row, 4, valueItem);
+
+	dataMap_.insert(querySymbol, data);
+}
+
 void NormalScreenWidget::addLine()
 {
 	LineScreenWidget * widget = new LineScreenWidget(this);
+
+	linesLayout->addWidget(widget);
+
+	lineList_.push_back(widget);
+}
+
+void NormalScreenWidget::addLine(QString text)
+{
+	LineScreenWidget * widget = new LineScreenWidget(text, this);
 
 	linesLayout->addWidget(widget);
 

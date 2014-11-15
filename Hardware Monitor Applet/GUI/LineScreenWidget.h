@@ -11,6 +11,7 @@ class LineScreenWidget :
 
 public:
 	LineScreenWidget(NormalScreenWidget * widget, QWidget *parent = 0);
+	LineScreenWidget(QString text, NormalScreenWidget * widget, QWidget *parent = 0);
 	virtual ~LineScreenWidget();
 
 	QString getText();

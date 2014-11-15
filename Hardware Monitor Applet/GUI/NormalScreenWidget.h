@@ -14,6 +14,7 @@ class NormalScreenWidget :
 
 public:
 	NormalScreenWidget(QString name, Logitech *, QWidget *parent = 0);
+	NormalScreenWidget(Screen * screen, Logitech *, QWidget *parent = 0);
 	virtual ~NormalScreenWidget();
 
 	void removeWidget(LineScreenWidget *);
@@ -26,6 +27,9 @@ private slots:
 	void openbackgroundDialog();
 
 private:
+	void addLine(QString);
+	void addDataMap(Query);
+
 	QVector<LineScreenWidget *> lineList_;
 	DataDialog * dataDialog_;
 	QString name_;

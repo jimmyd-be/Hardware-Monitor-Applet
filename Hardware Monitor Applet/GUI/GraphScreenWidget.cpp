@@ -6,6 +6,12 @@ GraphScreenWidget::GraphScreenWidget(QString name, Logitech *, QWidget *parent)
 	setupUi(this);
 }
 
+GraphScreenWidget::GraphScreenWidget(Screen * data, Logitech *, QWidget *parent)
+	: QWidget(parent), name_(data->getName())
+{
+	setupUi(this);
+}
+
 
 GraphScreenWidget::~GraphScreenWidget()
 {

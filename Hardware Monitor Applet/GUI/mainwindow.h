@@ -34,6 +34,7 @@ private:
 private slots:
 	void openSelectionDialog();
 	void removeCurrentScreen();
+	void comboBoxChanged();
 }; 
 
 #endif // MAINWINDOW_H

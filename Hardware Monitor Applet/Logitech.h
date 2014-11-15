@@ -62,6 +62,7 @@ private:
 	int time_;
 	KeyboardTypes keyboardType_;
 	QVector<Screen *> screenList_;
+	StartScreen * startscreen_;
 	int currentPage_;
 	
 	// -------------------------

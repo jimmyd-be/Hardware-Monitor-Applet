@@ -14,8 +14,9 @@ MainWindow::MainWindow(KeyboardTypes type, Logitech * lcd, QWidget *parent)
 	monitorToolActionGroup_->addAction(ui.actionHWiNFO);
 	monitorToolActionGroup_->addAction(ui.actionOpen_Hardware_Monitor);
 
-	QObject::connect(ui.addScreenButton, SIGNAL(clicked()), this, SLOT(openSelectionDialog()));
-	QObject::connect(ui.removeScreenButton, SIGNAL(clicked()), this, SLOT(removeCurrentScreen()));
+	connect(ui.addScreenButton, SIGNAL(clicked()), this, SLOT(openSelectionDialog()));
+	connect(ui.removeScreenButton, SIGNAL(clicked()), this, SLOT(removeCurrentScreen()));
+	connect(ui.screenComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxChanged()));
 
 	keyboardChanged(type);
 }
@@ -98,5 +99,42 @@ void MainWindow::createScreen(QString name, ScreenType type)
 
 void MainWindow::removeCurrentScreen()
 {
+	if (mainWidget_ != nullptr)
+	{
+		ui.widgetLayout->removeWidget(mainWidget_);
+		delete mainWidget_;
+		mainWidget_ = nullptr;
+	}
 
+	lcd_->removePage(ui.screenComboBox->currentText());
+	ui.screenComboBox->removeItem(ui.screenComboBox->currentIndex());
+}
+
+void MainWindow::comboBoxChanged()
+{
+	Screen * data = lcd_->getScreenData(ui.screenComboBox->currentText());
+
+	if (data != nullptr)
+	{
+		if (mainWidget_ != nullptr)
+		{
+			ui.widgetLayout->removeWidget(mainWidget_);
+			delete mainWidget_;
+			mainWidget_ = nullptr;
+		}
+
+		if (data->getScreenType() == ScreenType::Normal)
+		{
+			mainWidget_ = new NormalScreenWidget(data, lcd_);
+
+			ui.widgetLayout->addWidget(mainWidget_);
+		}
+
+		else if (data->getScreenType() == ScreenType::Graph)
+		{
+		mainWidget_ = new GraphScreenWidget(data, lcd_);
+
+		ui.widgetLayout->addWidget(mainWidget_);
+		}
+	}
 }

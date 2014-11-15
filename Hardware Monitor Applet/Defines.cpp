@@ -36,3 +36,74 @@ QString Defines::getSettingsFolder()
 
 	return directory;
 }
+
+QString Defines::translateMonitorSystemEnum(MonitorSystem system)
+{
+	switch (system)
+	{
+	case MonitorSystem::HWiNFO:
+		return "HWiNFO";
+		break;
+	case MonitorSystem::OHM:
+		return "OHM";
+		break;
+	};
+
+	return "NONE";
+}
+
+QString Defines::translateQueryValueEnum(QueryValue value)
+{
+	switch (value)
+	{
+	case QueryValue::Current:
+		return "Current";
+		break;
+
+	case QueryValue::Max:
+		return "Max";
+		break;
+	case QueryValue::Min:
+		return "Min";
+		break;
+	case QueryValue::Name:
+		return "Name";
+		break;
+	};
+
+	return "";
+}
+
+MonitorSystem Defines::translateMonitorSystemEnum(QString string)
+{
+	if (string == "HWiNFO")
+	{
+		return MonitorSystem::HWiNFO;
+	}
+	else if (string == "OHM")
+	{
+		return MonitorSystem::OHM;
+	}
+
+	return MonitorSystem::NONE;
+}
+
+QueryValue Defines::translateQueryValueEnum(QString string)
+{
+		if (string == "Current")
+		{
+			return QueryValue::Current;
+		}
+		else if (string == "Max")
+		{
+			return QueryValue::Max;
+		}
+		else if (string == "Min")
+		{
+			return QueryValue::Min;
+		}
+		else if (string == "Name")
+		{
+			return QueryValue::Name;
+		}
+}

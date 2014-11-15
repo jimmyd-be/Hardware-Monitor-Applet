@@ -91,3 +91,8 @@ AppletFont Screen::getFont()
 {
 	return font_;
 }
+
+QString Screen::getBackground()
+{
+	return backgroundString_;
+}
