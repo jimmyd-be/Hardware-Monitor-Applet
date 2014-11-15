@@ -37,12 +37,15 @@ public:
 
 	void clearLines();
 	void addLine(QString, QMap<QString, Query>);
+	void addFont(AppletFont font);
+	void addbackground(QString background);
 
 protected:
 	// -------------------------
 	// Datamembers
 	// -------------------------
 	HBITMAP background_;
+	QString backgroundString_;
 	QString name_;
 	CEzLcd * lcd_;
 	int screenId_;

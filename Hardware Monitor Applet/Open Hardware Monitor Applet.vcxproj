@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Defines.cpp" />
     <ClCompile Include="external\Logitech\EZ_LCD.cpp" />
     <ClCompile Include="external\Logitech\EZ_LCD_Page.cpp" />
     <ClCompile Include="external\Logitech\LCDUI\LCDAnimatedBitmap.cpp" />
@@ -403,6 +404,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Tools\Data.h" />
     <ClInclude Include="Tools\HWiNFO.h" />
     <ClInclude Include="Tools\Tool.h" />

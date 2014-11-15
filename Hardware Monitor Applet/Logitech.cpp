@@ -37,7 +37,7 @@ Logitech::~Logitech()
 
 bool Logitech::initKeyboard()
 {
-	HRESULT hRes = lcd_.Initialize(_T("Open Hardware Monitor"), LG_DUAL_MODE, TRUE, TRUE);
+	HRESULT hRes = lcd_.Initialize(_T("Hardware Monitor Applet"), LG_DUAL_MODE, TRUE, TRUE);
 
 	if (hRes == S_OK)
 	{
@@ -196,6 +196,35 @@ void Logitech::addLine(QString pageName, QString text, QMap<QString, Query> data
 	Screen * editScreen = getScreenData(pageName);
 
 	editScreen->addLine(text, dataMap);
+}
+
+void Logitech::addFont(QString pageName, AppletFont font)
+{
+	Screen * editScreen = getScreenData(pageName);
+
+	editScreen->addFont(font);
+}
+
+void Logitech::addBackground(QString pageName, QString background)
+{
+	QFileInfo info(background);
+
+	QString path = Defines::getSettingsFolder() + "/Background";
+
+	QDir makeDir(path);
+	makeDir.mkpath(path);
+
+	QString oldBackground = Defines::getSettingsFolder() + "/Background/" + pageName + "." + info.completeSuffix();
+
+	QFile backgroundFile(oldBackground);
+
+	backgroundFile.remove();
+
+	QFile::copy(background, oldBackground);
+
+	Screen * editScreen = getScreenData(pageName);
+
+	editScreen->addbackground(oldBackground);
 }
 
 void Logitech::clearPage(QString name)

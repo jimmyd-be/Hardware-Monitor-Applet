@@ -41,6 +41,8 @@ public:
 	Screen * getScreenData(QString);
 	void createPage(QString name, ScreenType type);
 	void addLine(QString pageName, QString text, QMap<QString, Query> dataMap);
+	void addFont(QString pageName, AppletFont font);
+	void addBackground(QString pageName, QString background);
 	void clearPage(QString name);
 	void removePage(QString name);
 

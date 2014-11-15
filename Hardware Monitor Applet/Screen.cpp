@@ -68,6 +68,25 @@ void Screen::addLine(QString text, QMap<QString, Query> data)
 	screenLines_.append(line);
 }
 
+void Screen::addFont(AppletFont font)
+{
+	font_ = font;
+}
+
+void Screen::addbackground(QString background)
+{
+	backgroundString_ = background;
+
+	QPixmap backgroundPixMap;
+
+	if (backgroundPixMap.load(background))
+	{
+		background_ = QtWin::toHBITMAP(backgroundPixMap);
+
+		lcd_->SetBackground(background_);
+	}
+}
+
 AppletFont Screen::getFont()
 {
 	return font_;

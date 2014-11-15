@@ -1,5 +1,12 @@
+//-----------------------------------------------------------------
+// Defines File
+// C++ Header - Defines.h - version 0.1 (2014/08/31)
+//-----------------------------------------------------------------
 #pragma once
 
+//-----------------------------------------------------------------
+// Include Files
+//-----------------------------------------------------------------
 #include <external\Logitech\EZ_LCD.h>
 #include <qdir.h>
 #include <qpixmap.h>
@@ -10,6 +17,7 @@
 #include <qtimer.h>
 #include <qfont.h>
 #include <qmap.h>
+#include <QDir>
 
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, No};
@@ -42,4 +50,24 @@ struct HardwareSensor{
 	double value;
 	double max;
 	double min;
+};
+
+//-----------------------------------------------------------------
+// Defines Class
+//-----------------------------------------------------------------
+class Defines
+{
+	public:
+		static QString getSettingsFolder();
+
+
+	private:
+		//---------------------------
+		// Constructor(s)
+		//---------------------------
+		Defines();
+		//---------------------------
+		// Destructor
+		//---------------------------
+		~Defines();
 };

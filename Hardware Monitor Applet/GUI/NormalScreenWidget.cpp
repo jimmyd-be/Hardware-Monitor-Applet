@@ -175,11 +175,26 @@ void NormalScreenWidget::openFontDialog()
 
 	AppletFont font = dialog->getFont();
 
+	lcd_->addFont(name_, font);
+
 	delete dialog;
+
+	fontLine->setText(font.name.toString());
 }
 
 void NormalScreenWidget::openbackgroundDialog()
 {
-	//QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Select background"), "", tr("Image Files (*.jpg, *.png)"));
+	QFileDialog dialog;
 
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Image Files (*.jpg, *.png)"));
+
+	if (dialog.exec() != 0)
+	{
+		QString file = dialog.selectedFiles().at(0);
+
+		lcd_->addBackground(name_, file);
+
+		//backgroundLine->setText();
+	}
 }
