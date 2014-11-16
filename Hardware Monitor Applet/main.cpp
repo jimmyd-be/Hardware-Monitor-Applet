@@ -7,8 +7,9 @@ int main(int argc, char *argv[])
 {
 	Controller * controller = nullptr;
 
-	QtSingleApplication a(argc, argv);
+	Data::Instance();
 
+	QtSingleApplication a(argc, argv);
 
 	if (a.isRunning())
 	{

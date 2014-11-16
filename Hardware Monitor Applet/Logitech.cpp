@@ -17,6 +17,7 @@
 //-----------------------------------------------------------------
 Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0), timer_(nullptr), currentPage_(0)
 {
+
 }
 
 Logitech::~Logitech()
