@@ -95,6 +95,8 @@ void MainWindow::createScreen(QString name, ScreenType type)
 
 		ui.widgetLayout->addWidget(mainWidget_);
 	}
+
+	fillinAllScreens();
 }
 
 void MainWindow::removeCurrentScreen()
@@ -108,6 +110,9 @@ void MainWindow::removeCurrentScreen()
 
 	lcd_->removePage(ui.screenComboBox->currentText());
 	ui.screenComboBox->removeItem(ui.screenComboBox->currentIndex());
+
+	fillinAllScreens();
+	removeRemovedScreenOrder();
 }
 
 void MainWindow::comboBoxChanged()
@@ -135,6 +140,40 @@ void MainWindow::comboBoxChanged()
 		mainWidget_ = new GraphScreenWidget(data, lcd_);
 
 		ui.widgetLayout->addWidget(mainWidget_);
+		}
+	}
+}
+
+void MainWindow::fillinAllScreens()
+{
+	ui.allScreenListWidget->clear();
+
+	for (int row = 0; row < ui.screenComboBox->count(); row++)
+	{
+		QString text = ui.screenComboBox->itemText(row);
+
+		ui.allScreenListWidget->addItem(text);
+	}
+}
+
+void MainWindow::removeRemovedScreenOrder()
+{
+	for (int i = 0; i < ui.mainScreenlistWidget->count(); i++)
+	{
+		QListWidgetItem * widgetitem = nullptr;
+
+		for (int row = 0; row < ui.screenComboBox->count(); row++)
+		{
+			if (ui.mainScreenlistWidget->item(i)->text() == ui.screenComboBox->itemText(row))
+			{
+				widgetitem = ui.mainScreenlistWidget->item(i);
+				break;
+			}
+		}
+
+		if (widgetitem != nullptr)
+		{
+			ui.mainScreenlistWidget->removeItemWidget(widgetitem);
 		}
 	}
 }

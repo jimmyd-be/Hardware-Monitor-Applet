@@ -21,6 +21,8 @@ public:
 
 private:
 	void createScreen(QString name, ScreenType type);
+	void fillinAllScreens();
+	void removeRemovedScreenOrder();
 
 	Ui::MainWindowClass ui;
 

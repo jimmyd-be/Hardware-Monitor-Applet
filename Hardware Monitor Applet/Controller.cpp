@@ -51,5 +51,5 @@ void Controller::openSettingsScreen()
 		mainWindow_ = new MainWindow(logitech_->getKeyboardType(), logitech_);
 	}
 
-	mainWindow_->show();
+	mainWindow_->showMaximized();
 }
