@@ -74,7 +74,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="screenTab">
        <attribute name="title">
@@ -241,7 +241,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="addScreenOrderButton">
               <property name="text">
                <string>Add</string>
               </property>
@@ -264,7 +264,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="removeScreenOrderButton">
               <property name="text">
                <string>Remove</string>
               </property>
@@ -334,7 +334,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="upScreenOrderButton">
               <property name="text">
                <string>Up</string>
               </property>
@@ -357,7 +357,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="downScreenOrderButton">
               <property name="text">
                <string>Down</string>
               </property>

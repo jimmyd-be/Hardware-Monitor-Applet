@@ -37,6 +37,10 @@ private slots:
 	void openSelectionDialog();
 	void removeCurrentScreen();
 	void comboBoxChanged();
+	void addScreenOrder();
+	void removeScreenOrder();
+	void upScreenOrder();
+	void downScreenOrder();
 }; 
 
 #endif // MAINWINDOW_H

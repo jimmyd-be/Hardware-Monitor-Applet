@@ -17,6 +17,10 @@ MainWindow::MainWindow(KeyboardTypes type, Logitech * lcd, QWidget *parent)
 	connect(ui.addScreenButton, SIGNAL(clicked()), this, SLOT(openSelectionDialog()));
 	connect(ui.removeScreenButton, SIGNAL(clicked()), this, SLOT(removeCurrentScreen()));
 	connect(ui.screenComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxChanged()));
+	connect(ui.addScreenOrderButton, SIGNAL(clicked()), this, SLOT(addScreenOrder()));
+	connect(ui.removeScreenOrderButton, SIGNAL(clicked()), this, SLOT(removeScreenOrder()));
+	connect(ui.upScreenOrderButton, SIGNAL(clicked()), this, SLOT(upScreenOrder()));
+	connect(ui.downScreenOrderButton, SIGNAL(clicked()), this, SLOT(downScreenOrder()));
 
 	keyboardChanged(type);
 }
@@ -154,6 +158,7 @@ void MainWindow::fillinAllScreens()
 
 		ui.allScreenListWidget->addItem(text);
 	}
+
 }
 
 void MainWindow::removeRemovedScreenOrder()
@@ -175,5 +180,46 @@ void MainWindow::removeRemovedScreenOrder()
 		{
 			ui.mainScreenlistWidget->removeItemWidget(widgetitem);
 		}
+	}
+}
+
+void MainWindow::addScreenOrder()
+{
+	QString selectedItem = ui.allScreenListWidget->currentItem()->text();
+
+	ui.mainScreenlistWidget->addItem(selectedItem);
+}
+
+void MainWindow::removeScreenOrder()
+{
+	int pos = ui.mainScreenlistWidget->currentRow();
+	delete ui.mainScreenlistWidget->takeItem(pos);
+}
+
+void MainWindow::upScreenOrder()
+{
+	int row = ui.mainScreenlistWidget->currentRow();
+
+	if (row > 0)
+	{
+		QListWidgetItem *curItem = ui.mainScreenlistWidget->takeItem(row);
+
+		ui.mainScreenlistWidget->insertItem(row - 1, curItem);
+
+		ui.mainScreenlistWidget->setCurrentRow(row - 1);
+	}
+}
+
+void MainWindow::downScreenOrder()
+{
+	int row = ui.mainScreenlistWidget->currentRow();
+
+	if (row < ui.mainScreenlistWidget->count())
+	{
+		QListWidgetItem *curItem = ui.mainScreenlistWidget->takeItem(row);
+
+		ui.mainScreenlistWidget->insertItem(row + 1, curItem);
+
+		ui.mainScreenlistWidget->setCurrentRow(row + 1);
 	}
 }
