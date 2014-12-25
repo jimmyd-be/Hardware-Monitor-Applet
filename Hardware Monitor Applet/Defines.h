@@ -29,6 +29,7 @@ struct Query{
 	QString identifier;
 	QString name;
 	QueryValue value;
+	int precision;
 };
 
 struct LineText{
@@ -45,8 +46,8 @@ struct AppletFont{
 };
 
 struct HardwareSensor{
-	string id;
-	string name;
+	QString id;
+	QString name;
 	double value;
 	double max;
 	double min;

@@ -28,7 +28,7 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	QVector<HardwareSensor> getAllSensors(MonitorSystem system);
+	QVector<HardwareSensor> getAllData(MonitorSystem system);
 
 private:
 	//---------------------------
@@ -38,7 +38,7 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	QList<Tool *> tools_;
+	QList<MonitorTool *> tools_;
 
 	static Data* dataInstance;
 

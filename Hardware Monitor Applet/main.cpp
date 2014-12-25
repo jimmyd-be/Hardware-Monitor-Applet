@@ -1,13 +1,15 @@
 #include <QtWidgets/QApplication>
 #include <external\QSingleApplication\qtsingleapplication.h>
-#include "Controller.h"
-#include "Tools\Data.h"
+//#include "Controller.h"
+//#include "Tools\Data.h"
+
+#include <GUI\mainwindow.h>
 
 int main(int argc, char *argv[])
 {
-	Controller * controller = nullptr;
+//	Controller * controller = nullptr;
 
-	Data::Instance();
+	//Data::Instance();
 
 	QtSingleApplication a(argc, argv);
 
@@ -20,24 +22,33 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		controller = new Controller(&a);
-		controller->openSettingsScreen();
+	//	controller = new Controller(&a);
+		//controller->openSettingsScreen();
+
+		MainWindow * mainWindow_ = nullptr;
+
+		if (mainWindow_ == nullptr)
+		{
+			mainWindow_ = new MainWindow();
+		}
+
+		mainWindow_->showMaximized();
 
 		if (QtSingleApplication::arguments().size() > 0 && QtSingleApplication::arguments().at(0) == "settings")
 		{
-			controller->openSettingsScreen();
+			//controller->openSettingsScreen();
 		}
 	}
 
 	a.exec();
 
-	Data::removeInstance();
+	//Data::removeInstance();
 
-	if (controller != nullptr)
+	/*if (controller != nullptr)
 	{
 		delete controller;
 		controller = nullptr;
-	}
+	}*/
 
 	return 0;
 }

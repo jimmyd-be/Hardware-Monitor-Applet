@@ -1,38 +1,38 @@
 //-----------------------------------------------------------------
-// Tool File
-// C++ Source - Tool.cpp - version 0.1 (2013/06/13)
+// MonitorTool File
+// C++ Source - MonitorTool.cpp - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "Tool.h"
+#include "MonitorTool.h"
 
 //-----------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------
 
 //-----------------------------------------------------------------
-// Tool methods
+// MonitorTool methods
 //-----------------------------------------------------------------
-Tool::Tool()
+MonitorTool::MonitorTool()
 {
 	// nothing to create
 }
 
-Tool::~Tool()
+MonitorTool::~MonitorTool()
 {
 	// nothing to destroy
 }
 
-QVector<HardwareSensor> Tool::getAllSensors()
+QVector<HardwareSensor> MonitorTool::getAllSensors()
 {
 	QVector<HardwareSensor> sensors;
 
 	return sensors;
 }
 
-MonitorSystem Tool::getMonitorSystem()
+MonitorSystem MonitorTool::getMonitorSystem()
 {
 	return MonitorSystem::NONE;
 }

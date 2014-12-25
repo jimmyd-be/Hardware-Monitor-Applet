@@ -36,8 +36,8 @@ void Data::removeInstance()
 
 Data::Data()
 {
-	Tool * wmi = new WMI();
-	Tool * hwinfo = new HWinfo();
+	MonitorTool * wmi = new WMI();
+	MonitorTool * hwinfo = new HWinfo();
 
 	tools_.append(wmi);
 	tools_.append(hwinfo);
@@ -45,7 +45,7 @@ Data::Data()
 
 Data::~Data()
 {
-	for (Tool * monitorSystem : tools_)
+	for (MonitorTool * monitorSystem : tools_)
 	{
 		if (monitorSystem != nullptr)
 		{
@@ -57,11 +57,11 @@ Data::~Data()
 	tools_.clear();
 }
 
-QVector<HardwareSensor> Data::getAllSensors(MonitorSystem system)
+QVector<HardwareSensor> Data::getAllData(MonitorSystem system)
 {
 	QVector<HardwareSensor> emptyVector;
 
-	for (Tool * monitorSystem : tools_)
+	for (MonitorTool * monitorSystem : tools_)
 	{
 		if (monitorSystem->getMonitorSystem() == system)
 		{

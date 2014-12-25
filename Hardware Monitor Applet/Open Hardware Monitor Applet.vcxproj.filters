@@ -57,6 +57,9 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{46778ece-ee46-4d33-ba76-659cbb7ebeb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\ScreenWizard">
+      <UniqueIdentifier>{846f1c95-8d9c-43a5-b900-43f1311414dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -65,23 +68,11 @@
     <ClCompile Include="GeneratedFiles\qrc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Controller.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Controller.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Logitech.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Logitech.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Logitech.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="external\QSingleApplication\qtlocalpeer.cpp">
       <Filter>external\qtsingleapplication</Filter>
@@ -185,77 +176,71 @@
     <ClCompile Include="Tools\WMI.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\mainwindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\ScreenSelectionDialog.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ScreenSelectionDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ScreenSelectionDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\NormalScreenWidget.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\GraphScreenWidget.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GraphScreenWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GraphScreenWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\LineScreenWidget.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_LineScreenWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_LineScreenWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\Tool.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\DataDialog.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DataDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DataDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Tools\Data.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\FontDialog.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_FontDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_FontDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_NormalScreenWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_NormalScreenWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Defines.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\MainScreenWidget.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\SortScreenDialog.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SortScreenDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SortScreenDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\IntroPage.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainScreenWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainScreenWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\CreateScreenWizard.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_mainwindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\mainwindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_IntroPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_IntroPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\ScreenTypePage.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ScreenTypePage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ScreenTypePage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\DataPage.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\MonitorTool.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,44 +262,41 @@
     <CustomBuild Include="GUI\mainwindow.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\NormalLineWidget.ui">
+    <CustomBuild Include="GUI\MainScreenWidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\NormalScreenWidget.ui">
+    <CustomBuild Include="GUI\MainScreenWidget.h">
+      <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\SortScreenDialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\ScreenSelectionDialog.ui">
+    <CustomBuild Include="GUI\SortScreenDialog.h">
+      <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\IntroPageWidget.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\IntroPage.h">
+      <Filter>GUI\ScreenWizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\CreateScreenWizard.h">
+      <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\mainwindow.h">
       <Filter>GUI</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\ScreenSelectionDialog.h">
-      <Filter>GUI</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI\NormalScreenWidget.h">
-      <Filter>GUI</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI\GraphScreenWidget.ui">
+    <CustomBuild Include="GUI\ScreenTypePageWidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\GraphScreenWidget.h">
-      <Filter>GUI</Filter>
+    <CustomBuild Include="GUI\ScreenTypePage.h">
+      <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\LineScreenWidget.h">
-      <Filter>GUI</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI\DataDialog.ui">
+    <CustomBuild Include="GUI\DataPageWidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\DataDialog.h">
-      <Filter>GUI</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI\FontDialog.h">
-      <Filter>GUI</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI\FontDialog.ui">
-      <Filter>Form Files</Filter>
+    <CustomBuild Include="GUI\DataPage.h">
+      <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -411,15 +393,6 @@
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_NormalLineWidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_NormalScreenWidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_ScreenSelectionDialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\HWiNFO.h">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -429,23 +402,29 @@
     <ClInclude Include="external\HWiNFO\hwisenssm2.h">
       <Filter>external\HWiNFO</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_GraphScreenWidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\Tool.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_DataDialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\Data.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_FontDialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MainScreenWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SortScreenDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_IntroPageWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ScreenTypePageWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DataPageWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\MonitorTool.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

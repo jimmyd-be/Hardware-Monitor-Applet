@@ -19,7 +19,7 @@
 #include <Wbemidl.h>
 #include "../Defines.h"
 #include <iomanip>
-#include "Tool.h"
+#include "MonitorTool.h"
 
 //-----------------------------------------------------------------
 // Defines
@@ -31,7 +31,7 @@ using namespace std;
 //-----------------------------------------------------------------
 // WMI Class
 //-----------------------------------------------------------------
-class WMI : public Tool
+class WMI : public MonitorTool
 {
 public:
 	//---------------------------

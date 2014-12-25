@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
-// Tool File
-// C++ Header - Tool.h - version 0.1 (2013/06/13)
+// MonitorTool File
+// C++ Header - MonitorTool.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
 #pragma once
 
@@ -10,20 +10,20 @@
 #include "../Defines.h"
 
 //-----------------------------------------------------------------
-// Tool Class
+// MonitorTool Class
 //-----------------------------------------------------------------
-class Tool
+class MonitorTool
 {
 public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Tool();
+	MonitorTool();
 
 	//---------------------------
 	// Destructor
 	//---------------------------
-	virtual ~Tool();
+	virtual ~MonitorTool();
 
 	//---------------------------
 	// General Methods
@@ -42,6 +42,6 @@ private:
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
 	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
 	// -------------------------
-	Tool(const Tool& t);
-	Tool& operator=(const Tool& t);
+	MonitorTool(const MonitorTool& t);
+	MonitorTool& operator=(const MonitorTool& t);
 };
