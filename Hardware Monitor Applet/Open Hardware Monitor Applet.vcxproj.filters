@@ -242,6 +242,15 @@
     <ClCompile Include="Tools\MonitorTool.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\BackgroundPage.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BackgroundPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BackgroundPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -296,6 +305,12 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\DataPage.h">
+      <Filter>GUI\ScreenWizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\BackgroundPageWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\BackgroundPage.h">
       <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -425,6 +440,9 @@
     </ClInclude>
     <ClInclude Include="Tools\MonitorTool.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_BackgroundPageWidget.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

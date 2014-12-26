@@ -4,7 +4,7 @@
 #include "IntroPage.h"
 #include "ScreenTypePage.h"
 #include "DataPage.h"
-
+#include "BackgroundPage.h"
 
 class CreateScreenWizard : public QWizard
 {
