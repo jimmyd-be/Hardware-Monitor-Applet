@@ -233,12 +233,6 @@
     <ClCompile Include="GUI\DataPage.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Tools\MonitorTool.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
@@ -249,6 +243,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_BackgroundPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>

@@ -23,9 +23,14 @@ public:
 
 private:
 	void loadData(MonitorSystem);
+	bool isUnique(Query);
 
 
 	Ui::DataPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
+
+	private slots:
+	void addButtonClicked();
+	void removeButtonClicked();
 };

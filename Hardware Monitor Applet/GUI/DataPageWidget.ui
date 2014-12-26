@@ -19,7 +19,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="HWiNFOTab">
       <attribute name="title">
        <string>HWiNFO</string>
       </attribute>
@@ -61,7 +61,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="OHMTab">
       <attribute name="title">
        <string>OHM</string>
       </attribute>
@@ -163,6 +163,12 @@
     <widget class="QTableWidget" name="SelectedItems_tableWidget">
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
      </property>
      <column>
       <property name="text">
