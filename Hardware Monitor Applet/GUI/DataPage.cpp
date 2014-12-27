@@ -121,7 +121,7 @@ void DataPage::addButtonClicked()
 		queryItem.name = tableWidget->item(item->row(), 1)->text();
 		queryItem.system = Defines::translateMonitorSystemEnum(system);
 		queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
-		queryItem.precision = 0;
+		queryItem.precision = ui.Precision_spinBox->value();
 
 		if (isUnique(queryItem))
 		{
@@ -137,7 +137,7 @@ void DataPage::addButtonClicked()
 			nameItem->setText(queryItem.name);
 			systemItem->setText(system);
 			valueItem->setText(tableWidget->horizontalHeaderItem(item->column())->text());
-			precisionItem->setText(QString::number(0));
+			precisionItem->setText(QString::number(queryItem.precision));
 
 			ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
@@ -166,7 +166,8 @@ bool DataPage::isUnique(Query item)
 		if (widget->item(row, 0)->text() == item.identifier &&
 			widget->item(row, 1)->text() == Defines::translateMonitorSystemEnum(item.system) &&
 			widget->item(row, 2)->text() == item.name &&
-			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value))
+			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value) &&
+			widget->item(row, 4)->text() == QString::number(item.precision))
 		{
 			return false;
 		}
