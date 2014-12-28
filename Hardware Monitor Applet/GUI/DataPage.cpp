@@ -14,7 +14,7 @@ DataPage::DataPage(QWidget *parent)
 	layout_->addWidget(widget_);
 	setLayout(layout_);
 
-	registerField("SelectedData", ui.SelectedItems_tableWidget);
+	//registerField("SelectedData", ui.SelectedItems_tableWidget);
 
 	ui.HWiNFO_tableWidget->hideColumn(0);
 	ui.OHM_tableWidget->hideColumn(0);
@@ -201,4 +201,26 @@ QString DataPage::foundNextSymbol()
 	}
 
 	return '$' + QString::number(ui.SelectedItems_tableWidget->rowCount());
+}
+
+QMap<QString, Query> DataPage::getData()
+{
+	QMap<QString, Query> returnMap;
+
+	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
+	{
+		Query queryItem;
+
+		QTableWidget * widget = ui.SelectedItems_tableWidget;
+
+		queryItem.identifier = widget->item(row, 0)->text();
+		queryItem.system = Defines::translateMonitorSystemEnum(widget->item(row, 1)->text());
+		queryItem.name = widget->item(row, 2)->text();
+		queryItem.value = Defines::translateQueryValueEnum(widget->item(row, 3)->text());
+		queryItem.precision = widget->item(row, 4)->text().toInt();
+
+		returnMap.insert(widget->item(row, 5)->text(), queryItem);
+	}
+
+	return returnMap;
 }

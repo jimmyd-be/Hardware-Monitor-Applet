@@ -21,6 +21,8 @@ public:
 
 	bool validatePage();
 
+	QMap<QString, Query> getData();
+
 private:
 	void loadData(MonitorSystem);
 	bool isUnique(Query);
