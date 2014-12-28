@@ -24,6 +24,7 @@ public:
 private:
 	void loadData(MonitorSystem);
 	bool isUnique(Query);
+	QString foundNextSymbol();
 
 
 	Ui::DataPageWidget ui;

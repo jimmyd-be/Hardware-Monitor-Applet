@@ -19,6 +19,7 @@ DataPage::DataPage(QWidget *parent)
 	ui.HWiNFO_tableWidget->hideColumn(0);
 	ui.OHM_tableWidget->hideColumn(0);
 	ui.SelectedItems_tableWidget->hideColumn(0);
+	ui.SelectedItems_tableWidget->hideColumn(5);
 
 	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
@@ -132,18 +133,21 @@ void DataPage::addButtonClicked()
 			QTableWidgetItem * systemItem = new QTableWidgetItem();
 			QTableWidgetItem * valueItem = new QTableWidgetItem();
 			QTableWidgetItem * precisionItem = new QTableWidgetItem();
+			QTableWidgetItem * symbolItem = new QTableWidgetItem();
 
 			idItem->setText(queryItem.identifier);
 			nameItem->setText(queryItem.name);
 			systemItem->setText(system);
 			valueItem->setText(tableWidget->horizontalHeaderItem(item->column())->text());
 			precisionItem->setText(QString::number(queryItem.precision));
+			symbolItem->setText(foundNextSymbol());
 
 			ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 2, nameItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 3, valueItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 4, precisionItem);
+			ui.SelectedItems_tableWidget->setItem(newRow, 5, symbolItem);
 
 			newRow += 1;
 		}
@@ -174,4 +178,27 @@ bool DataPage::isUnique(Query item)
 	}
 
 	return true;
+}
+
+QString DataPage::foundNextSymbol()
+{
+	QList<QString> symbolList;
+
+	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount()-1; row++)
+	{
+		QTableWidget * widget = ui.SelectedItems_tableWidget;
+
+		symbolList.append(widget->item(row, 5)->text());
+	}
+
+	for (int i = 0; i < symbolList.size(); i++)
+	{
+		QString symbol = '$' + QString::number(i+1);
+		if (!symbolList.contains(symbol))
+		{
+			return symbol;
+		}
+	}
+
+	return '$' + QString::number(ui.SelectedItems_tableWidget->rowCount());
 }
