@@ -4,6 +4,7 @@
 #include "qguiapplication.h"
 #include "ui_BackgroundPageWidget.h"
 #include <QFileDialog>
+#include "../Defines.h"
 
 class BackgroundPage: public QWizardPage
 {

@@ -48,7 +48,7 @@ void Controller::openSettingsScreen()
 {
 	if (mainWindow_ == nullptr)
 	{
-		mainWindow_ = new MainWindow();
+		mainWindow_ = new MainWindow(logitech_);
 	}
 
 	mainWindow_->showMaximized();

@@ -1,15 +1,14 @@
 #include "IntroPage.h"
 
 
-IntroPage::IntroPage(QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr)
+IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenNames_(screenList), keyboardType_(type)
 {
 	setTitle(tr("Introduction"));
 
 	widget_ = new QWidget();
 
 	ui.setupUi(widget_);
-
 
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
@@ -42,7 +41,29 @@ bool IntroPage::validatePage()
 		return false;
 	}
 
-	//Check for unique name
+	for (Screen * screenData : screenNames_)
+	{
+		if (ui.ScreenName_lineEdit->text() == screenData->getName())
+		{
+			return false;
+		}
+	}
 
 	return true;
+}
+
+int IntroPage::nextId() const
+{
+	if (keyboardType_ == KeyboardTypes::Monochrome)
+	{
+		return Page::Page_Data;
+	}
+	else if (keyboardType_ == KeyboardTypes::Color)
+	{
+		return Page::Page_Background;
+	}
+	else
+	{
+		return Page::Page_Background;
+	}
 }

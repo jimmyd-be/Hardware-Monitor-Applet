@@ -13,9 +13,6 @@ ScreenTypePage::ScreenTypePage(QWidget *parent)
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
 	setLayout(layout_);
-
-	registerField("ScreenType_NormalScreen", ui.NormalScreen_radioButton);
-	registerField("ScreenType_GraphScreen", ui.GraphScreen_radioButton);
 }
 
 ScreenTypePage::~ScreenTypePage()
@@ -31,4 +28,18 @@ ScreenTypePage::~ScreenTypePage()
 		delete layout_;
 		layout_ = nullptr;
 	}
+}
+
+ScreenType ScreenTypePage::getScreenType()
+{
+	if (ui.NormalScreen_radioButton->isChecked())
+	{
+		return ScreenType::Normal;
+	}
+	else if (ui.GraphScreen_radioButton->isChecked())
+	{
+		return ScreenType::Graph;
+	}
+
+	return ScreenType::No;
 }

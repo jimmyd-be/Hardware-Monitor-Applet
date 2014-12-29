@@ -7,21 +7,18 @@
 #include "BackgroundPage.h"
 #include "LineEditPage.h"
 #include "CustomizePage.h"
+#include "GraphPage.h"
+#include "../Logitech.h"
 
 class CreateScreenWizard : public QWizard
 {
 	//Q_OBJECT
 
-	enum {
-		Page_Intro, Page_Type, Page_Background, Page_Data, Page_LineEdit,
-		Page_GraphEdit, Page_Customize
-	};
-
 public:
-	CreateScreenWizard(QWidget *parent = 0);
+	CreateScreenWizard(Logitech *, QWidget *parent = 0);
 	virtual ~CreateScreenWizard();
 
-	//void accept();
+	void accept();
 
 private:
 	DataPage *dataPage_;
@@ -30,4 +27,6 @@ private:
 	BackgroundPage * backgroundPage_;
 	ScreenTypePage * screenTypePage_;
 	CustomizePage * customizePage_;
+	GraphPage * graphPage_;
+	Logitech * logitech_;
 };

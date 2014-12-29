@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-	: QMainWindow(parent)
+MainWindow::MainWindow(Logitech * logitech, QWidget *parent)
+	: QMainWindow(parent), logitech_(logitech)
 {
 	ui.setupUi(this);
 
-	//keyboardChanged(type);
+	keyboardChanged(logitech->getKeyboardType());
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
 }
@@ -15,7 +15,7 @@ MainWindow::~MainWindow()
 	
 }
 
-/*void MainWindow::keyboardChanged(KeyboardTypes type)
+void MainWindow::keyboardChanged(KeyboardTypes type)
 {
 	if (type == KeyboardTypes::None)
 	{
@@ -30,11 +30,11 @@ MainWindow::~MainWindow()
 		ui.statusBar->showMessage(tr("Connected to: Logitech color (G19, G19s) keyboard"));
 	}
 
-}*/
+}
 
 void MainWindow::openScreenWizard()
 {
-	CreateScreenWizard * wizard = new CreateScreenWizard();
+	CreateScreenWizard * wizard = new CreateScreenWizard(logitech_);
 	wizard->exec();
 	
 	delete wizard;

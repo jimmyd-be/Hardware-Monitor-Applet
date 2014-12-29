@@ -46,17 +46,17 @@ bool Logitech::initKeyboard()
 		if (lcd_.IsDeviceAvailable(LG_COLOR))
 		{
 			keyboardType_ = KeyboardTypes::Color;
-			startscreen_ = new StartScreen(&lcd_, "StartScreen");
-			screenList_.push_back(startscreen_);
+			//startscreen_ = new StartScreen(&lcd_, "StartScreen");
+			//screenList_.push_back(startscreen_);
 		}
 
 		else if (lcd_.IsDeviceAvailable(LG_MONOCHROME))
 		{
 			keyboardType_ = KeyboardTypes::Monochrome;
 
-			startscreen_ = new StartScreen(&lcd_, "StartScreen");
+			//startscreen_ = new StartScreen(&lcd_, "StartScreen");
 
-			screenList_.push_back(startscreen_);
+			//screenList_.push_back(startscreen_);
 		}
 
 		timer_ = new QTimer(this);
@@ -163,7 +163,7 @@ QVector<Screen *> Logitech::getScreenList()
 	return screenList_;
 }
 
-void Logitech::createPage(QString name, ScreenType type)
+/*void Logitech::createPage(QString name, ScreenType type)
 {
 	if (startscreen_ != nullptr)
 	{
@@ -253,4 +253,4 @@ void Logitech::removePage(QString name)
 	screenList_.remove(screenList_.indexOf(editScreen));
 
 	delete editScreen;
-}
+}*/

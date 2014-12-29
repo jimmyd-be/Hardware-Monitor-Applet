@@ -10,25 +10,23 @@ class DataPage: public QWizardPage
 {
 	Q_OBJECT
 
-	enum {
-		Page_Intro, Page_Type, Page_Data, Page_LineEdit,
-		Page_GraphEdit, Page_Customize
-	};
-
 public:
-	DataPage(QWidget *parent = 0);
+	DataPage(ScreenType type, QWidget *parent = 0);
 	virtual ~DataPage();
 
 	bool validatePage();
 
 	QMap<QString, Query> getData();
 
+protected:
+	int nextId() const;
+
 private:
 	void loadData(MonitorSystem);
 	bool isUnique(Query);
 	QString foundNextSymbol();
 
-
+	ScreenType screenType_;
 	Ui::DataPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;

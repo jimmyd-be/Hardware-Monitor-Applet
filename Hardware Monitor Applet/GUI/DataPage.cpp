@@ -1,8 +1,8 @@
 #include "DataPage.h"
 
 
-DataPage::DataPage(QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr)
+DataPage::DataPage(ScreenType type, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenType_(type)
 {
 	setTitle(tr("Select data"));
 
@@ -223,4 +223,18 @@ QMap<QString, Query> DataPage::getData()
 	}
 
 	return returnMap;
+}
+
+int DataPage::nextId() const
+{
+	if (screenType_ == ScreenType::Normal)
+	{
+		return Page::Page_LineEdit;
+	}
+	else if (screenType_ == ScreenType::Graph)
+	{
+		return Page::Page_GraphEdit;
+	}
+
+	return Page::Page_LineEdit;
 }
