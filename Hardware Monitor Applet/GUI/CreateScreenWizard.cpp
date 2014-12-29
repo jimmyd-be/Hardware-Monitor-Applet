@@ -3,20 +3,22 @@
 CreateScreenWizard::CreateScreenWizard(QWidget *parent)
 	: QWizard(parent, Qt::Dialog)
 {
-	DataPage *dataPage = new DataPage();
-		
-	setPage(Page_Intro, new IntroPage(/*Add list of screenNames*//*Add logitech keyboard type*/));
-	setPage(Page_Background, new BackgroundPage());
-	setPage(Page_Type, new ScreenTypePage());
-	setPage(Page_Data, dataPage);
-	setPage(Page_LineEdit, new LineEditPage(dataPage));
-/*	addPage(Page_GraphEdit, new ConclusionPage);
-	addPage(Page_Customize, new ConclusionPage);
+	dataPage_ = new DataPage();
+	lineEditPage_ = new LineEditPage(dataPage_);
+	introPage_ = new IntroPage(/*Add list of screenNames*//*Add logitech keyboard type*/);
+	backgroundPage_ = new BackgroundPage();
+	screenTypePage_ = new ScreenTypePage();
+	customizePage_ = new CustomizePage(lineEditPage_);
 
-	setPixmap(QWizard::BannerPixmap, QPixmap(":/images/banner.png"));
-	setPixmap(QWizard::BackgroundPixmap, QPixmap(":/images/background.png"));
-	*/
-	setWindowTitle(tr("SCreen Wizard"));
+	setPage(Page_Intro, introPage_);
+	setPage(Page_Background, backgroundPage_);
+	setPage(Page_Type, screenTypePage_);
+	setPage(Page_Data, dataPage_);
+	setPage(Page_LineEdit, lineEditPage_);
+	//	addPage(Page_GraphEdit, new ConclusionPage);
+	setPage(Page_Customize, customizePage_);
+
+	setWindowTitle(tr("Screen Wizard"));
 }
 
 CreateScreenWizard::~CreateScreenWizard()

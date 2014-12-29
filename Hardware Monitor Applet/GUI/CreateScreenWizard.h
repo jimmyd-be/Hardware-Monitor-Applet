@@ -6,6 +6,7 @@
 #include "DataPage.h"
 #include "BackgroundPage.h"
 #include "LineEditPage.h"
+#include "CustomizePage.h"
 
 class CreateScreenWizard : public QWizard
 {
@@ -21,4 +22,12 @@ public:
 	virtual ~CreateScreenWizard();
 
 	//void accept();
+
+private:
+	DataPage *dataPage_;
+	LineEditPage * lineEditPage_;
+	IntroPage * introPage_;
+	BackgroundPage * backgroundPage_;
+	ScreenTypePage * screenTypePage_;
+	CustomizePage * customizePage_;
 };

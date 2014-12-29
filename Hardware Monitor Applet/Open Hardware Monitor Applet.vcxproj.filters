@@ -248,16 +248,25 @@
     <ClCompile Include="GUI\LineEditPage.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_LineEditPage.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_LineEditPage.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
+    <ClCompile Include="GUI\CustomizePage.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CustomizePage.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_CustomizePage.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
@@ -326,6 +335,12 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\LineEditPage.h">
+      <Filter>GUI\ScreenWizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\CustomizePageWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\CustomizePage.h">
       <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -460,6 +475,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_LineEditPageWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CustomizePageWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

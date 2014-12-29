@@ -2,10 +2,10 @@
 
 #include "qwizard.h"
 #include "qguiapplication.h"
-#include "Ui_LineEditPageWidget.h"
-#include "DataPage.h"
+#include "ui_CustomizePageWidget.h"
+#include "LineEditPage.h"
 
-class LineEditPage: public QWizardPage
+class CustomizePage: public QWizardPage
 {
 	Q_OBJECT
 
@@ -15,19 +15,19 @@ class LineEditPage: public QWizardPage
 	};
 
 public:
-	LineEditPage(DataPage* page, QWidget *parent = 0);
-	virtual ~LineEditPage();
+	CustomizePage(LineEditPage * page, QWidget *parent = 0);
+	virtual ~CustomizePage();
 
 	bool validatePage();
-	QStringList getData();
 
 protected:
 	void initializePage();
 
 private:
-	Ui::LineEditPageWidget ui;
+	Ui::CustomizePageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
 
-	DataPage * dataPage_;
+	LineEditPage * linePage_;
+
 };

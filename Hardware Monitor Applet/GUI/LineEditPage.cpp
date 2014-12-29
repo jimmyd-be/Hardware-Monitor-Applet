@@ -75,3 +75,26 @@ void LineEditPage::initializePage()
 		newRow++;
 	}
 }
+
+QStringList LineEditPage::getData()
+{
+	QStringList lineList;
+
+	lineList.append(ui.lineEdit1->text());
+	lineList.append(ui.lineEdit2->text());
+	lineList.append(ui.lineEdit3->text());
+	lineList.append(ui.lineEdit4->text());
+	lineList.append(ui.lineEdit5->text());
+	lineList.append(ui.lineEdit6->text());
+	lineList.append(ui.lineEdit7->text());
+	lineList.append(ui.lineEdit8->text());
+	lineList.append(ui.lineEdit9->text());
+	lineList.append(ui.lineEdit10->text());
+	lineList.append(ui.lineEdit11->text());
+	lineList.append(ui.lineEdit12->text());
+	lineList.append(ui.lineEdit13->text());
+	lineList.append(ui.lineEdit14->text());
+	lineList.append(ui.lineEdit15->text());
+
+	return lineList;
+}
