@@ -55,3 +55,8 @@ void CustomizePage::initializePage()
 	ui.lineEdit14->setText(list[13]);
 	ui.lineEdit15->setText(list[14]);
 }
+
+int CustomizePage::nextId() const
+{
+	return -1;
+}

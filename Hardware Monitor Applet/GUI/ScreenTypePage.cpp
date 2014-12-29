@@ -43,3 +43,8 @@ ScreenType ScreenTypePage::getScreenType()
 
 	return ScreenType::No;
 }
+
+int ScreenTypePage::nextId() const
+{
+	return Page::Page_Data;
+}

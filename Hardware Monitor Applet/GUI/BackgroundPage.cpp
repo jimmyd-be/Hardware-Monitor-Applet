@@ -19,8 +19,6 @@ BackgroundPage::BackgroundPage(QWidget *parent)
 
 	connect(ui.buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(radioButtonClicked()));
 	connect(ui.Browse_pushButton, SIGNAL(clicked()), this, SLOT(browseButtonClicked()));
-
-	registerField("ScreenBackground", ui.Background_lineEdit);
 }
 
 BackgroundPage::~BackgroundPage()
@@ -77,4 +75,21 @@ void BackgroundPage::browseButtonClicked()
 	ui.Background_lineEdit->setText(fileName);
 
 	validatePage();
+}
+
+QString BackgroundPage::getBackground()
+{
+	return ui.Background_lineEdit->text();
+}
+
+int BackgroundPage::nextId() const
+{
+	return Page::Page_Type;
+}
+
+QString BackgroundPage::getSuffix()
+{
+	QFileInfo oldFile(getBackground());
+
+	return oldFile.completeSuffix();
 }

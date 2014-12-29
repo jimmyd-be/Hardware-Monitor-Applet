@@ -16,6 +16,12 @@ public:
 
 	bool validatePage();
 
+	QString getBackground();
+	QString getSuffix();
+
+protected:
+	int nextId() const;
+
 private:
 	Ui::BackgroundPageWidget ui;
 	QWidget *widget_;

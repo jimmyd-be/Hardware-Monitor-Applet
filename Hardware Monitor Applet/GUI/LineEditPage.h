@@ -18,6 +18,7 @@ public:
 
 protected:
 	void initializePage();
+	int nextId() const;
 
 private:
 	Ui::LineEditPageWidget ui;

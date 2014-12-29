@@ -33,12 +33,9 @@ public:
 	virtual void update();
 
 	QList<LineText> getLines();
-	AppletFont getFont();
 
-	void clearLines();
-	void addLine(QString, QMap<QString, Query>);
-	void addFont(AppletFont font);
-	void addbackground(QString background);
+	void setData(QList<LineText>);
+	void setBackground(QString background);
 
 	QString getBackground();
 
@@ -51,7 +48,6 @@ protected:
 	QString name_;
 	CEzLcd * lcd_;
 	int screenId_;
-	AppletFont font_;
 
 	QList<LineText> screenLines_;
 private:

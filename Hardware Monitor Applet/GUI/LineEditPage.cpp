@@ -98,3 +98,8 @@ QStringList LineEditPage::getData()
 
 	return lineList;
 }
+
+int LineEditPage::nextId() const
+{
+	return Page::Page_Customize;
+}

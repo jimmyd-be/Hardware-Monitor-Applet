@@ -34,11 +34,11 @@ public:
 	void drawColor();
 	void drawMonochrome();
 
+
 private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

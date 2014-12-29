@@ -15,6 +15,9 @@ public:
 
 	ScreenType getScreenType();
 
+protected:
+	int nextId() const;
+
 private:
 	Ui::ScreenTypePageWidget ui;
 	QWidget *widget_;

@@ -38,6 +38,8 @@ public:
 	bool initKeyboard();
 	KeyboardTypes getKeyboardType();
 	QVector<Screen *> getScreenList();
+
+	void createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines);
 	
 	/*Screen * getScreenData(QString);
 	void createPage(QString name, ScreenType type);
@@ -54,6 +56,9 @@ private:
 	void checkbuttonPressesMonochrome();
 	void checkbuttonPressesColor();
 	void updatePage();
+
+
+	QList<LineText> optimizeData(QStringList lines, QMap<QString, Query> dataList);
 
 	// -------------------------
 	// Datamembers

@@ -17,6 +17,7 @@ public:
 
 protected:
 	void initializePage();
+	int nextId() const;
 
 private:
 	Ui::CustomizePageWidget ui;

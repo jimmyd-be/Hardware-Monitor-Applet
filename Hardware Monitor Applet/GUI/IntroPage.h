@@ -15,6 +15,8 @@ public:
 
 	bool validatePage();
 
+	QString getPageName();
+
 protected:
 	int nextId() const;
 

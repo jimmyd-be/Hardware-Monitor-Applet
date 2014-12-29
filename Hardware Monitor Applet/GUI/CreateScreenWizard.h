@@ -21,6 +21,8 @@ public:
 	void accept();
 
 private:
+	void copyBackground();
+
 	DataPage *dataPage_;
 	LineEditPage * lineEditPage_;
 	IntroPage * introPage_;

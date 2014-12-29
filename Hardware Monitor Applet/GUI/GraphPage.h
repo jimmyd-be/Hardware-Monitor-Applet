@@ -4,6 +4,7 @@
 #include "qguiapplication.h"
 #include "ui_GraphPageWidget.h"
 #include "QBoxLayout.h"
+#include "../Defines.h"
 
 class GraphPage: public QWizardPage
 {
@@ -12,6 +13,9 @@ class GraphPage: public QWizardPage
 public:
 	GraphPage(QWidget *parent = 0);
 	virtual ~GraphPage();
+
+protected:
+	int nextId() const;
 
 private:
 	Ui::GraphPageWidget ui;

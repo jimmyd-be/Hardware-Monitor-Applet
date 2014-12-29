@@ -163,6 +163,43 @@ QVector<Screen *> Logitech::getScreenList()
 	return screenList_;
 }
 
+void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines)
+{
+	NormalScreen * screen = new NormalScreen(&lcd_, name);
+	screen->setBackground(background);
+	screen->setData(optimizeData(lines, dataList));
+
+	screenList_.append(screen);
+}
+
+QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> dataList)
+{
+	QList<LineText> data;
+
+	for (QString line : lines)
+	{
+		QMap<QString, Query> optimizedData;
+
+		QMap<QString, Query>::const_iterator i = dataList.constBegin();
+
+		while (i != dataList.constEnd())
+		{
+			if (line.contains(i.key()))
+			{
+				optimizedData.insert(i.key(), i.value());
+			}
+			++i;
+		}
+		LineText text;
+		text.text = line;
+		text.queryMap = optimizedData;
+
+		data.append(text);
+	}
+
+	return data;
+}
+
 /*void Logitech::createPage(QString name, ScreenType type)
 {
 	if (startscreen_ != nullptr)

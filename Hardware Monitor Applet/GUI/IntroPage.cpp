@@ -13,8 +13,6 @@ IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
 	setLayout(layout_);
-
-	registerField("ScreenName", ui.ScreenName_lineEdit);
 }
 
 IntroPage::~IntroPage()
@@ -66,4 +64,9 @@ int IntroPage::nextId() const
 	{
 		return Page::Page_Background;
 	}
+}
+
+QString IntroPage::getPageName()
+{
+	return ui.ScreenName_lineEdit->text();
 }

@@ -53,27 +53,12 @@ QList<LineText> Screen::getLines()
 	return screenLines_;
 }
 
-void Screen::clearLines()
+void Screen::setData(QList<LineText> data)
 {
-	screenLines_.clear();
+	screenLines_ = data;
 }
 
-void Screen::addLine(QString text, QMap<QString, Query> data)
-{
-	LineText line;
-
-	line.text = text;
-	line.queryMap = data;
-
-	screenLines_.append(line);
-}
-
-void Screen::addFont(AppletFont font)
-{
-	font_ = font;
-}
-
-void Screen::addbackground(QString background)
+void Screen::setBackground(QString background)
 {
 	backgroundString_ = background;
 
@@ -85,11 +70,6 @@ void Screen::addbackground(QString background)
 
 		lcd_->SetBackground(background_);
 	}
-}
-
-AppletFont Screen::getFont()
-{
-	return font_;
 }
 
 QString Screen::getBackground()

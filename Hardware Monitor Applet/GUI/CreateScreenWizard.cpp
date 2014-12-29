@@ -69,13 +69,38 @@ CreateScreenWizard::~CreateScreenWizard()
 
 void CreateScreenWizard::accept()
 {
-	QByteArray className = field("className").toByteArray();
-	QByteArray baseClass = field("baseClass").toByteArray();
-	QByteArray macroName = field("macroName").toByteArray();
-	QByteArray baseInclude = field("baseInclude").toByteArray();
+	copyBackground();
 
-	QString outputDir = field("outputDir").toString();
-	QString header = field("header").toString();
-	QString implementation = field("implementation").toString();
+	QString background = introPage_->getPageName() + "." + backgroundPage_->getSuffix();
+
+	if (screenTypePage_->getScreenType() == ScreenType::Normal)
+	{
+		logitech_->createNormalScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), dataPage_->getData(), lineEditPage_->getData());
+	}
+
 	QDialog::accept();
+}
+
+void CreateScreenWizard::copyBackground()
+{
+	QFileInfo oldFile(backgroundPage_->getBackground());
+
+	QString newDir = Defines::getSettingsFolder() + "/Background";
+	QString newFile = newDir + "/" + introPage_->getPageName() + "." + oldFile.completeSuffix();
+
+	QDir dir(newDir);
+
+	if (!dir.exists())
+	{
+		dir.mkpath(dir.filePath(newDir));
+	}
+
+	QFile backgroundFile(newFile);
+
+	if (backgroundFile.exists())
+	{
+		backgroundFile.remove();
+	}
+
+	QFile::copy(backgroundPage_->getBackground(), newFile);
 }

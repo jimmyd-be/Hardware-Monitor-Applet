@@ -28,3 +28,8 @@ GraphPage::~GraphPage()
 		layout_ = nullptr;
 	}
 }
+
+int GraphPage::nextId() const
+{
+	return Page::Page_Customize;
+}
