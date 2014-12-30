@@ -8,6 +8,8 @@ MainWindow::MainWindow(Logitech * logitech, QWidget *parent)
 	keyboardChanged(logitech->getKeyboardType());
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
+
+	fillinPages();
 }
 
 MainWindow::~MainWindow()
@@ -38,4 +40,34 @@ void MainWindow::openScreenWizard()
 	wizard->exec();
 	
 	delete wizard;
+
+	Settings::getInstance()->saveSettings();
+
+	fillinPages();
+}
+
+void MainWindow::fillinPages()
+{
+	QVector<Screen *> pages = logitech_->getScreenList();
+
+	removePages();
+
+	for (int i = 0; i < pages.size(); i++)
+	{
+		MainScreenWidget * widget = new MainScreenWidget(pages[i]->getName(), pages[i]->getScreenType(), false);
+
+		ui.ScreenList_Layout->addWidget(widget);
+
+		widgetList_.append(widget);
+	}
+}
+
+void MainWindow::removePages()
+{
+	for (QWidget * widget : widgetList_)
+	{
+		ui.ScreenList_Layout->removeWidget(widget);
+	}
+
+	widgetList_.clear();
 }

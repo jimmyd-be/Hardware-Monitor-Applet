@@ -11,10 +11,12 @@ class MainScreenWidget :
 	Q_OBJECT
 
 public:
-	MainScreenWidget(QWidget *parent = 0);
+	MainScreenWidget(QString name, ScreenType type, bool active, QWidget *parent = 0);
 	virtual ~MainScreenWidget();
 
 private slots:
+	void removePage();
+	void editpage();
 	
 
 private:

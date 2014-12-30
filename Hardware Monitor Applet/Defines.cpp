@@ -129,3 +129,21 @@ QString Defines::translateScreenTypeEnum(ScreenType type)
 
 	return "No";
 }
+
+ScreenType Defines::translateScreenTypeEnum(QString type)
+{
+	if (type == "Graph")
+	{
+		return ScreenType::Graph;
+	}
+	else if (type == "Normal")
+	{
+		return ScreenType::Normal;
+	}
+	else if (type == "Start")
+	{
+		return ScreenType::Start;
+	}
+
+	return ScreenType::No;
+}

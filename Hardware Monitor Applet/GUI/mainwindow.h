@@ -7,6 +7,7 @@
 #include "../Logitech.h"
 #include "SortScreenDialog.h"
 #include "MainScreenWidget.h"
+#include "../Settings.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,8 +20,12 @@ public:
 	void keyboardChanged(KeyboardTypes);
 
 private:
+	void fillinPages();
+	void removePages();
+
 	Ui::MainWindowClass ui;
 	Logitech * logitech_;
+	QVector<MainScreenWidget *> widgetList_;
 
 private slots:
 	void openScreenWizard();

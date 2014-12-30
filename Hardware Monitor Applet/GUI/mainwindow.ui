@@ -22,8 +22,33 @@
       </property>
       <item>
        <widget class="QPushButton" name="AddScreen_Button">
+        <property name="minimumSize">
+         <size>
+          <width>70</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+background-image: url(:/MainWindow/Resources/Add.png);
+border: none;
+margin: 0px;
+padding: 0px;
+}
+
+QPushButton:hover { 
+	background-image: url(:/MainWindow/Resources/Add_hover.png);
+}</string>
+        </property>
         <property name="text">
-         <string>Add</string>
+         <string/>
         </property>
        </widget>
       </item>

@@ -42,6 +42,7 @@ public:
 	QVector<Screen *> getScreenList();
 
 	void createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines);
+	void createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines);
 	
 	/*Screen * getScreenData(QString);
 	void createPage(QString name, ScreenType type);

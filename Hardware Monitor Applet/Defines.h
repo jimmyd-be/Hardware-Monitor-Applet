@@ -68,6 +68,7 @@ class Defines
 
 		static MonitorSystem translateMonitorSystemEnum(QString);
 		static QueryValue translateQueryValueEnum(QString);
+		static ScreenType translateScreenTypeEnum(QString);
 
 	private:
 		//---------------------------

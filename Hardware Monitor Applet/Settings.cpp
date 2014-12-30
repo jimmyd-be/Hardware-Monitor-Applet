@@ -50,7 +50,61 @@ Settings::~Settings()
 
 void Settings::loadSettings()
 {
+	int screenTotal = settings_->beginReadArray("pages");
 
+	for (int i = 0; i < screenTotal; i++)
+	{
+		settings_->setArrayIndex(i);
+		QString name = settings_->value("pageName").toString();
+		QString background = settings_->value("background").toString();
+		ScreenType type = Defines::translateScreenTypeEnum(settings_->value("type").toString());
+
+		QList<LineText> lines;
+		LineText text;
+
+		int totalLines = settings_->beginReadArray("lines");
+
+		for (int j = 0; j < totalLines; j++)
+		{
+			settings_->setArrayIndex(j);
+
+			QString linesText = settings_->value("text").toString();
+
+			int totalData = settings_->beginReadArray("data");
+
+			QMap<QString, Query> queryMap;
+
+			for (int k = 0; k < totalData; k++)
+			{
+				settings_->setArrayIndex(k);
+
+				QString key = settings_->value("key").toString();
+
+				Query query;
+
+				query.system = Defines::translateMonitorSystemEnum(settings_->value("system").toString());
+				query.identifier = settings_->value("id").toString();
+				query.name = settings_->value("name").toString();
+				query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
+				settings_->value("precision").toInt();
+
+				queryMap.insert(key, query);
+			}
+
+			text.queryMap = queryMap;
+			text.text = linesText;
+
+			settings_->endArray();
+		}
+
+		lines.append(text);
+
+		logitech_->createNormalScreen(name, background, type, lines);
+
+		settings_->endArray();
+	}
+
+	settings_->endArray();
 }
 
 void Settings::saveSettings()
@@ -86,7 +140,7 @@ void Settings::saveSettings()
 				int index = 0;
 
 				while (k != queryMap.constEnd()) {
-					
+
 					settings_->setArrayIndex(index);
 
 					settings_->setValue("key", k.key());

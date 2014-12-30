@@ -171,8 +171,16 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 	screen->setData(optimizeLines(optimizeData(lines, dataList)));
 
 	screenList_.append(screen);
+}
 
-	Settings::getInstance()->saveSettings();
+void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines)
+{
+	NormalScreen * screen = new NormalScreen(&lcd_, name);
+	screen->setBackground(background);
+	screen->setData(lines);
+
+	screenList_.append(screen);
+
 }
 
 QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> dataList)
@@ -205,7 +213,7 @@ QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> d
 
 QList<LineText> Logitech::optimizeLines(QList<LineText> lines)
 {
-	while (lines.last().text.isEmpty())
+	while (!lines.isEmpty() && lines.last().text.isEmpty())
 	{
 		lines.removeLast();
 	}
