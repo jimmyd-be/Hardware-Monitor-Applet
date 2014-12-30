@@ -15,6 +15,29 @@ ScreenTypePage::ScreenTypePage(QWidget *parent)
 	setLayout(layout_);
 }
 
+ScreenTypePage::ScreenTypePage(ScreenType type, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr)
+{
+	setTitle(tr("Type selection"));
+
+	widget_ = new QWidget();
+
+	ui.setupUi(widget_);
+
+	layout_ = new QVBoxLayout;
+	layout_->addWidget(widget_);
+	setLayout(layout_);
+
+	if (type == ScreenType::Graph)
+	{
+		ui.GraphScreen_radioButton->setChecked(true);
+	}
+	else if (type == ScreenType::Normal)
+	{
+		ui.NormalScreen_radioButton->setChecked(true);
+	}
+}
+
 ScreenTypePage::~ScreenTypePage()
 {
 	if (widget_ == nullptr)

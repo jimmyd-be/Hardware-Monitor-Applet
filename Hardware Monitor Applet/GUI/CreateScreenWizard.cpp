@@ -1,13 +1,37 @@
 #include "CreateScreenWizard.h"
 
 CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
-	: QWizard(parent, Qt::Dialog), logitech_(logitech)
+	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_("")
 {
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType());
 	backgroundPage_ = new BackgroundPage();
 	screenTypePage_ = new ScreenTypePage();
 	dataPage_ = new DataPage(screenTypePage_->getScreenType());
 	lineEditPage_ = new LineEditPage(dataPage_);	
+	customizePage_ = new CustomizePage(lineEditPage_);
+	graphPage_ = new GraphPage(lineEditPage_);
+
+	setPage(Page_Intro, introPage_);
+	setPage(Page_Background, backgroundPage_);
+	setPage(Page_Type, screenTypePage_);
+	setPage(Page_Data, dataPage_);
+	setPage(Page_LineEdit, lineEditPage_);
+	setPage(Page_GraphEdit, graphPage_);
+	setPage(Page_Customize, customizePage_);
+
+	setWindowTitle(tr("Screen Wizard"));
+}
+
+CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidget *parent)
+	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_(name)
+{
+	Screen * oldScreen = logitech_->getScreenData(oldPageName_);
+
+	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType(), oldPageName_);
+	backgroundPage_ = new BackgroundPage(oldScreen->getBackground());
+	screenTypePage_ = new ScreenTypePage(oldScreen->getScreenType());
+	dataPage_ = new DataPage(oldScreen->getScreenType(), oldScreen->getLines());
+	lineEditPage_ = new LineEditPage(dataPage_, oldScreen->getLines());
 	customizePage_ = new CustomizePage(lineEditPage_);
 	graphPage_ = new GraphPage(lineEditPage_);
 
@@ -69,6 +93,11 @@ CreateScreenWizard::~CreateScreenWizard()
 
 void CreateScreenWizard::accept()
 {
+	if (!oldPageName_.isEmpty())
+	{
+		logitech_->deleteScreen(oldPageName_);
+	}
+
 	QString background = "";
 
 	if (!backgroundPage_->getBackground().isEmpty())
@@ -82,6 +111,8 @@ void CreateScreenWizard::accept()
 	{
 		logitech_->createNormalScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), dataPage_->getData(), lineEditPage_->getData());
 	}
+
+	Settings::getInstance()->saveSettings();
 
 	QDialog::accept();
 }

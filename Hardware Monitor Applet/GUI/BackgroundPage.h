@@ -12,6 +12,7 @@ class BackgroundPage: public QWizardPage
 
 public:
 	BackgroundPage(QWidget *parent = 0);
+	BackgroundPage(QString background, QWidget *parent = 0);
 	virtual ~BackgroundPage();
 
 	bool validatePage();

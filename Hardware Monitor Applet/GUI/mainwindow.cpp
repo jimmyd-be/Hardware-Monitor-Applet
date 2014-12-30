@@ -41,20 +41,16 @@ void MainWindow::openScreenWizard()
 	
 	delete wizard;
 
-	Settings::getInstance()->saveSettings();
-
-	fillinPages();
+	refreshPages();
 }
 
 void MainWindow::fillinPages()
 {
 	QVector<Screen *> pages = logitech_->getScreenList();
 
-	removePages();
-
 	for (int i = 0; i < pages.size(); i++)
 	{
-		MainScreenWidget * widget = new MainScreenWidget(pages[i]->getName(), pages[i]->getScreenType(), false);
+		MainScreenWidget * widget = new MainScreenWidget(this, logitech_, pages[i]->getName(), pages[i]->getScreenType(), false);
 
 		ui.ScreenList_Layout->addWidget(widget);
 
@@ -67,7 +63,14 @@ void MainWindow::removePages()
 	for (QWidget * widget : widgetList_)
 	{
 		ui.ScreenList_Layout->removeWidget(widget);
+		delete widget;
 	}
 
 	widgetList_.clear();
+}
+
+void MainWindow::refreshPages()
+{
+	removePages();
+	fillinPages();
 }

@@ -5,13 +5,15 @@
 
 #include "CreateScreenWizard.h"
 
+class MainWindow;
+
 class MainScreenWidget :
 	public QWidget, private Ui_MainScreenWidget
 {
 	Q_OBJECT
 
 public:
-	MainScreenWidget(QString name, ScreenType type, bool active, QWidget *parent = 0);
+	MainScreenWidget(MainWindow * mainWindow, Logitech * logitech, QString name, ScreenType type, bool active, QWidget *parent = 0);
 	virtual ~MainScreenWidget();
 
 private slots:
@@ -20,6 +22,7 @@ private slots:
 	
 
 private:
-	
+	Logitech * logitech_;
+	MainWindow * mainWindow_;
 };
 

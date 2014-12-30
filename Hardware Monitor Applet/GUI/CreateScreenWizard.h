@@ -9,6 +9,7 @@
 #include "CustomizePage.h"
 #include "GraphPage.h"
 #include "../Logitech.h"
+#include "../Settings.h"
 
 class CreateScreenWizard : public QWizard
 {
@@ -16,12 +17,15 @@ class CreateScreenWizard : public QWizard
 
 public:
 	CreateScreenWizard(Logitech *, QWidget *parent = 0);
+	CreateScreenWizard(Logitech *, QString, QWidget *parent = 0);
 	virtual ~CreateScreenWizard();
 
 	void accept();
 
 private:
 	void copyBackground();
+
+	QString oldPageName_;
 
 	DataPage *dataPage_;
 	LineEditPage * lineEditPage_;

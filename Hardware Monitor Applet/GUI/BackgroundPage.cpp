@@ -21,6 +21,37 @@ BackgroundPage::BackgroundPage(QWidget *parent)
 	connect(ui.Browse_pushButton, SIGNAL(clicked()), this, SLOT(browseButtonClicked()));
 }
 
+BackgroundPage::BackgroundPage(QString background, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr)
+{
+	setTitle(tr("Background selection"));
+
+	widget_ = new QWidget();
+
+	ui.setupUi(widget_);
+
+	layout_ = new QVBoxLayout;
+	layout_->addWidget(widget_);
+	setLayout(layout_);
+
+	if (background.isEmpty())
+	{
+		ui.Background_lineEdit->setDisabled(true);
+		ui.Browse_pushButton->setDisabled(true);
+	}
+	else
+	{
+		ui.Background_lineEdit->setDisabled(false);
+		ui.Browse_pushButton->setDisabled(false);
+		ui.CustomBackground_RadioButton->setChecked(true);
+
+		ui.Background_lineEdit->setText(background);
+	}
+
+	connect(ui.buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(radioButtonClicked()));
+	connect(ui.Browse_pushButton, SIGNAL(clicked()), this, SLOT(browseButtonClicked()));
+}
+
 BackgroundPage::~BackgroundPage()
 {
 	if (widget_ == nullptr)

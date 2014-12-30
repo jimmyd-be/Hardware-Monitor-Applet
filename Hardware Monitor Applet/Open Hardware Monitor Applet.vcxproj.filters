@@ -197,12 +197,6 @@
     <ClCompile Include="GUI\IntroPage.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MainScreenWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MainScreenWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\CreateScreenWizard.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
@@ -280,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainScreenWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainScreenWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

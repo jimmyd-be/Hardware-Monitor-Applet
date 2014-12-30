@@ -180,7 +180,6 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 	screen->setData(lines);
 
 	screenList_.append(screen);
-
 }
 
 QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> dataList)
@@ -221,6 +220,31 @@ QList<LineText> Logitech::optimizeLines(QList<LineText> lines)
 	return lines;
 }
 
+void Logitech::deleteScreen(QString name)
+{
+	Screen * oldScreen = getScreenData(name);
+
+	int position = screenList_.indexOf(oldScreen);
+
+	if (position != -1)
+	{
+		screenList_.removeAt(position);
+	}
+}
+
+Screen * Logitech::getScreenData(QString name)
+{
+	for (Screen * screen : screenList_)
+	{
+		if (screen->getName() == name)
+		{
+			return screen;
+		}
+	}
+
+	return nullptr;
+}
+
 /*void Logitech::createPage(QString name, ScreenType type)
 {
 	if (startscreen_ != nullptr)
@@ -245,19 +269,6 @@ QList<LineText> Logitech::optimizeLines(QList<LineText> lines)
 	}
 
 	currentPage_ = screenList_.size() - 1;
-}
-
-Screen * Logitech::getScreenData(QString name)
-{
-	for (Screen * screen : screenList_)
-	{
-		if (screen->getName() == name)
-		{
-			return screen;
-		}
-	}
-
-	return nullptr;
 }
 
 void Logitech::addLine(QString pageName, QString text, QMap<QString, Query> dataMap)

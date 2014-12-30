@@ -12,6 +12,7 @@ class DataPage: public QWizardPage
 
 public:
 	DataPage(ScreenType type, QWidget *parent = 0);
+	DataPage(ScreenType type, QList<LineText>, QWidget *parent = 0);
 	virtual ~DataPage();
 
 	bool validatePage();
@@ -22,6 +23,7 @@ protected:
 	int nextId() const;
 
 private:
+	void loadSelecteddata(QList<LineText>);
 	void loadData(MonitorSystem);
 	bool isUnique(Query);
 	QString foundNextSymbol();

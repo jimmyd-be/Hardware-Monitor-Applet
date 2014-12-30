@@ -11,6 +11,7 @@ class LineEditPage: public QWizardPage
 
 public:
 	LineEditPage(DataPage* page, QWidget *parent = 0);
+	LineEditPage(DataPage* page, QList<LineText> lines, QWidget *parent = 0);
 	virtual ~LineEditPage();
 
 	bool validatePage();
@@ -21,6 +22,8 @@ protected:
 	int nextId() const;
 
 private:
+	void loadLines(QList<LineText> lines);
+	
 	Ui::LineEditPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;

@@ -14,7 +14,30 @@ DataPage::DataPage(ScreenType type, QWidget *parent)
 	layout_->addWidget(widget_);
 	setLayout(layout_);
 
-	//registerField("SelectedData", ui.SelectedItems_tableWidget);
+	ui.HWiNFO_tableWidget->hideColumn(0);
+	ui.OHM_tableWidget->hideColumn(0);
+	ui.SelectedItems_tableWidget->hideColumn(0);
+	ui.SelectedItems_tableWidget->hideColumn(5);
+
+	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
+	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
+
+	loadData(MonitorSystem::HWiNFO);
+	loadData(MonitorSystem::OHM);
+}
+
+DataPage::DataPage(ScreenType type, QList<LineText> data, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenType_(type)
+{
+	setTitle(tr("Select data"));
+
+	widget_ = new QWidget();
+
+	ui.setupUi(widget_);
+
+	layout_ = new QVBoxLayout;
+	layout_->addWidget(widget_);
+	setLayout(layout_);
 
 	ui.HWiNFO_tableWidget->hideColumn(0);
 	ui.OHM_tableWidget->hideColumn(0);
@@ -24,10 +47,10 @@ DataPage::DataPage(ScreenType type, QWidget *parent)
 	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
 
-	registerField("ScreenData", ui.SelectedItems_tableWidget);
-
 	loadData(MonitorSystem::HWiNFO);
 	loadData(MonitorSystem::OHM);
+
+	loadSelecteddata(data);
 }
 
 DataPage::~DataPage()
@@ -237,4 +260,43 @@ int DataPage::nextId() const
 	}
 
 	return Page::Page_LineEdit;
+}
+
+void DataPage::loadSelecteddata(QList<LineText> data)
+{
+	int row = 0;
+
+	for (LineText line : data)
+	{
+		QMap<QString, Query>::const_iterator i = line.queryMap.constBegin();
+
+		while (i != line.queryMap.constEnd())
+		{
+			ui.SelectedItems_tableWidget->insertRow(row);
+
+			QTableWidgetItem * idItem = new QTableWidgetItem();
+			QTableWidgetItem * nameItem = new QTableWidgetItem();
+			QTableWidgetItem * systemItem = new QTableWidgetItem();
+			QTableWidgetItem * valueItem = new QTableWidgetItem();
+			QTableWidgetItem * precisionItem = new QTableWidgetItem();
+			QTableWidgetItem * symbolItem = new QTableWidgetItem();
+
+			idItem->setText(i.value().identifier);
+			nameItem->setText(i.value().name);
+			systemItem->setText(Defines::translateMonitorSystemEnum(i.value().system));
+			valueItem->setText(Defines::translateQueryValueEnum(i.value().value));
+			precisionItem->setText(QString::number(i.value().precision));
+			symbolItem->setText(i.key());
+
+			ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
+			ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
+			ui.SelectedItems_tableWidget->setItem(row, 2, nameItem);
+			ui.SelectedItems_tableWidget->setItem(row, 3, valueItem);
+			ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
+			ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
+
+			row += 1;
+			++i;
+		}
+	}
 }

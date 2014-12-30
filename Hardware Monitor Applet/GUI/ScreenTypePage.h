@@ -11,6 +11,7 @@ class ScreenTypePage: public QWizardPage
 
 public:
 	ScreenTypePage(QWidget *parent = 0);
+	ScreenTypePage(ScreenType type, QWidget *parent = 0);
 	virtual ~ScreenTypePage();
 
 	ScreenType getScreenType();

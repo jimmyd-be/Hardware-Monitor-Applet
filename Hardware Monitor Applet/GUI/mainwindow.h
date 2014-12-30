@@ -19,6 +19,8 @@ public:
 
 	void keyboardChanged(KeyboardTypes);
 
+	void refreshPages();
+
 private:
 	void fillinPages();
 	void removePages();

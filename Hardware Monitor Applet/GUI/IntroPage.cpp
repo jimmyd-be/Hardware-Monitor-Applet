@@ -15,6 +15,22 @@ IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *
 	setLayout(layout_);
 }
 
+IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QString name, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenNames_(screenList), keyboardType_(type), oldPagename_(name)
+{
+	setTitle(tr("Introduction"));
+
+	widget_ = new QWidget();
+
+	ui.setupUi(widget_);
+
+	layout_ = new QVBoxLayout;
+	layout_->addWidget(widget_);
+	setLayout(layout_);
+
+	ui.ScreenName_lineEdit->setText(name);
+}
+
 IntroPage::~IntroPage()
 {
 	if (widget_ == nullptr)
@@ -32,18 +48,22 @@ IntroPage::~IntroPage()
 
 bool IntroPage::validatePage()
 {
-	if (ui.ScreenName_lineEdit->text().isEmpty())
+	if (ui.ScreenName_lineEdit->text() != oldPagename_)
 	{
-		ui.Error_label->setText("You must fillin a screenname!!");
-
-		return false;
-	}
-
-	for (Screen * screenData : screenNames_)
-	{
-		if (ui.ScreenName_lineEdit->text() == screenData->getName())
+		if (ui.ScreenName_lineEdit->text().isEmpty())
 		{
+			ui.Error_label->setText("You must fillin a screenname!!");
+
 			return false;
+		}
+
+		for (Screen * screenData : screenNames_)
+		{
+			if (ui.ScreenName_lineEdit->text() == screenData->getName())
+			{
+				ui.Error_label->setText("Screenname must be unique!!");
+				return false;
+			}
 		}
 	}
 

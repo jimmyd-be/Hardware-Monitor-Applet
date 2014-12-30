@@ -11,6 +11,7 @@ class IntroPage: public QWizardPage
 
 public:
 	IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *parent = 0);
+	IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QString name, QWidget *parent = 0);
 	virtual ~IntroPage();
 
 	bool validatePage();
@@ -21,7 +22,7 @@ protected:
 	int nextId() const;
 
 private:
-
+	QString oldPagename_;
 	Ui::IntroPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
