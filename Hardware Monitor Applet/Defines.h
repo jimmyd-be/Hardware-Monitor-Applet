@@ -24,6 +24,7 @@ enum ScreenType {Normal, Graph, Start, No};
 enum QueryValue {Name, Current, Max, Min};
 enum MonitorSystem { OHM, HWiNFO, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
+enum Temperature { Celsius, Fahrenheit };
 
 struct Query{
 	MonitorSystem system;
@@ -63,10 +64,10 @@ class Defines
 		static QString getSettingsFolder();
 		static QString translateMonitorSystemEnum(MonitorSystem);
 		static QString translateQueryValueEnum(QueryValue);
+		static QString translateScreenTypeEnum(ScreenType);
 
 		static MonitorSystem translateMonitorSystemEnum(QString);
 		static QueryValue translateQueryValueEnum(QString);
-
 
 	private:
 		//---------------------------

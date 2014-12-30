@@ -7,6 +7,7 @@
 // Include Files
 //-----------------------------------------------------------------
 #include "Logitech.h"
+#include "Settings.h"
 
 //-----------------------------------------------------------------
 // Defines
@@ -167,9 +168,11 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 {
 	NormalScreen * screen = new NormalScreen(&lcd_, name);
 	screen->setBackground(background);
-	screen->setData(optimizeData(lines, dataList));
+	screen->setData(optimizeLines(optimizeData(lines, dataList)));
 
 	screenList_.append(screen);
+
+	Settings::getInstance()->saveSettings();
 }
 
 QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> dataList)
@@ -198,6 +201,16 @@ QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> d
 	}
 
 	return data;
+}
+
+QList<LineText> Logitech::optimizeLines(QList<LineText> lines)
+{
+	while (lines.last().text.isEmpty())
+	{
+		lines.removeLast();
+	}
+
+	return lines;
 }
 
 /*void Logitech::createPage(QString name, ScreenType type)

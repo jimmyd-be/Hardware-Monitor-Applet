@@ -69,9 +69,14 @@ CreateScreenWizard::~CreateScreenWizard()
 
 void CreateScreenWizard::accept()
 {
-	copyBackground();
+	QString background = "";
 
-	QString background = introPage_->getPageName() + "." + backgroundPage_->getSuffix();
+	if (!backgroundPage_->getBackground().isEmpty())
+	{
+		copyBackground();
+
+		background = introPage_->getPageName() + "." + backgroundPage_->getSuffix();
+	}
 
 	if (screenTypePage_->getScreenType() == ScreenType::Normal)
 	{

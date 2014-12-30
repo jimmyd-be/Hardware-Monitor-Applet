@@ -1,60 +1,59 @@
 //-----------------------------------------------------------------
-// Controller File
-// C++ Header - Controller.h - version 0.1 (2014/08/31)
+// Settings File
+// C++ Header - Settings.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
 #pragma once
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "external\QSingleApplication\qtsingleapplication.h"
-#include "GUI\mainwindow.h"
+#include "Defines.h"
+#include <QSettings>
 #include "Logitech.h"
-#include "StartScreen.h"
-#include "Settings.h"
-
 
 //-----------------------------------------------------------------
-// Controller Class
+// Settings Class
 //-----------------------------------------------------------------
-class Controller: public QObject
+class Settings
 {
-	//Q_OBJECT
 public:
-		
-	//---------------------------
-	// Constructor(s)
-	//---------------------------
-	Controller(QtSingleApplication*);
+
+	static Settings* getInstance();
+	static void releaseResources();
 
 	//---------------------------
 	// Destructor
 	//---------------------------
-	virtual ~Controller();
+	virtual ~Settings();
 
 	//---------------------------
 	// General Methods
 	//---------------------------
-	void openSettingsScreen();
+	void setLogitech(Logitech * logitech);
+	void loadSettings();
+	void saveSettings();
+
+protected:
+	//---------------------------
+	// Constructor(s)
+	//---------------------------
+	Settings();
 
 private:
 
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	MainWindow * mainWindow_;
+	QSettings * settings_;
 	Logitech * logitech_;
-	Settings * settings_;
 
-
-private slots:
-	void vMessageReceivedFromOtherInst(const QString &  msg);
+	static Settings* singleton_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
 	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
 	// -------------------------
-	//Controller(const Controller& t);
-	//Controller& operator=(const Controller& t);
+	Settings(const Settings& t);
+	Settings& operator=(const Settings& t);
 };

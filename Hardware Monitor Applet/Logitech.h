@@ -14,6 +14,8 @@
 #include "NormalScreen.h"
 #include "GraphScreen.h"
 
+class Settings;
+
 //-----------------------------------------------------------------
 // Logitech Class
 //-----------------------------------------------------------------
@@ -59,6 +61,7 @@ private:
 
 
 	QList<LineText> optimizeData(QStringList lines, QMap<QString, Query> dataList);
+	QList<LineText> optimizeLines(QList<LineText>);
 
 	// -------------------------
 	// Datamembers

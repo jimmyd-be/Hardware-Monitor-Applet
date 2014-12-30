@@ -111,3 +111,21 @@ QueryValue Defines::translateQueryValueEnum(QString string)
 
 		return value;
 }
+
+QString Defines::translateScreenTypeEnum(ScreenType type)
+{
+	if (type == ScreenType::Graph)
+	{
+		return "Graph";
+	}
+	else if (type == ScreenType::Normal)
+	{
+		return "Normal";
+	}
+	else if (type == ScreenType::Start)
+	{
+		return "Start";
+	}
+
+	return "No";
+}

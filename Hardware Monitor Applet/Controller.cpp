@@ -15,11 +15,14 @@
 //-----------------------------------------------------------------
 // Controller methods
 //-----------------------------------------------------------------
-Controller::Controller(QtSingleApplication* app) : mainWindow_(nullptr)
+Controller::Controller(QtSingleApplication* app) : mainWindow_(nullptr), settings_(nullptr)
 {
 	QObject::connect(app, SIGNAL(messageReceived(const QString &)), this, SLOT(vMessageReceivedFromOtherInst(const QString &)));
 	
 	logitech_ = new Logitech();
+
+	settings_ = Settings::getInstance();
+	settings_->setLogitech(logitech_);
 
 	bool success = logitech_->initKeyboard();
 }
@@ -31,6 +34,8 @@ Controller::~Controller()
 		delete mainWindow_;
 		mainWindow_ = nullptr;
 	}
+
+	settings_->releaseResources();
 
 	if (logitech_ != nullptr)
 	{
