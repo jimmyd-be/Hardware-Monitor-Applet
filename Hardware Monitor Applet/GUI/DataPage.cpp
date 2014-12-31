@@ -69,6 +69,9 @@ bool DataPage::validatePage()
 
 void DataPage::initializePage()
 {
+	clearData(MonitorSystem::HWiNFO);
+	clearData(MonitorSystem::OHM);
+
 	loadData(MonitorSystem::HWiNFO);
 	loadData(MonitorSystem::OHM);
 
@@ -117,6 +120,22 @@ void DataPage::loadData(MonitorSystem system)
 		widget->setItem(row, 3, maxItem);
 		widget->setItem(row, 4, currentItem);
 	}
+}
+
+void DataPage::clearData(MonitorSystem system)
+{
+	QTableWidget * widget = nullptr;
+
+	if (system == MonitorSystem::HWiNFO)
+	{
+		widget = ui.HWiNFO_tableWidget;
+	}
+	else if (system == MonitorSystem::OHM)
+	{
+		widget = ui.OHM_tableWidget;
+	}
+
+	widget->clearContents();
 }
 
 void DataPage::addButtonClicked()

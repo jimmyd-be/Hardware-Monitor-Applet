@@ -197,6 +197,7 @@ void Settings::saveSettings()
 		for (int i = 0; i < screens.size(); i++)
 		{
 			settings_->setArrayIndex(i);
+
 			settings_->setValue("pageName", screens[i]->getName());
 			settings_->setValue("background", screens[i]->getBackground());
 			settings_->setValue("type", Defines::translateScreenTypeEnum(screens[i]->getScreenType()));
@@ -210,8 +211,6 @@ void Settings::saveSettings()
 				saveNormalScreenSettings(screens[i]);
 				saveGraphScreenSettings(screens[i]);
 			}
-
-			settings_->endArray();
 		}
 
 		settings_->endArray();

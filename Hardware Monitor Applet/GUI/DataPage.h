@@ -27,7 +27,9 @@ protected:
 private:
 	void loadSelecteddata(QList<LineText>);
 	void loadData(MonitorSystem);
+	void clearData(MonitorSystem system);
 	bool isUnique(Query);
+
 	QString foundNextSymbol();
 
 	ScreenTypePage *  screenTypePage_;

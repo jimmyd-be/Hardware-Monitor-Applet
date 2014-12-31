@@ -8,6 +8,7 @@ MainWindow::MainWindow(Logitech * logitech, QWidget *parent)
 	keyboardChanged(logitech->getKeyboardType());
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
+	connect(ui.Order_pushButton, SIGNAL(clicked()), this, SLOT(openOrderWindow()));
 
 	fillinPages();
 }
@@ -73,4 +74,12 @@ void MainWindow::refreshPages()
 {
 	removePages();
 	fillinPages();
+}
+
+
+void MainWindow::openOrderWindow()
+{
+	OrderWindow * window = new OrderWindow(logitech_);
+
+	window->exec();
 }

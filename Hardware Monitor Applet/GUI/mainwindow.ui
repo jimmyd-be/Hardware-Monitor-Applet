@@ -66,6 +66,13 @@ QPushButton:hover {
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="Order_pushButton">
+        <property name="text">
+         <string>Order screens</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Order By:</string>

@@ -8,6 +8,7 @@
 #include "SortScreenDialog.h"
 #include "MainScreenWidget.h"
 #include "../Settings.h"
+#include "OrderWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -31,6 +32,7 @@ private:
 
 private slots:
 	void openScreenWizard();
+	void openOrderWindow();
 
 }; 
 
