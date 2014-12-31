@@ -5,14 +5,15 @@
 #include "ui_DataPageWidget.h"
 #include "../Tools/Data.h"
 #include "../Defines.h"
+#include "ScreenTypePage.h"
 
 class DataPage: public QWizardPage
 {
 	Q_OBJECT
 
 public:
-	DataPage(ScreenType type, QWidget *parent = 0);
-	DataPage(ScreenType type, QList<LineText>, QWidget *parent = 0);
+	DataPage(ScreenTypePage* type, QWidget *parent = 0);
+	DataPage(ScreenTypePage* type, QList<LineText>, QWidget *parent = 0);
 	virtual ~DataPage();
 
 	bool validatePage();
@@ -21,6 +22,7 @@ public:
 
 protected:
 	int nextId() const;
+	void initializePage();
 
 private:
 	void loadSelecteddata(QList<LineText>);
@@ -28,7 +30,7 @@ private:
 	bool isUnique(Query);
 	QString foundNextSymbol();
 
-	ScreenType screenType_;
+	ScreenTypePage *  screenTypePage_;
 	Ui::DataPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;

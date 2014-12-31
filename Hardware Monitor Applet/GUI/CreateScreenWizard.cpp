@@ -6,10 +6,10 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType());
 	backgroundPage_ = new BackgroundPage();
 	screenTypePage_ = new ScreenTypePage();
-	dataPage_ = new DataPage(screenTypePage_->getScreenType());
+	dataPage_ = new DataPage(screenTypePage_);
 	lineEditPage_ = new LineEditPage(dataPage_);	
 	customizePage_ = new CustomizePage(lineEditPage_);
-	graphPage_ = new GraphPage(lineEditPage_);
+	graphPage_ = new GraphPage(dataPage_);
 
 	setPage(Page_Intro, introPage_);
 	setPage(Page_Background, backgroundPage_);
@@ -30,10 +30,10 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidge
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType(), oldPageName_);
 	backgroundPage_ = new BackgroundPage(oldScreen->getBackground());
 	screenTypePage_ = new ScreenTypePage(oldScreen->getScreenType());
-	dataPage_ = new DataPage(oldScreen->getScreenType(), oldScreen->getLines());
+	dataPage_ = new DataPage(screenTypePage_, oldScreen->getLines());
 	lineEditPage_ = new LineEditPage(dataPage_, oldScreen->getLines());
 	customizePage_ = new CustomizePage(lineEditPage_);
-	graphPage_ = new GraphPage(lineEditPage_);
+	graphPage_ = new GraphPage(dataPage_, oldScreen->getLines(), oldScreen->getGraphColors());
 
 	setPage(Page_Intro, introPage_);
 	setPage(Page_Background, backgroundPage_);
@@ -110,6 +110,11 @@ void CreateScreenWizard::accept()
 	if (screenTypePage_->getScreenType() == ScreenType::Normal)
 	{
 		logitech_->createNormalScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), dataPage_->getData(), lineEditPage_->getData());
+	}
+
+	else if (screenTypePage_->getScreenType() == ScreenType::Graph)
+	{
+		logitech_->creategraphScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), graphPage_->getValues(), graphPage_->getColors());
 	}
 
 	Settings::getInstance()->saveSettings();

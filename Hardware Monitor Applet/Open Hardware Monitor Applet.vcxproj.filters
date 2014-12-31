@@ -266,12 +266,6 @@
     <ClCompile Include="GUI\GraphPage.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GraphPage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GraphPage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -279,6 +273,21 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_MainScreenWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GraphPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GraphPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GraphPageLineWidget.cpp">
+      <Filter>GUI\ScreenWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GraphPageLineWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GraphPageLineWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
@@ -353,6 +362,12 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\GraphPage.h">
+      <Filter>GUI\ScreenWizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\GraphPageLineWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\GraphPageLineWidget.h">
       <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -503,6 +518,9 @@
     </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_GraphPageLineWidget.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

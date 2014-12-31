@@ -33,8 +33,10 @@ public:
 	virtual void update();
 
 	QList<LineText> getLines();
+	QList<QColor> getGraphColors();
 
 	void setData(QList<LineText>);
+	void setColors(QList<QColor>);
 	void setBackground(QString background);
 
 	QString getBackground();
@@ -50,6 +52,8 @@ protected:
 	int screenId_;
 
 	QList<LineText> screenLines_;
+	QList<QColor> graphColors_;
+
 private:
 	
 	// -------------------------

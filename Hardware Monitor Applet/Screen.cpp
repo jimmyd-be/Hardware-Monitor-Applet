@@ -53,9 +53,19 @@ QList<LineText> Screen::getLines()
 	return screenLines_;
 }
 
+QList<QColor> Screen::getGraphColors()
+{
+	return graphColors_;
+}
+
 void Screen::setData(QList<LineText> data)
 {
 	screenLines_ = data;
+}
+
+void Screen::setColors(QList<QColor> colors)
+{
+	graphColors_ = colors;
 }
 
 void Screen::setBackground(QString background)

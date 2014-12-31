@@ -40,6 +40,11 @@ protected:
 	Settings();
 
 private:
+	void saveNormalScreenSettings(Screen *);
+	void saveGraphScreenSettings(Screen *);
+
+	void loadNormalScreenSettings(QString, QString, ScreenType);
+	void loadGraphScreenSettings(QString, QString, ScreenType);
 
 	// -------------------------
 	// Datamembers

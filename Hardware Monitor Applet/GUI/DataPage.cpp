@@ -1,8 +1,8 @@
 #include "DataPage.h"
 
 
-DataPage::DataPage(ScreenType type, QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenType_(type)
+DataPage::DataPage(ScreenTypePage * type, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenTypePage_(type)
 {
 	setTitle(tr("Select data"));
 
@@ -21,13 +21,10 @@ DataPage::DataPage(ScreenType type, QWidget *parent)
 
 	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
-
-	loadData(MonitorSystem::HWiNFO);
-	loadData(MonitorSystem::OHM);
 }
 
-DataPage::DataPage(ScreenType type, QList<LineText> data, QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenType_(type)
+DataPage::DataPage(ScreenTypePage * type, QList<LineText> data, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenTypePage_(type)
 {
 	setTitle(tr("Select data"));
 
@@ -46,9 +43,6 @@ DataPage::DataPage(ScreenType type, QList<LineText> data, QWidget *parent)
 
 	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
-
-	loadData(MonitorSystem::HWiNFO);
-	loadData(MonitorSystem::OHM);
 
 	loadSelecteddata(data);
 }
@@ -71,6 +65,17 @@ DataPage::~DataPage()
 bool DataPage::validatePage()
 {
 	return true;
+}
+
+void DataPage::initializePage()
+{
+	loadData(MonitorSystem::HWiNFO);
+	loadData(MonitorSystem::OHM);
+
+	if (screenTypePage_->getScreenType() == ScreenType::Graph)
+	{
+		ui.Precision_spinBox->setDisabled(true);
+	}
 }
 
 void DataPage::loadData(MonitorSystem system)
@@ -250,11 +255,11 @@ QMap<QString, Query> DataPage::getData()
 
 int DataPage::nextId() const
 {
-	if (screenType_ == ScreenType::Normal)
+	if (screenTypePage_->getScreenType() == ScreenType::Normal)
 	{
 		return Page::Page_LineEdit;
 	}
-	else if (screenType_ == ScreenType::Graph)
+	else if (screenTypePage_->getScreenType() == ScreenType::Graph)
 	{
 		return Page::Page_GraphEdit;
 	}
