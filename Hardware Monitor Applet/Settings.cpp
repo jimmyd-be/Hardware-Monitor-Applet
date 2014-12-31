@@ -183,14 +183,13 @@ void Settings::loadGraphScreenSettings(QString name, QString background, ScreenT
 	settings_->endArray();
 
 	logitech_->creategraphScreen(name, background, type, lines, colorList);
-
-	
 }
 
 void Settings::saveSettings()
 {
 	if (logitech_ != nullptr)
 	{
+		settings_->clear();
 		QVector<Screen*> screens = logitech_->getScreenList();
 
 		settings_->beginWriteArray("pages");
