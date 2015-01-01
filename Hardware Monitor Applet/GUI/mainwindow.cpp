@@ -86,6 +86,4 @@ void MainWindow::openOrderWindow()
 	refreshPages();
 
 	delete window;
-
-	Settings::getInstance()->saveSettings();
 }

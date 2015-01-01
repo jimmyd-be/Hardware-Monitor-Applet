@@ -5,6 +5,7 @@
 #include "../Screen.h"
 #include "qdialog.h"
 #include "../Logitech.h"
+#include "../Settings.h"
 
 class OrderWindow: public QDialog
 {
@@ -32,6 +33,7 @@ private slots:
 
 private:
 	void fillinCreatedScreenList();
+	void initialize();
 
 	Ui::OrderWindow ui;
 	QWidget *widget_;

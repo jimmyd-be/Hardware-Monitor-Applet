@@ -262,6 +262,9 @@ QList<LineText> Logitech::optimizeLines(QList<LineText> lines)
 
 void Logitech::changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<QString>> subOrder)
 {
+	mainOrder_.clear();
+	subOrder_.clear();
+
 	for (QString page : mainOrder)
 	{
 		mainOrder_.append(getScreenData(page));
@@ -295,6 +298,35 @@ void Logitech::deleteScreen(QString name)
 	{
 		screenList_.removeAt(position);
 	}
+
+	//Remove from mainOrder list
+	int mainListPosition = mainOrder_.indexOf(oldScreen);
+
+	if (mainListPosition != -1)
+	{
+		mainOrder_.removeAt(mainListPosition);
+	}
+
+	//Remove from subOrder list
+	subOrder_.remove(name);
+
+	for (int i = 0; i < subOrder_.keys().size(); i++)
+	{
+		QString key = subOrder_.keys()[i];
+		QList<Screen*> subList = subOrder_.value(key);
+
+		int subListPosition = subList.indexOf(oldScreen);
+
+		if (subListPosition != -1)
+		{
+			subList.removeAt(subListPosition);
+		}
+
+		subOrder_.remove(key);
+		subOrder_.insert(key, subList);
+	}
+
+	delete oldScreen;
 }
 
 Screen * Logitech::getScreenData(QString name)

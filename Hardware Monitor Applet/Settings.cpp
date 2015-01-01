@@ -206,6 +206,8 @@ QList<QString> Settings::loadMainScreenOrder()
 	}
 
 	settings_->endArray();
+
+	return mainList;
 }
 
 QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
@@ -218,7 +220,7 @@ QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
 	{
 		settings_->setArrayIndex(i);
 
-		QString mainPage = settings_->value("PainPage").toString();
+		QString mainPage = settings_->value("MainPage").toString();
 
 		QList<QString> subSubList;
 
@@ -236,6 +238,8 @@ QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
 		subList.insert(mainPage, subSubList);
 	}
 	settings_->endArray();
+
+	return subList;
 }
 
 void Settings::saveSettings()
@@ -356,27 +360,32 @@ void Settings::saveSubScreenOrder()
 {
 	QMap<QString, QList<Screen*>> subList = logitech_->getSubOrder();
 
-	settings_->beginWriteArray("SubOrder", subList.size());
+	settings_->beginWriteArray("SubOrder");
 
 	QMap<QString, QList<Screen*>>::const_iterator i = subList.constBegin();
+
+	int index = 0;
 	
 	while (i != subList.constEnd())
 	{
-		settings_->setValue("PainPage", i.key());
+		settings_->setArrayIndex(index);
+
+		settings_->setValue("MainPage", i.key());
 
 		QList<Screen*> subSubList = i.value();
 
 		settings_->beginWriteArray("SubSubOrder");
 
-		for (int i = 0; i < subSubList.size(); i++)
+		for (int j = 0; j < subSubList.size(); j++)
 		{
-			settings_->setArrayIndex(i);
+			settings_->setArrayIndex(j);
 
-			settings_->setValue("Page", subSubList[i]->getName());
+			settings_->setValue("Page", subSubList[j]->getName());
 		}
 
 		settings_->endArray();
 
+		index++;
 		++i;
 	}
 	settings_->endArray();

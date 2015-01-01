@@ -28,6 +28,7 @@ OrderWindow::OrderWindow(Logitech * logitech, QWidget *parent)
 	connect(ui.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	
 	fillinCreatedScreenList();
+	initialize();
 }
 
 OrderWindow::~OrderWindow()
@@ -41,6 +42,34 @@ void OrderWindow::fillinCreatedScreenList()
 	for (Screen * screen : screenList)
 	{
 		ui.CreatedScreen_listWidget->addItem(screen->getName());
+	}
+}
+
+void OrderWindow::initialize()
+{
+	QList<Screen*> mainList = logitech_->getMainOrder();
+
+	for (Screen* screen : mainList)
+	{
+		ui.MainTrack_listWidget->addItem(screen->getName());
+	}
+
+	QMap<QString, QList<Screen*>> subList = logitech_->getSubOrder();
+
+	QMap<QString, QList<Screen*>>::const_iterator i = subList.constBegin();
+	
+	while (i != subList.constEnd())
+	{
+		QList<Screen*> subSubList = i.value();
+		QList<QString> newList;
+
+		for (Screen* screen : subSubList)
+		{
+			newList.append(screen->getName());
+		}
+
+		subOrder_.insert(i.key(), newList);
+		++i;
 	}
 }
 
@@ -235,12 +264,18 @@ void OrderWindow::rightSubButtonClicked()
 
 void OrderWindow::accept()
 {
+	mainOrder_.clear();
+
 	for (int i = 0; i < ui.MainTrack_listWidget->count(); i++)
 	{
 		mainOrder_.append(ui.MainTrack_listWidget->item(i)->text());
 	}
 
 	logitech_->changeScreenOrder(mainOrder_, subOrder_);
+
+	Settings::getInstance()->saveSettings();
+
+	hide();
 }
 
 void OrderWindow::reject()
