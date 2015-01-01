@@ -14,7 +14,16 @@ public:
 	OrderWindow(Logitech * logitech, QWidget *parent = 0);
 	virtual ~OrderWindow();
 
-protected:
+private slots:
+	void addMainButtonClicked();
+	void mainListSelectionChanged();
+	void removeMainButtonClicked();
+	void leftMainButtonClicked();
+	void rightMainButtonClicked();
+	void addSubButtonClicked();
+	void removeSubButtonClicked();
+	void leftSubButtonClicked();
+	void rightSubButtonClicked();
 
 private:
 	void fillinCreatedScreenList();
@@ -22,5 +31,7 @@ private:
 	Ui::OrderWindow ui;
 	QWidget *widget_;
 	Logitech * logitech_;
+
+	QMap<QString, QList<QString>> subOrder_;
 
 };
