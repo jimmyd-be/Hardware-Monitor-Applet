@@ -51,7 +51,7 @@ void MainWindow::fillinPages()
 
 	for (int i = 0; i < pages.size(); i++)
 	{
-		MainScreenWidget * widget = new MainScreenWidget(this, logitech_, pages[i]->getName(), pages[i]->getScreenType(), false);
+		MainScreenWidget * widget = new MainScreenWidget(this, logitech_, pages[i]->getName(), pages[i]->getScreenType(), logitech_->isScreenActive(pages[i]->getName()));
 
 		ui.ScreenList_Layout->addWidget(widget);
 
@@ -82,4 +82,10 @@ void MainWindow::openOrderWindow()
 	OrderWindow * window = new OrderWindow(logitech_);
 
 	window->exec();
+
+	refreshPages();
+
+	delete window;
+
+	Settings::getInstance()->saveSettings();
 }

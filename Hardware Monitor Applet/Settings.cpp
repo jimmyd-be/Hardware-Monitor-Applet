@@ -71,6 +71,8 @@ void Settings::loadSettings()
 	}
 
 	settings_->endArray();
+
+	loadScreenOrder();
 }
 
 void Settings::loadNormalScreenSettings(QString name, QString background, ScreenType type)
@@ -185,6 +187,57 @@ void Settings::loadGraphScreenSettings(QString name, QString background, ScreenT
 	logitech_->creategraphScreen(name, background, type, lines, colorList);
 }
 
+void Settings::loadScreenOrder()
+{
+	logitech_->changeScreenOrder(loadMainScreenOrder(), loadSubScreenOrder());
+}
+
+QList<QString> Settings::loadMainScreenOrder()
+{
+	QList<QString> mainList;
+
+	int size = settings_->beginReadArray("MainOrder");
+
+	for (int i = 0; i < size; i++)
+	{
+		settings_->setArrayIndex(i);
+
+		mainList.append(settings_->value("Page").toString());
+	}
+
+	settings_->endArray();
+}
+
+QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
+{
+	QMap<QString, QList<QString>> subList;
+
+	int size = settings_->beginReadArray("SubOrder");
+
+	for (int i = 0; i < size; i++)
+	{
+		settings_->setArrayIndex(i);
+
+		QString mainPage = settings_->value("PainPage").toString();
+
+		QList<QString> subSubList;
+
+		int subSize = settings_->beginReadArray("SubSubOrder");
+
+		for (int j = 0; j < subSize; j++)
+		{
+			settings_->setArrayIndex(j);
+
+			subSubList.append(settings_->value("Page").toString());
+		}
+
+		settings_->endArray();
+
+		subList.insert(mainPage, subSubList);
+	}
+	settings_->endArray();
+}
+
 void Settings::saveSettings()
 {
 	if (logitech_ != nullptr)
@@ -214,6 +267,8 @@ void Settings::saveSettings()
 		}
 
 		settings_->endArray();
+
+		saveScreenOrder();
 	}
 }
 
@@ -272,6 +327,58 @@ void Settings::saveGraphScreenSettings(Screen * screen)
 		settings_->setValue("ColorBlue", graphColors[i].blue());
 	}
 
+	settings_->endArray();
+}
+
+void Settings::saveScreenOrder()
+{
+	saveMainScreenOrder();
+	saveSubScreenOrder();
+}
+
+void Settings::saveMainScreenOrder()
+{
+	QList<Screen*> mainList = logitech_->getMainOrder();
+
+	settings_->beginWriteArray("MainOrder");
+
+	for (int i = 0; i < mainList.size(); i++)
+	{
+		settings_->setArrayIndex(i);
+
+		settings_->setValue("Page", mainList[i]->getName());
+	}
+
+	settings_->endArray();
+}
+
+void Settings::saveSubScreenOrder()
+{
+	QMap<QString, QList<Screen*>> subList = logitech_->getSubOrder();
+
+	settings_->beginWriteArray("SubOrder", subList.size());
+
+	QMap<QString, QList<Screen*>>::const_iterator i = subList.constBegin();
+	
+	while (i != subList.constEnd())
+	{
+		settings_->setValue("PainPage", i.key());
+
+		QList<Screen*> subSubList = i.value();
+
+		settings_->beginWriteArray("SubSubOrder");
+
+		for (int i = 0; i < subSubList.size(); i++)
+		{
+			settings_->setArrayIndex(i);
+
+			settings_->setValue("Page", subSubList[i]->getName());
+		}
+
+		settings_->endArray();
+
+		++i;
+	}
 	settings_->endArray();
 }
 

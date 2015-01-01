@@ -260,6 +260,31 @@ QList<LineText> Logitech::optimizeLines(QList<LineText> lines)
 	return lines;
 }
 
+void Logitech::changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<QString>> subOrder)
+{
+	for (QString page : mainOrder)
+	{
+		mainOrder_.append(getScreenData(page));
+	}
+
+	QMap<QString, QList<Screen *>> subScreenOrder;
+
+	QMap<QString, QList<QString>>::const_iterator i = subOrder.constBegin();
+	while (i != subOrder.constEnd())
+	{
+		QList<QString> oldList = i.value();
+		QList<Screen*> newList;
+
+		for (QString page : oldList)
+		{
+			newList.append(getScreenData(page));
+		}
+
+		subOrder_.insert(i.key(), newList);
+		++i;
+	}
+}
+
 void Logitech::deleteScreen(QString name)
 {
 	Screen * oldScreen = getScreenData(name);
@@ -285,81 +310,33 @@ Screen * Logitech::getScreenData(QString name)
 	return nullptr;
 }
 
-/*void Logitech::createPage(QString name, ScreenType type)
+bool Logitech::isScreenActive(QString page)
 {
-	if (startscreen_ != nullptr)
+	for (int i = 0; i < mainOrder_.size(); i++)
 	{
-		screenList_.remove(screenList_.indexOf(startscreen_));
+		QString pageName = mainOrder_[i]->getName();
+		if (pageName == page)
+		{
+			return true;
+		}
 
-		delete startscreen_;
-		startscreen_ = nullptr;
+		for (int j = 0; j < subOrder_.value(pageName).size(); j++)
+		{
+			if (subOrder_.value(pageName)[j]->getName() == page)
+			{
+				return true;
+			}
+		}
 	}
-
-	if (type == ScreenType::Normal)
-	{
-		Screen * newScreen = new NormalScreen(&lcd_, name);
-
-		screenList_.push_back(newScreen);
-	}
-	else if (type == ScreenType::Graph)
-	{
-		Screen * newScreen = new GraphScreen(&lcd_, name);
-
-		screenList_.push_back(newScreen);
-	}
-
-	currentPage_ = screenList_.size() - 1;
+	return false;
 }
 
-void Logitech::addLine(QString pageName, QString text, QMap<QString, Query> dataMap)
+QList<Screen *> Logitech::getMainOrder()
 {
-	Screen * editScreen = getScreenData(pageName);
-
-	editScreen->addLine(text, dataMap);
+	return mainOrder_;
 }
 
-void Logitech::addFont(QString pageName, AppletFont font)
+QMap<QString, QList<Screen *>> Logitech::getSubOrder()
 {
-	Screen * editScreen = getScreenData(pageName);
-
-	editScreen->addFont(font);
+	return subOrder_;
 }
-
-void Logitech::addBackground(QString pageName, QString background)
-{
-	QFileInfo info(background);
-
-	QString path = Defines::getSettingsFolder() + "/Background";
-
-	QDir makeDir(path);
-	makeDir.mkpath(path);
-
-	QString oldBackground = Defines::getSettingsFolder() + "/Background/" + pageName + "." + info.completeSuffix();
-
-	QFile backgroundFile(oldBackground);
-
-	backgroundFile.remove();
-
-	QFile::copy(background, oldBackground);
-
-	Screen * editScreen = getScreenData(pageName);
-
-	editScreen->addbackground(oldBackground);
-}
-
-void Logitech::clearPage(QString name)
-{
-	Screen * editScreen = getScreenData(name);
-
-	editScreen->clearLines();
-}
-
-void Logitech::removePage(QString name)
-{
-	Screen * editScreen = getScreenData(name);
-
-	int test = screenList_.indexOf(editScreen);
-	screenList_.remove(screenList_.indexOf(editScreen));
-
-	delete editScreen;
-}*/

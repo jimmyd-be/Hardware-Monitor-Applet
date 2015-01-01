@@ -42,9 +42,15 @@ protected:
 private:
 	void saveNormalScreenSettings(Screen *);
 	void saveGraphScreenSettings(Screen *);
+	void saveScreenOrder();
+	void saveMainScreenOrder();
+	void saveSubScreenOrder();
 
 	void loadNormalScreenSettings(QString, QString, ScreenType);
 	void loadGraphScreenSettings(QString, QString, ScreenType);
+	void loadScreenOrder();
+	QList<QString> loadMainScreenOrder();
+	QMap<QString, QList<QString>> loadSubScreenOrder();
 
 	// -------------------------
 	// Datamembers

@@ -45,15 +45,16 @@ public:
 	void createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines);
 	void creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors);
 	void creategraphScreen(QString name, QString background, ScreenType type, QList<LineText> linesList, QList<QColor> colors);
+
+	void changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<QString>> subOrder);
 	void deleteScreen(QString name);
 	
 	Screen * getScreenData(QString);
-	/*void createPage(QString name, ScreenType type);
-	void addLine(QString pageName, QString text, QMap<QString, Query> dataMap);
-	void addFont(QString pageName, AppletFont font);
-	void addBackground(QString pageName, QString background);
-	void clearPage(QString name);
-	void removePage(QString name);*/
+
+	QList<Screen *> getMainOrder();
+	QMap<QString, QList<Screen *>> getSubOrder();
+	
+	bool isScreenActive(QString);
 
 private:
 	void initLCDObjectsMonochrome();
@@ -77,6 +78,9 @@ private:
 	QVector<Screen *> screenList_;
 	StartScreen * startscreen_;
 	int currentPage_;
+
+	QList<Screen *> mainOrder_;
+	QMap<QString, QList<Screen *>> subOrder_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

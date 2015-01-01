@@ -23,6 +23,9 @@ OrderWindow::OrderWindow(Logitech * logitech, QWidget *parent)
 
 	connect(ui.LeftSub_pushButton, SIGNAL(clicked()), this, SLOT(leftSubButtonClicked()));
 	connect(ui.RightSub_pushButton, SIGNAL(clicked()), this, SLOT(rightSubButtonClicked()));
+
+	connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(ui.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	
 	fillinCreatedScreenList();
 }
@@ -228,4 +231,32 @@ void OrderWindow::rightSubButtonClicked()
 	}
 
 	subOrder_.insert(mainpage, itemList);
+}
+
+void OrderWindow::accept()
+{
+	for (int i = 0; i < ui.MainTrack_listWidget->count(); i++)
+	{
+		mainOrder_.append(ui.MainTrack_listWidget->item(i)->text());
+	}
+
+	logitech_->changeScreenOrder(mainOrder_, subOrder_);
+}
+
+void OrderWindow::reject()
+{
+	mainOrder_.clear();
+	subOrder_.clear();
+
+	hide();
+}
+
+QList<QString> OrderWindow::getMainOrder()
+{
+	return mainOrder_;
+}
+
+QMap<QString, QList<QString>> OrderWindow::getSubOrder()
+{
+	return subOrder_;
 }
