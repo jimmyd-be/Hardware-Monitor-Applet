@@ -28,6 +28,13 @@ CustomizePage::~CustomizePage()
 		delete layout_;
 		layout_ = nullptr;
 	}
+
+	for (QWidget * widget : widgetList_)
+	{
+		ui.verticalLayout->removeWidget(widget);
+	}
+
+	widgetList_.clear();
 }
 
 bool CustomizePage::validatePage()
@@ -37,26 +44,45 @@ bool CustomizePage::validatePage()
 
 void CustomizePage::initializePage()
 {
-	QStringList list = linePage_->getData();
+	for (QWidget * widget : widgetList_)
+	{
+		ui.verticalLayout->removeWidget(widget);
+	}
 
-	ui.lineEdit1->setText(list[0]);
-	ui.lineEdit2->setText(list[1]);
-	ui.lineEdit3->setText(list[2]);
-	ui.lineEdit4->setText(list[3]);
-	ui.lineEdit5->setText(list[4]);
-	ui.lineEdit6->setText(list[5]);
-	ui.lineEdit7->setText(list[6]);
-	ui.lineEdit8->setText(list[7]);
-	ui.lineEdit9->setText(list[8]);
-	ui.lineEdit10->setText(list[9]);
-	ui.lineEdit11->setText(list[10]);
-	ui.lineEdit12->setText(list[11]);
-	ui.lineEdit13->setText(list[12]);
-	ui.lineEdit14->setText(list[13]);
-	ui.lineEdit15->setText(list[14]);
+	widgetList_.clear();
+
+	QStringList list = optimizeLines(linePage_->getData());
+
+	for (QString text : list)
+	{
+		CustomizePageLineWidget * widget = new CustomizePageLineWidget(text);
+
+		ui.verticalLayout->addWidget(widget);
+
+		widgetList_.append(widget);
+	}
+
+}
+
+QStringList CustomizePage::optimizeLines(QStringList lineList)
+{
+	while (!lineList.isEmpty() && lineList.last().isEmpty())
+	{
+		lineList.removeLast();
+	}
+
+	return lineList;
 }
 
 int CustomizePage::nextId() const
 {
 	return -1;
+}
+
+QList<CustomSettings> CustomizePage::getData()
+{
+	QList<CustomSettings> data;
+
+
+	return data;
 }

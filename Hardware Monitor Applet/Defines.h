@@ -25,6 +25,7 @@ enum QueryValue {Name, Current, Max, Min};
 enum MonitorSystem { OHM, HWiNFO, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum Temperature { Celsius, Fahrenheit };
+enum Alignment { Left, Center, Right };
 
 struct Query{
 	MonitorSystem system;
@@ -55,6 +56,14 @@ struct HardwareSensor{
 	double min;
 };
 
+struct CustomSettings
+{
+	QString text;
+	Alignment aligment;
+	bool textScrolling;
+	QFont font;
+};
+
 //-----------------------------------------------------------------
 // Defines Class
 //-----------------------------------------------------------------
@@ -69,6 +78,9 @@ class Defines
 		static MonitorSystem translateMonitorSystemEnum(QString);
 		static QueryValue translateQueryValueEnum(QString);
 		static ScreenType translateScreenTypeEnum(QString);
+
+		static QString translateAligmentEnum(Alignment);
+		static Alignment translateAligmentEnum(QString);
 
 	private:
 		//---------------------------

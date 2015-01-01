@@ -3,6 +3,7 @@
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "Ui_LineEditPageWidget.h"
+#include "LineEditPageLineWidget.h"
 #include "DataPage.h"
 
 class LineEditPage: public QWizardPage
@@ -21,12 +22,18 @@ protected:
 	void initializePage();
 	int nextId() const;
 
+private slots:
+	void addLine();
+
 private:
 	void loadLines(QList<LineText> lines);
+	void removeLines();
 	
 	Ui::LineEditPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
+
+	QList<LineEditPageLineWidget*> widgetList_;
 
 	DataPage * dataPage_;
 };

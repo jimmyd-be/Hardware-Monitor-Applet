@@ -13,6 +13,10 @@ LineEditPage::LineEditPage(DataPage* page, QWidget *parent)
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
 	setLayout(layout_);
+
+	connect(ui.AddLine_pushButton, SIGNAL(clicked()), this, SLOT(addLine()));
+
+	addLine();
 }
 
 LineEditPage::LineEditPage(DataPage* page, QList<LineText> lines, QWidget *parent)
@@ -44,6 +48,8 @@ LineEditPage::~LineEditPage()
 		delete layout_;
 		layout_ = nullptr;
 	}
+
+	removeLines();
 }
 
 bool LineEditPage::validatePage()
@@ -94,22 +100,11 @@ void LineEditPage::initializePage()
 QStringList LineEditPage::getData()
 {
 	QStringList lineList;
-
-	lineList.append(ui.lineEdit1->text());
-	lineList.append(ui.lineEdit2->text());
-	lineList.append(ui.lineEdit3->text());
-	lineList.append(ui.lineEdit4->text());
-	lineList.append(ui.lineEdit5->text());
-	lineList.append(ui.lineEdit6->text());
-	lineList.append(ui.lineEdit7->text());
-	lineList.append(ui.lineEdit8->text());
-	lineList.append(ui.lineEdit9->text());
-	lineList.append(ui.lineEdit10->text());
-	lineList.append(ui.lineEdit11->text());
-	lineList.append(ui.lineEdit12->text());
-	lineList.append(ui.lineEdit13->text());
-	lineList.append(ui.lineEdit14->text());
-	lineList.append(ui.lineEdit15->text());
+	
+	for (LineEditPageLineWidget * widget : widgetList_)
+	{
+		lineList.append(widget->getText());
+	}
 
 	return lineList;
 }
@@ -121,78 +116,32 @@ int LineEditPage::nextId() const
 
 void LineEditPage::loadLines(QList<LineText> lines)
 {
-	if (lines.size() >= 1)
+	removeLines();
+
+	for (LineText text : lines)
 	{
-		ui.lineEdit1->setText(lines[0].text);
+		LineEditPageLineWidget * widget = new LineEditPageLineWidget(text.text);
+
+		ui.data_Layout->addWidget(widget);
+		widgetList_.append(widget);
+	}
+}
+
+void LineEditPage::removeLines()
+{
+	for (LineEditPageLineWidget * widget : widgetList_)
+	{
+		ui.data_Layout->removeWidget(widget);
+		delete widget;
 	}
 
-	if (lines.size() >= 2)
-	{
-		ui.lineEdit2->setText(lines[1].text);
-	}
+	widgetList_.clear();
+}
 
-	if (lines.size() >= 3)
-	{
-		ui.lineEdit3->setText(lines[2].text);
-	}
+void LineEditPage::addLine()
+{
+	LineEditPageLineWidget * widget = new LineEditPageLineWidget();
 
-	if (lines.size() >= 4)
-	{
-		ui.lineEdit4->setText(lines[3].text);
-	}
-
-	if (lines.size() >= 5)
-	{
-		ui.lineEdit5->setText(lines[4].text);
-	}
-
-	if (lines.size() >= 6)
-	{
-		ui.lineEdit6->setText(lines[5].text);
-	}
-
-	if (lines.size() >= 7)
-	{
-		ui.lineEdit7->setText(lines[6].text);
-	}
-
-	if (lines.size() >= 8)
-	{
-		ui.lineEdit8->setText(lines[7].text);
-	}
-
-	if (lines.size() >= 9)
-	{
-		ui.lineEdit9->setText(lines[8].text);
-	}
-
-	if (lines.size() >= 10)
-	{
-		ui.lineEdit10->setText(lines[9].text);
-	}
-
-	if (lines.size() >= 11)
-	{
-		ui.lineEdit11->setText(lines[10].text);
-	}
-
-	if (lines.size() >= 12)
-	{
-		ui.lineEdit12->setText(lines[11].text);
-	}
-
-	if (lines.size() >= 13)
-	{
-		ui.lineEdit13->setText(lines[12].text);
-	}
-
-	if (lines.size() >= 14)
-	{
-		ui.lineEdit14->setText(lines[13].text);
-	}
-
-	if (lines.size() >= 15)
-	{
-		ui.lineEdit15->setText(lines[14].text);
-	}
+	ui.data_Layout->addWidget(widget);
+	widgetList_.append(widget);
 }

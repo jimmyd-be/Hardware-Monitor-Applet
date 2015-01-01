@@ -147,3 +147,39 @@ ScreenType Defines::translateScreenTypeEnum(QString type)
 
 	return ScreenType::No;
 }
+
+QString Defines::translateAligmentEnum(Alignment aligment)
+{
+	if (aligment == Alignment::Center)
+	{
+		return "Center";
+	}
+	else if (aligment == Alignment::Left)
+	{
+		return "Left";
+	}
+	else if (aligment == Alignment::Right)
+	{
+		return "Right";
+	}
+
+	return "Left";
+}
+
+Alignment Defines::translateAligmentEnum(QString aligment)
+{
+	if (aligment == "Center")
+	{
+		return Alignment::Center;
+	}
+	else if (aligment == "Left")
+	{
+		return Alignment::Left;
+	}
+	else if (aligment == "Right")
+	{
+		return Alignment::Right;
+	}
+
+	return Alignment::Center;
+}

@@ -4,6 +4,7 @@
 #include "qguiapplication.h"
 #include "ui_CustomizePageWidget.h"
 #include "LineEditPage.h"
+#include "CustomizePageLineWidget.h"
 
 class CustomizePage: public QWizardPage
 {
@@ -15,14 +16,20 @@ public:
 
 	bool validatePage();
 
+	QList<CustomSettings> getData();
+
 protected:
 	void initializePage();
 	int nextId() const;
 
 private:
+	QStringList optimizeLines(QStringList);
+
 	Ui::CustomizePageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
+
+	QList<CustomizePageLineWidget*> widgetList_;
 
 	LineEditPage * linePage_;
 

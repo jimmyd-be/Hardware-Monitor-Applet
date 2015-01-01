@@ -64,7 +64,6 @@ private:
 	void checkbuttonPressesColor();
 	void updatePage();
 
-
 	QList<LineText> optimizeData(QStringList lines, QMap<QString, Query> dataList);
 	QList<LineText> optimizeLines(QList<LineText>);
 
