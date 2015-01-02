@@ -10,11 +10,13 @@
 
 #include "Defines.h"
 
-#include "StartScreen.h"
-#include "NormalScreen.h"
-#include "GraphScreen.h"
+#include "Screen\StartScreen.h"
+#include "Screen\NormalScreen.h"
+#include "Screen\GraphScreen.h"
+
 
 class Settings;
+class AppletThread;
 
 //-----------------------------------------------------------------
 // Logitech Class
@@ -50,33 +52,31 @@ public:
 	void deleteScreen(QString name);
 	
 	Screen * getScreenData(QString);
+	Screen * getCurrentScreen();
 
 	QList<Screen *> getMainOrder();
 	QMap<QString, QList<Screen *>> getSubOrder();
 	
 	bool isScreenActive(QString);
 
-private:
-	void initLCDObjectsMonochrome();
-	void initLCDObjectsColor();
-	void checkButtonPresses();
-	void checkbuttonPressesMonochrome();
-	void checkbuttonPressesColor();
-	void updatePage();
+	void changeCurrentScreen(PageDirection);
 
+private:
 	QList<LineText> optimizeData(QStringList lines, QMap<QString, Query> dataList);
 	QList<LineText> optimizeLines(QList<LineText>);
 
 	// -------------------------
 	// Datamembers
 	// -------------------------
+	AppletThread * thread_;
 	CEzLcd lcd_;
-	QTimer * timer_;
 	int time_;
 	KeyboardTypes keyboardType_;
 	QVector<Screen *> screenList_;
 	StartScreen * startscreen_;
-	int currentPage_;
+	
+	Screen * currentScreen_;
+	Screen * currentMainScreen_;
 
 	QList<Screen *> mainOrder_;
 	QMap<QString, QList<Screen *>> subOrder_;
@@ -88,7 +88,4 @@ private:
 	// -------------------------
 	Logitech(const Logitech& t);
 	Logitech& operator=(const Logitech& t);
-
-	private slots:
-	void onTimer();
 };

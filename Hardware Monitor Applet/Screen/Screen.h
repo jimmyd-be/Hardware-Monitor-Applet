@@ -1,46 +1,67 @@
 //-----------------------------------------------------------------
-// GraphScreen File
-// C++ Header - GraphScreen.h - version 0.1 (2013/06/13)
+// Screen File
+// C++ Header - Screen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
 #pragma once
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "Screen.h"
+#include "Defines.h"
 
 //-----------------------------------------------------------------
-// GraphScreen Class
+// Screen Class
 //-----------------------------------------------------------------
-class GraphScreen : public Screen
+class Screen
 {
 public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	GraphScreen(CEzLcd *, QString);
+	Screen(CEzLcd*, QString name);
 
 	//---------------------------
 	// Destructor
 	//---------------------------
-	virtual ~GraphScreen();
+	virtual ~Screen();
 
 	//---------------------------
 	// General Methods
 	//---------------------------
-	ScreenType getScreenType();
+	virtual ScreenType getScreenType();
+	QString getName();
+	virtual void update();
+	virtual void draw();
 
-private:
+	QList<LineText> getLines();
+	QList<QColor> getGraphColors();
+
+	void setData(QList<LineText>);
+	void setColors(QList<QColor>);
+	void setBackground(QString background);
+
+	QString getBackground();
+
+protected:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	
+	HBITMAP background_;
+	QString backgroundString_;
+	QString name_;
+	CEzLcd * lcd_;
+	int screenId_;
+
+	QList<LineText> screenLines_;
+	QList<QColor> graphColors_;
+
+private:
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
 	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
 	// -------------------------
-	GraphScreen(const GraphScreen& t);
-	GraphScreen& operator=(const GraphScreen& t);
+	Screen(const Screen& t);
+	Screen& operator=(const Screen& t);
 };

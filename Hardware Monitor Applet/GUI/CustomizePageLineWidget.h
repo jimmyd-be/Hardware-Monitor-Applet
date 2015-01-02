@@ -3,7 +3,7 @@
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "ui_CustomizePageLineWidget.h"
-#include "../Screen.h"
+#include "../Screen\Screen.h"
 #include "../Defines.h"
 #include <QFontDialog>
 

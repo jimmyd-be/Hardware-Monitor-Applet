@@ -29,3 +29,13 @@ ScreenType GraphScreen::getScreenType()
 {
 	return ScreenType::Graph;
 }
+
+void GraphScreen::draw()
+{
+
+}
+
+void GraphScreen::update()
+{
+
+}

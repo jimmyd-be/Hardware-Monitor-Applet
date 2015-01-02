@@ -1,60 +1,51 @@
 //-----------------------------------------------------------------
-// Controller File
-// C++ Header - Controller.h - version 0.1 (2014/08/31)
+// NormalScreen File
+// C++ Header - NormalScreen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
 #pragma once
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "external\QSingleApplication\qtsingleapplication.h"
-#include "GUI\mainwindow.h"
-#include "Logitech.h"
-#include "Screen\StartScreen.h"
-#include "Settings.h"
-
+#include "Screen.h"
 
 //-----------------------------------------------------------------
-// Controller Class
+// NormalScreen Class
 //-----------------------------------------------------------------
-class Controller: public QObject
+class NormalScreen : public Screen
 {
-	//Q_OBJECT
 public:
-		
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Controller(QtSingleApplication*);
+	NormalScreen(CEzLcd*, QString);
 
 	//---------------------------
 	// Destructor
 	//---------------------------
-	virtual ~Controller();
+	virtual ~NormalScreen();
 
 	//---------------------------
 	// General Methods
 	//---------------------------
-	void openSettingsScreen();
+	ScreenType getScreenType();
+	void update();
+	void draw();
+
+	void drawColor();
+	void drawMonochrome();
+
 
 private:
-
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	MainWindow * mainWindow_;
-	Logitech * logitech_;
-	Settings * settings_;
-
-
-private slots:
-	void vMessageReceivedFromOtherInst(const QString &  msg);
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
 	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
 	// -------------------------
-	//Controller(const Controller& t);
-	//Controller& operator=(const Controller& t);
+	NormalScreen(const NormalScreen& t);
+	NormalScreen& operator=(const NormalScreen& t);
 };

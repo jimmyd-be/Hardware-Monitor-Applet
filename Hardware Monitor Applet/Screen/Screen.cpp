@@ -43,6 +43,11 @@ void Screen::update()
 	//Nothing to do
 }
 
+void Screen::draw()
+{
+	//Nothing to do
+}
+
 QString Screen::getName()
 {
 	return name_;

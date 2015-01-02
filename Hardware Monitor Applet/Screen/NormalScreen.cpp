@@ -30,11 +30,6 @@ ScreenType NormalScreen::getScreenType()
 	return ScreenType::Normal;
 }
 
-void NormalScreen::update()
-{
-
-}
-
 void NormalScreen::drawColor()
 {
 	lcd_->ModifyDisplay(LG_COLOR);
@@ -75,5 +70,15 @@ void NormalScreen::drawColor()
 void NormalScreen::drawMonochrome()
 {
 	lcd_->ModifyDisplay(LG_MONOCHROME);
+
+}
+
+void NormalScreen::draw()
+{
+
+}
+
+void NormalScreen::update()
+{
 
 }

@@ -3,7 +3,7 @@
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "ui_IntroPageWidget.h"
-#include "../Screen.h"
+#include "../Screen/Screen.h"
 
 class IntroPage: public QWizardPage
 {

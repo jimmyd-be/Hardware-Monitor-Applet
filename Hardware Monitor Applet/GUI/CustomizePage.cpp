@@ -83,6 +83,10 @@ QList<CustomSettings> CustomizePage::getData()
 {
 	QList<CustomSettings> data;
 
+	for (CustomizePageLineWidget* widget : widgetList_)
+	{
+		data.append(widget->getSettings());
+	}
 
 	return data;
 }

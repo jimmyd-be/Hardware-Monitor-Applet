@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------
 #include "Logitech.h"
 #include "Settings.h"
+#include "AppletThread.h"
 
 //-----------------------------------------------------------------
 // Defines
@@ -16,18 +17,25 @@
 //-----------------------------------------------------------------
 // Logitech methods
 //-----------------------------------------------------------------
-Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0), timer_(nullptr), currentPage_(0)
+Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0)
 {
 
 }
 
 Logitech::~Logitech()
 {
-	if (timer_ != nullptr)
+	if (thread_ != nullptr)
 	{
-		timer_->stop();
-		delete timer_;
-		timer_ = nullptr;
+		thread_->exit();
+		thread_->wait();
+		delete thread_;
+		thread_ = nullptr;
+	}
+
+	if (startscreen_ != nullptr)
+	{
+		delete startscreen_;
+		startscreen_ = nullptr;
 	}
 
 	for (int i = 0; i < screenList_.length(); i++)
@@ -47,111 +55,28 @@ bool Logitech::initKeyboard()
 		if (lcd_.IsDeviceAvailable(LG_COLOR))
 		{
 			keyboardType_ = KeyboardTypes::Color;
-			//startscreen_ = new StartScreen(&lcd_, "StartScreen");
-			//screenList_.push_back(startscreen_);
+			startscreen_ = new StartScreen(&lcd_, "StartScreen");
+
+			currentScreen_ = startscreen_;
 		}
 
 		else if (lcd_.IsDeviceAvailable(LG_MONOCHROME))
 		{
 			keyboardType_ = KeyboardTypes::Monochrome;
 
-			//startscreen_ = new StartScreen(&lcd_, "StartScreen");
+			startscreen_ = new StartScreen(&lcd_, "StartScreen");
 
-			//screenList_.push_back(startscreen_);
+			currentScreen_ = startscreen_;
 		}
 
-		timer_ = new QTimer(this);
-		connect(timer_, SIGNAL(timeout()), this, SLOT(onTimer()));
-		timer_->start(30);
+		thread_ = new AppletThread(&lcd_, this);
+
+		thread_->start();
 
 		return true;
 	}
 
 	return false;
-}
-
-void Logitech::onTimer()
-{
-	time_ += 30;
-
-	checkButtonPresses();
-
-	if (time_ >= 1000)
-	{
-		updatePage();
-		time_ = 0;
-	}
-
-	lcd_.Update();
-}
-
-
-VOID Logitech::initLCDObjectsMonochrome()
-{
-	
-	
-}
-
-VOID Logitech::initLCDObjectsColor()
-{
-	
-
- 
-}
-
-VOID Logitech::checkButtonPresses()
-{
-	if (lcd_.IsDeviceAvailable(LG_COLOR))
-	{
-		checkbuttonPressesColor();
-	}
-
-	else if (lcd_.IsDeviceAvailable(LG_MONOCHROME))
-	{
-		checkbuttonPressesMonochrome();
-	}
-}
-
-VOID Logitech::checkbuttonPressesMonochrome()
-{
-	lcd_.ModifyDisplay(LG_MONOCHROME);
-
-	if (lcd_.ButtonTriggered(LG_BUTTON_4))
-	{
-
-	}
-
-	else if (lcd_.ButtonTriggered(LG_BUTTON_1))
-	{
-
-	}
-}
-
-VOID Logitech::checkbuttonPressesColor()
-{
-	lcd_.ModifyDisplay(LG_COLOR);
-
-	if (lcd_.ButtonTriggered(LG_BUTTON_RIGHT))
-	{
-
-	}
-
-	else if (lcd_.ButtonTriggered(LG_BUTTON_LEFT))
-	{
-
-	}
-}
-
-void Logitech::updatePage()
-{
-	/*if (!screenList_.isEmpty())
-	{
-		screenList_[currentPage_]->update();
-	}
-	else
-	{
-
-	}*/
 }
 
 KeyboardTypes Logitech::getKeyboardType()
@@ -162,6 +87,11 @@ KeyboardTypes Logitech::getKeyboardType()
 QVector<Screen *> Logitech::getScreenList()
 {
 	return screenList_;
+}
+
+Screen * Logitech::getCurrentScreen()
+{
+	return currentScreen_;
 }
 
 void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines)
@@ -286,6 +216,12 @@ void Logitech::changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<Q
 		subOrder_.insert(i.key(), newList);
 		++i;
 	}
+
+	if (mainOrder_.size() > 0)
+	{
+		currentScreen_ = mainOrder_[0];
+		currentMainScreen_ = mainOrder_[0];
+	}
 }
 
 void Logitech::deleteScreen(QString name)
@@ -371,4 +307,61 @@ QList<Screen *> Logitech::getMainOrder()
 QMap<QString, QList<Screen *>> Logitech::getSubOrder()
 {
 	return subOrder_;
+}
+
+void Logitech::changeCurrentScreen(PageDirection direction)
+{
+	if (direction == PageDirection::Next)
+	{
+		int position = mainOrder_.indexOf(currentMainScreen_) + 1;
+
+		if (position >= mainOrder_.size())
+		{
+			position = 0;
+		}
+
+		currentScreen_ = mainOrder_.at(position);
+		currentMainScreen_ = mainOrder_.at(position);
+	}
+
+	else if (direction == PageDirection::Previous)
+	{
+		int position = mainOrder_.indexOf(currentMainScreen_) - 1;
+
+		if (position < 0)
+		{
+			position = mainOrder_.size()-1;
+		}
+
+		currentScreen_ = mainOrder_.at(position);
+		currentMainScreen_ = mainOrder_.at(position);
+	}
+
+	else if (direction == PageDirection::Up)
+	{
+		QList<Screen *> subScreen = subOrder_.value(currentMainScreen_->getName());
+
+		int currentPosition = subScreen.indexOf(currentScreen_) - 1;
+
+		if (currentPosition < 0)
+		{
+			currentPosition = subScreen.size()-1;
+		}
+
+		currentScreen_ = subScreen.at(currentPosition);
+	}
+
+	else if (direction == PageDirection::Down)
+	{
+		QList<Screen *> subScreen = subOrder_.value(currentMainScreen_->getName());
+
+		int currentPosition = subScreen.indexOf(currentScreen_) + 1;
+
+		if (currentPosition >= subScreen.size())
+		{
+			currentPosition = 0;
+		}
+
+		currentScreen_ = subScreen.at(currentPosition);
+	}
 }

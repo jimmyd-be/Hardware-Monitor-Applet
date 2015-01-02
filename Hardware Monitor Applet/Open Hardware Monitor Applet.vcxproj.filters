@@ -158,18 +158,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_qtsingleapplication.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GraphScreen.cpp">
-      <Filter>Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalScreen.cpp">
-      <Filter>Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="Screen.cpp">
-      <Filter>Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="StartScreen.cpp">
-      <Filter>Screen</Filter>
-    </ClCompile>
     <ClCompile Include="Tools\HWiNFO.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
@@ -317,6 +305,27 @@
     <ClCompile Include="GeneratedFiles\Release\moc_LineEditPage.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Screen\GraphScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\NormalScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\StartScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AppletThread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AppletThread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="AppletThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -415,6 +424,9 @@
     <CustomBuild Include="GUI\LineEditPageLineWidget.h">
       <Filter>GUI\ScreenWizard</Filter>
     </CustomBuild>
+    <CustomBuild Include="AppletThread.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\Logitech\EZ_LCD.h">
@@ -495,18 +507,6 @@
     <ClInclude Include="Defines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NormalScreen.h">
-      <Filter>Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphScreen.h">
-      <Filter>Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="StartScreen.h">
-      <Filter>Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.h">
-      <Filter>Screen</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -575,6 +575,18 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_LineEditPageLineWidget.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\GraphScreen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\NormalScreen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\StartScreen.h">
+      <Filter>Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

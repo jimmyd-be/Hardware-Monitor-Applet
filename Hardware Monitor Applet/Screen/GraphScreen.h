@@ -1,66 +1,49 @@
 //-----------------------------------------------------------------
-// Screen File
-// C++ Header - Screen.h - version 0.1 (2013/06/13)
+// GraphScreen File
+// C++ Header - GraphScreen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
 #pragma once
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "Defines.h"
+#include "Screen.h"
 
 //-----------------------------------------------------------------
-// Screen Class
+// GraphScreen Class
 //-----------------------------------------------------------------
-class Screen
+class GraphScreen : public Screen
 {
 public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Screen(CEzLcd*, QString name);
+	GraphScreen(CEzLcd *, QString);
 
 	//---------------------------
 	// Destructor
 	//---------------------------
-	virtual ~Screen();
+	virtual ~GraphScreen();
 
 	//---------------------------
 	// General Methods
 	//---------------------------
-	virtual ScreenType getScreenType();
-	QString getName();
-	virtual void update();
+	void draw();
+	void update();
 
-	QList<LineText> getLines();
-	QList<QColor> getGraphColors();
+	ScreenType getScreenType();
 
-	void setData(QList<LineText>);
-	void setColors(QList<QColor>);
-	void setBackground(QString background);
-
-	QString getBackground();
-
-protected:
+private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	HBITMAP background_;
-	QString backgroundString_;
-	QString name_;
-	CEzLcd * lcd_;
-	int screenId_;
-
-	QList<LineText> screenLines_;
-	QList<QColor> graphColors_;
-
-private:
+	
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
 	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
 	// -------------------------
-	Screen(const Screen& t);
-	Screen& operator=(const Screen& t);
+	GraphScreen(const GraphScreen& t);
+	GraphScreen& operator=(const GraphScreen& t);
 };

@@ -26,6 +26,7 @@ enum MonitorSystem { OHM, HWiNFO, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum Temperature { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
+enum PageDirection {Next, Previous, Up, Down};
 
 struct Query{
 	MonitorSystem system;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Defines.h"
 #include "qdialog.h"
-#include "Screen.h"
+#include "Screen\Screen.h"
 #include <QMessageBox>
 #include "ui_SortScreenDialog.h"
 
