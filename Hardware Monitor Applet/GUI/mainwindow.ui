@@ -131,8 +131,6 @@ QPushButton:hover {
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionBackup"/>
-    <addaction name="actionLoad"/>
     <addaction name="actionClose"/>
     <addaction name="actionExit"/>
    </widget>

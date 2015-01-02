@@ -59,10 +59,11 @@ struct HardwareSensor{
 
 struct CustomSettings
 {
-	QString text;
 	Alignment aligment;
 	bool textScrolling;
 	QFont font;
+	QColor fontColor;
+	int lineSpacing;
 };
 
 //-----------------------------------------------------------------

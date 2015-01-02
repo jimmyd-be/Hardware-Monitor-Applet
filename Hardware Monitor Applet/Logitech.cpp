@@ -94,11 +94,12 @@ Screen * Logitech::getCurrentScreen()
 	return currentScreen_;
 }
 
-void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines)
+void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines, QList<CustomSettings> settings)
 {
 	NormalScreen * screen = new NormalScreen(&lcd_, name);
 	screen->setBackground(background);
 	screen->setData(optimizeLines(optimizeData(lines, dataList)));
+	screen->setSettings(settings);
 
 	screenList_.append(screen);
 }
@@ -263,6 +264,11 @@ void Logitech::deleteScreen(QString name)
 	}
 
 	delete oldScreen;
+
+	if (mainOrder_.size() == 0)
+	{
+		currentScreen_ = startscreen_;
+	}
 }
 
 Screen * Logitech::getScreenData(QString name)

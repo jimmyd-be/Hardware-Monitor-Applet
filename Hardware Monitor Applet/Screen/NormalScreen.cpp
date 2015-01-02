@@ -32,6 +32,8 @@ ScreenType NormalScreen::getScreenType()
 
 void NormalScreen::drawColor()
 {
+	lcd_->ModifyControlsOnPage(screenId_);
+
 	lcd_->ModifyDisplay(LG_COLOR);
 
 	QPixmap background;
@@ -48,7 +50,7 @@ void NormalScreen::drawColor()
 	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
 	lcd_->SetOrigin(line1, 0, 17);
 	lcd_->SetTextFontColor(line1, RGB(255, 255, 255));
-	lcd_->SetText(line1, _T("Thanx for using OHM Applet"));
+	lcd_->SetText(line1, _T("xxxxxxxxxxxxxxxxxxxxx"));
 
 	HANDLE line2 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
 	lcd_->SetOrigin(line2, 0, 17 * 3);
@@ -69,16 +71,18 @@ void NormalScreen::drawColor()
 
 void NormalScreen::drawMonochrome()
 {
+	lcd_->ModifyControlsOnPage(screenId_);
+
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 
 }
 
 void NormalScreen::draw()
 {
-
+	drawColor();
 }
 
 void NormalScreen::update()
 {
-
+	
 }

@@ -45,6 +45,8 @@ void StartScreen::update()
 
 void StartScreen::drawColor()
 {
+	lcd_->ModifyControlsOnPage(screenId_);
+
 	lcd_->ModifyDisplay(LG_COLOR);
 
 	QPixmap background;
@@ -82,6 +84,8 @@ void StartScreen::drawColor()
 
 void StartScreen::drawMonochrome()
 {
+	lcd_->ModifyControlsOnPage(screenId_);
+
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 
 }

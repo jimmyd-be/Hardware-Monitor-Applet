@@ -45,7 +45,9 @@ private:
 	void saveScreenOrder();
 	void saveMainScreenOrder();
 	void saveSubScreenOrder();
+	void saveCustomSettings(Screen *);
 
+	QList<CustomSettings> loadCustomSettings();
 	void loadNormalScreenSettings(QString, QString, ScreenType);
 	void loadGraphScreenSettings(QString, QString, ScreenType);
 	void loadScreenOrder();

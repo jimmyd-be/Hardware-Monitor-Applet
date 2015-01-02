@@ -15,16 +15,9 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="text_label">
      <property name="text">
       <string>Line</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="Line_lineEdit">
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -55,9 +48,45 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="FontColor_pushButton">
+     <property name="text">
+      <string>Font Color</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="FontColor_label">
+     <property name="minimumSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="textScrolling">
      <property name="text">
       <string>Text scrolling</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="LineSpace_spinBox"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Line spacing</string>
      </property>
     </widget>
    </item>

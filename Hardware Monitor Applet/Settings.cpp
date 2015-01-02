@@ -68,6 +68,9 @@ void Settings::loadSettings()
 		{
 			loadGraphScreenSettings(name, background, type);
 		}
+
+		QList<CustomSettings> list = loadCustomSettings();
+		logitech_->getScreenData(name)->setSettings(list);
 	}
 
 	settings_->endArray();
@@ -268,6 +271,8 @@ void Settings::saveSettings()
 				saveNormalScreenSettings(screens[i]);
 				saveGraphScreenSettings(screens[i]);
 			}
+
+			saveCustomSettings(screens[i]);
 		}
 
 		settings_->endArray();
@@ -389,6 +394,74 @@ void Settings::saveSubScreenOrder()
 		++i;
 	}
 	settings_->endArray();
+}
+
+void Settings::saveCustomSettings(Screen * screen)
+{
+	QList<CustomSettings> settingsList = screen->getSettings();
+
+	settings_->beginWriteArray("CustomSettings");
+
+	for (int i = 0; i < settingsList.size(); i++)
+	{
+		settings_->setArrayIndex(i);
+
+		CustomSettings custom = settingsList[i];
+
+		settings_->setValue("Aligment", Defines::translateAligmentEnum(custom.aligment));
+		settings_->setValue("Scrolling", custom.textScrolling);
+		settings_->setValue("LineSpacing", custom.lineSpacing);
+
+		settings_->setValue("FontFamily", custom.font.family());
+		settings_->setValue("FontSize", custom.font.pointSize());
+		settings_->setValue("FontBold", custom.font.bold());
+		settings_->setValue("FontItalic", custom.font.italic());
+
+		settings_->setValue("FontColorRed", custom.fontColor.red());
+		settings_->setValue("FontColorBlue", custom.fontColor.blue());
+		settings_->setValue("FontColorGreen", custom.fontColor.green());		
+	}
+
+	settings_->endArray();
+}
+
+QList<CustomSettings> Settings::loadCustomSettings()
+{
+	int size = settings_->beginReadArray("CustomSettings");
+
+	QList<CustomSettings> customList;
+
+	for (int i = 0; i < size; i++)
+	{
+		settings_->setArrayIndex(i);
+
+		CustomSettings custom;
+
+		custom.aligment = Defines::translateAligmentEnum(settings_->value("Aligment").toString());
+		
+		custom.textScrolling = settings_->value("Scrolling").toBool();
+		custom.lineSpacing = settings_->value("LineSpacing").toInt();
+
+		QFont font;
+		font.setFamily(settings_->value("FontFamily").toString());
+		font.setPointSize(settings_->value("FontSize").toInt());
+		font.setBold(settings_->value("FontBold").toBool());
+		font.setItalic(settings_->value("FontItalic").toBool());
+
+		QColor color;
+		color.setRed(settings_->value("FontColorRed").toInt());
+		color.setBlue(settings_->value("FontColorBlue").toInt());
+		color.setGreen(settings_->value("FontColorGreen").toInt());
+		
+		custom.font = font;
+		custom.fontColor = color;
+
+		customList.append(custom);
+	}
+
+	settings_->endArray();
+
+	return customList;
 }
 
 void Settings::setLogitech(Logitech * logitech)

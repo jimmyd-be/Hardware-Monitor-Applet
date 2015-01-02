@@ -109,7 +109,7 @@ void CreateScreenWizard::accept()
 
 	if (screenTypePage_->getScreenType() == ScreenType::Normal)
 	{
-		logitech_->createNormalScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), dataPage_->getData(), lineEditPage_->getData());
+		logitech_->createNormalScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), dataPage_->getData(), lineEditPage_->getData(), customizePage_->getData());
 	}
 
 	else if (screenTypePage_->getScreenType() == ScreenType::Graph)

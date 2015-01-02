@@ -43,7 +43,7 @@ public:
 	KeyboardTypes getKeyboardType();
 	QVector<Screen *> getScreenList();
 
-	void createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines);
+	void createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines, QList<CustomSettings> settings);
 	void createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines);
 	void creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors);
 	void creategraphScreen(QString name, QString background, ScreenType type, QList<LineText> linesList, QList<QColor> colors);

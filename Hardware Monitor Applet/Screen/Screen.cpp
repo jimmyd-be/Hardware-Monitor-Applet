@@ -63,6 +63,11 @@ QList<QColor> Screen::getGraphColors()
 	return graphColors_;
 }
 
+QList<CustomSettings> Screen::getSettings()
+{
+	return lineSettings_;
+}
+
 void Screen::setData(QList<LineText> data)
 {
 	screenLines_ = data;
@@ -71,6 +76,11 @@ void Screen::setData(QList<LineText> data)
 void Screen::setColors(QList<QColor> colors)
 {
 	graphColors_ = colors;
+}
+
+void Screen::setSettings(QList<CustomSettings> settings)
+{
+	lineSettings_ = settings;
 }
 
 void Screen::setBackground(QString background)
@@ -90,4 +100,9 @@ void Screen::setBackground(QString background)
 QString Screen::getBackground()
 {
 	return backgroundString_;
+}
+
+int Screen::getIndex()
+{
+	return screenId_;
 }

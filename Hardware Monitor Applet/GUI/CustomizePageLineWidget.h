@@ -6,6 +6,7 @@
 #include "../Screen\Screen.h"
 #include "../Defines.h"
 #include <QFontDialog>
+#include <qcolordialog.h>
 
 class CustomizePageLineWidget: public QWidget
 {
@@ -13,15 +14,19 @@ class CustomizePageLineWidget: public QWidget
 
 public:
 	CustomizePageLineWidget(QString text, QWidget *parent = 0);
+	CustomizePageLineWidget(QString text, CustomSettings custom, QWidget *parent = 0);
 	virtual ~CustomizePageLineWidget();
 
 	CustomSettings getSettings();
 
 private slots:
 	void openFontDialog();
+	void openFontColorDialog();
 
 private:
 
 	Ui::CustomizePageLineWidget ui;
 	QFont font_;
+	QColor color_;
+	QPalette palette_;
 };

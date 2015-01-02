@@ -35,10 +35,14 @@ public:
 
 	QList<LineText> getLines();
 	QList<QColor> getGraphColors();
+	QList<CustomSettings> getSettings();
 
 	void setData(QList<LineText>);
 	void setColors(QList<QColor>);
 	void setBackground(QString background);
+	void setSettings(QList<CustomSettings> settings);
+
+	int getIndex();
 
 	QString getBackground();
 
@@ -54,6 +58,7 @@ protected:
 
 	QList<LineText> screenLines_;
 	QList<QColor> graphColors_;
+	QList<CustomSettings> lineSettings_;
 
 private:
 	
