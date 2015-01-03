@@ -48,8 +48,20 @@ Settings::~Settings()
 	}
 }
 
+void Settings::setTemperature(Temperature temp)
+{
+	generalSettings_.temperature = temp;
+}
+
+Temperature Settings::getTemperature()
+{
+	return generalSettings_.temperature;
+}
+
 void Settings::loadSettings()
 {
+	loadGeneralSettings();
+
 	int screenTotal = settings_->beginReadArray("pages");
 
 	for (int i = 0; i < screenTotal; i++)
@@ -245,11 +257,28 @@ QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
 	return subList;
 }
 
+void Settings::saveGeneralSettings()
+{
+	settings_->beginGroup("General");
+
+	settings_->setValue("Temperature", Defines::translateTemperatureEnum(generalSettings_.temperature));
+
+	settings_->endGroup();
+}
+
+void Settings::loadGeneralSettings()
+{
+	generalSettings_.temperature = Defines::translateTemperatureEnum(settings_->value("General/Temperature").toString());
+}
+
 void Settings::saveSettings()
 {
 	if (logitech_ != nullptr)
 	{
 		settings_->clear();
+
+		saveGeneralSettings();
+
 		QVector<Screen*> screens = logitech_->getScreenList();
 
 		settings_->beginWriteArray("pages");

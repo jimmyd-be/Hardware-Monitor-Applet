@@ -183,3 +183,31 @@ Alignment Defines::translateAligmentEnum(QString aligment)
 
 	return Alignment::Center;
 }
+
+QString translateTemperatureEnum(Temperature temp)
+{
+	switch (temp)
+	{
+	case Celsius:
+		return "Celsius";
+		break;
+	case Fahrenheit:
+		return "Fahrenheit";
+		break;
+	default:
+		return "Celsius";
+		break;
+	}
+}
+
+Temperature translateTemperatureEnum(QString temp)
+{
+	if (temp == "Celsius")
+	{
+		return Temperature::Celsius;
+	}
+	else if (temp == "Fahrenheit")
+	{
+		return Temperature::Fahrenheit;
+	}
+}

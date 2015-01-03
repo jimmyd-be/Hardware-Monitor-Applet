@@ -151,7 +151,6 @@ QPushButton:hover {
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionHelp"/>
     <addaction name="actionReport_a_bug"/>
     <addaction name="actionAbout"/>
    </widget>

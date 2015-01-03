@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(Logitech * logitech, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech)
+MainWindow::MainWindow(Logitech * logitech, QtSingleApplication* app, QWidget *parent)
+	: QMainWindow(parent), logitech_(logitech), app_(app)
 {
 	ui.setupUi(this);
 
@@ -9,13 +9,17 @@ MainWindow::MainWindow(Logitech * logitech, QWidget *parent)
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
 	connect(ui.Order_pushButton, SIGNAL(clicked()), this, SLOT(openOrderWindow()));
+	connect(ui.actionClose, SIGNAL(triggered()), this, SLOT(closeWindow()));
+	connect(ui.actionExit, SIGNAL(triggered()), this, SLOT(closeProgram()));
+	connect(ui.actionFahrenheit, SIGNAL(triggered()), this, SLOT(settingsChanged()));
+	connect(ui.actionCelsius, SIGNAL(triggered()), this, SLOT(settingsChanged()));
 
 	fillinPages();
 }
 
 MainWindow::~MainWindow()
 {
-	
+	removePages();
 }
 
 void MainWindow::keyboardChanged(KeyboardTypes type)
@@ -35,6 +39,22 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 
 }
 
+void MainWindow::closeWindow()
+{
+	close();
+}
+
+void MainWindow::closeProgram()
+{
+	app_->quit();
+}
+
+void MainWindow::reportIssue()
+{
+	QUrl url("https://bitbucket.org/jimmyD/hardware-monitor-applet-for-logitech-lcd/issues?status=new&status=open");
+	QDesktopServices::openUrl(url);
+}
+
 void MainWindow::openScreenWizard()
 {
 	CreateScreenWizard * wizard = new CreateScreenWizard(logitech_);
@@ -43,6 +63,18 @@ void MainWindow::openScreenWizard()
 	delete wizard;
 
 	refreshPages();
+}
+
+void MainWindow::settingsChanged()
+{
+	if (ui.actionCelsius->isChecked())
+	{
+		Settings::getInstance()->setTemperature(Temperature::Celsius);
+	}
+	else if (ui.actionFahrenheit->isChecked())
+	{
+		Settings::getInstance()->setTemperature(Temperature::Fahrenheit);
+	}
 }
 
 void MainWindow::fillinPages()

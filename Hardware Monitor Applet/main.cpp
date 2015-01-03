@@ -19,6 +19,10 @@ int main(int argc, char *argv[])
 		{
 			a.sendMessage(QString("OpenSettings"), 5000);
 		}
+		else
+		{
+			return 0;
+		}
 	}
 	else
 	{

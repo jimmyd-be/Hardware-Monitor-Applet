@@ -45,6 +45,7 @@ private:
 	MainWindow * mainWindow_;
 	Logitech * logitech_;
 	Settings * settings_;
+	QtSingleApplication * app_;
 
 
 private slots:

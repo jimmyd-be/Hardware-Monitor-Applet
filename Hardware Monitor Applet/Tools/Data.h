@@ -39,6 +39,7 @@ private:
 	// Datamembers
 	// -------------------------
 	QList<MonitorTool *> tools_;
+	GeneralSettings settings_;
 
 	static Data* dataInstance;
 

@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // Controller methods
 //-----------------------------------------------------------------
-Controller::Controller(QtSingleApplication* app) : mainWindow_(nullptr), settings_(nullptr)
+Controller::Controller(QtSingleApplication* app) : mainWindow_(nullptr), settings_(nullptr), app_(app)
 {
 	QObject::connect(app, SIGNAL(messageReceived(const QString &)), this, SLOT(vMessageReceivedFromOtherInst(const QString &)));
 	
@@ -54,7 +54,7 @@ void Controller::openSettingsScreen()
 {
 	if (mainWindow_ == nullptr)
 	{
-		mainWindow_ = new MainWindow(logitech_);
+		mainWindow_ = new MainWindow(logitech_, app_);
 	}
 
 	mainWindow_->showMaximized();

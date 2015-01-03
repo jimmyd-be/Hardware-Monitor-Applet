@@ -26,8 +26,7 @@ Logitech::~Logitech()
 {
 	if (thread_ != nullptr)
 	{
-		thread_->exit();
-		thread_->wait();
+		thread_->terminate();
 		delete thread_;
 		thread_ = nullptr;
 	}

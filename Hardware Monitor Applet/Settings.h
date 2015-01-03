@@ -33,6 +33,9 @@ public:
 	void loadSettings();
 	void saveSettings();
 
+	void setTemperature(Temperature);
+	Temperature getTemperature();
+
 protected:
 	//---------------------------
 	// Constructor(s)
@@ -46,7 +49,9 @@ private:
 	void saveMainScreenOrder();
 	void saveSubScreenOrder();
 	void saveCustomSettings(Screen *);
+	void saveGeneralSettings();
 
+	void loadGeneralSettings();
 	QList<CustomSettings> loadCustomSettings();
 	void loadNormalScreenSettings(QString, QString, ScreenType);
 	void loadGraphScreenSettings(QString, QString, ScreenType);
@@ -61,6 +66,8 @@ private:
 	Logitech * logitech_;
 
 	static Settings* singleton_;
+
+	GeneralSettings generalSettings_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

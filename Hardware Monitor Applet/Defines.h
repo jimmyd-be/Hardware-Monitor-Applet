@@ -66,6 +66,11 @@ struct CustomSettings
 	int lineSpacing;
 };
 
+struct GeneralSettings
+{
+	Temperature temperature;
+};
+
 //-----------------------------------------------------------------
 // Defines Class
 //-----------------------------------------------------------------
@@ -83,6 +88,9 @@ class Defines
 
 		static QString translateAligmentEnum(Alignment);
 		static Alignment translateAligmentEnum(QString);
+
+		static QString translateTemperatureEnum(Temperature);
+		static Temperature translateTemperatureEnum(QString);
 
 	private:
 		//---------------------------
