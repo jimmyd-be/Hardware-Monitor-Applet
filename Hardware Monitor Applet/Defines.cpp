@@ -184,7 +184,7 @@ Alignment Defines::translateAligmentEnum(QString aligment)
 	return Alignment::Center;
 }
 
-QString translateTemperatureEnum(Temperature temp)
+QString Defines::translateTemperatureEnum(Temperature temp)
 {
 	switch (temp)
 	{
@@ -200,7 +200,7 @@ QString translateTemperatureEnum(Temperature temp)
 	}
 }
 
-Temperature translateTemperatureEnum(QString temp)
+Temperature Defines::translateTemperatureEnum(QString temp)
 {
 	if (temp == "Celsius")
 	{
@@ -210,4 +210,6 @@ Temperature translateTemperatureEnum(QString temp)
 	{
 		return Temperature::Fahrenheit;
 	}
+
+	return Temperature::Celsius;
 }

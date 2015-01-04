@@ -74,15 +74,16 @@ void Settings::loadSettings()
 		if (type == ScreenType::Normal)
 		{
 			loadNormalScreenSettings(name, background, type);
+
+			QList<CustomSettings> list = loadCustomSettings();
+			NormalScreen* currentScreen = (NormalScreen*)logitech_->getScreenData(name);
+			currentScreen->setSettings(list);
 		}
 
 		else if(type == ScreenType::Graph)
 		{
 			loadGraphScreenSettings(name, background, type);
 		}
-
-		QList<CustomSettings> list = loadCustomSettings();
-		logitech_->getScreenData(name)->setSettings(list);
 	}
 
 	settings_->endArray();
@@ -293,15 +294,15 @@ void Settings::saveSettings()
 
 			if (screens[i]->getScreenType() == ScreenType::Normal)
 			{
-				saveNormalScreenSettings(screens[i]);
+				saveNormalScreenSettings((NormalScreen*)screens[i]);
+				saveCustomSettings((NormalScreen*)screens[i]);
 			}
 			else if (screens[i]->getScreenType() == ScreenType::Graph)
 			{
-				saveNormalScreenSettings(screens[i]);
-				saveGraphScreenSettings(screens[i]);
+				//saveNormalScreenSettings(screens[i]);
+				//saveGraphScreenSettings(screens[i]);
 			}
 
-			saveCustomSettings(screens[i]);
 		}
 
 		settings_->endArray();
@@ -310,7 +311,7 @@ void Settings::saveSettings()
 	}
 }
 
-void Settings::saveNormalScreenSettings(Screen * screen)
+void Settings::saveNormalScreenSettings(NormalScreen * screen)
 {
 	QList<LineText> lines = screen->getLines();
 
@@ -425,7 +426,7 @@ void Settings::saveSubScreenOrder()
 	settings_->endArray();
 }
 
-void Settings::saveCustomSettings(Screen * screen)
+void Settings::saveCustomSettings(NormalScreen * screen)
 {
 	QList<CustomSettings> settingsList = screen->getSettings();
 

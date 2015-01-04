@@ -43,12 +43,12 @@ protected:
 	Settings();
 
 private:
-	void saveNormalScreenSettings(Screen *);
+	void saveNormalScreenSettings(NormalScreen *);
 	void saveGraphScreenSettings(Screen *);
 	void saveScreenOrder();
 	void saveMainScreenOrder();
 	void saveSubScreenOrder();
-	void saveCustomSettings(Screen *);
+	void saveCustomSettings(NormalScreen *);
 	void saveGeneralSettings();
 
 	void loadGeneralSettings();

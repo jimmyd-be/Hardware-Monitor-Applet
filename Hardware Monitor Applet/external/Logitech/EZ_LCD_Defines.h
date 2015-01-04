@@ -72,6 +72,7 @@ const int LG_PROGRESS_BAR_INITIAL_HEIGHT_COLOR = 10;
 const LPCTSTR LG_FONT = _T("Microsoft Sans Serif");
 const LPCTSTR LG_ARIAL_FONT = _T("Arial");
 
+
 //#define MAX_SOFT_BUTTONS		4
 //#define LCD_DEFAULT_WIDTH		160
 //#define LCD_DEFAULT_HEIGHT		43

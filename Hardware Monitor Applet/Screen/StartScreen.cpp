@@ -19,11 +19,11 @@ StartScreen::StartScreen(CEzLcd * logitech, QString name) : Screen(logitech, nam
 {
 	if (logitech->IsDeviceAvailable(LG_MONOCHROME))
 	{
-		drawMonochrome();
+		//drawMonochrome();
 	}
 	else if (logitech->IsDeviceAvailable(LG_COLOR))
 	{
-		drawColor();
+		//drawColor();
 	}
 	
 }

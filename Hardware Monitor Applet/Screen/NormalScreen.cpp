@@ -22,12 +22,31 @@ NormalScreen::NormalScreen(CEzLcd * logitech, QString name) : Screen(logitech, n
 
 NormalScreen::~NormalScreen()
 {
-	// nothing to destroy
+	screenLines_.clear();
 }
 
 ScreenType NormalScreen::getScreenType()
 {
 	return ScreenType::Normal;
+}
+QList<LineText> NormalScreen::getLines()
+{
+	return screenLines_;
+}
+
+void NormalScreen::setData(QList<LineText> data)
+{
+	screenLines_ = data;
+}
+
+QList<CustomSettings> NormalScreen::getSettings()
+{
+	return lineSettings_;
+}
+
+void NormalScreen::setSettings(QList<CustomSettings> settings)
+{
+	lineSettings_ = settings;
 }
 
 void NormalScreen::drawColor()
@@ -36,36 +55,58 @@ void NormalScreen::drawColor()
 
 	lcd_->ModifyDisplay(LG_COLOR);
 
-	QPixmap background;
+	lcd_->SetBackground(background_);
 
-	bool success = background.load(":/MainWindow/Default");
+	int textPosition = 0;
 
-	if (success)
+	for (int i = 0; i < screenLines_.size(); i++)
 	{
-		background_ = QtWin::toHBITMAP(background);
+		CustomSettings custom = lineSettings_[i];
 
-		lcd_->SetBackground(background_);
+		LGObjectType objectType;
+		int aligment;
+
+		if (custom.textScrolling)
+		{
+			objectType = LG_SCROLLING_TEXT;
+		}
+		else
+		{
+			objectType = LG_STATIC_TEXT;
+		}
+
+		switch (custom.aligment)
+		{
+			case Alignment::Center:
+				aligment = DT_CENTER; 
+				break;
+			case Alignment::Left:
+				aligment = DT_LEFT;
+				break;
+			case Alignment::Right:
+				aligment = DT_RIGHT;
+				break;
+			default:
+				aligment = DT_LEFT;
+				break;
+		}
+
+		HANDLE lineHandle = lcd_->AddText(objectType, LG_SMALL, aligment, 320);
+
+		textPosition += custom.lineSpacing;
+
+		if (i > 0)
+		{
+			textPosition += lineSettings_[i - 1].font.pointSize();
+		}
+
+		lcd_->SetOrigin(lineHandle, 0, textPosition);
+		lcd_->SetTextFontColor(lineHandle, RGB(custom.fontColor.red(), custom.fontColor.green(), custom.fontColor.blue()));
+		//lcd_->SetText(lineHandle, (LPCTSTR)(screenLines_[i].text.toLocal8Bit().constData()));
+		lcd_->SetText(lineHandle, _T("TEST"));
+
+		screenLines_[i].textHandle = lineHandle;
 	}
-
-	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line1, 0, 17);
-	lcd_->SetTextFontColor(line1, RGB(255, 255, 255));
-	lcd_->SetText(line1, _T("xxxxxxxxxxxxxxxxxxxxx"));
-
-	HANDLE line2 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line2, 0, 17 * 3);
-	lcd_->SetTextFontColor(line2, RGB(255, 255, 255));
-	lcd_->SetText(line2, _T("Open settings or"));
-
-	HANDLE line3 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line3, 0, 17 * 5);
-	lcd_->SetTextFontColor(line3, RGB(255, 255, 255));
-	lcd_->SetText(line3, _T("Press any Logitech key to"));
-
-	HANDLE line4 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line4, 0, 17 * 6);
-	lcd_->SetTextFontColor(line4, RGB(255, 255, 255));
-	lcd_->SetText(line4, _T("open settings"));
 
 }
 

@@ -28,6 +28,9 @@ public:
     CEzLcdPage(CEzLcd * container);
     ~CEzLcdPage();
 
+	HANDLE AddCustomText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines, LPCTSTR font);
+	HANDLE AddCustomColorText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines = 1, LONG fontWeight = FW_DONTCARE);
+
 	HANDLE AddText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines = 1, LPCTSTR font = LG_FONT);
     HRESULT SetText(HANDLE handle, LPCTSTR text, BOOL resetScrollingTextPosition = FALSE);
 

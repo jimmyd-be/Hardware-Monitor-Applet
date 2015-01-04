@@ -33,14 +33,10 @@ public:
 	virtual void update();
 	virtual void draw();
 
-	QList<LineText> getLines();
-	QList<QColor> getGraphColors();
-	QList<CustomSettings> getSettings();
 
-	void setData(QList<LineText>);
 	void setColors(QList<QColor>);
 	void setBackground(QString background);
-	void setSettings(QList<CustomSettings> settings);
+	QList<QColor> getGraphColors();
 
 	int getIndex();
 
@@ -56,9 +52,7 @@ protected:
 	CEzLcd * lcd_;
 	int screenId_;
 
-	QList<LineText> screenLines_;
 	QList<QColor> graphColors_;
-	QList<CustomSettings> lineSettings_;
 
 private:
 	

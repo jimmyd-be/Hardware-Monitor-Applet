@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // Screen methods
 //-----------------------------------------------------------------
-Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nullptr), name_(name)
+Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nullptr), name_(name), backgroundString_(":/MainWindow/Default")
 {
 	screenId_ = lcd_->AddNewPage();
 }
@@ -30,7 +30,6 @@ Screen::~Screen()
 		background_ = nullptr;
 	}
 
-	screenLines_.clear();
 }
 
 ScreenType Screen::getScreenType()
@@ -53,24 +52,9 @@ QString Screen::getName()
 	return name_;
 }
 
-QList<LineText> Screen::getLines()
-{
-	return screenLines_;
-}
-
 QList<QColor> Screen::getGraphColors()
 {
 	return graphColors_;
-}
-
-QList<CustomSettings> Screen::getSettings()
-{
-	return lineSettings_;
-}
-
-void Screen::setData(QList<LineText> data)
-{
-	screenLines_ = data;
 }
 
 void Screen::setColors(QList<QColor> colors)
@@ -78,14 +62,16 @@ void Screen::setColors(QList<QColor> colors)
 	graphColors_ = colors;
 }
 
-void Screen::setSettings(QList<CustomSettings> settings)
-{
-	lineSettings_ = settings;
-}
-
 void Screen::setBackground(QString background)
 {
-	backgroundString_ = background;
+	if (background.isEmpty())
+	{
+		backgroundString_ = background;
+	}
+	else
+	{
+		backgroundString_ = ":/MainWindow/Default";
+	}
 
 	QPixmap backgroundPixMap;
 

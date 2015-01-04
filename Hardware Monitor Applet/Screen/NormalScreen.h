@@ -34,12 +34,19 @@ public:
 
 	void drawColor();
 	void drawMonochrome();
+	
+	void setData(QList<LineText>);
+	void setSettings(QList<CustomSettings> settings);
 
+	QList<LineText> getLines();
+	QList<CustomSettings> getSettings();
 
 private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
+	QList<LineText> screenLines_;
+	QList<CustomSettings> lineSettings_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

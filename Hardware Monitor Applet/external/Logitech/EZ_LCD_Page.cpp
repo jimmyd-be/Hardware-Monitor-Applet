@@ -56,6 +56,18 @@ CEzLcdPage::~CEzLcdPage()
     }
 }
 
+HANDLE CEzLcdPage::AddCustomText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines, LPCTSTR font)
+{
+
+
+	return NULL;
+}
+
+HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines, LONG fontWeight)
+{
+	return NULL;
+}
+
 HANDLE CEzLcdPage::AddText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines, LPCTSTR font)
 {
     LCDUIASSERT(LG_SCROLLING_TEXT == type || LG_STATIC_TEXT == type || LG_RIGHTFOCUS_TEXT == type);

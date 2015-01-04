@@ -114,7 +114,7 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 
 void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors)
 {
-	GraphScreen * screen = new GraphScreen(&lcd_, name);
+	/*GraphScreen * screen = new GraphScreen(&lcd_, name);
 	screen->setBackground(background);
 
 	QList<LineText> linesList;
@@ -138,18 +138,18 @@ void Logitech::creategraphScreen(QString name, QString background, ScreenType ty
 	screen->setData(linesList);
 	screen->setColors(colors);
 
-	screenList_.append(screen);
+	screenList_.append(screen);*/
 }
 
 void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QList<LineText> linesList, QList<QColor> colors)
 {
-	GraphScreen * screen = new GraphScreen(&lcd_, name);
+	/*GraphScreen * screen = new GraphScreen(&lcd_, name);
 	screen->setBackground(background);
 
 	screen->setData(linesList);
 	screen->setColors(colors);
 
-	screenList_.append(screen);
+	screenList_.append(screen);*/
 }
 
 QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> dataList)

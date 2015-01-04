@@ -1,7 +1,8 @@
 #include "CreateScreenWizard.h"
 
 CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
-	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_("")
+	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_(""),
+	introPage_(nullptr), backgroundPage_(nullptr), screenTypePage_(nullptr), dataPage_(nullptr), lineEditPage_(nullptr), graphPage_(nullptr), customizePage_(nullptr)
 {
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType());
 	backgroundPage_ = new BackgroundPage();
@@ -23,25 +24,35 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 }
 
 CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidget *parent)
-	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_(name)
+	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_(name),
+	introPage_(nullptr), backgroundPage_(nullptr), screenTypePage_(nullptr), dataPage_(nullptr), lineEditPage_(nullptr), graphPage_(nullptr), customizePage_(nullptr)
 {
 	Screen * oldScreen = logitech_->getScreenData(oldPageName_);
 
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType(), oldPageName_);
 	backgroundPage_ = new BackgroundPage(oldScreen->getBackground());
 	screenTypePage_ = new ScreenTypePage(oldScreen->getScreenType());
-	dataPage_ = new DataPage(screenTypePage_, oldScreen->getLines());
-	lineEditPage_ = new LineEditPage(dataPage_, oldScreen->getLines());
-	customizePage_ = new CustomizePage(lineEditPage_);
-	graphPage_ = new GraphPage(dataPage_, oldScreen->getLines(), oldScreen->getGraphColors());
+
+	if (oldScreen->getScreenType() == ScreenType::Normal)
+	{
+		NormalScreen * oldNormalScreen = (NormalScreen*)oldScreen;
+		dataPage_ = new DataPage(screenTypePage_, oldNormalScreen->getLines());
+		lineEditPage_ = new LineEditPage(dataPage_, oldNormalScreen->getLines());
+		customizePage_ = new CustomizePage(lineEditPage_);
+
+		setPage(Page_Data, dataPage_);
+		setPage(Page_LineEdit, lineEditPage_);
+		setPage(Page_Customize, customizePage_);
+	}
+	else if (oldScreen->getScreenType() == ScreenType::Graph)
+	{
+		//graphPage_ = new GraphPage(dataPage_, oldScreen->getLines(), oldScreen->getGraphColors());
+		//setPage(Page_GraphEdit, graphPage_);
+	}
 
 	setPage(Page_Intro, introPage_);
 	setPage(Page_Background, backgroundPage_);
 	setPage(Page_Type, screenTypePage_);
-	setPage(Page_Data, dataPage_);
-	setPage(Page_LineEdit, lineEditPage_);
-	setPage(Page_GraphEdit, graphPage_);
-	setPage(Page_Customize, customizePage_);
 
 	setWindowTitle(tr("Screen Wizard"));
 }
