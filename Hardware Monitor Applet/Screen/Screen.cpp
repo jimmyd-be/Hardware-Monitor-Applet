@@ -66,11 +66,11 @@ void Screen::setBackground(QString background)
 {
 	if (background.isEmpty())
 	{
-		backgroundString_ = background;
+		backgroundString_ = ":/Default.png";
 	}
 	else
 	{
-		backgroundString_ = ":/MainWindow/Default";
+		backgroundString_ = background;
 	}
 
 	QPixmap backgroundPixMap;

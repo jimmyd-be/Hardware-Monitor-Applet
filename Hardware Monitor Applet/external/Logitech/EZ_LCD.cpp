@@ -625,6 +625,25 @@ HANDLE CEzLcd::AddText(LGObjectType type, LGTextSize size, INT alignment, INT ma
     return NULL;
 }
 
+HANDLE CEzLcd::AddCustomText(LGObjectType type, int Fontsize, INT alignment, INT maxLengthPixels, LPCTSTR font, bool isBold)
+{
+	if (GetActivePage() == NULL)
+	{
+		return NULL;
+	}
+
+	if (m_pCurrentOutput == m_pConnection->MonoOutput())
+	{
+		return GetActivePage()->AddCustomText(type, Fontsize, alignment, maxLengthPixels, font, isBold);
+	}
+	else if (m_pCurrentOutput == m_pConnection->ColorOutput())
+	{
+		return GetActivePage()->AddCustomColorText(type, Fontsize, alignment, maxLengthPixels, font, isBold);
+	}
+
+	return NULL;
+}
+
 /****f* LCD.SDK/SetText(HANDLE.handle,LPCTSTR.text,BOOL.resetScrollingTextPosition)
 * NAME
 *  HRESULT SetText(HANDLE handle,

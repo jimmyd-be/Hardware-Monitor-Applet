@@ -56,15 +56,228 @@ CEzLcdPage::~CEzLcdPage()
     }
 }
 
-HANDLE CEzLcdPage::AddCustomText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines, LPCTSTR font)
+HANDLE CEzLcdPage::AddCustomText(LGObjectType type, int Fontsize, INT alignment, INT maxLengthPixels, LPCTSTR font, bool isBold)
 {
+	LCDUIASSERT(LG_SCROLLING_TEXT == type || LG_STATIC_TEXT == type || LG_RIGHTFOCUS_TEXT == type);
+	CLCDText* pStaticText_;
+	CLCDText* pRightFocusText_;
+	CLCDStreamingText* pStreamingText_;
 
+	INT iBoxHeight_ = LG_MEDIUM_FONT_TEXT_BOX_HEIGHT;
+	INT iFontSize_ = LG_MEDIUM_FONT_SIZE;
+	INT iLocalOriginY_ = LG_MEDIUM_FONT_LOGICAL_ORIGIN_Y;
+
+	switch (type)
+	{
+	case LG_SCROLLING_TEXT:
+		pStreamingText_ = new CLCDStreamingText();
+		LCDUIASSERT(NULL != pStreamingText_);
+		pStreamingText_->Initialize();
+		pStreamingText_->SetOrigin(0, 0);
+		pStreamingText_->SetFontFaceName(font);
+		pStreamingText_->SetAlignment(alignment);
+		pStreamingText_->SetText(_T(" "));
+		pStreamingText_->SetGapText(LG_SCROLLING_GAP_TEXT);
+		pStreamingText_->SetStartDelay(LG_SCROLLING_DELAY_MS);
+
+		iBoxHeight_ = Fontsize+5;
+		iFontSize_ = Fontsize;
+		iLocalOriginY_ = Fontsize-10;
+		pStreamingText_->SetSpeed(Fontsize+5);
+		pStreamingText_->SetScrollingStep(Fontsize);
+
+		if (isBold)
+		{
+			pStreamingText_->SetFontWeight(FW_BOLD);
+		}
+
+		pStreamingText_->SetSize(maxLengthPixels, iBoxHeight_);
+		pStreamingText_->SetFontPointSize(iFontSize_);
+		pStreamingText_->SetLogicalOrigin(0, iLocalOriginY_);
+		pStreamingText_->SetObjectType(LG_SCROLLING_TEXT);
+
+		AddObject(pStreamingText_);
+
+		return pStreamingText_;
+		break;
+	case LG_STATIC_TEXT:
+		pStaticText_ = new CLCDText();
+		LCDUIASSERT(NULL != pStaticText_);
+		pStaticText_->Initialize();
+		pStaticText_->SetOrigin(0, 0);
+		pStaticText_->SetFontFaceName(font);
+		pStaticText_->SetAlignment(alignment);
+		pStaticText_->SetBackgroundMode(OPAQUE);
+		pStaticText_->SetText(_T(" "));
+
+		if (isBold)
+		{
+			pStaticText_->SetFontWeight(FW_BOLD);
+		}
+		iBoxHeight_ = Fontsize+5;
+		iFontSize_ = Fontsize;
+		iLocalOriginY_ = Fontsize-10;
+
+		pStaticText_->SetSize(maxLengthPixels, iBoxHeight_);
+		pStaticText_->SetFontPointSize(iFontSize_);
+		pStaticText_->SetLogicalOrigin(0, iLocalOriginY_);
+		pStaticText_->SetObjectType(LG_STATIC_TEXT);
+
+		AddObject(pStaticText_);
+
+		return pStaticText_;
+		break;
+	case LG_RIGHTFOCUS_TEXT:
+		pRightFocusText_ = new CLCDText();
+		LCDUIASSERT(NULL != pRightFocusText_);
+		pRightFocusText_->Initialize();
+		pRightFocusText_->SetOrigin(0, 0);
+		pRightFocusText_->SetFontFaceName(LG_ARIAL_FONT);
+		pRightFocusText_->SetAlignment(alignment);
+		pRightFocusText_->SetBackgroundMode(TRANSPARENT);
+		pRightFocusText_->SetText(_T(" "));
+
+		if (isBold)
+		{
+			pRightFocusText_->SetFontWeight(FW_BOLD);
+		}
+
+		iBoxHeight_ = Fontsize+5;
+		iFontSize_ = Fontsize;
+		iLocalOriginY_ = Fontsize-10;
+
+		pRightFocusText_->SetSize(maxLengthPixels, iBoxHeight_);
+		pRightFocusText_->SetFontPointSize(iFontSize_);
+		pRightFocusText_->SetLogicalOrigin(0, iLocalOriginY_);
+		pRightFocusText_->SetObjectType(LG_RIGHTFOCUS_TEXT);
+
+		AddObject(pRightFocusText_);
+
+		return pRightFocusText_;
+	default:
+		LCDUITRACE(_T("ERROR: trying to add text object with undefined type\n"));
+	}
 
 	return NULL;
 }
 
-HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, LGTextSize size, INT alignment, INT maxLengthPixels, INT numberOfLines, LONG fontWeight)
+HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, int Fontsize, INT alignment, INT maxLengthPixels, LPCTSTR font, bool isBold)
 {
+	LCDUIASSERT(LG_SCROLLING_TEXT == type || LG_STATIC_TEXT == type || LG_RIGHTFOCUS_TEXT == type);
+	CLCDText* pStaticText_;
+	CLCDStreamingText* pStreamingText_;
+
+	CLCDText* pRightFocusText_;
+
+	INT iBoxHeight_ = LG_MEDIUM_FONT_TEXT_BOX_HEIGHT_COLOR;
+	INT iFontSize_ = LG_MEDIUM_FONT_SIZE_COLOR;
+	INT iLocalOriginY_ = LG_MEDIUM_FONT_LOGICAL_ORIGIN_Y_COLOR;
+
+	switch (type)
+	{
+	case LG_SCROLLING_TEXT:
+		pStreamingText_ = new CLCDStreamingText();
+		LCDUIASSERT(NULL != pStreamingText_);
+		pStreamingText_->Initialize();
+		pStreamingText_->SetOrigin(0, 0);
+		pStreamingText_->SetFontFaceName(font);
+		pStreamingText_->SetAlignment(alignment);
+		pStreamingText_->SetText(_T(" "));
+		pStreamingText_->SetGapText(LG_SCROLLING_GAP_TEXT);
+		pStreamingText_->SetScrollingStep(LG_SCROLLING_STEP_COLOR);
+		pStreamingText_->SetStartDelay(LG_SCROLLING_DELAY_MS);
+
+		if (isBold)
+		{
+			pStreamingText_->SetFontWeight(FW_BOLD);
+		}
+		else
+		{
+			pStreamingText_->SetFontWeight(FW_DONTCARE);
+		}
+
+		iBoxHeight_ = Fontsize+6;
+		iFontSize_ = Fontsize;
+		iLocalOriginY_ = 0;
+		pStreamingText_->SetSpeed((Fontsize*2)-2);
+
+		pStreamingText_->SetSize(maxLengthPixels, iBoxHeight_);
+		pStreamingText_->SetFontPointSize(iFontSize_);
+		pStreamingText_->SetLogicalOrigin(0, iLocalOriginY_);
+		pStreamingText_->SetObjectType(LG_SCROLLING_TEXT);
+
+		AddObject(pStreamingText_);
+
+		return pStreamingText_;
+		break;
+	case LG_STATIC_TEXT:
+		pStaticText_ = new CLCDText();
+		LCDUIASSERT(NULL != pStaticText_);
+		pStaticText_->Initialize();
+		pStaticText_->SetOrigin(0, 0);
+		pStaticText_->SetFontFaceName(font);
+		pStaticText_->SetAlignment(alignment);
+		pStaticText_->SetBackgroundMode(TRANSPARENT);
+		pStaticText_->SetText(_T(" "));
+		
+		if (isBold)
+		{
+			pStreamingText_->SetFontWeight(FW_BOLD);
+		}
+		else
+		{
+			pStreamingText_->SetFontWeight(FW_DONTCARE);
+		}
+
+		iBoxHeight_ = Fontsize+6;
+		iFontSize_ = Fontsize;
+		iLocalOriginY_ = 0;
+
+		pStaticText_->SetSize(maxLengthPixels, iBoxHeight_);
+		pStaticText_->SetFontPointSize(iFontSize_);
+		pStaticText_->SetLogicalOrigin(0, iLocalOriginY_);
+		pStaticText_->SetObjectType(LG_STATIC_TEXT);
+
+		AddObject(pStaticText_);
+
+		return pStaticText_;
+		break;
+	case LG_RIGHTFOCUS_TEXT:
+		pRightFocusText_ = new CLCDText();
+		LCDUIASSERT(NULL != pRightFocusText_);
+		pRightFocusText_->Initialize();
+		pRightFocusText_->SetOrigin(0, 0);
+		pRightFocusText_->SetFontFaceName(font);
+		pRightFocusText_->SetAlignment(alignment);
+		pRightFocusText_->SetBackgroundMode(TRANSPARENT);
+		pRightFocusText_->SetText(_T(" "));
+		
+		if (isBold)
+		{
+			pStreamingText_->SetFontWeight(FW_BOLD);
+		}
+		else
+		{
+			pStreamingText_->SetFontWeight(FW_DONTCARE);
+		}
+
+		iBoxHeight_ = Fontsize+6;
+		iFontSize_ = Fontsize;
+		iLocalOriginY_ = 0;
+
+		pRightFocusText_->SetSize(maxLengthPixels, iBoxHeight_);
+		pRightFocusText_->SetFontPointSize(iFontSize_);
+		pRightFocusText_->SetLogicalOrigin(0, iLocalOriginY_);
+		pRightFocusText_->SetObjectType(LG_RIGHTFOCUS_TEXT);
+
+
+		AddObject(pRightFocusText_);
+
+		return pRightFocusText_;
+	default:
+		LCDUITRACE(_T("ERROR: trying to add text object with undefined type\n"));
+	}
+
 	return NULL;
 }
 
@@ -174,7 +387,7 @@ HANDLE CEzLcdPage::AddText(LGObjectType type, LGTextSize size, INT alignment, IN
         LCDUIASSERT(NULL != pRightFocusText_);
         pRightFocusText_->Initialize();
         pRightFocusText_->SetOrigin(0, 0);
-        pRightFocusText_->SetFontFaceName(LG_ARIAL_FONT);
+		pRightFocusText_->SetFontFaceName(font);
         pRightFocusText_->SetAlignment(alignment);
         pRightFocusText_->SetBackgroundMode(TRANSPARENT);
         pRightFocusText_->SetText(_T(" "));

@@ -91,19 +91,18 @@ void NormalScreen::drawColor()
 				break;
 		}
 
-		HANDLE lineHandle = lcd_->AddText(objectType, LG_SMALL, aligment, 320);
+		HANDLE lineHandle = lcd_->AddCustomText(objectType, custom.font.pointSize(), aligment, 320, (LPCTSTR)custom.font.family().utf16(), custom.font.bold());
 
 		textPosition += custom.lineSpacing;
 
 		if (i > 0)
 		{
-			textPosition += lineSettings_[i - 1].font.pointSize();
+			textPosition += lineSettings_[i - 1].font.pointSize();;
 		}
 
 		lcd_->SetOrigin(lineHandle, 0, textPosition);
 		lcd_->SetTextFontColor(lineHandle, RGB(custom.fontColor.red(), custom.fontColor.green(), custom.fontColor.blue()));
-		//lcd_->SetText(lineHandle, (LPCTSTR)(screenLines_[i].text.toLocal8Bit().constData()));
-		lcd_->SetText(lineHandle, _T("TEST"));
+		lcd_->SetText(lineHandle, (LPCTSTR)screenLines_[i].text.utf16());
 
 		screenLines_[i].textHandle = lineHandle;
 	}
