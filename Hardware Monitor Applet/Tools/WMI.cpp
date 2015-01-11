@@ -43,7 +43,7 @@ void WMI::connect()
 {
 	// Initialize COM. ------------------------------------------
 
-	hres_ = CoInitializeEx(0, COINIT_MULTITHREADED);
+	hres_ = CoInitializeEx(0, COINIT_APARTMENTTHREADED);
 
 	if (!FAILED(hres_))
 	{
