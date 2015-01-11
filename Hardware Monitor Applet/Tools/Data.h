@@ -29,6 +29,7 @@ public:
 	// General Methods
 	//---------------------------
 	QVector<HardwareSensor> getAllData(MonitorSystem system);
+	QStringList translateLines(QList<LineText>);
 
 private:
 	//---------------------------
@@ -40,6 +41,9 @@ private:
 	// -------------------------
 	QList<MonitorTool *> tools_;
 	GeneralSettings settings_;
+
+	QMap<QString, QString> queryMapData(QMap<QString, Query>);
+	MonitorTool * getMonitorTool(MonitorSystem);
 
 	static Data* dataInstance;
 

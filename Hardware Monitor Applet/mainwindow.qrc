@@ -1,7 +1,7 @@
 <RCC>
   <qresource prefix="MainWindow">
-    <file alias="Default">Resources/Default.png</file>
     <file>Resources/Add.png</file>
+    <file>Resources/Default.png</file>
     <file>Resources/Add_hover.png</file>
     <file>Resources/Edit.png</file>
     <file>Resources/Edit_hover.png</file>

@@ -234,3 +234,9 @@ MonitorSystem WMI::getMonitorSystem()
 {
 	return MonitorSystem::OHM;
 }
+
+QString WMI::getData(Query query)
+{
+
+	return "";
+}

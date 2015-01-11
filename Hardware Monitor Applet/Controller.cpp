@@ -45,7 +45,7 @@ Controller::~Controller()
 	}
 }
 
-void  Controller::vMessageReceivedFromOtherInst(const QString &  msg)
+void Controller::vMessageReceivedFromOtherInst(const QString &  msg)
 {
 	openSettingsScreen();
 }
@@ -54,8 +54,22 @@ void Controller::openSettingsScreen()
 {
 	if (mainWindow_ == nullptr)
 	{
-		mainWindow_ = new MainWindow(logitech_, app_);
+		mainWindow_ = new MainWindow(logitech_, this);
 	}
 
 	mainWindow_->showMaximized();
+}
+
+void Controller::closeSettingsScreen()
+{
+	if (mainWindow_ != nullptr)
+	{
+		delete mainWindow_;
+		mainWindow_  = nullptr;
+	}
+}
+
+void Controller::quitApplication()
+{
+	app_->quit();
 }

@@ -36,3 +36,8 @@ MonitorSystem MonitorTool::getMonitorSystem()
 {
 	return MonitorSystem::NONE;
 }
+
+QString MonitorTool::getData(Query query)
+{
+	return "";
+}

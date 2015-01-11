@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <external\QSingleApplication\qtsingleapplication.h>
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
 #include "../Defines.h"
@@ -12,17 +11,22 @@
 #include "OrderWindow.h"
 #include <QDesktopServices>
 
+class Controller;
+
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	MainWindow(Logitech * logitech, QtSingleApplication* app, QWidget *parent = 0);
+	MainWindow(Logitech * logitech, Controller * controller, QWidget *parent = 0);
 	~MainWindow();
 
 	void keyboardChanged(KeyboardTypes);
 
 	void refreshPages();
+
+protected:
+	void closeEvent(QCloseEvent * event);
 
 private:
 	void fillinPages();
@@ -31,7 +35,7 @@ private:
 	Ui::MainWindowClass ui;
 	Logitech * logitech_;
 	QVector<MainScreenWidget *> widgetList_;
-	QtSingleApplication * app_;
+	Controller * controller_;
 
 private slots:
 	void openScreenWizard();

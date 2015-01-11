@@ -59,7 +59,9 @@ void NormalScreen::drawColor()
 
 	int textPosition = 0;
 
-	for (int i = 0; i < screenLines_.size(); i++)
+	QStringList lines = data_->translateLines(screenLines_);
+
+	for (int i = 0; i < lines.size(); i++)
 	{
 		CustomSettings custom = lineSettings_[i];
 
@@ -102,11 +104,10 @@ void NormalScreen::drawColor()
 
 		lcd_->SetOrigin(lineHandle, 0, textPosition);
 		lcd_->SetTextFontColor(lineHandle, RGB(custom.fontColor.red(), custom.fontColor.green(), custom.fontColor.blue()));
-		lcd_->SetText(lineHandle, (LPCTSTR)screenLines_[i].text.utf16());
+		lcd_->SetText(lineHandle, (LPCTSTR)lines[i].utf16());
 
 		screenLines_[i].textHandle = lineHandle;
 	}
-
 }
 
 void NormalScreen::drawMonochrome()
@@ -119,7 +120,18 @@ void NormalScreen::drawMonochrome()
 
 void NormalScreen::draw()
 {
-	drawColor();
+	if (firstStart_)
+	{
+		drawColor();
+		firstStart_ = false;
+	}
+
+	QStringList lines = data_->translateLines(screenLines_);
+
+	for (int i = 0; i < screenLines_.size(); i++)
+	{
+		lcd_->SetText(screenLines_[i].textHandle, (LPCTSTR)lines[i].utf16());
+	}
 }
 
 void NormalScreen::update()

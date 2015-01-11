@@ -8,6 +8,7 @@
 // Include Files
 //-----------------------------------------------------------------
 #include "Defines.h"
+#include "../Tools/Data.h"
 
 //-----------------------------------------------------------------
 // Screen Class
@@ -51,6 +52,8 @@ protected:
 	QString name_;
 	CEzLcd * lcd_;
 	int screenId_;
+	Data * data_;
+	bool firstStart_;
 
 	QList<QColor> graphColors_;
 

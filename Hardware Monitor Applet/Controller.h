@@ -36,6 +36,8 @@ public:
 	// General Methods
 	//---------------------------
 	void openSettingsScreen();
+	void closeSettingsScreen();
+	void quitApplication();
 
 private:
 
@@ -48,7 +50,7 @@ private:
 	QtSingleApplication * app_;
 
 
-private slots:
+protected slots:
 	void vMessageReceivedFromOtherInst(const QString &  msg);
 	
 	// -------------------------

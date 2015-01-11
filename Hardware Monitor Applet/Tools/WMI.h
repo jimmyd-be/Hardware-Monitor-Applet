@@ -49,6 +49,7 @@ public:
 	//---------------------------
 	QVector<HardwareSensor> getAllSensors();
 	MonitorSystem getMonitorSystem();
+	QString getData(Query);
 
 private:
 	//---------------------------

@@ -15,8 +15,10 @@
 //-----------------------------------------------------------------
 // Screen methods
 //-----------------------------------------------------------------
-Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nullptr), name_(name), backgroundString_(":/MainWindow/Default")
+Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nullptr), name_(name), backgroundString_(":/MainWindow/Resources/Default.png"), firstStart_(true)
 {
+	data_ = Data::Instance();
+
 	screenId_ = lcd_->AddNewPage();
 }
 
@@ -66,16 +68,16 @@ void Screen::setBackground(QString background)
 {
 	if (background.isEmpty())
 	{
-		backgroundString_ = ":/Default.png";
+		backgroundString_ = ":/MainWindow/Resources/Default.png";
 	}
 	else
 	{
-		backgroundString_ = background;
+		backgroundString_ = Defines::getSettingsFolder() + "/Background/" + background;
 	}
 
-	QPixmap backgroundPixMap;
+	QPixmap backgroundPixMap(backgroundString_);
 
-	if (backgroundPixMap.load(background))
+	if (!backgroundPixMap.isNull())
 	{
 		background_ = QtWin::toHBITMAP(backgroundPixMap);
 

@@ -30,6 +30,7 @@ public:
 	//---------------------------
 	virtual QVector<HardwareSensor> getAllSensors();
 	virtual MonitorSystem getMonitorSystem();
+	virtual QString getData(Query);
 
 private:
 	// -------------------------

@@ -9,8 +9,6 @@ int main(int argc, char *argv[])
 {
 	Controller * controller = nullptr;
 
-	//Data::Instance();
-
 	QtSingleApplication a(argc, argv);
 
 	if (a.isRunning())
@@ -37,7 +35,7 @@ int main(int argc, char *argv[])
 
 	a.exec();
 
-	//Data::removeInstance();
+	Data::removeInstance();
 
 	if (controller != nullptr)
 	{

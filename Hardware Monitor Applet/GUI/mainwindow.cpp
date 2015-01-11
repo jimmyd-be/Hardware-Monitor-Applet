@@ -1,7 +1,8 @@
 #include "mainwindow.h"
+#include "../Controller.h"
 
-MainWindow::MainWindow(Logitech * logitech, QtSingleApplication* app, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech), app_(app)
+MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *parent)
+	: QMainWindow(parent), logitech_(logitech), controller_(controller)
 {
 	ui.setupUi(this);
 
@@ -39,14 +40,19 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 
 }
 
+void MainWindow::closeEvent(QCloseEvent * event)
+{
+	closeWindow();
+}
+
 void MainWindow::closeWindow()
 {
-	close();
+	controller_->closeSettingsScreen();
 }
 
 void MainWindow::closeProgram()
 {
-	app_->quit();
+	controller_->quitApplication();
 }
 
 void MainWindow::reportIssue()
