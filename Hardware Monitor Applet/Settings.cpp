@@ -290,6 +290,7 @@ void Settings::saveSettings()
 
 			settings_->setValue("pageName", screens[i]->getName());
 			settings_->setValue("background", screens[i]->getBackground());
+
 			settings_->setValue("type", Defines::translateScreenTypeEnum(screens[i]->getScreenType()));
 
 			if (screens[i]->getScreenType() == ScreenType::Normal)

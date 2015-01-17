@@ -50,7 +50,6 @@ bool Logitech::initKeyboard()
 
 	if (hRes == S_OK)
 	{
-
 		if (lcd_.IsDeviceAvailable(LG_COLOR))
 		{
 			keyboardType_ = KeyboardTypes::Color;

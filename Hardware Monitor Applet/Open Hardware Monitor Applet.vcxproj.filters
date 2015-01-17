@@ -60,6 +60,9 @@
     <Filter Include="GUI\ScreenWizard">
       <UniqueIdentifier>{846f1c95-8d9c-43a5-b900-43f1311414dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="external\QCustomPlot">
+      <UniqueIdentifier>{1e52628a-1642-4a57-88a1-e65fc20177b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -326,6 +329,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_CustomizePageLineWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="external\QCustomPlot\qcustomplot.cpp">
+      <Filter>external\QCustomPlot</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcustomplot.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcustomplot.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -426,6 +438,9 @@
     </CustomBuild>
     <CustomBuild Include="AppletThread.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="external\QCustomPlot\qcustomplot.h">
+      <Filter>external\QCustomPlot</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

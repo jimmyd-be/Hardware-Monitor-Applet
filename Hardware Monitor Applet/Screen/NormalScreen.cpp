@@ -116,13 +116,74 @@ void NormalScreen::drawMonochrome()
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 
+	int textPosition = 0;
+
+	QStringList lines = data_->translateLines(screenLines_);
+
+	for (int i = 0; i < lines.size(); i++)
+	{
+		CustomSettings custom = lineSettings_[i];
+
+		LGObjectType objectType;
+		int aligment;
+
+		if (custom.textScrolling)
+		{
+			objectType = LG_SCROLLING_TEXT;
+		}
+		else
+		{
+			objectType = LG_STATIC_TEXT;
+		}
+
+		switch (custom.aligment)
+		{
+		case Alignment::Center:
+			aligment = DT_CENTER;
+			break;
+		case Alignment::Left:
+			aligment = DT_LEFT;
+			break;
+		case Alignment::Right:
+			aligment = DT_RIGHT;
+			break;
+		default:
+			aligment = DT_LEFT;
+			break;
+		}
+
+		HANDLE lineHandle = lcd_->AddCustomText(objectType, custom.font.pointSize(), aligment, 320, (LPCTSTR)custom.font.family().utf16(), custom.font.bold());
+
+		textPosition += custom.lineSpacing;
+
+		if (i > 0)
+		{
+			textPosition += lineSettings_[i - 1].font.pointSize();;
+		}
+
+		lcd_->SetOrigin(lineHandle, 0, textPosition);
+		lcd_->SetText(lineHandle, (LPCTSTR)lines[i].utf16());
+
+		screenLines_[i].textHandle = lineHandle;
+	}
+
 }
 
 void NormalScreen::draw()
 {
 	if (firstStart_)
 	{
-		drawColor();
+
+		if (lcd_->IsDeviceAvailable(LG_COLOR))
+		{
+			drawColor();
+		}
+
+		else if (lcd_->IsDeviceAvailable(LG_MONOCHROME))
+		{
+			drawMonochrome();
+		}
+
 		firstStart_ = false;
 	}
 

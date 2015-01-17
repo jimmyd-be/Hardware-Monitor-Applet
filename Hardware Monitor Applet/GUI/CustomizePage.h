@@ -12,6 +12,7 @@ class CustomizePage: public QWizardPage
 
 public:
 	CustomizePage(LineEditPage * page, QWidget *parent = 0);
+	CustomizePage(LineEditPage * page, QList<CustomSettings> settings, QWidget *parent = 0);
 	virtual ~CustomizePage();
 
 	bool validatePage();
@@ -32,5 +33,7 @@ private:
 	QList<CustomizePageLineWidget*> widgetList_;
 
 	LineEditPage * linePage_;
+
+	QList<CustomSettings> tempSettings_;
 
 };

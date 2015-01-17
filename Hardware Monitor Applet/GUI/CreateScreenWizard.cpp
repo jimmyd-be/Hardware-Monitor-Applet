@@ -38,7 +38,7 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidge
 		NormalScreen * oldNormalScreen = (NormalScreen*)oldScreen;
 		dataPage_ = new DataPage(screenTypePage_, oldNormalScreen->getLines());
 		lineEditPage_ = new LineEditPage(dataPage_, oldNormalScreen->getLines());
-		customizePage_ = new CustomizePage(lineEditPage_);
+		customizePage_ = new CustomizePage(lineEditPage_, oldNormalScreen->getSettings());
 
 		setPage(Page_Data, dataPage_);
 		setPage(Page_LineEdit, lineEditPage_);
