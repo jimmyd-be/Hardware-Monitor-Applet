@@ -2,7 +2,7 @@
 
 
 IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenNames_(screenList), keyboardType_(type)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenNames_(screenList), keyboardType_(type), oldPagename_("")
 {
 	setTitle(tr("Introduction"));
 
@@ -76,10 +76,10 @@ int IntroPage::nextId() const
 	{
 		return Page::Page_Data;
 	}
-	else if (keyboardType_ == KeyboardTypes::Color)
+	/*else if (keyboardType_ == KeyboardTypes::Color)
 	{
 		return Page::Page_Background;
-	}
+	}*/
 	else
 	{
 		return Page::Page_Background;

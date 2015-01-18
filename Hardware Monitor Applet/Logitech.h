@@ -68,16 +68,16 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	AppletThread * thread_;
-	CEzLcd lcd_;
-	int time_;
 	KeyboardTypes keyboardType_;
-	QVector<Screen *> screenList_;
+	int time_;
+	AppletThread * thread_;
 	StartScreen * startscreen_;
-	
 	Screen * currentScreen_;
 	Screen * currentMainScreen_;
+	
+	CEzLcd lcd_;
 
+	QVector<Screen *> screenList_;
 	QList<Screen *> mainOrder_;
 	QMap<QString, QList<Screen *>> subOrder_;
 	

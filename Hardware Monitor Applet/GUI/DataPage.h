@@ -32,10 +32,10 @@ private:
 
 	QString foundNextSymbol();
 
-	ScreenTypePage *  screenTypePage_;
 	Ui::DataPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
+	ScreenTypePage *  screenTypePage_;
 
 	private slots:
 	void addButtonClicked();

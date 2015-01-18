@@ -5,6 +5,9 @@
 
 #include <GUI\mainwindow.h>
 
+//Memorey Lead Detection
+#include <vld.h> 
+
 int main(int argc, char *argv[])
 {
 	Controller * controller = nullptr;

@@ -51,7 +51,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>80</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>
@@ -155,9 +155,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>label_2</zorder>
-  <zorder>verticalSpacer</zorder>
-  <zorder>verticalSpacer_2</zorder>
  </widget>
  <resources/>
  <connections/>

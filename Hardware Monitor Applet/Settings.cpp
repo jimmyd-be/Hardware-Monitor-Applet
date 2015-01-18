@@ -33,7 +33,7 @@ void Settings::releaseResources()
 	}
 }
 
-Settings::Settings() : logitech_(nullptr)
+Settings::Settings() : logitech_(nullptr), generalSettings_(GeneralSettings{TemperatureType::Celsius})
 {
 	QString fileName = Defines::getSettingsFolder() + "/settings.ini";
 	settings_ = new QSettings(fileName, QSettings::IniFormat);
@@ -76,7 +76,7 @@ void Settings::loadSettings()
 			loadNormalScreenSettings(name, background, type);
 
 			QList<CustomSettings> list = loadCustomSettings();
-			NormalScreen* currentScreen = (NormalScreen*)logitech_->getScreenData(name);
+			NormalScreen* currentScreen = static_cast<NormalScreen*>(logitech_->getScreenData(name));
 			currentScreen->setSettings(list);
 		}
 
@@ -296,8 +296,8 @@ void Settings::saveSettings()
 
 			if (screens[i]->getScreenType() == ScreenType::Normal)
 			{
-				saveNormalScreenSettings((NormalScreen*)screens[i]);
-				saveCustomSettings((NormalScreen*)screens[i]);
+				saveNormalScreenSettings(static_cast<NormalScreen*>(screens[i]));
+				saveCustomSettings(static_cast<NormalScreen*>(screens[i]));
 			}
 			else if (screens[i]->getScreenType() == ScreenType::Graph)
 			{

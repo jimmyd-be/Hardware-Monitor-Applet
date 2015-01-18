@@ -25,16 +25,18 @@ public:
 private:
 	void copyBackground();
 
-	QString oldPageName_;
+	Logitech * logitech_;
 
-	DataPage *dataPage_;
-	LineEditPage * lineEditPage_;
+	QString oldPageName_;
+	
 	IntroPage * introPage_;
 	BackgroundPage * backgroundPage_;
 	ScreenTypePage * screenTypePage_;
-	CustomizePage * customizePage_;
+	DataPage *dataPage_;
+	LineEditPage * lineEditPage_;
 	GraphPage * graphPage_;
-	Logitech * logitech_;
+	CustomizePage * customizePage_;
+	
 
 	int width_ = 900;
 	int height_ = 800;

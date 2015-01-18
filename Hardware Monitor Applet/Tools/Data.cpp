@@ -66,7 +66,6 @@ QVector<HardwareSensor> Data::getAllData(MonitorSystem system)
 		if (monitorSystem->getMonitorSystem() == system)
 		{
 			return monitorSystem->getAllSensors();
-			break;
 		}
 	}
 

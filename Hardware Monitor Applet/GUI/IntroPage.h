@@ -22,10 +22,10 @@ protected:
 	int nextId() const;
 
 private:
-	QString oldPagename_;
 	Ui::IntroPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
 	QVector<Screen *> screenNames_;
 	KeyboardTypes keyboardType_;
+	QString oldPagename_;
 };

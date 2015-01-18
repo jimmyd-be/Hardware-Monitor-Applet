@@ -46,16 +46,19 @@ public:
 protected:
 	// -------------------------
 	// Datamembers
-	// -------------------------
-	HBITMAP background_;
-	QString backgroundString_;
-	QString name_;
+	// -------------------------	
 	CEzLcd * lcd_;
-	int screenId_;
-	Data * data_;
+	HBITMAP background_;
+	QString name_;
+	QString backgroundString_;
 	bool firstStart_;
 
+	int screenId_;
+	Data * data_;
+	
+	
 	QList<QColor> graphColors_;
+
 
 private:
 	

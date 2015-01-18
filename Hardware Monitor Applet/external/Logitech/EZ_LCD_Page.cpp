@@ -165,7 +165,7 @@ HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, int Fontsize, INT align
 {
 	LCDUIASSERT(LG_SCROLLING_TEXT == type || LG_STATIC_TEXT == type || LG_RIGHTFOCUS_TEXT == type);
 	CLCDText* pStaticText_;
-	CLCDStreamingText* pStreamingText_;
+	CLCDStreamingText* pStreamingText_ = nullptr;
 
 	CLCDText* pRightFocusText_;
 

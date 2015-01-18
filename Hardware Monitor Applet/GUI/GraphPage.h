@@ -31,8 +31,7 @@ private:
 
 	Ui::GraphPageWidget ui;
 	QWidget * widget_;
-	DataPage* dataPage_;
-	QVector<GraphPageLineWidget *> widgetItems_;
-
 	QVBoxLayout * layout_;
+	DataPage* dataPage_;
+	QVector<GraphPageLineWidget *> widgetItems_;	
 };
