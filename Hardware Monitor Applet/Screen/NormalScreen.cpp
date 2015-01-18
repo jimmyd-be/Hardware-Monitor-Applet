@@ -173,7 +173,6 @@ void NormalScreen::draw()
 {
 	if (firstStart_)
 	{
-
 		if (lcd_->IsDeviceAvailable(LG_COLOR))
 		{
 			drawColor();
@@ -188,6 +187,17 @@ void NormalScreen::draw()
 	}
 
 	QStringList lines = data_->translateLines(screenLines_);
+
+	if (lcd_->IsDeviceAvailable(LG_COLOR))
+	{
+		lcd_->ModifyDisplay(LG_COLOR);
+	}
+
+	else if (lcd_->IsDeviceAvailable(LG_MONOCHROME))
+	{
+		lcd_->ModifyDisplay(LG_MONOCHROME);
+	}
+
 
 	for (int i = 0; i < screenLines_.size(); i++)
 	{

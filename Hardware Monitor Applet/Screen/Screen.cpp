@@ -19,7 +19,7 @@ Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nu
 {
 	data_ = Data::Instance();
 
-	screenId_ = lcd_->AddNewPage();
+	screenId_ = lcd_->AddNewPage()-1;
 }
 
 Screen::~Screen()
@@ -74,7 +74,7 @@ void Screen::setBackground(QString background)
 	}
 	else
 	{
-		backgroundString_ = Defines::getSettingsFolder() + "/Background/" + background;
+		backgroundString_ = background;
 		backgroundTemp = backgroundString_;
 	}
 

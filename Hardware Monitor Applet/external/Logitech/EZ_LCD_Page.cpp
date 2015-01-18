@@ -165,7 +165,7 @@ HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, int Fontsize, INT align
 {
 	LCDUIASSERT(LG_SCROLLING_TEXT == type || LG_STATIC_TEXT == type || LG_RIGHTFOCUS_TEXT == type);
 	CLCDText* pStaticText_;
-	CLCDStreamingText* pStreamingText_ = nullptr;
+	CLCDStreamingText* pStreamingText_;
 
 	CLCDText* pRightFocusText_;
 
@@ -222,11 +222,11 @@ HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, int Fontsize, INT align
 		
 		if (isBold)
 		{
-			pStreamingText_->SetFontWeight(FW_BOLD);
+			pStaticText_->SetFontWeight(FW_BOLD);
 		}
 		else
 		{
-			pStreamingText_->SetFontWeight(FW_DONTCARE);
+			pStaticText_->SetFontWeight(FW_DONTCARE);
 		}
 
 		iBoxHeight_ = Fontsize+6;
@@ -254,11 +254,11 @@ HANDLE CEzLcdPage::AddCustomColorText(LGObjectType type, int Fontsize, INT align
 		
 		if (isBold)
 		{
-			pStreamingText_->SetFontWeight(FW_BOLD);
+			pRightFocusText_->SetFontWeight(FW_BOLD);
 		}
 		else
 		{
-			pStreamingText_->SetFontWeight(FW_DONTCARE);
+			pRightFocusText_->SetFontWeight(FW_DONTCARE);
 		}
 
 		iBoxHeight_ = Fontsize+6;

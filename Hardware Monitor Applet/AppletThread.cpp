@@ -94,6 +94,8 @@ void AppletThread::checkbuttonPressesMonochrome()
 		logitech_->changeCurrentScreen(PageDirection::Next);
 	}
 
+	lcd_->ShowPage(logitech_->getCurrentScreen()->getIndex());
+
 }
 
 void AppletThread::checkbuttonPressesColor()
@@ -124,17 +126,16 @@ void AppletThread::checkbuttonPressesColor()
 	{
 
 	}
+
+	lcd_->ShowPage(logitech_->getCurrentScreen()->getIndex());
 }
 
 void AppletThread::updatePage()
 {
 	Screen * currentScreen = logitech_->getCurrentScreen();
 
-	lcd_->ShowPage(currentScreen->getIndex());
 
 //	currentScreen->update();
 	currentScreen->draw();
-
-	lcd_->Update();
 
 }
