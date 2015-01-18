@@ -20,7 +20,7 @@ Controller::Controller(QtSingleApplication* app) : mainWindow_(nullptr), setting
 	QObject::connect(app, SIGNAL(messageReceived(const QString &)), this, SLOT(vMessageReceivedFromOtherInst(const QString &)));
 	
 	logitech_ = new Logitech();
-	bool success = logitech_->initKeyboard();
+	logitech_->initKeyboard();
 
 	settings_ = Settings::getInstance();
 	settings_->setLogitech(logitech_);

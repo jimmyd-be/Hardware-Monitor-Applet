@@ -77,6 +77,7 @@ void LineEditPage::initializePage()
 		QTableWidgetItem * valueItem = new QTableWidgetItem();
 		QTableWidgetItem * precisionItem = new QTableWidgetItem();
 		QTableWidgetItem * symbolItem = new QTableWidgetItem();
+		QTableWidgetItem * unitItem = new QTableWidgetItem();
 
 		idItem->setText(i.value().identifier);
 		nameItem->setText(i.value().name);
@@ -84,6 +85,7 @@ void LineEditPage::initializePage()
 		valueItem->setText(Defines::translateQueryValueEnum(i.value().value));
 		precisionItem->setText(QString::number(i.value().precision));
 		symbolItem->setText(i.key());
+		unitItem->setText(QString(i.value().addUnit ? "True" : "False"));
 
 		ui.Data_tableWidget->setItem(newRow, 0, idItem);
 		ui.Data_tableWidget->setItem(newRow, 1, symbolItem);
@@ -91,6 +93,7 @@ void LineEditPage::initializePage()
 		ui.Data_tableWidget->setItem(newRow, 3, systemItem);
 		ui.Data_tableWidget->setItem(newRow, 4, valueItem);
 		ui.Data_tableWidget->setItem(newRow, 5, precisionItem);
+		ui.Data_tableWidget->setItem(newRow, 6, unitItem);
 		
 		++i;
 		newRow++;

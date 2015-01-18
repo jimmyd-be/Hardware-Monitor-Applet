@@ -90,7 +90,7 @@ MonitorSystem Defines::translateMonitorSystemEnum(QString string)
 
 QueryValue Defines::translateQueryValueEnum(QString string)
 {
-	QueryValue value;
+	QueryValue value = QueryValue::Current;
 
 		if (string == "Current")
 		{
@@ -184,7 +184,7 @@ Alignment Defines::translateAligmentEnum(QString aligment)
 	return Alignment::Center;
 }
 
-QString Defines::translateTemperatureEnum(Temperature temp)
+QString Defines::translateTemperatureEnum(TemperatureType temp)
 {
 	switch (temp)
 	{
@@ -200,16 +200,16 @@ QString Defines::translateTemperatureEnum(Temperature temp)
 	}
 }
 
-Temperature Defines::translateTemperatureEnum(QString temp)
+TemperatureType Defines::translateTemperatureEnum(QString temp)
 {
 	if (temp == "Celsius")
 	{
-		return Temperature::Celsius;
+		return TemperatureType::Celsius;
 	}
 	else if (temp == "Fahrenheit")
 	{
-		return Temperature::Fahrenheit;
+		return TemperatureType::Fahrenheit;
 	}
 
-	return Temperature::Celsius;
+	return TemperatureType::Celsius;
 }

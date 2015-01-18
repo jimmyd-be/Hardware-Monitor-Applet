@@ -17,7 +17,7 @@
 //-----------------------------------------------------------------
 // Logitech methods
 //-----------------------------------------------------------------
-Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0)
+Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0), thread_(nullptr), startscreen_(nullptr), currentScreen_(nullptr), currentMainScreen_(nullptr)
 {
 
 }

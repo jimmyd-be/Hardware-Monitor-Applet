@@ -33,8 +33,8 @@ public:
 	void loadSettings();
 	void saveSettings();
 
-	void setTemperature(Temperature);
-	Temperature getTemperature();
+	void setTemperature(TemperatureType);
+	TemperatureType getTemperature();
 
 protected:
 	//---------------------------

@@ -20,6 +20,17 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 	setPage(Page_GraphEdit, graphPage_);
 	setPage(Page_Customize, customizePage_);
 
+	if (parent != NULL)
+	{
+		setGeometry(parent->x() + parent->width() / 2 - width_ / 2,
+			parent->y() + parent->height() / 2 - height_ / 2,
+			width_, height_);
+	}
+	else
+	{
+		resize(width_, height_);
+	}
+
 	setWindowTitle(tr("Screen Wizard"));
 }
 
@@ -35,7 +46,7 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidge
 
 	if (oldScreen->getScreenType() == ScreenType::Normal)
 	{
-		NormalScreen * oldNormalScreen = (NormalScreen*)oldScreen;
+		NormalScreen * oldNormalScreen = static_cast<NormalScreen*>(oldScreen);
 		dataPage_ = new DataPage(screenTypePage_, oldNormalScreen->getLines());
 		lineEditPage_ = new LineEditPage(dataPage_, oldNormalScreen->getLines());
 		customizePage_ = new CustomizePage(lineEditPage_, oldNormalScreen->getSettings());
@@ -53,6 +64,17 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidge
 	setPage(Page_Intro, introPage_);
 	setPage(Page_Background, backgroundPage_);
 	setPage(Page_Type, screenTypePage_);
+
+	if (parent != NULL)
+	{
+		setGeometry(parent->x() + parent->width() / 2 - width_ / 2,
+			parent->y() + parent->height() / 2 - height_ / 2,
+			width_, height_);
+	}
+	else
+	{
+		resize(width_, height_);
+	}
 
 	setWindowTitle(tr("Screen Wizard"));
 }

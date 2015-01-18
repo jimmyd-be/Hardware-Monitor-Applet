@@ -35,4 +35,7 @@ private:
 	CustomizePage * customizePage_;
 	GraphPage * graphPage_;
 	Logitech * logitech_;
+
+	int width_ = 900;
+	int height_ = 800;
 };

@@ -24,9 +24,10 @@ enum ScreenType {Normal, Graph, Start, No};
 enum QueryValue {Name, Current, Max, Min};
 enum MonitorSystem { OHM, HWiNFO, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
-enum Temperature { Celsius, Fahrenheit };
+enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
 enum PageDirection {Next, Previous, Up, Down};
+//enum SensorType { Temperature, Power, Clock, Load, Voltage, DataRate };
 
 struct Query{
 	MonitorSystem system;
@@ -34,6 +35,7 @@ struct Query{
 	QString name;
 	QueryValue value;
 	int precision;
+	bool addUnit;
 };
 
 struct LineText{
@@ -55,6 +57,7 @@ struct HardwareSensor{
 	double value;
 	double max;
 	double min;
+	QString unit;
 };
 
 struct CustomSettings
@@ -68,7 +71,7 @@ struct CustomSettings
 
 struct GeneralSettings
 {
-	Temperature temperature;
+	TemperatureType temperature;
 };
 
 //-----------------------------------------------------------------
@@ -89,8 +92,8 @@ class Defines
 		static QString translateAligmentEnum(Alignment);
 		static Alignment translateAligmentEnum(QString);
 
-		static QString translateTemperatureEnum(Temperature);
-		static Temperature translateTemperatureEnum(QString);
+		static QString translateTemperatureEnum(TemperatureType);
+		static TemperatureType translateTemperatureEnum(QString);
 
 	private:
 		//---------------------------

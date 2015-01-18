@@ -145,7 +145,17 @@ QPushButton:hover {
      <addaction name="actionCelsius"/>
      <addaction name="actionFahrenheit"/>
     </widget>
+    <widget class="QMenu" name="menuChart_Refresh_Rate">
+     <property name="title">
+      <string>Chart Refresh Rate</string>
+     </property>
+     <addaction name="action1_s"/>
+     <addaction name="action2_s"/>
+     <addaction name="action5s"/>
+     <addaction name="action10s"/>
+    </widget>
     <addaction name="menuTemperature_Unit"/>
+    <addaction name="menuChart_Refresh_Rate"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -235,6 +245,41 @@ QPushButton:hover {
   <action name="actionBackup">
    <property name="text">
     <string>Backup</string>
+   </property>
+  </action>
+  <action name="action1_s">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>1 s</string>
+   </property>
+  </action>
+  <action name="action2_s">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>2 s</string>
+   </property>
+  </action>
+  <action name="action5s">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>5 s</string>
+   </property>
+  </action>
+  <action name="action10s">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>10 s</string>
    </property>
   </action>
  </widget>

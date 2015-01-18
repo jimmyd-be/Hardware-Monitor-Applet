@@ -233,12 +233,6 @@
     <ClCompile Include="GUI\LineEditPage.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\CustomizePage.cpp">
       <Filter>GUI\ScreenWizard</Filter>
     </ClCompile>
@@ -336,6 +330,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_qcustomplot.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DataPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>

@@ -145,6 +145,11 @@
          <string>Precision</string>
         </property>
        </column>
+       <column>
+        <property name="text">
+         <string>Add Unit</string>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>

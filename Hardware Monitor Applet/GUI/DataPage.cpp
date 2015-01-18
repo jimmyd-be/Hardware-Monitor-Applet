@@ -143,7 +143,6 @@ void DataPage::addButtonClicked()
 	QList<QTableWidgetItem*> selectedItems;
 	QTableWidget * tableWidget;
 	QString system;
-	QString * value;
 
 	int newRow = ui.SelectedItems_tableWidget->rowCount();
 
@@ -170,6 +169,7 @@ void DataPage::addButtonClicked()
 		queryItem.system = Defines::translateMonitorSystemEnum(system);
 		queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
 		queryItem.precision = ui.Precision_spinBox->value();
+		queryItem.addUnit = ui.unit_checkBox->isChecked();
 
 		if (isUnique(queryItem))
 		{
@@ -181,6 +181,7 @@ void DataPage::addButtonClicked()
 			QTableWidgetItem * valueItem = new QTableWidgetItem();
 			QTableWidgetItem * precisionItem = new QTableWidgetItem();
 			QTableWidgetItem * symbolItem = new QTableWidgetItem();
+			QTableWidgetItem * unitItem = new QTableWidgetItem();
 
 			idItem->setText(queryItem.identifier);
 			nameItem->setText(queryItem.name);
@@ -188,6 +189,7 @@ void DataPage::addButtonClicked()
 			valueItem->setText(tableWidget->horizontalHeaderItem(item->column())->text());
 			precisionItem->setText(QString::number(queryItem.precision));
 			symbolItem->setText(foundNextSymbol());
+			unitItem->setText(QString(ui.unit_checkBox->isChecked() ? "True" : "False"));
 
 			ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
@@ -195,6 +197,7 @@ void DataPage::addButtonClicked()
 			ui.SelectedItems_tableWidget->setItem(newRow, 3, valueItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 4, precisionItem);
 			ui.SelectedItems_tableWidget->setItem(newRow, 5, symbolItem);
+			ui.SelectedItems_tableWidget->setItem(newRow, 6, unitItem);
 
 			newRow += 1;
 		}
@@ -218,7 +221,8 @@ bool DataPage::isUnique(Query item)
 			widget->item(row, 1)->text() == Defines::translateMonitorSystemEnum(item.system) &&
 			widget->item(row, 2)->text() == item.name &&
 			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value) &&
-			widget->item(row, 4)->text() == QString::number(item.precision))
+			widget->item(row, 4)->text() == QString::number(item.precision) &&
+			widget->item(row, 5)->text() == QString(item.addUnit ? "True" : "False"))
 		{
 			return false;
 		}
@@ -266,6 +270,15 @@ QMap<QString, Query> DataPage::getData()
 		queryItem.value = Defines::translateQueryValueEnum(widget->item(row, 3)->text());
 		queryItem.precision = widget->item(row, 4)->text().toInt();
 
+		if (widget->item(row, 6)->text() == "True")
+		{
+			queryItem.addUnit = true;
+		}
+		else
+		{
+			queryItem.addUnit = false;
+		}
+
 		returnMap.insert(widget->item(row, 5)->text(), queryItem);
 	}
 
@@ -304,6 +317,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			QTableWidgetItem * valueItem = new QTableWidgetItem();
 			QTableWidgetItem * precisionItem = new QTableWidgetItem();
 			QTableWidgetItem * symbolItem = new QTableWidgetItem();
+			QTableWidgetItem * unitItem = new QTableWidgetItem();
 
 			idItem->setText(i.value().identifier);
 			nameItem->setText(i.value().name);
@@ -311,6 +325,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			valueItem->setText(Defines::translateQueryValueEnum(i.value().value));
 			precisionItem->setText(QString::number(i.value().precision));
 			symbolItem->setText(i.key());
+			unitItem->setText(QString(i.value().addUnit ? "True" : "False"));
 
 			ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
 			ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
@@ -318,6 +333,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			ui.SelectedItems_tableWidget->setItem(row, 3, valueItem);
 			ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
 			ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
+			ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
 
 			row += 1;
 			++i;

@@ -75,11 +75,11 @@ void MainWindow::settingsChanged()
 {
 	if (ui.actionCelsius->isChecked())
 	{
-		Settings::getInstance()->setTemperature(Temperature::Celsius);
+		Settings::getInstance()->setTemperature(TemperatureType::Celsius);
 	}
 	else if (ui.actionFahrenheit->isChecked())
 	{
-		Settings::getInstance()->setTemperature(Temperature::Fahrenheit);
+		Settings::getInstance()->setTemperature(TemperatureType::Fahrenheit);
 	}
 }
 

@@ -48,12 +48,12 @@ Settings::~Settings()
 	}
 }
 
-void Settings::setTemperature(Temperature temp)
+void Settings::setTemperature(TemperatureType temp)
 {
 	generalSettings_.temperature = temp;
 }
 
-Temperature Settings::getTemperature()
+TemperatureType Settings::getTemperature()
 {
 	return generalSettings_.temperature;
 }
@@ -120,7 +120,8 @@ void Settings::loadNormalScreenSettings(QString name, QString background, Screen
 			query.identifier = settings_->value("id").toString();
 			query.name = settings_->value("name").toString();
 			query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
-			settings_->value("precision").toInt();
+			query.precision = settings_->value("precision").toInt();
+			query.addUnit = settings_->value("addUnit").toBool();
 
 			queryMap.insert(key, query);
 		}
@@ -342,6 +343,7 @@ void Settings::saveNormalScreenSettings(NormalScreen * screen)
 			settings_->setValue("name", k.value().name);
 			settings_->setValue("value", k.value().value);
 			settings_->setValue("precision", k.value().precision);
+			settings_->setValue("addUnit", k.value().addUnit);
 
 			index++;
 			++k;
