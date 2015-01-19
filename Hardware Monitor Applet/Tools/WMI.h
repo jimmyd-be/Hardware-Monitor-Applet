@@ -28,6 +28,8 @@
 # pragma comment(lib, "wbemuuid.lib")
 using namespace std;
 
+class Settings;
+
 //-----------------------------------------------------------------
 // WMI Class
 //-----------------------------------------------------------------
@@ -56,6 +58,8 @@ private:
 	// Private Methods
 	//---------------------------
 	void connect();
+	HardwareSensor addUnit(HardwareSensor, QString);
+	float transformData(float, QString);
 
 	//--------------------------
 	// Datamembers
@@ -65,6 +69,7 @@ private:
 	IEnumWbemClassObject* pEnumerator_;
 	IWbemClassObject *pclsObj_;
 	HRESULT hres_;
+	Settings * settings_;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

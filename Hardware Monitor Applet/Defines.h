@@ -54,9 +54,9 @@ struct AppletFont{
 struct HardwareSensor{
 	QString id;
 	QString name;
-	double value;
-	double max;
-	double min;
+	QString value;
+	QString max;
+	QString min;
 	QString unit;
 };
 
@@ -73,6 +73,8 @@ struct GeneralSettings
 {
 	TemperatureType temperature;
 };
+
+const QChar degreeChar(0260);
 
 //-----------------------------------------------------------------
 // Defines Class

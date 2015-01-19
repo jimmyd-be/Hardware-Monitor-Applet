@@ -1,6 +1,7 @@
 #include <QtWidgets/QApplication>
 #include <external\QSingleApplication\qtsingleapplication.h>
 #include "Controller.h"
+#include <QTextCodec>
 //#include "Tools\Data.h"
 
 #include <GUI\mainwindow.h>
@@ -10,6 +11,7 @@ int main(int argc, char *argv[])
 	Controller * controller = nullptr;
 
 	QtSingleApplication a(argc, argv);
+
 
 	if (a.isRunning())
 	{

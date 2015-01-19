@@ -110,9 +110,9 @@ void DataPage::loadData(MonitorSystem system)
 
 		idItem->setText(sensor.id);
 		nameItem->setText(sensor.name);
-		minItem->setText(QString::number(sensor.min));
-		maxItem->setText(QString::number(sensor.max));
-		currentItem->setText(QString::number(sensor.value));
+		minItem->setText(sensor.min);
+		maxItem->setText(sensor.max);
+		currentItem->setText(sensor.value);
 
 		widget->setItem(row, 0, idItem);
 		widget->setItem(row, 1, nameItem);

@@ -31,7 +31,6 @@ Screen::~Screen()
 		DeleteObject(background_);
 		background_ = nullptr;
 	}
-
 }
 
 ScreenType Screen::getScreenType()
