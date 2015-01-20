@@ -126,6 +126,8 @@ CreateScreenWizard::~CreateScreenWizard()
 
 void CreateScreenWizard::accept()
 {
+	QString oldBackground = Defines::getSettingsFolder() + "/Background/" +logitech_->getScreenData(oldPageName_)->getBackground();
+
 	if (!oldPageName_.isEmpty())
 	{
 		logitech_->deleteScreen(oldPageName_);
@@ -135,9 +137,21 @@ void CreateScreenWizard::accept()
 
 	if (!backgroundPage_->getBackground().isEmpty())
 	{
-		copyBackground();
+		if (oldBackground != backgroundPage_->getBackground())
+		{
+			if (!oldBackground.isEmpty())
+			{
+				removeBackground(oldBackground);
+			}
+			copyBackground();
+		}
 
 		background = introPage_->getPageName() + "." + backgroundPage_->getSuffix();
+	}
+
+	else if (backgroundPage_->getBackground().isEmpty() && !oldBackground.isEmpty())
+	{
+		removeBackground(oldBackground);
 	}
 
 	if (screenTypePage_->getScreenType() == ScreenType::Normal)
@@ -159,7 +173,7 @@ void CreateScreenWizard::copyBackground()
 {
 	QFileInfo oldFile(backgroundPage_->getBackground());
 
-	QString newDir = Defines::getSettingsFolder() + "/Background";
+	QString newDir = Defines::getSettingsFolder() + "/Background/";
 	QString newFile = newDir + "/" + introPage_->getPageName() + "." + oldFile.completeSuffix();
 
 	QDir dir(newDir);
@@ -177,4 +191,14 @@ void CreateScreenWizard::copyBackground()
 	}
 
 	QFile::copy(backgroundPage_->getBackground(), newFile);
+}
+
+void CreateScreenWizard::removeBackground(QString file)
+{
+	QFile background(file);
+
+	if (background.exists())
+	{
+		background.remove();
+	}
 }

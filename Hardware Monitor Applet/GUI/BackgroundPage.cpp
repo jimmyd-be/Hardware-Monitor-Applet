@@ -45,7 +45,7 @@ BackgroundPage::BackgroundPage(QString background, QWidget *parent)
 		ui.Browse_pushButton->setDisabled(false);
 		ui.CustomBackground_RadioButton->setChecked(true);
 
-		ui.Background_lineEdit->setText(background);
+		ui.Background_lineEdit->setText(Defines::getSettingsFolder() + "/Background/" + background);
 	}
 
 	connect(ui.buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(radioButtonClicked()));

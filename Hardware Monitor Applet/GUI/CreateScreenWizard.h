@@ -24,6 +24,7 @@ public:
 
 private:
 	void copyBackground();
+	void removeBackground(QString);
 
 	Logitech * logitech_;
 

@@ -60,6 +60,7 @@ private:
 	void connect();
 	HardwareSensor addUnit(HardwareSensor, QString);
 	float transformData(float, QString);
+	QString getUnit(QString);
 
 	//--------------------------
 	// Datamembers

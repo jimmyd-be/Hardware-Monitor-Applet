@@ -74,7 +74,7 @@ void Screen::setBackground(QString background)
 	else
 	{
 		backgroundString_ = background;
-		backgroundTemp = backgroundString_;
+		backgroundTemp = Defines::getSettingsFolder() + "/Background/" + background;
 	}
 
 	QPixmap backgroundPixMap(backgroundTemp);

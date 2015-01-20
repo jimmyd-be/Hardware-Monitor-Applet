@@ -36,6 +36,7 @@ private:
 	Logitech * logitech_;
 	QVector<MainScreenWidget *> widgetList_;
 	Controller * controller_;
+	QActionGroup * degreeGroup_;
 
 private slots:
 	void openScreenWizard();

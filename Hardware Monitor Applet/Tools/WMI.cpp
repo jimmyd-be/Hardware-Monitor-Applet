@@ -254,6 +254,155 @@ MonitorSystem WMI::getMonitorSystem()
 
 QString WMI::getData(Query query)
 {
+	QString returnValue = "";
+
+	string queryString = "select * from Sensor WHERE Identifier = '" + query.identifier.toStdString() + "'";
+
+	if (pSvc_ != 0)
+	{
+		hres_ = pSvc_->ExecQuery(
+			bstr_t("WQL"),
+			bstr_t(queryString.c_str()),
+			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+			NULL,
+			&pEnumerator_);
+
+		if (!FAILED(hres_))
+		{
+			ULONG uReturn = 0;
+			CIMTYPE pType;
+
+			while (pEnumerator_)
+			{
+				QString sensorType = "";
+
+				HRESULT hr = pEnumerator_->Next(WBEM_INFINITE, 1,
+					&pclsObj_, &uReturn);
+
+				if (0 == uReturn)
+				{
+					break;
+				}
+
+				VARIANT vtProp;
+
+				wstring stemp = _T("SensorType");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+					sensorType = QString::fromStdString(string(ws.begin(), ws.end()));
+					ws.clear();
+
+					hr = 0;
+				}
+
+				stemp = _T("Max");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+
+					hr = 0;
+				}
+
+				stemp = _T("Min");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+
+					hr = 0;
+				}
+
+				stemp = _T("Value");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+
+					hr = 0;
+				}
+
+				stemp = _T("Name");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+					returnValue = QString::fromStdString(string(ws.begin(), ws.end()));
+					ws.clear();
+
+					hr = 0;
+				}
+
+				VariantClear(&vtProp);
+				uReturn = 0;
+				pclsObj_->Release();
+
+				if (query.addUnit)
+				{
+					returnValue += getUnit(sensorType);
+				}
+
+			}
+			pEnumerator_->Release();
+		}
+	}
+	return returnValue;
+}
+
+QString WMI::getUnit(QString sensorType)
+{
+	if (sensorType == "Fan")
+	{
+		return "RPM";
+	}
+	else if (sensorType == "Load")
+	{
+		return "%";
+	}
+	else if (sensorType == "Clock")
+	{
+		return "MHz";
+	}
+	else if (sensorType == "Power")
+	{
+		return "W";
+	}
+	else if (sensorType == "Control")
+	{
+		return "%";
+	}
+	else if (sensorType == "Temperature")
+	{
+		if (settings_->getTemperature() == TemperatureType::Celsius)
+		{
+			return QString("%1C").arg(degreeChar);
+		}
+		else
+		{
+			return QString("%1F").arg(degreeChar);
+		}
+	}
+	else if (sensorType == "Data")
+	{
+		return "GB";
+	}
+
+	else if (sensorType == "Voltage")
+	{
+		return "V";
+	}
 
 	return "";
 }

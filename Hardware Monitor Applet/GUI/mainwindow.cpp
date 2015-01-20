@@ -2,11 +2,20 @@
 #include "../Controller.h"
 
 MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech), controller_(controller)
+	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr)
 {
 	ui.setupUi(this);
 
 	keyboardChanged(logitech->getKeyboardType());
+
+	degreeGroup_ = new QActionGroup(this);
+	degreeGroup_->addAction(ui.actionFahrenheit);
+	degreeGroup_->addAction(ui.actionCelsius);
+
+	if (Settings::getInstance()->getTemperature() == TemperatureType::Fahrenheit)
+	{
+		ui.actionFahrenheit->setChecked(true);
+	}
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
 	connect(ui.Order_pushButton, SIGNAL(clicked()), this, SLOT(openOrderWindow()));
@@ -21,6 +30,12 @@ MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *pa
 MainWindow::~MainWindow()
 {
 	removePages();
+
+	if (degreeGroup_ != nullptr)
+	{
+		delete degreeGroup_;
+		degreeGroup_ = nullptr;
+	}
 }
 
 void MainWindow::keyboardChanged(KeyboardTypes type)

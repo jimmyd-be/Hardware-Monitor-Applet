@@ -51,6 +51,8 @@ Settings::~Settings()
 void Settings::setTemperature(TemperatureType temp)
 {
 	generalSettings_.temperature = temp;
+
+	saveSettings();
 }
 
 TemperatureType Settings::getTemperature()
