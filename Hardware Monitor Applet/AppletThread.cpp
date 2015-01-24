@@ -27,6 +27,9 @@ AppletThread::~AppletThread()
 
 void AppletThread::run()
 {
+	//WMI * wmiThread = new WMI(ThreadType::Thread);
+	//Data::Instance()->addMonitorTool(wmiThread);
+
 	while (isRunning())
 	{
 		time_ += 30;

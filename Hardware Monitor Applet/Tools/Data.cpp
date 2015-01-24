@@ -63,7 +63,7 @@ QVector<HardwareSensor> Data::getAllData(MonitorSystem system)
 
 	for (MonitorTool * monitorSystem : tools_)
 	{
-		if (monitorSystem->getMonitorSystem() == system)
+		if (monitorSystem->getMonitorSystem() == system )
 		{
 			return monitorSystem->getAllSensors();
 		}

@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
 {
 	Controller * controller = nullptr;
 
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+
 	QtSingleApplication a(argc, argv);
 
 
@@ -44,6 +46,8 @@ int main(int argc, char *argv[])
 		delete controller;
 		controller = nullptr;
 	}
+
+	CoUninitialize();
 
 	return 0;
 }

@@ -48,15 +48,15 @@ IntroPage::~IntroPage()
 
 bool IntroPage::validatePage()
 {
-	if (ui.ScreenName_lineEdit->text() != oldPagename_)
+	if (ui.ScreenName_lineEdit->text().isEmpty())
 	{
-		if (ui.ScreenName_lineEdit->text().isEmpty())
-		{
-			ui.Error_label->setText("You must fillin a screenname!!");
+		ui.Error_label->setText("You must fillin a screenname!!");
 
-			return false;
-		}
+		return false;
+	}
 
+	else if (ui.ScreenName_lineEdit->text() != oldPagename_)
+	{
 		for (Screen * screenData : screenNames_)
 		{
 			if (ui.ScreenName_lineEdit->text() == screenData->getName())

@@ -46,7 +46,7 @@ void WMI::connect()
 {
 	// Initialize COM. ------------------------------------------
 
-	hres_ = CoInitializeEx(0, COINIT_APARTMENTTHREADED);
+	hres_ = CoInitializeEx(0, COINIT_MULTITHREADED);
 
 	if (!FAILED(hres_))
 	{
@@ -127,6 +127,7 @@ void WMI::connect()
 
 QVector<HardwareSensor> WMI::getAllSensors()
 {
+
 	QVector<HardwareSensor> sensors;
 
 	string query = "select * from Sensor";
@@ -299,50 +300,63 @@ QString WMI::getData(Query query)
 					hr = 0;
 				}
 
-				stemp = _T("Max");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
+				if (query.value == QueryValue::Max)
 				{
-					returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
 
-					hr = 0;
+					stemp = _T("Max");
+
+					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+					if (!FAILED(hr))
+					{
+						returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+
+						hr = 0;
+					}
 				}
 
-				stemp = _T("Min");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
+				if (query.value == QueryValue::Min)
 				{
-					returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+					stemp = _T("Min");
 
-					hr = 0;
+					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+					if (!FAILED(hr))
+					{
+						returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+
+						hr = 0;
+					}
 				}
 
-				stemp = _T("Value");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
+				if (query.value == QueryValue::Current)
 				{
-					returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+					stemp = _T("Value");
 
-					hr = 0;
+					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+					if (!FAILED(hr))
+					{
+						returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+
+						hr = 0;
+					}
 				}
 
-				stemp = _T("Name");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
+				if (query.value == QueryValue::Name)
 				{
-					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-					returnValue = QString::fromStdString(string(ws.begin(), ws.end()));
-					ws.clear();
+					stemp = _T("Name");
 
-					hr = 0;
+					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+					if (!FAILED(hr))
+					{
+						wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+						returnValue = QString::fromStdString(string(ws.begin(), ws.end()));
+						ws.clear();
+
+						hr = 0;
+					}
 				}
 
 				VariantClear(&vtProp);
@@ -351,60 +365,61 @@ QString WMI::getData(Query query)
 
 				if (query.addUnit)
 				{
-					returnValue += getUnit(sensorType);
+					returnValue = addUnit(sensorType, returnValue);
 				}
 
 			}
 			pEnumerator_->Release();
 		}
 	}
+
 	return returnValue;
 }
 
-QString WMI::getUnit(QString sensorType)
+QString WMI::addUnit(QString sensorType, QString value)
 {
 	if (sensorType == "Fan")
 	{
-		return "RPM";
+		return value + "RPM";
 	}
 	else if (sensorType == "Load")
 	{
-		return "%";
+		return value + "%";
 	}
 	else if (sensorType == "Clock")
 	{
-		return "MHz";
+		return value + "MHz";
 	}
 	else if (sensorType == "Power")
 	{
-		return "W";
+		return value + "W";
 	}
 	else if (sensorType == "Control")
 	{
-		return "%";
+		return value + "%";
 	}
 	else if (sensorType == "Temperature")
 	{
 		if (settings_->getTemperature() == TemperatureType::Celsius)
 		{
-			return QString("%1C").arg(degreeChar);
+			return value + QString("%1C").arg(degreeChar);
 		}
 		else
 		{
-			return QString("%1F").arg(degreeChar);
+			return value + QString("%1F").arg(degreeChar);
 		}
 	}
 	else if (sensorType == "Data")
 	{
-		return "GB";
+		return value + "GB";
 	}
 
 	else if (sensorType == "Voltage")
 	{
-		return "V";
+		return value + "V";
 	}
 
-	return "";
+	return value;
 }
 
 HardwareSensor WMI::addUnit(HardwareSensor currentSensor, QString sensorType)

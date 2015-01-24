@@ -31,6 +31,7 @@ public:
 	QVector<HardwareSensor> getAllData(MonitorSystem system);
 	QStringList translateLines(QList<LineText>);
 
+
 private:
 	//---------------------------
 	// Constructor(s)

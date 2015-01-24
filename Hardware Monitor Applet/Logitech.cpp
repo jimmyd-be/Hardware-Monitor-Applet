@@ -111,6 +111,7 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 	screenList_.append(screen);
 }
 
+
 void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors)
 {
 	/*GraphScreen * screen = new GraphScreen(&lcd_, name);

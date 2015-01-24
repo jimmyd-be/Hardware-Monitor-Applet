@@ -126,7 +126,15 @@ CreateScreenWizard::~CreateScreenWizard()
 
 void CreateScreenWizard::accept()
 {
-	QString oldBackground = Defines::getSettingsFolder() + "/Background/" +logitech_->getScreenData(oldPageName_)->getBackground();
+	Screen * oldScreen = logitech_->getScreenData(oldPageName_);
+	
+	QString oldBackground = "";
+
+	if (oldScreen != nullptr)
+	{
+		QString oldBackground = Defines::getSettingsFolder() + "/Background/" + logitech_->getScreenData(oldPageName_)->getBackground();
+	}
+
 
 	if (!oldPageName_.isEmpty())
 	{
