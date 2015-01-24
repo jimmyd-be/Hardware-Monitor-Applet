@@ -32,6 +32,8 @@ LineEditPage::LineEditPage(DataPage* page, QList<LineText> lines, QWidget *paren
 	layout_->addWidget(widget_);
 	setLayout(layout_);
 
+	connect(ui.AddLine_pushButton, SIGNAL(clicked()), this, SLOT(addLine()));
+
 	loadLines(lines);
 }
 
