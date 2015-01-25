@@ -64,9 +64,9 @@ bool Logitech::initKeyboard()
 
 		lcd_.SetAsForeground(true);
 
-		openStartScreen();
-
 		thread_ = new AppletThread(&lcd_, this);
+
+		openStartScreen();
 
 		thread_->start();
 

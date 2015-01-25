@@ -138,7 +138,6 @@ void AppletThread::checkbuttonPressesColor()
 void AppletThread::updatePage()
 {
 	Screen * currentScreen = logitech_->getCurrentScreen();
-	lcd_->ShowPage(currentScreen->getPage());
 
 //	currentScreen->update();
 	currentScreen->draw();

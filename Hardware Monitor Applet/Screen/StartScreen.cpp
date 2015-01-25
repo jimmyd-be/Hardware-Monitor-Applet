@@ -61,6 +61,20 @@ void StartScreen::drawColor()
 	lcd_->SetOrigin(line4, 0, 17 * 6);
 	lcd_->SetTextFontColor(line4, RGB(255, 255, 255));
 	lcd_->SetText(line4, _T("create new screens"));
+
+	if (line1 == nullptr || line2 == nullptr || line3 == nullptr || line4 == nullptr)
+	{
+		firstStart_ = true;
+	}
+	else
+	{
+		lineHandles_.append(line1);
+		lineHandles_.append(line2);
+		lineHandles_.append(line3);
+		lineHandles_.append(line4);
+
+		firstStart_ = false;
+	}
 }
 
 void StartScreen::drawMonochrome()
@@ -69,6 +83,7 @@ void StartScreen::drawMonochrome()
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 
+	firstStart_ = false;
 }
 
 void StartScreen::draw()
@@ -84,17 +99,5 @@ void StartScreen::draw()
 		{
 			drawMonochrome();
 		}
-
-		firstStart_ = false;
-	}
-
-	if (lcd_->IsDeviceAvailable(LG_COLOR))
-	{
-		lcd_->ModifyDisplay(LG_COLOR);
-	}
-
-	else if (lcd_->IsDeviceAvailable(LG_MONOCHROME))
-	{
-		lcd_->ModifyDisplay(LG_MONOCHROME);
 	}
 }
