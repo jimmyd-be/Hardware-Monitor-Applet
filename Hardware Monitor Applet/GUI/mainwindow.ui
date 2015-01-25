@@ -145,17 +145,7 @@ QPushButton:hover {
      <addaction name="actionCelsius"/>
      <addaction name="actionFahrenheit"/>
     </widget>
-    <widget class="QMenu" name="menuChart_Refresh_Rate">
-     <property name="title">
-      <string>Chart Refresh Rate</string>
-     </property>
-     <addaction name="action1_s"/>
-     <addaction name="action2_s"/>
-     <addaction name="action5s"/>
-     <addaction name="action10s"/>
-    </widget>
     <addaction name="menuTemperature_Unit"/>
-    <addaction name="menuChart_Refresh_Rate"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">

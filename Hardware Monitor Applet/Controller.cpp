@@ -64,11 +64,11 @@ void Controller::closeSettingsScreen()
 {
 	mainWindow_->hide();
 
-	if (mainWindow_ != nullptr)
+/*	if (mainWindow_ != nullptr)
 	{	
 		delete mainWindow_;
 		mainWindow_  = nullptr;
-	}
+	}*/
 }
 
 void Controller::quitApplication()

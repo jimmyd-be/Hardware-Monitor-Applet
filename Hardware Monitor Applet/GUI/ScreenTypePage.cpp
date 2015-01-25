@@ -1,7 +1,7 @@
 #include "ScreenTypePage.h"
 
 
-ScreenTypePage::ScreenTypePage(QWidget *parent)
+ScreenTypePage::ScreenTypePage(KeyboardTypes type, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr)
 {
 	setTitle(tr("Type selection"));
@@ -13,9 +13,14 @@ ScreenTypePage::ScreenTypePage(QWidget *parent)
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
 	setLayout(layout_);
+
+	if (type == KeyboardTypes::Monochrome)
+	{
+		ui.GraphScreen_radioButton->setDisabled(true);
+	}
 }
 
-ScreenTypePage::ScreenTypePage(ScreenType type, QWidget *parent)
+ScreenTypePage::ScreenTypePage(ScreenType type, KeyboardTypes keyboard, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr)
 {
 	setTitle(tr("Type selection"));

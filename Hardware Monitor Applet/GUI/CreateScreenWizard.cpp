@@ -6,7 +6,7 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 {
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType());
 	backgroundPage_ = new BackgroundPage();
-	screenTypePage_ = new ScreenTypePage();
+	screenTypePage_ = new ScreenTypePage(logitech_->getKeyboardType());
 	dataPage_ = new DataPage(screenTypePage_);
 	lineEditPage_ = new LineEditPage(dataPage_);	
 	customizePage_ = new CustomizePage(lineEditPage_);
@@ -42,7 +42,7 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidge
 
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType(), oldPageName_);
 	backgroundPage_ = new BackgroundPage(oldScreen->getBackground());
-	screenTypePage_ = new ScreenTypePage(oldScreen->getScreenType());
+	screenTypePage_ = new ScreenTypePage(oldScreen->getScreenType(), logitech_->getKeyboardType());
 
 	if (oldScreen->getScreenType() == ScreenType::Normal)
 	{

@@ -11,6 +11,7 @@
 #include "OrderWindow.h"
 #include <QDesktopServices>
 #include <QScrollArea>
+#include "AboutDialog.h"
 
 class Controller;
 
@@ -46,6 +47,7 @@ private slots:
 	void closeWindow();
 	void settingsChanged();
 	void reportIssue();
+	void openAboutWindow();
 }; 
 
 #endif // MAINWINDOW_H

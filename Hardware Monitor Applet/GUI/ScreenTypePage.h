@@ -10,8 +10,8 @@ class ScreenTypePage: public QWizardPage
 	Q_OBJECT
 
 public:
-	ScreenTypePage(QWidget *parent = 0);
-	ScreenTypePage(ScreenType type, QWidget *parent = 0);
+	ScreenTypePage(KeyboardTypes keyboard, QWidget *parent = 0);
+	ScreenTypePage(ScreenType type, KeyboardTypes keyboard, QWidget *parent = 0);
 	virtual ~ScreenTypePage();
 
 	ScreenType getScreenType();

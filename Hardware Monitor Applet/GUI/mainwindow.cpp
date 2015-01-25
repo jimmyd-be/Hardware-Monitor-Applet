@@ -23,6 +23,8 @@ MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *pa
 	connect(ui.actionExit, SIGNAL(triggered()), this, SLOT(closeProgram()));
 	connect(ui.actionFahrenheit, SIGNAL(triggered()), this, SLOT(settingsChanged()));
 	connect(ui.actionCelsius, SIGNAL(triggered()), this, SLOT(settingsChanged()));
+	connect(ui.actionReport_a_bug, SIGNAL(triggered()), this, SLOT(reportIssue()));
+	connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(openAboutWindow()));
 
 	fillinPages();
 }
@@ -75,6 +77,15 @@ void MainWindow::reportIssue()
 {
 	QUrl url("https://bitbucket.org/jimmyD/hardware-monitor-applet-for-logitech-lcd/issues?status=new&status=open");
 	QDesktopServices::openUrl(url);
+}
+
+void MainWindow::openAboutWindow()
+{
+	AboutDialog * dialog = new AboutDialog();
+
+	dialog->exec();
+
+	delete dialog;
 }
 
 void MainWindow::openScreenWizard()
