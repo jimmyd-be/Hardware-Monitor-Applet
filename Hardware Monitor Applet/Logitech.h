@@ -65,6 +65,9 @@ private:
 	QList<LineText> optimizeData(QStringList lines, QMap<QString, Query> dataList);
 	QList<LineText> optimizeLines(QList<LineText>);
 
+	void openStartScreen();
+	void closeStartScreen();
+
 	// -------------------------
 	// Datamembers
 	// -------------------------

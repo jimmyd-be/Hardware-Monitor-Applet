@@ -38,12 +38,12 @@ public:
     BOOL IsDeviceAvailable(DisplayType type);
     VOID ModifyDisplay(DisplayType type);
 
-    INT AddNewPage();
-    INT RemovePage(INT pageNumber);
+	CEzLcdPage* AddNewPage();
+	INT RemovePage(CEzLcdPage* page);
     INT GetPageCount();
     INT AddNumberOfPages(INT numberOfPages);
-    HRESULT ModifyControlsOnPage(INT pageNumber);
-    HRESULT ShowPage(INT pageNumber);
+	HRESULT ModifyControlsOnPage(CEzLcdPage* page);
+	HRESULT ShowPage(CEzLcdPage* page);
     INT GetCurrentPageNumber();
 
     VOID SetBackground(HBITMAP bitmap);

@@ -27,8 +27,6 @@ AppletThread::~AppletThread()
 
 void AppletThread::run()
 {
-	//WMI * wmiThread = new WMI(ThreadType::Thread);
-	//Data::Instance()->addMonitorTool(wmiThread);
 
 	while (isRunning())
 	{
@@ -75,68 +73,71 @@ void AppletThread::checkButtonPresses()
 
 void AppletThread::checkbuttonPressesMonochrome()
 {
-	lcd_->ModifyDisplay(LG_MONOCHROME);
-
-	if (lcd_->ButtonTriggered(LG_BUTTON_1))
+	if (logitech_->getCurrentScreen()->getScreenType() != ScreenType::Start)
 	{
-		logitech_->changeCurrentScreen(PageDirection::Previous);
+		lcd_->ModifyDisplay(LG_MONOCHROME);
+
+		if (lcd_->ButtonTriggered(LG_BUTTON_1))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Previous);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_2))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Down);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_3))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Up);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_4))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Next);
+		}
 	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_2))
-	{
-		logitech_->changeCurrentScreen(PageDirection::Down);
-	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_3))
-	{
-		logitech_->changeCurrentScreen(PageDirection::Up);
-	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_4))
-	{
-		logitech_->changeCurrentScreen(PageDirection::Next);
-	}
-
-	lcd_->ShowPage(logitech_->getCurrentScreen()->getIndex());
-
+	lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
 }
 
 void AppletThread::checkbuttonPressesColor()
 {
-	lcd_->ModifyDisplay(LG_COLOR);
-
-	if (lcd_->ButtonTriggered(LG_BUTTON_RIGHT))
+	if (logitech_->getCurrentScreen()->getScreenType() != ScreenType::Start)
 	{
-		logitech_->changeCurrentScreen(PageDirection::Next);
+		lcd_->ModifyDisplay(LG_COLOR);
+
+		if (lcd_->ButtonTriggered(LG_BUTTON_RIGHT))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Next);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_LEFT))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Previous);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_UP))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Up);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_DOWN))
+		{
+			logitech_->changeCurrentScreen(PageDirection::Down);
+		}
+
+		else if (lcd_->ButtonTriggered(LG_BUTTON_OK))
+		{
+
+		}
+
 	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_LEFT))
-	{
-		logitech_->changeCurrentScreen(PageDirection::Previous);
-	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_UP))
-	{
-		logitech_->changeCurrentScreen(PageDirection::Up);
-	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_DOWN))
-	{
-		logitech_->changeCurrentScreen(PageDirection::Down);
-	}
-
-	else if (lcd_->ButtonTriggered(LG_BUTTON_OK))
-	{
-
-	}
-
-	lcd_->ShowPage(logitech_->getCurrentScreen()->getIndex());
+	lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
 }
 
 void AppletThread::updatePage()
 {
 	Screen * currentScreen = logitech_->getCurrentScreen();
-
 
 //	currentScreen->update();
 	currentScreen->draw();

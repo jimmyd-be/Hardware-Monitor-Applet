@@ -51,7 +51,7 @@ void NormalScreen::setSettings(QList<CustomSettings> settings)
 
 void NormalScreen::drawColor()
 {
-	lcd_->ModifyControlsOnPage(screenId_);
+	lcd_->ModifyControlsOnPage(screenPage_);
 
 	lcd_->ModifyDisplay(LG_COLOR);
 
@@ -112,7 +112,7 @@ void NormalScreen::drawColor()
 
 void NormalScreen::drawMonochrome()
 {
-	lcd_->ModifyControlsOnPage(screenId_);
+	lcd_->ModifyControlsOnPage(screenPage_);
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 

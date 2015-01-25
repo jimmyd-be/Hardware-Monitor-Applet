@@ -39,7 +39,7 @@ public:
 	void setBackground(QString background);
 	QList<QColor> getGraphColors();
 
-	int getIndex();
+	CEzLcdPage* getPage();
 
 	QString getBackground();
 
@@ -53,7 +53,7 @@ protected:
 	QString backgroundString_;
 	bool firstStart_;
 
-	int screenId_;
+	CEzLcdPage* screenPage_;
 	Data * data_;
 	
 	

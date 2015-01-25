@@ -39,7 +39,7 @@ Logitech::~Logitech()
 
 	for (int i = 0; i < screenList_.length(); i++)
 	{
-		lcd_.RemovePage(i);
+		lcd_.RemovePage(screenList_[i]->getPage());
 		delete screenList_[i];
 	}	
 }
@@ -53,19 +53,18 @@ bool Logitech::initKeyboard()
 		if (lcd_.IsDeviceAvailable(LG_COLOR))
 		{
 			keyboardType_ = KeyboardTypes::Color;
-			startscreen_ = new StartScreen(&lcd_, "StartScreen");
-
-			currentScreen_ = startscreen_;
+			
 		}
 
 		else if (lcd_.IsDeviceAvailable(LG_MONOCHROME))
 		{
 			keyboardType_ = KeyboardTypes::Monochrome;
 
-			startscreen_ = new StartScreen(&lcd_, "StartScreen");
-
-			currentScreen_ = startscreen_;
 		}
+
+		lcd_.SetAsForeground(true);
+
+		openStartScreen();
 
 		thread_ = new AppletThread(&lcd_, this);
 
@@ -217,10 +216,16 @@ void Logitech::changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<Q
 		++i;
 	}
 
-	if (mainOrder_.size() > 0)
+	if (mainOrder_.size() == 0)
+	{
+		openStartScreen();
+	}
+	else
 	{
 		currentScreen_ = mainOrder_[0];
 		currentMainScreen_ = mainOrder_[0];
+
+		closeStartScreen();
 	}
 }
 
@@ -266,7 +271,7 @@ void Logitech::deleteScreen(QString name)
 
 	if (mainOrder_.size() == 0)
 	{
-		currentScreen_ = startscreen_;
+		openStartScreen();
 	}
 }
 
@@ -369,4 +374,23 @@ void Logitech::changeCurrentScreen(PageDirection direction)
 
 		currentScreen_ = subScreen.at(currentPosition);
 	}
+}
+
+void Logitech::openStartScreen()
+{
+	if (startscreen_ == nullptr)
+	{
+		startscreen_ = new StartScreen(&lcd_, "StartScreen");
+	}
+
+	currentScreen_ = startscreen_;
+}
+
+void Logitech::closeStartScreen()
+{
+	/*if (startscreen_ != nullptr)
+	{
+		delete startscreen_;
+		startscreen_ = nullptr;
+	}*/
 }

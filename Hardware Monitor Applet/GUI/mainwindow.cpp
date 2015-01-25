@@ -36,6 +36,7 @@ MainWindow::~MainWindow()
 		delete degreeGroup_;
 		degreeGroup_ = nullptr;
 	}
+
 }
 
 void MainWindow::keyboardChanged(KeyboardTypes type)

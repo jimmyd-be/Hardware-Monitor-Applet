@@ -10,6 +10,7 @@
 #include "../Settings.h"
 #include "OrderWindow.h"
 #include <QDesktopServices>
+#include <QScrollArea>
 
 class Controller;
 

@@ -19,12 +19,12 @@ Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nu
 {
 	data_ = Data::Instance();
 
-	screenId_ = lcd_->AddNewPage()-1;
+	screenPage_ = lcd_->AddNewPage();
 }
 
 Screen::~Screen()
 {
-	lcd_->RemovePage(screenId_);
+	lcd_->RemovePage(screenPage_);
 
 	if (background_ != nullptr)
 	{
@@ -92,7 +92,7 @@ QString Screen::getBackground()
 	return backgroundString_;
 }
 
-int Screen::getIndex()
+CEzLcdPage* Screen::getPage()
 {
-	return screenId_;
+	return screenPage_;
 }

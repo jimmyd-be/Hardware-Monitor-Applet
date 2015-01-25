@@ -30,6 +30,7 @@ public:
 	//---------------------------
 	ScreenType getScreenType();
 	void update();
+	void draw();
 	
 	void drawColor();
 	void drawMonochrome();
