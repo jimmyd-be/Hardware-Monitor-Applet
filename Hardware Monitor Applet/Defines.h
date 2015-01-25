@@ -27,7 +27,6 @@ enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Pag
 enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
 enum PageDirection {Next, Previous, Up, Down};
-//enum SensorType { Temperature, Power, Clock, Load, Voltage, DataRate };
 
 struct Query{
 	MonitorSystem system;
@@ -42,6 +41,12 @@ struct LineText{
 	QString text;
 	QMap<QString, Query> queryMap;
 	HANDLE textHandle;
+};
+
+struct GraphLine{
+	QString text;
+	Query query;
+	QColor color;
 };
 
 struct AppletFont{

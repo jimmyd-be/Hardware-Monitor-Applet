@@ -39,3 +39,13 @@ void GraphScreen::update()
 {
 
 }
+
+void GraphScreen::setData(QList<GraphLine> data)
+{
+	graphData_ = data;
+}
+
+QList<GraphLine> GraphScreen::getData()
+{
+	return graphData_;
+}

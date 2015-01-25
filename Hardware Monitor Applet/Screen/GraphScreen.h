@@ -33,11 +33,15 @@ public:
 
 	ScreenType getScreenType();
 
+	void setData(QList<GraphLine>);
+
+	QList<GraphLine> getData();
+
 private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	
+	QList<GraphLine> graphData_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

@@ -90,11 +90,11 @@ void StartScreen::draw()
 
 	if (lcd_->IsDeviceAvailable(LG_COLOR))
 	{
-		//lcd_->ModifyDisplay(LG_COLOR);
+		lcd_->ModifyDisplay(LG_COLOR);
 	}
 
 	else if (lcd_->IsDeviceAvailable(LG_MONOCHROME))
 	{
-	//	lcd_->ModifyDisplay(LG_MONOCHROME);
+		lcd_->ModifyDisplay(LG_MONOCHROME);
 	}
 }

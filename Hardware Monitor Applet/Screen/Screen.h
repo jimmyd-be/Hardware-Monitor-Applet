@@ -35,9 +35,9 @@ public:
 	virtual void draw();
 
 
-	void setColors(QList<QColor>);
+	//void setColors(QList<QColor>);
 	void setBackground(QString background);
-	QList<QColor> getGraphColors();
+	//QList<QColor> getGraphColors();
 
 	CEzLcdPage* getPage();
 
@@ -55,10 +55,6 @@ protected:
 
 	CEzLcdPage* screenPage_;
 	Data * data_;
-	
-	
-	QList<QColor> graphColors_;
-
 
 private:
 	

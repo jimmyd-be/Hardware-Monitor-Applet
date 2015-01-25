@@ -44,7 +44,7 @@ protected:
 
 private:
 	void saveNormalScreenSettings(NormalScreen *);
-	void saveGraphScreenSettings(Screen *);
+	void saveGraphScreenSettings(GraphScreen *);
 	void saveScreenOrder();
 	void saveMainScreenOrder();
 	void saveSubScreenOrder();

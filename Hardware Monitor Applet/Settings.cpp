@@ -143,67 +143,41 @@ void Settings::loadNormalScreenSettings(QString name, QString background, Screen
 
 void Settings::loadGraphScreenSettings(QString name, QString background, ScreenType type)
 {
-	QList<LineText> lines;
-	LineText text;
+	QList<GraphLine> graphData;
 
-	int totalLines = settings_->beginReadArray("lines");
+	int graphCount = settings_->beginReadArray("graphData");
 
-	for (int j = 0; j < totalLines; j++)
-	{
-		settings_->setArrayIndex(j);
-
-		QString linesText = settings_->value("text").toString();
-
-		int totalData = settings_->beginReadArray("data");
-
-		QMap<QString, Query> queryMap;
-
-		for (int k = 0; k < totalData; k++)
-		{
-			settings_->setArrayIndex(k);
-
-			QString key = settings_->value("key").toString();
-
-			Query query;
-
-			query.system = Defines::translateMonitorSystemEnum(settings_->value("system").toString());
-			query.identifier = settings_->value("id").toString();
-			query.name = settings_->value("name").toString();
-			query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
-			settings_->value("precision").toInt();
-
-			queryMap.insert(key, query);
-		}
-
-		text.queryMap = queryMap;
-		text.text = linesText;
-
-		lines.append(text);
-		settings_->endArray();
-	}
-
-	settings_->endArray();
-
-	QList<QColor> colorList;
-
-	int size = settings_->beginReadArray("graphColorData");
-
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < graphCount; i++)
 	{
 		settings_->setArrayIndex(i);
 
-		int red = settings_->value("ColorRed").toInt();
-		int green = settings_->value("ColorGreen").toInt();
-		int bleu = settings_->value("ColorBlue").toInt();
+		GraphLine line;
+		Query query;
+		QColor color;
 
-		QColor color(red, green, bleu);
+		line.text = settings_->value("Text").toString();
 
-		colorList.append(color);
+		query.system = Defines::translateMonitorSystemEnum(settings_->value("system").toString());
+		query.identifier = settings_->value("id").toString();
+		query.name = settings_->value("name").toString();
+		query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
+		query.precision = settings_->value("precision").toInt();
+		query.addUnit = settings_->value("addUnit").toBool();
+
+		line.query = query;
+
+		color.setRed(settings_->value("ColorRed").toInt());
+		color.setGreen(settings_->value("ColorGreen").toInt());
+		color.setBlue(settings_->value("ColorBlue").toInt());
+
+		line.color = color;
+
+		graphData.append(line);
 	}
-	
+
 	settings_->endArray();
 
-	logitech_->creategraphScreen(name, background, type, lines, colorList);
+	logitech_->creategraphScreen(name, background, type, graphData);
 }
 
 void Settings::loadScreenOrder()
@@ -303,8 +277,7 @@ void Settings::saveSettings()
 			}
 			else if (screens[i]->getScreenType() == ScreenType::Graph)
 			{
-				//saveNormalScreenSettings(screens[i]);
-				//saveGraphScreenSettings(screens[i]);
+				saveGraphScreenSettings(static_cast<GraphScreen*>(screens[i]));
 			}
 
 		}
@@ -356,19 +329,28 @@ void Settings::saveNormalScreenSettings(NormalScreen * screen)
 	settings_->endArray();
 }
 
-void Settings::saveGraphScreenSettings(Screen * screen)
+void Settings::saveGraphScreenSettings(GraphScreen * screen)
 {
-	QList<QColor> graphColors = screen->getGraphColors();
+	QList<GraphLine> graphData = screen->getData();
 
-	settings_->beginWriteArray("graphColorData");
+	settings_->beginWriteArray("graphData");
 
-	for (int i = 0; i < graphColors.size(); i++)
+	for (int i = 0; i < graphData.size(); i++)
 	{
 		settings_->setArrayIndex(i);
 
-		settings_->setValue("ColorRed", graphColors[i].red());
-		settings_->setValue("ColorGreen", graphColors[i].green());
-		settings_->setValue("ColorBlue", graphColors[i].blue());
+		settings_->setValue("Text", graphData[i].text);
+
+		settings_->setValue("system", Defines::translateMonitorSystemEnum(graphData[i].query.system));
+		settings_->setValue("id", graphData[i].query.identifier);
+		settings_->setValue("name", graphData[i].query.name);
+		settings_->setValue("value", graphData[i].query.value);
+		settings_->setValue("precision", graphData[i].query.precision);
+		settings_->setValue("addUnit", graphData[i].query.addUnit);
+
+		settings_->setValue("ColorRed", graphData[i].color.red());
+		settings_->setValue("ColorGreen", graphData[i].color.green());
+		settings_->setValue("ColorBlue", graphData[i].color.blue());
 	}
 
 	settings_->endArray();

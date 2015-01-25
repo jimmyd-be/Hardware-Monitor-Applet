@@ -53,16 +53,6 @@ QString Screen::getName()
 	return name_;
 }
 
-QList<QColor> Screen::getGraphColors()
-{
-	return graphColors_;
-}
-
-void Screen::setColors(QList<QColor> colors)
-{
-	graphColors_ = colors;
-}
-
 void Screen::setBackground(QString background)
 {
 	QString backgroundTemp = "";

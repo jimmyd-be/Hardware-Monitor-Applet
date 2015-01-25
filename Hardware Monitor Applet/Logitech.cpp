@@ -113,42 +113,39 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 
 void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors)
 {
-	/*GraphScreen * screen = new GraphScreen(&lcd_, name);
-	screen->setBackground(background);
-
-	QList<LineText> linesList;
+	int colorCount = 0;
+	QList<GraphLine> linesList;
 
 	QMap<QString, Query>::const_iterator i = dataList.constBegin();
 	while (i != dataList.constEnd())
 	{
-		LineText newLine;
+		GraphLine newLine;
 
 		newLine.text = i.key();
-
-		QMap<QString, Query> map;
-		map.insert(i.key(), i.value());
-
-		newLine.queryMap = map;
+		newLine.query = i.value();
+		newLine.color = colors[colorCount];
 
 		linesList.append(newLine);
+		
+		colorCount++;
 		++i;
 	}
 
+	GraphScreen * screen = new GraphScreen(&lcd_, name);
+	screen->setBackground(background);
 	screen->setData(linesList);
-	screen->setColors(colors);
 
-	screenList_.append(screen);*/
+	screenList_.append(screen);
 }
 
-void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QList<LineText> linesList, QList<QColor> colors)
+void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QList<GraphLine> graphData)
 {
-	/*GraphScreen * screen = new GraphScreen(&lcd_, name);
+	GraphScreen * screen = new GraphScreen(&lcd_, name);
 	screen->setBackground(background);
 
-	screen->setData(linesList);
-	screen->setColors(colors);
+	screen->setData(graphData);
 
-	screenList_.append(screen);*/
+	screenList_.append(screen);
 }
 
 QList<LineText> Logitech::optimizeData(QStringList lines, QMap<QString, Query> dataList)
