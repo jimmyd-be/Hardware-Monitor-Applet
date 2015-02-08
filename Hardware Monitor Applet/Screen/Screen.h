@@ -33,6 +33,7 @@ public:
 	QString getName();
 	virtual void update();
 	virtual void draw();
+	virtual void cleanData();
 
 	virtual void setBackground(QString background);
 

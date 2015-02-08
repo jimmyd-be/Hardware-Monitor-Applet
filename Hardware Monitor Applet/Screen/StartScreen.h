@@ -34,6 +34,7 @@ public:
 	
 	void drawColor();
 	void drawMonochrome();
+	void NormalScreen();
 
 private:
 	// -------------------------

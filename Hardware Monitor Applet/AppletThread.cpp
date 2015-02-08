@@ -128,6 +128,9 @@ void AppletThread::checkbuttonPressesColor()
 
 		else if (lcd_->ButtonTriggered(LG_BUTTON_OK))
 		{
+			Screen * currentScreen = logitech_->getCurrentScreen();
+
+			currentScreen->cleanData();
 
 		}
 
@@ -139,7 +142,11 @@ void AppletThread::updatePage()
 {
 	Screen * currentScreen = logitech_->getCurrentScreen();
 
-//	currentScreen->update();
-	currentScreen->draw();
+	QVector<Screen *> allScreens = logitech_->getScreenList();
 
+	for (Screen * screen : allScreens)
+	{
+		screen->update();
+	}
+	currentScreen->draw();
 }

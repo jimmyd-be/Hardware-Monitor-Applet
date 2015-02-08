@@ -48,6 +48,11 @@ void Screen::draw()
 	//Nothing to do
 }
 
+void Screen::cleanData()
+{
+	//Nothing to do
+}
+
 QString Screen::getName()
 {
 	return name_;

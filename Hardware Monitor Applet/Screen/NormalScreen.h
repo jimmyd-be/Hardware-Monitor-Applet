@@ -34,6 +34,7 @@ public:
 
 	void drawColor();
 	void drawMonochrome();
+	void cleanData();
 	
 	void setData(QList<LineText>);
 	void setSettings(QList<CustomSettings> settings);

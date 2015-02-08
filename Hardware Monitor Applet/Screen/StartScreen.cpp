@@ -34,6 +34,11 @@ void StartScreen::update()
 
 }
 
+void StartScreen::NormalScreen()
+{
+
+}
+
 void StartScreen::drawColor()
 {
 	lcd_->ModifyControlsOnPage(screenPage_);

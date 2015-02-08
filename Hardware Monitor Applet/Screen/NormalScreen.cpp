@@ -209,3 +209,8 @@ void NormalScreen::update()
 {
 	
 }
+
+void NormalScreen::cleanData()
+{
+
+}

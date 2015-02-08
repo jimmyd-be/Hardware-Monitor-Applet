@@ -39,6 +39,8 @@ public:
 	QList<GraphLine> getData();
 
 	void setBackground(QString background);
+
+	void cleanData();
 	
 
 private:
@@ -50,6 +52,8 @@ private:
 	QList<GraphLine> graphData_;
 	QCustomPlot * plot_;
 	int Xpos_;
+	HANDLE bitmapHandle_;
+	HBITMAP bitmap_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

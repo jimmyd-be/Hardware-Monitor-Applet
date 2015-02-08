@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------
 // GraphScreen methods
 //-----------------------------------------------------------------
-GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0)
+GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr)
 {
 	plot_ = new QCustomPlot();
 
@@ -31,6 +31,12 @@ GraphScreen::~GraphScreen()
 		delete plot_;
 		plot_ = nullptr;
 	}
+
+	if (bitmap_ != nullptr)
+	{
+		DeleteObject(bitmap_);
+		bitmap_ = nullptr;
+	}
 }
 
 ScreenType GraphScreen::getScreenType()
@@ -40,29 +46,49 @@ ScreenType GraphScreen::getScreenType()
 
 void GraphScreen::draw()
 {
-	Xpos_++;
-
-	QList<double> listDate = data_->translateLines(graphData_);
-
-	for (int i = 0; i < graphData_.size(); i++)
-	{
-		plot_->graph(i)->addData(Xpos_, listDate[i]);
-	}
-
 	lcd_->ModifyControlsOnPage(screenPage_);
-
 	lcd_->ModifyDisplay(LG_COLOR);
 
-	QPixmap pixmap = plot_->toPixmap(320, 240, 1);
-	HBITMAP bitmap_ = QtWin::toHBITMAP(pixmap);
+	plot_->xAxis->setRange(0, Xpos_);
+	plot_->replot();
 
-	HANDLE bitmapHandle = lcd_->AddBitmap(320, 240);
-	lcd_->SetBitmap(bitmapHandle, bitmap_, 1);
+	QPixmap pixmap = plot_->toPixmap(320, 240, 1);
+
+	if (bitmap_ != nullptr)
+	{
+		DeleteObject(bitmap_);
+		bitmap_ = nullptr;
+	}
+
+	bitmap_ = QtWin::toHBITMAP(pixmap);
+
+	if (bitmapHandle_ == nullptr)
+	{
+		bitmapHandle_ = lcd_->AddBitmap(320, 240);
+	}
+	lcd_->SetBitmap(bitmapHandle_, bitmap_, 1);
+
+	Xpos_++;
 }
 
 void GraphScreen::update()
 {
+	QList<double> listDate = data_->translateLines(graphData_);
 
+	for (int i = 0; i < listDate.size(); i++)
+	{
+		plot_->graph(i)->addData(Xpos_, listDate[i]);
+	}
+}
+
+void GraphScreen::cleanData()
+{
+	Xpos_ = 0;
+
+	for (int i = 0; i < graphData_.size(); i++)
+	{
+		plot_->graph(i)->clearData();
+	}
 }
 
 void GraphScreen::setBackground(QString background)
