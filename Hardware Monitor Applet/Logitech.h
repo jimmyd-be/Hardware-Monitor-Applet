@@ -40,6 +40,7 @@ public:
 	// General Methods
 	//---------------------------
 	bool initKeyboard();
+
 	KeyboardTypes getKeyboardType();
 	QVector<Screen *> getScreenList();
 

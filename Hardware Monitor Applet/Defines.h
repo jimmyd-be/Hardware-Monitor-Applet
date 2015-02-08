@@ -59,9 +59,9 @@ struct AppletFont{
 struct HardwareSensor{
 	QString id;
 	QString name;
-	QString value;
-	QString max;
-	QString min;
+	double value;
+	double max;
+	double min;
 	QString unit;
 };
 

@@ -127,7 +127,6 @@ void WMI::connect()
 
 QVector<HardwareSensor> WMI::getAllSensors()
 {
-
 	QVector<HardwareSensor> sensors;
 
 	string query = "select * from Sensor";
@@ -194,7 +193,7 @@ QVector<HardwareSensor> WMI::getAllSensors()
 
 				if (!FAILED(hr))
 				{
-					currentSensor.max = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+					currentSensor.max = transformData(vtProp.fltVal, sensorType);
 
 					hr = 0;
 				}
@@ -205,7 +204,7 @@ QVector<HardwareSensor> WMI::getAllSensors()
 
 				if (!FAILED(hr))
 				{
-					currentSensor.min = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+					currentSensor.min = transformData(vtProp.fltVal, sensorType);
 
 					hr = 0;
 				}
@@ -216,7 +215,7 @@ QVector<HardwareSensor> WMI::getAllSensors()
 
 				if (!FAILED(hr))
 				{
-					currentSensor.value = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+					currentSensor.value = transformData(vtProp.fltVal, sensorType);
 
 					hr = 0;
 				}
@@ -238,7 +237,9 @@ QVector<HardwareSensor> WMI::getAllSensors()
 				uReturn = 0;
 				pclsObj_->Release();
 
-				sensors.push_back(addUnit(currentSensor, sensorType));
+				currentSensor.unit = getUnit(sensorType);
+
+				sensors.push_back(currentSensor);
 
 			}
 			pEnumerator_->Release();
@@ -253,9 +254,9 @@ MonitorSystem WMI::getMonitorSystem()
 	return MonitorSystem::OHM;
 }
 
-QString WMI::getData(Query query)
+HardwareSensor WMI::getData(Query query)
 {
-	QString returnValue = "";
+	HardwareSensor returnValue;
 
 	string queryString = "select * from Sensor WHERE Identifier = '" + query.identifier.toStdString() + "'";
 
@@ -298,10 +299,7 @@ QString WMI::getData(Query query)
 					ws.clear();
 
 					hr = 0;
-				}
-
-				if (query.value == QueryValue::Max)
-				{
+				
 
 					stemp = _T("Max");
 
@@ -309,42 +307,33 @@ QString WMI::getData(Query query)
 
 					if (!FAILED(hr))
 					{
-						returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+						returnValue.max = transformData(vtProp.fltVal, sensorType);
 
 						hr = 0;
 					}
-				}
-
-				if (query.value == QueryValue::Min)
-				{
+				
 					stemp = _T("Min");
 
 					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
 					if (!FAILED(hr))
 					{
-						returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+						returnValue.min = transformData(vtProp.fltVal, sensorType);
 
 						hr = 0;
 					}
-				}
-
-				if (query.value == QueryValue::Current)
-				{
+				
 					stemp = _T("Value");
 
 					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
 					if (!FAILED(hr))
 					{
-						returnValue = QString::number(transformData(vtProp.fltVal, sensorType), 'f', 2);
+						returnValue.value = transformData(vtProp.fltVal, sensorType);
 
 						hr = 0;
 					}
-				}
-
-				if (query.value == QueryValue::Name)
-				{
+				
 					stemp = _T("Name");
 
 					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
@@ -352,7 +341,7 @@ QString WMI::getData(Query query)
 					if (!FAILED(hr))
 					{
 						wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-						returnValue = QString::fromStdString(string(ws.begin(), ws.end()));
+						returnValue.name = QString::fromStdString(string(ws.begin(), ws.end()));
 						ws.clear();
 
 						hr = 0;
@@ -363,10 +352,8 @@ QString WMI::getData(Query query)
 				uReturn = 0;
 				pclsObj_->Release();
 
-				if (query.addUnit)
-				{
-					returnValue = addUnit(sensorType, returnValue);
-				}
+				returnValue.unit = getUnit(sensorType);
+				
 
 			}
 			pEnumerator_->Release();
@@ -376,114 +363,50 @@ QString WMI::getData(Query query)
 	return returnValue;
 }
 
-QString WMI::addUnit(QString sensorType, QString value)
+QString WMI::getUnit(QString sensorType)
 {
 	if (sensorType == "Fan")
 	{
-		return value + "RPM";
+		return  "RPM";
 	}
 	else if (sensorType == "Load")
 	{
-		return value + "%";
+		return  "%";
 	}
 	else if (sensorType == "Clock")
 	{
-		return value + "MHz";
+		return  "MHz";
 	}
 	else if (sensorType == "Power")
 	{
-		return value + "W";
+		return "W";
 	}
 	else if (sensorType == "Control")
 	{
-		return value + "%";
+		return  "%";
 	}
 	else if (sensorType == "Temperature")
 	{
 		if (settings_->getTemperature() == TemperatureType::Celsius)
 		{
-			return value + QString("%1C").arg(degreeChar);
+			return  QString("%1C").arg(degreeChar);
 		}
 		else
 		{
-			return value + QString("%1F").arg(degreeChar);
+			return  QString("%1F").arg(degreeChar);
 		}
 	}
 	else if (sensorType == "Data")
 	{
-		return value + "GB";
+		return  "GB";
 	}
 
 	else if (sensorType == "Voltage")
 	{
-		return value + "V";
+		return  "V";
 	}
 
-	return value;
-}
-
-HardwareSensor WMI::addUnit(HardwareSensor currentSensor, QString sensorType)
-{
-	if (sensorType == "Fan")
-	{
-		currentSensor.max += "RPM";
-		currentSensor.min += "RPM";
-		currentSensor.value += "RPM";
-	}
-	else if (sensorType == "Load")
-	{
-		currentSensor.max += "%";
-		currentSensor.min += "%";
-		currentSensor.value += "%";
-	}
-	else if (sensorType == "Clock")
-	{
-		currentSensor.max += "MHz";
-		currentSensor.min += "MHz";
-		currentSensor.value += "MHz";
-	}
-	else if (sensorType == "Power")
-	{
-		currentSensor.max += "W";
-		currentSensor.min += "W";
-		currentSensor.value += "W";
-	}
-	else if (sensorType == "Control")
-	{
-		currentSensor.max += "%";
-		currentSensor.min += "%";
-		currentSensor.value += "%";
-	}
-	else if (sensorType == "Temperature")
-	{
-		if (settings_->getTemperature() == TemperatureType::Celsius)
-		{
-			currentSensor.max += QString("%1C").arg(degreeChar);
-			currentSensor.min += QString("%1C").arg(degreeChar);
-			currentSensor.value += QString("%1C").arg(degreeChar);
-		}
-		else
-		{
-			currentSensor.max += QString("%1F").arg(degreeChar);
-			currentSensor.min += QString("%1F").arg(degreeChar);
-			currentSensor.value += QString("%1F").arg(degreeChar);
-		}
-	}
-	else if (sensorType == "Data")
-	{
-		currentSensor.max += "GB";
-		currentSensor.min += "GB";
-		currentSensor.value += "GB";
-	}
-
-	else if (sensorType == "Voltage")
-	{
-		currentSensor.max += "V";
-		currentSensor.min += "V";
-		currentSensor.value += "V";
-	}
-
-	return currentSensor;
+	return "";
 }
 
 float WMI::transformData(float value, QString sensorType)

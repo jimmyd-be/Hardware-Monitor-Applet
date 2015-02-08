@@ -8,6 +8,7 @@
 // Include Files
 //-----------------------------------------------------------------
 #include "Screen.h"
+#include "../external/QCustomPlot/qcustomplot.h"
 
 //-----------------------------------------------------------------
 // GraphScreen Class
@@ -37,11 +38,18 @@ public:
 
 	QList<GraphLine> getData();
 
+	void setBackground(QString background);
+	
+
 private:
+	void createPlot();
+
 	// -------------------------
 	// Datamembers
 	// -------------------------
 	QList<GraphLine> graphData_;
+	QCustomPlot * plot_;
+	int Xpos_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

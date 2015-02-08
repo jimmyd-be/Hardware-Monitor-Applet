@@ -34,10 +34,7 @@ public:
 	virtual void update();
 	virtual void draw();
 
-
-	//void setColors(QList<QColor>);
-	void setBackground(QString background);
-	//QList<QColor> getGraphColors();
+	virtual void setBackground(QString background);
 
 	CEzLcdPage* getPage();
 

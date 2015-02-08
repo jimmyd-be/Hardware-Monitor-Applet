@@ -36,7 +36,8 @@ MonitorSystem MonitorTool::getMonitorSystem()
 	return MonitorSystem::NONE;
 }
 
-QString MonitorTool::getData(Query query)
+HardwareSensor MonitorTool::getData(Query query)
 {
-	return "";
+	HardwareSensor emptySensor;
+	return emptySensor;
 }

@@ -30,7 +30,7 @@ public:
 	//---------------------------
 	QVector<HardwareSensor> getAllData(MonitorSystem system);
 	QStringList translateLines(QList<LineText>);
-
+	QList<double> translateLines(QList<GraphLine>);
 
 private:
 	//---------------------------

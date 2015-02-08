@@ -51,16 +51,15 @@ public:
 	//---------------------------
 	QVector<HardwareSensor> getAllSensors();
 	MonitorSystem getMonitorSystem();
-	QString getData(Query);
+	HardwareSensor getData(Query);
 
 private:
 	//---------------------------
 	// Private Methods
 	//---------------------------
 	void connect();
-	HardwareSensor addUnit(HardwareSensor, QString);
 	float transformData(float, QString);
-	QString addUnit(QString, QString);
+	QString getUnit(QString);
 
 	//--------------------------
 	// Datamembers
