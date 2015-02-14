@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="TabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="HWiNFOTab">
       <attribute name="title">
@@ -68,6 +68,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QTableWidget" name="OHM_tableWidget">
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
          <column>
           <property name="text">
            <string>Id</string>
@@ -225,6 +228,9 @@
      </property>
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
      </property>
      <column>
       <property name="text">
