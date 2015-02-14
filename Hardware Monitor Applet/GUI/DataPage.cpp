@@ -225,7 +225,7 @@ bool DataPage::isUnique(Query item)
 			widget->item(row, 2)->text() == item.name &&
 			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value) &&
 			widget->item(row, 4)->text() == QString::number(item.precision) &&
-			widget->item(row, 5)->text() == QString(item.addUnit ? "True" : "False"))
+			widget->item(row, 6)->text() == QString(item.addUnit ? "True" : "False"))
 		{
 			return false;
 		}
