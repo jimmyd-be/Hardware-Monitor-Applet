@@ -11,8 +11,8 @@ class CustomizePage: public QWizardPage
 	Q_OBJECT
 
 public:
-	CustomizePage(LineEditPage * page, QWidget *parent = 0);
-	CustomizePage(LineEditPage * page, QList<CustomSettings> settings, QWidget *parent = 0);
+	CustomizePage(KeyboardTypes type, LineEditPage * page, QWidget *parent = 0);
+	CustomizePage(KeyboardTypes type, LineEditPage * page, QList<CustomSettings> settings, QWidget *parent = 0);
 	virtual ~CustomizePage();
 
 	bool validatePage();
@@ -35,5 +35,7 @@ private:
 	LineEditPage * linePage_;
 
 	QList<CustomSettings> tempSettings_;
+
+	KeyboardTypes lcdType_;
 
 };

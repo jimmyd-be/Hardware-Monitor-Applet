@@ -144,6 +144,7 @@ QMap<QString, QString> Data::queryMapData(QMap<QString, Query> map)
 		{
 		case Name:
 			value = sensor.name;
+			break;
 		case Current:
 			value = QString::number(sensor.value, 'f', query.precision);
 			break;

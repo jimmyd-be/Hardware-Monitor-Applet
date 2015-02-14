@@ -38,6 +38,6 @@ MonitorSystem MonitorTool::getMonitorSystem()
 
 HardwareSensor MonitorTool::getData(Query query)
 {
-	HardwareSensor emptySensor;
+	HardwareSensor emptySensor = {0};
 	return emptySensor;
 }

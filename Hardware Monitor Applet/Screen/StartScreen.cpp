@@ -34,10 +34,6 @@ void StartScreen::update()
 
 }
 
-void StartScreen::NormalScreen()
-{
-
-}
 
 void StartScreen::drawColor()
 {

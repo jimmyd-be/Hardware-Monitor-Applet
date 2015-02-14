@@ -49,7 +49,15 @@ void GraphScreen::draw()
 	lcd_->ModifyControlsOnPage(screenPage_);
 	lcd_->ModifyDisplay(LG_COLOR);
 
-	plot_->xAxis->setRange(0, Xpos_);
+	if (Xpos_ >= 60)
+	{
+		plot_->xAxis->setRange(Xpos_-60, Xpos_);
+	}
+	else
+	{
+		plot_->xAxis->setRange(0, Xpos_);
+	}
+	plot_->yAxis->rescale();
 	plot_->replot();
 
 	QPixmap pixmap = plot_->toPixmap(320, 240, 1);

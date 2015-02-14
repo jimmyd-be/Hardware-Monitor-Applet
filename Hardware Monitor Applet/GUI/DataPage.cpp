@@ -163,43 +163,46 @@ void DataPage::addButtonClicked()
 
 	for (QTableWidgetItem * item : selectedItems)
 	{
-		Query queryItem;
-		queryItem.identifier = tableWidget->item(item->row(), 0)->text();
-		queryItem.name = tableWidget->item(item->row(), 1)->text();
-		queryItem.system = Defines::translateMonitorSystemEnum(system);
-		queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
-		queryItem.precision = ui.Precision_spinBox->value();
-		queryItem.addUnit = ui.unit_checkBox->isChecked();
-
-		if (isUnique(queryItem))
+		if (!(screenTypePage_->getScreenType() == ScreenType::Graph && item->column() == 1))
 		{
-			ui.SelectedItems_tableWidget->insertRow(newRow);
+			Query queryItem;
+			queryItem.identifier = tableWidget->item(item->row(), 0)->text();
+			queryItem.name = tableWidget->item(item->row(), 1)->text();
+			queryItem.system = Defines::translateMonitorSystemEnum(system);
+			queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
+			queryItem.precision = ui.Precision_spinBox->value();
+			queryItem.addUnit = ui.unit_checkBox->isChecked();
 
-			QTableWidgetItem * idItem = new QTableWidgetItem();
-			QTableWidgetItem * nameItem = new QTableWidgetItem();
-			QTableWidgetItem * systemItem = new QTableWidgetItem();
-			QTableWidgetItem * valueItem = new QTableWidgetItem();
-			QTableWidgetItem * precisionItem = new QTableWidgetItem();
-			QTableWidgetItem * symbolItem = new QTableWidgetItem();
-			QTableWidgetItem * unitItem = new QTableWidgetItem();
+			if (isUnique(queryItem))
+			{
+				ui.SelectedItems_tableWidget->insertRow(newRow);
 
-			idItem->setText(queryItem.identifier);
-			nameItem->setText(queryItem.name);
-			systemItem->setText(system);
-			valueItem->setText(tableWidget->horizontalHeaderItem(item->column())->text());
-			precisionItem->setText(QString::number(queryItem.precision));
-			symbolItem->setText(foundNextSymbol());
-			unitItem->setText(QString(ui.unit_checkBox->isChecked() ? "True" : "False"));
+				QTableWidgetItem * idItem = new QTableWidgetItem();
+				QTableWidgetItem * nameItem = new QTableWidgetItem();
+				QTableWidgetItem * systemItem = new QTableWidgetItem();
+				QTableWidgetItem * valueItem = new QTableWidgetItem();
+				QTableWidgetItem * precisionItem = new QTableWidgetItem();
+				QTableWidgetItem * symbolItem = new QTableWidgetItem();
+				QTableWidgetItem * unitItem = new QTableWidgetItem();
 
-			ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
-			ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
-			ui.SelectedItems_tableWidget->setItem(newRow, 2, nameItem);
-			ui.SelectedItems_tableWidget->setItem(newRow, 3, valueItem);
-			ui.SelectedItems_tableWidget->setItem(newRow, 4, precisionItem);
-			ui.SelectedItems_tableWidget->setItem(newRow, 5, symbolItem);
-			ui.SelectedItems_tableWidget->setItem(newRow, 6, unitItem);
+				idItem->setText(queryItem.identifier);
+				nameItem->setText(queryItem.name);
+				systemItem->setText(system);
+				valueItem->setText(tableWidget->horizontalHeaderItem(item->column())->text());
+				precisionItem->setText(QString::number(queryItem.precision));
+				symbolItem->setText(foundNextSymbol());
+				unitItem->setText(QString(ui.unit_checkBox->isChecked() ? "True" : "False"));
 
-			newRow += 1;
+				ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 2, nameItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 3, valueItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 4, precisionItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 5, symbolItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 6, unitItem);
+
+				newRow += 1;
+			}
 		}
 	}
 }

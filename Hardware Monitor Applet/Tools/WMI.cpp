@@ -167,11 +167,11 @@ QVector<HardwareSensor> WMI::getAllSensors()
 
 				if (!FAILED(hr))
 				{
-						wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-						currentSensor.id = QString::fromStdString(string(ws.begin(), ws.end()));
-						ws.clear();
+					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+					currentSensor.id = QString::fromStdString(string(ws.begin(), ws.end()));
+					ws.clear();
 
-						hr = 0;
+					hr = 0;
 				}
 
 				stemp = _T("SensorType");
@@ -299,61 +299,61 @@ HardwareSensor WMI::getData(Query query)
 					ws.clear();
 
 					hr = 0;
-				
-
-					stemp = _T("Max");
-
-					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-					if (!FAILED(hr))
-					{
-						returnValue.max = transformData(vtProp.fltVal, sensorType);
-
-						hr = 0;
-					}
-				
-					stemp = _T("Min");
-
-					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-					if (!FAILED(hr))
-					{
-						returnValue.min = transformData(vtProp.fltVal, sensorType);
-
-						hr = 0;
-					}
-				
-					stemp = _T("Value");
-
-					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-					if (!FAILED(hr))
-					{
-						returnValue.value = transformData(vtProp.fltVal, sensorType);
-
-						hr = 0;
-					}
-				
-					stemp = _T("Name");
-
-					hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-					if (!FAILED(hr))
-					{
-						wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-						returnValue.name = QString::fromStdString(string(ws.begin(), ws.end()));
-						ws.clear();
-
-						hr = 0;
-					}
 				}
+
+				stemp = _T("Max");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					returnValue.max = transformData(vtProp.fltVal, sensorType);
+
+					hr = 0;
+				}
+
+				stemp = _T("Min");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					returnValue.min = transformData(vtProp.fltVal, sensorType);
+
+					hr = 0;
+				}
+
+				stemp = _T("Value");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					returnValue.value = transformData(vtProp.fltVal, sensorType);
+
+					hr = 0;
+				}
+
+				stemp = _T("Name");
+
+				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+
+				if (!FAILED(hr))
+				{
+					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
+					returnValue.name = QString::fromStdString(string(ws.begin(), ws.end()));
+					ws.clear();
+
+					hr = 0;
+				}
+
 
 				VariantClear(&vtProp);
 				uReturn = 0;
 				pclsObj_->Release();
 
 				returnValue.unit = getUnit(sensorType);
-				
+
 
 			}
 			pEnumerator_->Release();

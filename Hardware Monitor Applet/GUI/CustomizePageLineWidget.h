@@ -13,8 +13,8 @@ class CustomizePageLineWidget: public QWidget
 	Q_OBJECT
 
 public:
-	CustomizePageLineWidget(QString text, QWidget *parent = 0);
-	CustomizePageLineWidget(QString text, CustomSettings custom, QWidget *parent = 0);
+	CustomizePageLineWidget(KeyboardTypes type, QString text, QWidget *parent = 0);
+	CustomizePageLineWidget(KeyboardTypes type, QString text, CustomSettings custom, QWidget *parent = 0);
 	virtual ~CustomizePageLineWidget();
 
 	CustomSettings getSettings();

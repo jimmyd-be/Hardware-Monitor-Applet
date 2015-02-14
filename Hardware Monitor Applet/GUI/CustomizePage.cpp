@@ -1,8 +1,8 @@
 #include "CustomizePage.h"
 
 
-CustomizePage::CustomizePage(LineEditPage * page, QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), linePage_(page)
+CustomizePage::CustomizePage(KeyboardTypes type, LineEditPage * page, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), linePage_(page), lcdType_(type)
 {
 	setTitle(tr("Introduction"));
 
@@ -15,8 +15,8 @@ CustomizePage::CustomizePage(LineEditPage * page, QWidget *parent)
 	setLayout(layout_);
 }
 
-CustomizePage::CustomizePage(LineEditPage * page, QList<CustomSettings> settings, QWidget *parent)
-	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), linePage_(page), tempSettings_(settings)
+CustomizePage::CustomizePage(KeyboardTypes type, LineEditPage * page, QList<CustomSettings> settings, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), linePage_(page), tempSettings_(settings), lcdType_(type)
 {
 	setTitle(tr("Introduction"));
 
@@ -73,11 +73,11 @@ void CustomizePage::initializePage()
 
 		if (tempSettings_.size() > i)
 		{
-			widget = new CustomizePageLineWidget(list[i], tempSettings_[i]);
+			widget = new CustomizePageLineWidget(lcdType_, list[i], tempSettings_[i]);
 		}
 		else
 		{
-			widget = new CustomizePageLineWidget(list[i]);
+			widget = new CustomizePageLineWidget(lcdType_, list[i]);
 		}
 
 		ui.verticalLayout->addWidget(widget);

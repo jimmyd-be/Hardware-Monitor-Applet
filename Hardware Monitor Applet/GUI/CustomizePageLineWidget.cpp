@@ -1,7 +1,7 @@
 #include "CustomizePageLineWidget.h"
 
 
-CustomizePageLineWidget::CustomizePageLineWidget(QString text, QWidget *parent)
+CustomizePageLineWidget::CustomizePageLineWidget(KeyboardTypes type, QString text, QWidget *parent)
 	: QWidget(parent), color_(Qt::white)
 {
 	ui.setupUi(this);
@@ -15,10 +15,18 @@ CustomizePageLineWidget::CustomizePageLineWidget(QString text, QWidget *parent)
 	ui.FontColor_label->setPalette(palette_);
 
 	connect(ui.Font_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
-	connect(ui.FontColor_pushButton, SIGNAL(clicked()), this, SLOT(openFontColorDialog()));
+
+	if (type == KeyboardTypes::Color)
+	{
+		connect(ui.FontColor_pushButton, SIGNAL(clicked()), this, SLOT(openFontColorDialog()));
+	}
+	else
+	{
+		ui.FontColor_pushButton->hide();
+	}
 }
 
-CustomizePageLineWidget::CustomizePageLineWidget(QString text, CustomSettings custom, QWidget *parent)
+CustomizePageLineWidget::CustomizePageLineWidget(KeyboardTypes type, QString text, CustomSettings custom, QWidget *parent)
 	: QWidget(parent), color_(Qt::white)
 {
 	ui.setupUi(this);
@@ -38,7 +46,15 @@ CustomizePageLineWidget::CustomizePageLineWidget(QString text, CustomSettings cu
 	ui.FontColor_label->setPalette(palette_);
 
 	connect(ui.Font_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
-	connect(ui.FontColor_pushButton, SIGNAL(clicked()), this, SLOT(openFontColorDialog()));
+	
+	if (type == KeyboardTypes::Color)
+	{
+		connect(ui.FontColor_pushButton, SIGNAL(clicked()), this, SLOT(openFontColorDialog()));
+	}
+	else
+	{
+		ui.FontColor_pushButton->hide();
+	}
 }
 
 CustomizePageLineWidget::~CustomizePageLineWidget()
