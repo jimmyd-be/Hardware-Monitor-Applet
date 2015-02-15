@@ -53,6 +53,11 @@ void Screen::cleanData()
 	//Nothing to do
 }
 
+void Screen::openCustomScreen()
+{
+	//Nothing to do
+}
+
 QString Screen::getName()
 {
 	return name_;
@@ -60,6 +65,9 @@ QString Screen::getName()
 
 void Screen::setBackground(QString background)
 {
+	lcd_->ModifyControlsOnPage(screenPage_);
+	lcd_->ModifyDisplay(LG_COLOR);
+
 	QString backgroundTemp = "";
 
 	if (background.isEmpty())

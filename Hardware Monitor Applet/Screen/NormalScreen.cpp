@@ -108,6 +108,8 @@ void NormalScreen::drawColor()
 
 		screenLines_[i].textHandle = lineHandle;
 	}
+
+	lcd_->ShowPage(screenPage_);
 }
 
 void NormalScreen::drawMonochrome()

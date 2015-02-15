@@ -347,6 +347,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_DataPage.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Screen\LegendScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
@@ -620,6 +623,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_AboutDialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\LegendScreen.h">
+      <Filter>Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

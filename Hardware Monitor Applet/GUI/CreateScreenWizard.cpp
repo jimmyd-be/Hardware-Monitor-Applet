@@ -4,6 +4,7 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 	: QWizard(parent, Qt::Dialog), logitech_(logitech), oldPageName_(""),
 	introPage_(nullptr), backgroundPage_(nullptr), screenTypePage_(nullptr), dataPage_(nullptr), lineEditPage_(nullptr), graphPage_(nullptr), customizePage_(nullptr)
 {
+
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType());
 	backgroundPage_ = new BackgroundPage();
 	screenTypePage_ = new ScreenTypePage(logitech_->getKeyboardType());

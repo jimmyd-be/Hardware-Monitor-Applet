@@ -16,10 +16,11 @@
 //-----------------------------------------------------------------
 // GraphScreen methods
 //-----------------------------------------------------------------
-GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr)
+GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr), legendScreen_(nullptr), legendOpen_(false)
 {
-	plot_ = new QCustomPlot();
+	legendScreen_ = new LegendScreen(logitech, "Legend " + name);
 
+	plot_ = new QCustomPlot();
 	plot_->plotLayout()->insertRow(0);
 	plot_->plotLayout()->addElement(0, 0, new QCPPlotTitle(plot_, name));
 }
@@ -37,6 +38,12 @@ GraphScreen::~GraphScreen()
 		DeleteObject(bitmap_);
 		bitmap_ = nullptr;
 	}
+
+	if (legendScreen_ != nullptr)
+	{
+		delete legendScreen_;
+		legendScreen_ = nullptr;
+	}
 }
 
 ScreenType GraphScreen::getScreenType()
@@ -46,37 +53,44 @@ ScreenType GraphScreen::getScreenType()
 
 void GraphScreen::draw()
 {
-	lcd_->ModifyControlsOnPage(screenPage_);
-	lcd_->ModifyDisplay(LG_COLOR);
-
-	if (Xpos_ >= 60)
+	if (legendOpen_)
 	{
-		plot_->xAxis->setRange(Xpos_-60, Xpos_);
+		legendScreen_->draw();
 	}
 	else
 	{
-		plot_->xAxis->setRange(0, Xpos_);
+		lcd_->ModifyControlsOnPage(screenPage_);
+		lcd_->ModifyDisplay(LG_COLOR);
+
+		if (Xpos_ >= 60)
+		{
+			plot_->xAxis->setRange(Xpos_ - 60, Xpos_);
+		}
+		else
+		{
+			plot_->xAxis->setRange(0, 60);
+		}
+		plot_->yAxis->rescale();
+		plot_->replot();
+
+		QPixmap pixmap = plot_->toPixmap(320, 240, 1);
+
+		if (bitmap_ != nullptr)
+		{
+			DeleteObject(bitmap_);
+			bitmap_ = nullptr;
+		}
+
+		bitmap_ = QtWin::toHBITMAP(pixmap);
+
+		if (bitmapHandle_ == nullptr)
+		{
+			bitmapHandle_ = lcd_->AddBitmap(320, 240);
+		}
+		lcd_->SetBitmap(bitmapHandle_, bitmap_, 1);
+
+		lcd_->ShowPage(screenPage_);
 	}
-	plot_->yAxis->rescale();
-	plot_->replot();
-
-	QPixmap pixmap = plot_->toPixmap(320, 240, 1);
-
-	if (bitmap_ != nullptr)
-	{
-		DeleteObject(bitmap_);
-		bitmap_ = nullptr;
-	}
-
-	bitmap_ = QtWin::toHBITMAP(pixmap);
-
-	if (bitmapHandle_ == nullptr)
-	{
-		bitmapHandle_ = lcd_->AddBitmap(320, 240);
-	}
-	lcd_->SetBitmap(bitmapHandle_, bitmap_, 1);
-
-	Xpos_++;
 }
 
 void GraphScreen::update()
@@ -87,20 +101,27 @@ void GraphScreen::update()
 	{
 		plot_->graph(i)->addData(Xpos_, listDate[i]);
 	}
+
+	Xpos_++;
 }
 
 void GraphScreen::cleanData()
 {
-	Xpos_ = 0;
-
-	for (int i = 0; i < graphData_.size(); i++)
+	if (!legendOpen_)
 	{
-		plot_->graph(i)->clearData();
+		Xpos_ = 0;
+
+		for (int i = 0; i < graphData_.size(); i++)
+		{
+			plot_->graph(i)->clearData();
+		}
 	}
 }
 
 void GraphScreen::setBackground(QString background)
 {
+	legendScreen_->setBackground(background);
+
 	QString backgroundTemp = "";
 
 	if (background.isEmpty())
@@ -125,6 +146,8 @@ void GraphScreen::setData(QList<GraphLine> data)
 {
 	graphData_ = data;
 
+	legendScreen_->setData(data);
+
 	createPlot();
 }
 
@@ -138,8 +161,12 @@ void GraphScreen::createPlot()
 	for (int i = 0; i < graphData_.size(); i++)
 	{
 		plot_->addGraph();
-		plot_->graph(i)->setPen(QPen(graphData_[i].color));
+		plot_->graph(i)->setPen(QPen(graphData_[i].color, 2));
 		plot_->graph(i)->setName(graphData_[i].text);
 	}
+}
 
+void GraphScreen::openCustomScreen()
+{
+	legendOpen_ = !legendOpen_;
 }

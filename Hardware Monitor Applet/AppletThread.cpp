@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------
 // AppletThread methods
 //-----------------------------------------------------------------
-AppletThread::AppletThread(CEzLcd* lcd, Logitech * logitech) : lcd_(lcd), logitech_(logitech), time_(0)
+AppletThread::AppletThread(CEzLcd* lcd, Logitech * logitech) : lcd_(lcd), logitech_(logitech), time_(0), OkButtonTime_(0)
 {
 	// nothing to create
 }
@@ -97,7 +97,7 @@ void AppletThread::checkbuttonPressesMonochrome()
 			logitech_->changeCurrentScreen(PageDirection::Next);
 		}
 	}
-	lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
+	//lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
 }
 
 void AppletThread::checkbuttonPressesColor()
@@ -126,16 +126,30 @@ void AppletThread::checkbuttonPressesColor()
 			logitech_->changeCurrentScreen(PageDirection::Down);
 		}
 
-		else if (lcd_->ButtonTriggered(LG_BUTTON_OK))
+		else if (lcd_->ButtonIsPressed(LG_BUTTON_OK))
 		{
-			Screen * currentScreen = logitech_->getCurrentScreen();
+			OkButtonTime_ += 30;
+		}
 
-			currentScreen->cleanData();
+		else if (lcd_->ButtonReleased(LG_BUTTON_OK))
+		{
+			if (OkButtonTime_ < 1000)
+			{
+				Screen * currentScreen = logitech_->getCurrentScreen();
 
+				currentScreen->openCustomScreen();
+			}
+			else
+			{
+				Screen * currentScreen = logitech_->getCurrentScreen();
+				currentScreen->cleanData();
+			}
+
+			OkButtonTime_ = 0;
 		}
 
 	}
-	lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
+	//lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
 }
 
 void AppletThread::updatePage()

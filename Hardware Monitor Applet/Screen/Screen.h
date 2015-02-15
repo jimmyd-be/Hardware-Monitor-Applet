@@ -34,6 +34,7 @@ public:
 	virtual void update();
 	virtual void draw();
 	virtual void cleanData();
+	virtual void openCustomScreen();
 
 	virtual void setBackground(QString background);
 

@@ -29,9 +29,9 @@ int main(int argc, char *argv[])
 	else
 	{
 		controller = new Controller(&a);
-		controller->openSettingsScreen();
+		//controller->openSettingsScreen();
 
-		if (QtSingleApplication::arguments().size() > 0 && QtSingleApplication::arguments().at(0) == "settings")
+		if (QtSingleApplication::arguments().size() > 1 && QtSingleApplication::arguments().at(1) == "settings")
 		{
 			controller->openSettingsScreen();
 		}

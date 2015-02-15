@@ -9,6 +9,7 @@
 //-----------------------------------------------------------------
 #include "Screen.h"
 #include "../external/QCustomPlot/qcustomplot.h"
+#include "LegendScreen.h"
 
 //-----------------------------------------------------------------
 // GraphScreen Class
@@ -41,7 +42,7 @@ public:
 	void setBackground(QString background);
 
 	void cleanData();
-	
+	void openCustomScreen();
 
 private:
 	void createPlot();
@@ -54,6 +55,8 @@ private:
 	int Xpos_;
 	HANDLE bitmapHandle_;
 	HBITMAP bitmap_;
+	LegendScreen * legendScreen_;
+	bool legendOpen_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

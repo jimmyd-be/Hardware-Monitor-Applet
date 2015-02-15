@@ -2,11 +2,15 @@
 #include "../Controller.h"
 
 MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr)
+	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr), scrollArea_(nullptr)
 {
 	ui.setupUi(this);
 
 	keyboardChanged(logitech->getKeyboardType());
+
+	scrollArea_ = new QScrollArea();
+	scrollArea_->setAlignment(Qt::AlignRight);
+	scrollArea_->setLayout(ui.ScreenList_Layout);
 
 	degreeGroup_ = new QActionGroup(this);
 	degreeGroup_->addAction(ui.actionFahrenheit);
@@ -37,6 +41,12 @@ MainWindow::~MainWindow()
 	{
 		delete degreeGroup_;
 		degreeGroup_ = nullptr;
+	}
+
+	if (scrollArea_ != nullptr)
+	{
+		delete scrollArea_;
+		scrollArea_ = nullptr;
 	}
 
 }

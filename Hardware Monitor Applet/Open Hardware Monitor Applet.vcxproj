@@ -366,6 +366,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Screen\GraphScreen.cpp" />
+    <ClCompile Include="Screen\LegendScreen.cpp" />
     <ClCompile Include="Screen\NormalScreen.cpp" />
     <ClCompile Include="Screen\Screen.cpp" />
     <ClCompile Include="Screen\StartScreen.cpp" />
@@ -440,6 +441,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_PRINTSUPPORT_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtPrintSupport" "-IC:\Program Files (x86)\Visual Leak Detector\include"</Command>
     </CustomBuild>
     <ClInclude Include="Screen\GraphScreen.h" />
+    <ClInclude Include="Screen\LegendScreen.h" />
     <ClInclude Include="Screen\NormalScreen.h" />
     <ClInclude Include="Screen\Screen.h" />
     <ClInclude Include="Screen\StartScreen.h" />

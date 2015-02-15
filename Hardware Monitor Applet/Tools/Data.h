@@ -32,6 +32,8 @@ public:
 	QStringList translateLines(QList<LineText>);
 	QList<double> translateLines(QList<GraphLine>);
 
+	HardwareSensor translateLine(Query);
+
 private:
 	//---------------------------
 	// Constructor(s)

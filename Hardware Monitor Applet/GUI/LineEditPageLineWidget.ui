@@ -29,6 +29,9 @@
        <height>0</height>
       </size>
      </property>
+     <property name="dragEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
   </layout>

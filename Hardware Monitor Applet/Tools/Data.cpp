@@ -181,3 +181,9 @@ MonitorTool * Data::getMonitorTool(MonitorSystem system)
 
 	return nullptr;
 }
+
+
+HardwareSensor Data::translateLine(Query query)
+{
+	return getMonitorTool(query.system)->getData(query);;
+}

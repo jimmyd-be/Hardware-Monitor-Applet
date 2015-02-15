@@ -20,7 +20,7 @@
 #include <QDir>
 
 enum KeyboardTypes {Color, Monochrome, None};
-enum ScreenType {Normal, Graph, Start, No};
+enum ScreenType {Normal, Graph, Start, Legend, No};
 enum QueryValue {Name, Current, Max, Min};
 enum MonitorSystem { OHM, HWiNFO, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
