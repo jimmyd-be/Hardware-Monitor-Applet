@@ -35,6 +35,7 @@ public:
 	ScreenType getScreenType();
 
 	void setData(QList<GraphLine>);
+	void setSettings(GraphSettings);
 
 	QList<GraphLine> getData();
 
@@ -48,6 +49,7 @@ private:
 	int Xpos_;
 	HANDLE bitmapHandle_;
 	HBITMAP bitmap_;
+	GraphSettings settings_;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

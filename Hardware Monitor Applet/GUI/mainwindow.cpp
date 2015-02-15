@@ -2,24 +2,27 @@
 #include "../Controller.h"
 
 MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr), scrollArea_(nullptr)
+	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr)
 {
 	ui.setupUi(this);
 
 	keyboardChanged(logitech->getKeyboardType());
 
-	scrollArea_ = new QScrollArea();
-	scrollArea_->setAlignment(Qt::AlignRight);
-	scrollArea_->setLayout(ui.ScreenList_Layout);
-
 	degreeGroup_ = new QActionGroup(this);
 	degreeGroup_->addAction(ui.actionFahrenheit);
 	degreeGroup_->addAction(ui.actionCelsius);
+
+	autoStartGroup_ = new QActionGroup(this);
+	autoStartGroup_->addAction(ui.actionEnable);
+	autoStartGroup_->addAction(ui.actionDisable);
 
 	if (Settings::getInstance()->getTemperature() == TemperatureType::Fahrenheit)
 	{
 		ui.actionFahrenheit->setChecked(true);
 	}
+
+	ui.actionEnable->setChecked(Settings::getInstance()->getAutoStart());
+	ui.actionDisable->setChecked(!Settings::getInstance()->getAutoStart());
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
 	connect(ui.Order_pushButton, SIGNAL(clicked()), this, SLOT(openOrderWindow()));
@@ -29,6 +32,8 @@ MainWindow::MainWindow(Logitech * logitech, Controller * controller, QWidget *pa
 	connect(ui.actionCelsius, SIGNAL(triggered()), this, SLOT(settingsChanged()));
 	connect(ui.actionReport_a_bug, SIGNAL(triggered()), this, SLOT(reportIssue()));
 	connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(openAboutWindow()));
+	connect(ui.actionEnable, SIGNAL(triggered()), this, SLOT(settingsChanged()));
+	connect(ui.actionDisable, SIGNAL(triggered()), this, SLOT(settingsChanged()));
 
 	fillinPages();
 }
@@ -43,10 +48,10 @@ MainWindow::~MainWindow()
 		degreeGroup_ = nullptr;
 	}
 
-	if (scrollArea_ != nullptr)
+	if (autoStartGroup_ != nullptr)
 	{
-		delete scrollArea_;
-		scrollArea_ = nullptr;
+		delete autoStartGroup_;
+		autoStartGroup_ = nullptr;
 	}
 
 }
@@ -118,6 +123,16 @@ void MainWindow::settingsChanged()
 	{
 		Settings::getInstance()->setTemperature(TemperatureType::Fahrenheit);
 	}
+
+	if (ui.actionEnable->isChecked())
+	{
+		Settings::getInstance()->setAutoStart(true);
+	}
+	else if (ui.actionDisable->isChecked())
+	{
+		Settings::getInstance()->setAutoStart(false);
+	}
+
 }
 
 void MainWindow::fillinPages()

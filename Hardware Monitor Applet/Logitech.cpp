@@ -46,7 +46,7 @@ Logitech::~Logitech()
 
 bool Logitech::initKeyboard()
 {
-	HRESULT hRes = lcd_.Initialize(_T("Hardware Monitor Applet"), LG_DUAL_MODE, TRUE, TRUE);
+	HRESULT hRes = lcd_.Initialize(_T("Hardware Monitor Applet"), LG_DUAL_MODE, Settings::getInstance()->getAutoStart(), TRUE);
 
 	if (hRes == S_OK)
 	{
@@ -111,7 +111,7 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 }
 
 
-void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors)
+void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors, GraphSettings settings)
 {
 	int colorCount = 0;
 	QList<GraphLine> linesList;
@@ -134,16 +134,19 @@ void Logitech::creategraphScreen(QString name, QString background, ScreenType ty
 	GraphScreen * screen = new GraphScreen(&lcd_, name);
 	screen->setBackground(background);
 	screen->setData(linesList);
+	screen->setSettings(settings);
 
 	screenList_.append(screen);
 }
 
-void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QList<GraphLine> graphData)
+void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QList<GraphLine> graphData, GraphSettings settings)
 {
 	GraphScreen * screen = new GraphScreen(&lcd_, name);
 	screen->setBackground(background);
 
 	screen->setData(graphData);
+
+	screen->setSettings(settings);
 
 	screenList_.append(screen);
 }

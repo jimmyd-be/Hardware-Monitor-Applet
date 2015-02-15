@@ -60,6 +60,18 @@ TemperatureType Settings::getTemperature()
 	return generalSettings_.temperature;
 }
 
+void Settings::setAutoStart(bool autostart)
+{
+	generalSettings_.autoStart = autostart;
+
+	saveSettings();
+}
+
+bool Settings::getAutoStart()
+{
+	return generalSettings_.autoStart;
+}
+
 void Settings::loadSettings()
 {
 	loadGeneralSettings();
@@ -145,6 +157,23 @@ void Settings::loadGraphScreenSettings(QString name, QString background, ScreenT
 {
 	QList<GraphLine> graphData;
 
+	GraphSettings graphSetting;
+
+	graphSetting.addTitle = settings_->value("AddTitle").toBool();
+	graphSetting.range = settings_->value("Range").toInt();
+
+	QColor fontcolor;
+	fontcolor.setRed(settings_->value("TitleColorRed").toInt());
+	fontcolor.setBlue(settings_->value("TitleColorBlue").toInt());
+	fontcolor.setGreen(settings_->value("TitleColorGreen").toInt());
+
+	QFont titleFont;
+	titleFont.setPointSize(settings_->value("FontSize").toInt());
+	titleFont.setFamily(settings_->value("FontFamily").toString());
+
+	graphSetting.titleColor = fontcolor;
+	graphSetting.titleFont = titleFont;
+
 	int graphCount = settings_->beginReadArray("graphData");
 
 	for (int i = 0; i < graphCount; i++)
@@ -177,7 +206,7 @@ void Settings::loadGraphScreenSettings(QString name, QString background, ScreenT
 
 	settings_->endArray();
 
-	logitech_->creategraphScreen(name, background, type, graphData);
+	logitech_->creategraphScreen(name, background, type, graphData, graphSetting);
 }
 
 void Settings::loadScreenOrder()
@@ -240,6 +269,7 @@ void Settings::saveGeneralSettings()
 	settings_->beginGroup("General");
 
 	settings_->setValue("Temperature", Defines::translateTemperatureEnum(generalSettings_.temperature));
+	settings_->setValue("AutoStart", generalSettings_.autoStart);
 
 	settings_->endGroup();
 }
@@ -247,6 +277,7 @@ void Settings::saveGeneralSettings()
 void Settings::loadGeneralSettings()
 {
 	generalSettings_.temperature = Defines::translateTemperatureEnum(settings_->value("General/Temperature").toString());
+	generalSettings_.autoStart = settings_->value("General/AutoStart").toBool();
 }
 
 void Settings::saveSettings()
@@ -332,6 +363,17 @@ void Settings::saveNormalScreenSettings(NormalScreen * screen)
 void Settings::saveGraphScreenSettings(GraphScreen * screen)
 {
 	QList<GraphLine> graphData = screen->getData();
+
+	settings_->setValue("AddTitle", screen->getGraphSettings().addTitle);
+	settings_->setValue("Range", screen->getGraphSettings().range);
+	
+	settings_->setValue("TitleColorRed", screen->getGraphSettings().titleColor.red());
+	settings_->setValue("TitleColorBlue", screen->getGraphSettings().titleColor.blue());
+	settings_->setValue("TitleColorGreen", screen->getGraphSettings().titleColor.green());
+
+	settings_->setValue("FontSize", screen->getGraphSettings().titleFont.pointSize());
+	settings_->setValue("FontFamily", screen->getGraphSettings().titleFont.family());
+
 
 	settings_->beginWriteArray("graphData");
 

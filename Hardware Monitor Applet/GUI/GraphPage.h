@@ -7,6 +7,7 @@
 #include "QBoxLayout.h"
 #include "../Defines.h"
 #include "DataPage.h"
+#include "QFontDialog"
 
 class GraphPage: public QWizardPage
 {
@@ -19,10 +20,16 @@ public:
 
 	QMap<QString, Query> getValues();
 	QList<QColor> getColors();
+	GraphSettings getGraphSettings();
 
 protected:
 	int nextId() const;
 	void initializePage();
+
+private slots:
+	void openFontDialog();
+	void openColorDialog();
+	void titleCheckBoxChanged();
 
 private:
 	void loadData(QList<LineText>, QList<QColor>);
@@ -34,4 +41,6 @@ private:
 	QVBoxLayout * layout_;
 	DataPage* dataPage_;
 	QVector<GraphPageLineWidget *> widgetItems_;	
+	QFont titleFont_;
+	QColor titleColor_;
 };

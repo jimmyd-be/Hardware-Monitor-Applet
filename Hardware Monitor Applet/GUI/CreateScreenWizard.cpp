@@ -170,7 +170,7 @@ void CreateScreenWizard::accept()
 
 	else if (screenTypePage_->getScreenType() == ScreenType::Graph)
 	{
-		logitech_->creategraphScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), graphPage_->getValues(), graphPage_->getColors());
+		logitech_->creategraphScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), graphPage_->getValues(), graphPage_->getColors(), graphPage_->getGraphSettings());
 	}
 
 	Settings::getInstance()->saveSettings();

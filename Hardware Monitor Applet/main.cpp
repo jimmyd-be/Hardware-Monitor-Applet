@@ -2,7 +2,6 @@
 #include <external\QSingleApplication\qtsingleapplication.h>
 #include "Controller.h"
 #include <QTextCodec>
-//#include "Tools\Data.h"
 
 #include <GUI\mainwindow.h>
 
@@ -14,12 +13,12 @@ int main(int argc, char *argv[])
 
 	QtSingleApplication a(argc, argv);
 
-
 	if (a.isRunning())
 	{
-		if (QtSingleApplication::arguments().size() > 0 && QtSingleApplication::arguments().at(0) == "settings")
+		if (QtSingleApplication::arguments().size() > 1 && QtSingleApplication::arguments().at(1) == "settings")
 		{
 			a.sendMessage(QString("OpenSettings"), 5000);
+			return 0;
 		}
 		else
 		{
@@ -29,7 +28,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		controller = new Controller(&a);
-		//controller->openSettingsScreen();
+		controller->openSettingsScreen();
 
 		if (QtSingleApplication::arguments().size() > 1 && QtSingleApplication::arguments().at(1) == "settings")
 		{

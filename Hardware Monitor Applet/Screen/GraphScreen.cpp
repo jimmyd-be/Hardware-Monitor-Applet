@@ -21,8 +21,6 @@ GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, nam
 	legendScreen_ = new LegendScreen(logitech, "Legend " + name);
 
 	plot_ = new QCustomPlot();
-	plot_->plotLayout()->insertRow(0);
-	plot_->plotLayout()->addElement(0, 0, new QCPPlotTitle(plot_, name));
 }
 
 GraphScreen::~GraphScreen()
@@ -62,13 +60,13 @@ void GraphScreen::draw()
 		lcd_->ModifyControlsOnPage(screenPage_);
 		lcd_->ModifyDisplay(LG_COLOR);
 
-		if (Xpos_ >= 60)
+		if (Xpos_ >= settings_.range)
 		{
-			plot_->xAxis->setRange(Xpos_ - 60, Xpos_);
+			plot_->xAxis->setRange(Xpos_ - settings_.range, Xpos_);
 		}
 		else
 		{
-			plot_->xAxis->setRange(0, 60);
+			plot_->xAxis->setRange(0, settings_.range);
 		}
 		plot_->yAxis->rescale();
 		plot_->replot();
@@ -115,6 +113,29 @@ void GraphScreen::cleanData()
 		{
 			plot_->graph(i)->clearData();
 		}
+	}
+}
+
+GraphSettings GraphScreen::getGraphSettings()
+{
+	return settings_;
+}
+
+void GraphScreen::setSettings(GraphSettings settings)
+{
+	settings_ = settings;
+
+	legendScreen_->setSettings(settings_);
+
+	if (settings_.addTitle)
+	{
+		plot_->plotLayout()->insertRow(0);
+		
+		QCPPlotTitle * plotTitle = new QCPPlotTitle(plot_, name_);
+		plotTitle->setFont(settings.titleFont);
+		plotTitle->setTextColor(settings.titleColor);
+
+		plot_->plotLayout()->addElement(0, 0, plotTitle);
 	}
 }
 

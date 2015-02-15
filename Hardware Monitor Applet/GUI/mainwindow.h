@@ -39,7 +39,7 @@ private:
 	QVector<MainScreenWidget *> widgetList_;
 	Controller * controller_;
 	QActionGroup * degreeGroup_;
-	QScrollArea * scrollArea_;
+	QActionGroup * autoStartGroup_;
 
 private slots:
 	void openScreenWizard();

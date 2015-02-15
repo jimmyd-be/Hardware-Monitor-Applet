@@ -181,7 +181,6 @@ BOOL CLCDConnection::Initialize(lgLcdConnectContextEx & ConnectContext,
     return TRUE;
 }
 
-
 //************************************************************************
 //
 // CLCDConnection::Shutdown

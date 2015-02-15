@@ -69,6 +69,7 @@ public:
     // Call this function every game frame
     virtual void Update(void);
 
+
     // Add your controls to the appropriate display
     CLCDOutput *ColorOutput(void);
     CLCDOutput *MonoOutput(void);

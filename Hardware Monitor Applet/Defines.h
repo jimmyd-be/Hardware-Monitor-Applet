@@ -49,6 +49,13 @@ struct GraphLine{
 	QColor color;
 };
 
+struct GraphSettings{
+	int range;
+	bool addTitle;
+	QFont titleFont;
+	QColor titleColor;
+};
+
 struct AppletFont{
 	QFont name;
 	int height;
@@ -77,6 +84,7 @@ struct CustomSettings
 struct GeneralSettings
 {
 	TemperatureType temperature;
+	bool autoStart;
 };
 
 const QChar degreeChar(0260);

@@ -36,6 +36,9 @@ public:
 	void setTemperature(TemperatureType);
 	TemperatureType getTemperature();
 
+	void setAutoStart(bool);
+	bool getAutoStart();
+
 protected:
 	//---------------------------
 	// Constructor(s)

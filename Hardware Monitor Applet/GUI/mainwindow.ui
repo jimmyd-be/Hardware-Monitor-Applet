@@ -145,7 +145,15 @@ QPushButton:hover {
      <addaction name="actionCelsius"/>
      <addaction name="actionFahrenheit"/>
     </widget>
+    <widget class="QMenu" name="menuAutostart">
+     <property name="title">
+      <string>Autostart</string>
+     </property>
+     <addaction name="actionEnable"/>
+     <addaction name="actionDisable"/>
+    </widget>
     <addaction name="menuTemperature_Unit"/>
+    <addaction name="menuAutostart"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -270,6 +278,25 @@ QPushButton:hover {
    </property>
    <property name="text">
     <string>10 s</string>
+   </property>
+  </action>
+  <action name="actionEnable">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable</string>
+   </property>
+  </action>
+  <action name="actionDisable">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Disable</string>
    </property>
   </action>
  </widget>

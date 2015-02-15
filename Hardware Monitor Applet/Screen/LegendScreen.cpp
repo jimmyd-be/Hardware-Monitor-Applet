@@ -53,8 +53,8 @@ void LegendScreen::draw()
 	lcd_->ModifyControlsOnPage(screenPage_);
 	lcd_->ModifyDisplay(LG_COLOR);
 
-	HANDLE lineHandle = lcd_->AddCustomText(LG_STATIC_TEXT, 14, DT_CENTER, 320, LG_FONT, false);
-
+	HANDLE lineHandle = lcd_->AddCustomText(LG_STATIC_TEXT, settings_.titleFont.pointSize(), DT_CENTER, 320, (LPCTSTR)settings_.titleFont.family().utf16(), false);
+	lcd_->SetTextFontColor(lineHandle, RGB(settings_.titleColor.red(), settings_.titleColor.green(), settings_.titleColor.blue()));
 	lcd_->SetOrigin(lineHandle, 0, 0);
 	lcd_->SetText(lineHandle, (LPCTSTR)(name_).utf16());
 
@@ -85,4 +85,9 @@ void LegendScreen::setData(QList<GraphLine> data)
 QList<GraphLine> LegendScreen::getData()
 {
 	return graphData_;
+}
+
+void LegendScreen::setSettings(GraphSettings settings)
+{
+	settings_ = settings;
 }

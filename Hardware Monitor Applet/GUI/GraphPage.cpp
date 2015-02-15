@@ -12,6 +12,10 @@ GraphPage::GraphPage(DataPage* page, QWidget *parent)
 	layout_ = new QVBoxLayout();
 	layout_->addWidget(widget_);
 	setLayout(layout_);
+
+	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
+	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
+	connect(ui.title_checkBox, SIGNAL(stateChanged(int)), this, SLOT(titleCheckBoxChanged()));
 }
 
 GraphPage::GraphPage(DataPage* page, QList<LineText> lines, QList<QColor> colors, QWidget *parent)
@@ -28,6 +32,10 @@ GraphPage::GraphPage(DataPage* page, QList<LineText> lines, QList<QColor> colors
 	setLayout(layout_);
 
 	loadData(lines, colors);
+
+	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
+	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
+	connect(ui.title_checkBox, SIGNAL(stateChanged(int)), this, SLOT(titleCheckBoxChanged()));
 }
 
 GraphPage::~GraphPage()
@@ -50,6 +58,34 @@ GraphPage::~GraphPage()
 	}
 
 	widgetItems_.clear();
+}
+
+void GraphPage::openFontDialog()
+{
+	bool ok;
+	titleFont_ = QFontDialog::getFont(&ok, titleFont_);
+}
+
+void GraphPage::openColorDialog()
+{
+	QColorDialog dialog;
+	dialog.setCurrentColor(titleColor_);
+
+	titleColor_ = dialog.getColor();
+}
+
+void GraphPage::titleCheckBoxChanged()
+{
+	if (ui.title_checkBox->isChecked())
+	{
+		ui.fontTitle_pushButton->setDisabled(false);
+		ui.colorTitle_pushButton->setDisabled(false);
+	}
+	else
+	{
+		ui.fontTitle_pushButton->setDisabled(true);
+		ui.colorTitle_pushButton->setDisabled(true);
+	}
 }
 
 int GraphPage::nextId() const
@@ -130,4 +166,22 @@ QList<QColor> GraphPage::getColors()
 	}
 
 	return colorList;
+}
+
+
+GraphSettings GraphPage::getGraphSettings()
+{
+	GraphSettings settings;
+
+	settings.addTitle = ui.title_checkBox->isChecked();
+	
+	if (settings.addTitle)
+	{
+		settings.titleColor = titleColor_;
+		settings.titleFont = titleFont_;
+	}
+
+	settings.range = ui.Range_spinBox->value();
+
+	return settings;
 }

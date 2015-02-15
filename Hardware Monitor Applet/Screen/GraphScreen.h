@@ -43,6 +43,9 @@ public:
 
 	void cleanData();
 	void openCustomScreen();
+	void setSettings(GraphSettings settings);
+
+	GraphSettings getGraphSettings();
 
 private:
 	void createPlot();
@@ -57,6 +60,7 @@ private:
 	HBITMAP bitmap_;
 	LegendScreen * legendScreen_;
 	bool legendOpen_;
+	GraphSettings settings_;
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

@@ -32,16 +32,19 @@ void AppletThread::run()
 	{
 		time_ += 30;
 
-		checkButtonPresses();
-
-		if (time_ >= 1000)
+		if (logitech_->getCurrentScreen() != nullptr)
 		{
-			updatePage();
-			time_ = 0;
+			checkButtonPresses();
+
+			if (time_ >= 1000)
+			{
+				updatePage();
+				time_ = 0;
+			}
+
+			lcd_->Update();
+
 		}
-
-		lcd_->Update();
-
 		msleep(30);
 	}
 }

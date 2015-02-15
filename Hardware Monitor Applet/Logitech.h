@@ -46,8 +46,8 @@ public:
 
 	void createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines, QList<CustomSettings> settings);
 	void createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines);
-	void creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors);
-	void creategraphScreen(QString name, QString background, ScreenType type, QList<GraphLine> graphData);
+	void creategraphScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QList<QColor> colors, GraphSettings settings);
+	void creategraphScreen(QString name, QString background, ScreenType type, QList<GraphLine> graphData, GraphSettings settings);
 
 	void changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<QString>> subOrder);
 	void deleteScreen(QString name);
