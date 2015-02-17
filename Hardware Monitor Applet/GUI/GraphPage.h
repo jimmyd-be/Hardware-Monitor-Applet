@@ -15,7 +15,7 @@ class GraphPage: public QWizardPage
 
 public:
 	GraphPage(DataPage* page, QWidget *parent = 0);
-	GraphPage(DataPage* page, QList<LineText> lines, QList<QColor> colors, QWidget *parent = 0);
+	GraphPage(DataPage* page, QList<GraphLine> lines, GraphSettings settings, QWidget *parent = 0);
 	virtual ~GraphPage();
 
 	QMap<QString, Query> getValues();
@@ -32,7 +32,7 @@ private slots:
 	void titleCheckBoxChanged();
 
 private:
-	void loadData(QList<LineText>, QList<QColor>);
+	//void loadData(QList<GraphLine>, GraphSettings);
 	void fillinData();
 	void removeData();
 

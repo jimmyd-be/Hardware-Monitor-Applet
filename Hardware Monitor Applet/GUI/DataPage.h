@@ -14,6 +14,7 @@ class DataPage: public QWizardPage
 public:
 	DataPage(ScreenTypePage* type, QWidget *parent = 0);
 	DataPage(ScreenTypePage* type, QList<LineText>, QWidget *parent = 0);
+	DataPage(ScreenTypePage* type, QList<GraphLine>, QWidget *parent = 0);
 	virtual ~DataPage();
 
 	bool validatePage();
@@ -25,7 +26,9 @@ protected:
 	void initializePage();
 
 private:
+	void makeWindow();
 	void loadSelecteddata(QList<LineText>);
+	void loadSelecteddata(QList<GraphLine>);
 	void loadData(MonitorSystem);
 	void clearData(MonitorSystem system);
 	bool isUnique(Query);

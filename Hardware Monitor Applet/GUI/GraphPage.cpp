@@ -18,7 +18,7 @@ GraphPage::GraphPage(DataPage* page, QWidget *parent)
 	connect(ui.title_checkBox, SIGNAL(stateChanged(int)), this, SLOT(titleCheckBoxChanged()));
 }
 
-GraphPage::GraphPage(DataPage* page, QList<LineText> lines, QList<QColor> colors, QWidget *parent)
+GraphPage::GraphPage(DataPage* page, QList<GraphLine> lines, GraphSettings settings, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), dataPage_(page)
 {
 	setTitle(tr("Graph settings"));
@@ -31,7 +31,7 @@ GraphPage::GraphPage(DataPage* page, QList<LineText> lines, QList<QColor> colors
 	layout_->addWidget(widget_);
 	setLayout(layout_);
 
-	loadData(lines, colors);
+//	loadData(lines, settings);
 
 	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
 	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
@@ -117,19 +117,34 @@ void GraphPage::fillinData()
 	}
 }
 
-void GraphPage::loadData(QList<LineText> lines, QList<QColor> colors)
-{
-	removeData();
-
-	for (int i = 0; i < lines.size(); i++)
-	{
-		GraphPageLineWidget * newWidget = new GraphPageLineWidget(lines[i].text, lines[i].queryMap[0]);
-
-		ui.Data_verticalLayout->addWidget(newWidget);
-
-		widgetItems_.append(newWidget);
-	}
-}
+//void GraphPage::loadData(QList<GraphLine> data, GraphSettings settings)
+//{
+//	removeData();
+//
+//	for (int i = 0; i < data.size(); i++)
+//	{
+//		GraphPageLineWidget * newWidget = new GraphPageLineWidget(data[i].text, data[i].query);
+//
+//		ui.Data_verticalLayout->addWidget(newWidget);
+//
+//		widgetItems_.append(newWidget);
+//	}
+//
+//	if (settings.addTitle)
+//	{
+//		ui.title_checkBox->setChecked(true);
+//		titleFont_ = settings.titleFont;
+//		titleColor_ = settings.titleColor;
+//	}
+//	else
+//	{
+//		ui.title_checkBox->setChecked(false);
+//		ui.fontTitle_pushButton->setDisabled(true);
+//		ui.colorTitle_pushButton->setDisabled(true);
+//	}
+//	
+//	ui.Range_spinBox->setValue(settings.range);
+//}
 
 void GraphPage::removeData()
 {

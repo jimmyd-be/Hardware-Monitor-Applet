@@ -4,46 +4,21 @@
 DataPage::DataPage(ScreenTypePage * type, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenTypePage_(type)
 {
-	setTitle(tr("Select data"));
 
-	widget_ = new QWidget();
-
-	ui.setupUi(widget_);
-
-	layout_ = new QVBoxLayout;
-	layout_->addWidget(widget_);
-	setLayout(layout_);
-
-	ui.HWiNFO_tableWidget->hideColumn(0);
-	ui.OHM_tableWidget->hideColumn(0);
-	ui.SelectedItems_tableWidget->hideColumn(0);
-	ui.SelectedItems_tableWidget->hideColumn(5);
-
-	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
-	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
+	makeWindow();
 }
 
 DataPage::DataPage(ScreenTypePage * type, QList<LineText> data, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenTypePage_(type)
 {
-	setTitle(tr("Select data"));
+	makeWindow();
+	loadSelecteddata(data);
+}
 
-	widget_ = new QWidget();
-
-	ui.setupUi(widget_);
-
-	layout_ = new QVBoxLayout;
-	layout_->addWidget(widget_);
-	setLayout(layout_);
-
-	ui.HWiNFO_tableWidget->hideColumn(0);
-	ui.OHM_tableWidget->hideColumn(0);
-	ui.SelectedItems_tableWidget->hideColumn(0);
-	ui.SelectedItems_tableWidget->hideColumn(5);
-
-	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
-	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
-
+DataPage::DataPage(ScreenTypePage* type, QList<GraphLine> data, QWidget *parent)
+	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenTypePage_(type)
+{
+	makeWindow();
 	loadSelecteddata(data);
 }
 
@@ -59,6 +34,62 @@ DataPage::~DataPage()
 	{
 		delete layout_;
 		layout_ = nullptr;
+	}
+}
+
+void DataPage::makeWindow()
+{
+	setTitle(tr("Select data"));
+	widget_ = new QWidget();
+
+	ui.setupUi(widget_);
+
+	layout_ = new QVBoxLayout;
+	layout_->addWidget(widget_);
+	setLayout(layout_);
+
+	ui.HWiNFO_tableWidget->hideColumn(0);
+	ui.OHM_tableWidget->hideColumn(0);
+	ui.SelectedItems_tableWidget->hideColumn(0);
+	ui.SelectedItems_tableWidget->hideColumn(5);
+
+	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
+	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
+}
+
+void DataPage::loadSelecteddata(QList<GraphLine> data)
+{
+	int row = 0;
+
+	for (GraphLine line : data)
+	{
+		ui.SelectedItems_tableWidget->insertRow(row);
+
+		QTableWidgetItem * idItem = new QTableWidgetItem();
+		QTableWidgetItem * nameItem = new QTableWidgetItem();
+		QTableWidgetItem * systemItem = new QTableWidgetItem();
+		QTableWidgetItem * valueItem = new QTableWidgetItem();
+		QTableWidgetItem * precisionItem = new QTableWidgetItem();
+		QTableWidgetItem * symbolItem = new QTableWidgetItem();
+		QTableWidgetItem * unitItem = new QTableWidgetItem();
+
+		idItem->setText(line.query.identifier);
+		nameItem->setText(line.query.name);
+		systemItem->setText(Defines::translateMonitorSystemEnum(line.query.system));
+		valueItem->setText(Defines::translateQueryValueEnum(line.query.value));
+		precisionItem->setText(QString::number(line.query.precision));
+		symbolItem->setText("");
+		unitItem->setText(QString(line.query.addUnit ? "True" : "False"));
+
+		ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
+		ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
+		ui.SelectedItems_tableWidget->setItem(row, 2, nameItem);
+		ui.SelectedItems_tableWidget->setItem(row, 3, valueItem);
+		ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
+		ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
+		ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
+
+		row += 1;
 	}
 }
 

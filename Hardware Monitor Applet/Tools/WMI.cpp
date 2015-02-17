@@ -227,7 +227,7 @@ QVector<HardwareSensor> WMI::getAllSensors()
 				if (!FAILED(hr))
 				{
 					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-					currentSensor.name = QString::fromStdString(string(ws.begin(), ws.end()));
+					currentSensor.name = QString::fromStdString(string(ws.begin(), ws.end())) + " " + sensorType;
 					ws.clear();
 
 					hr = 0;

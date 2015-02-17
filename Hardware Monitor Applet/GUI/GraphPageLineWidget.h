@@ -11,7 +11,7 @@ class GraphPageLineWidget :
 
 public:
 	GraphPageLineWidget(QString, Query, QWidget *parent = 0);
-	GraphPageLineWidget(QString, Query, QColor, QWidget *parent = 0);
+
 	virtual ~GraphPageLineWidget();
 
 	QColor getColor();

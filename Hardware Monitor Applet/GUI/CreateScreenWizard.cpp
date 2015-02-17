@@ -58,8 +58,13 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QString name, QWidge
 	}
 	else if (oldScreen->getScreenType() == ScreenType::Graph)
 	{
-		//graphPage_ = new GraphPage(dataPage_, oldScreen->getLines(), oldScreen->getGraphColors());
-		//setPage(Page_GraphEdit, graphPage_);
+		GraphScreen* oldGraphScreen = static_cast<GraphScreen*>(oldScreen);
+
+		dataPage_ = new DataPage(screenTypePage_, oldGraphScreen->getData());
+
+		graphPage_ = new GraphPage(dataPage_, oldGraphScreen->getData(), oldGraphScreen->getGraphSettings());
+		setPage(Page_Data, dataPage_);
+		setPage(Page_GraphEdit, graphPage_);
 	}
 
 	setPage(Page_Intro, introPage_);

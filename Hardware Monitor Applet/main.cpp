@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
 	else
 	{
 		controller = new Controller(&a);
-		controller->openSettingsScreen();
 
 		if (QtSingleApplication::arguments().size() > 1 && QtSingleApplication::arguments().at(1) == "settings")
 		{
