@@ -91,3 +91,64 @@ void CustomizePageLineWidget::openFontColorDialog()
 	palette_.setColor(QPalette::WindowText, color_);
 	ui.FontColor_label->setPalette(palette_);
 }
+
+void CustomizePageLineWidget::setEnabled(bool enabled)
+{
+	ui.Alligment_comboBox->setEnabled(enabled);
+	ui.Font_pushButton->setEnabled(enabled);
+	ui.FontColor_pushButton->setEnabled(enabled);
+	ui.textScrolling->setEnabled(enabled);
+	ui.LineSpace_spinBox->setEnabled(enabled);
+	ui.text_label->setEnabled(enabled);
+	ui.lineSpacing_label->setEnabled(enabled);
+}
+
+void CustomizePageLineWidget::setFont(QFont font)
+{
+	font_ = font;
+}
+
+void CustomizePageLineWidget::setColor(QColor color)
+{
+	color_= color;
+}
+
+QColor CustomizePageLineWidget::getColor()
+{
+	return color_;
+}
+
+QFont CustomizePageLineWidget::getFont()
+{
+	return font_;
+}
+
+void CustomizePageLineWidget::setAlligment(QString text)
+{
+	ui.Alligment_comboBox->setCurrentText(text);
+}
+
+QString CustomizePageLineWidget::getAlligment()
+{
+	return ui.Alligment_comboBox->currentText();
+}
+
+void CustomizePageLineWidget::setTextScrolling(bool textScolling)
+{
+	ui.textScrolling->setChecked(textScolling);
+}
+
+void CustomizePageLineWidget::setLineSpace(int lineSpace)
+{
+	ui.LineSpace_spinBox->setValue(lineSpace);
+}
+
+bool CustomizePageLineWidget::getTextScrolling()
+{
+	return ui.textScrolling->isChecked();
+}
+
+int CustomizePageLineWidget::getLineSpace()
+{
+	return ui.LineSpace_spinBox->value();
+}

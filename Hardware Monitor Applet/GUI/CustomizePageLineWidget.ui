@@ -84,7 +84,7 @@
     <widget class="QSpinBox" name="LineSpace_spinBox"/>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="lineSpacing_label">
      <property name="text">
       <string>Line spacing</string>
      </property>

@@ -19,6 +19,19 @@ public:
 
 	CustomSettings getSettings();
 
+	void setEnabled(bool);
+	void setFont(QFont);
+	void setColor(QColor);
+	void setAlligment(QString);
+	void setTextScrolling(bool);
+	void setLineSpace(int);
+
+	QColor getColor();
+	QFont getFont();
+	QString getAlligment();
+	bool getTextScrolling();
+	int getLineSpace();
+
 private slots:
 	void openFontDialog();
 	void openFontColorDialog();

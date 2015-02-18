@@ -23,7 +23,16 @@ protected:
 	void initializePage();
 	int nextId() const;
 
+private slots:
+	void generalSettingsChanged();
+	void openFontDialog();
+	void openFontColorDialog();
+	void alligmentChanged();
+	void textScrollingChanged();
+	void lineSpaceChanged();
+
 private:
+	void initWindow();
 	QStringList optimizeLines(QStringList);
 
 	Ui::CustomizePageWidget ui;
