@@ -14,6 +14,8 @@ LineEditPage::LineEditPage(DataPage* page, QWidget *parent)
 	layout_->addWidget(widget_);
 	setLayout(layout_);
 
+	ui.Data_tableWidget->horizontalHeader()->setSectionsMovable(true);
+
 	connect(ui.AddLine_pushButton, SIGNAL(clicked()), this, SLOT(addLine()));
 
 	addLine();
@@ -31,6 +33,8 @@ LineEditPage::LineEditPage(DataPage* page, QList<LineText> lines, QWidget *paren
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
 	setLayout(layout_);
+
+	ui.Data_tableWidget->horizontalHeader()->setSectionsMovable(true);
 
 	connect(ui.AddLine_pushButton, SIGNAL(clicked()), this, SLOT(addLine()));
 

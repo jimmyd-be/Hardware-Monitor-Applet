@@ -53,6 +53,10 @@ void DataPage::makeWindow()
 	ui.SelectedItems_tableWidget->hideColumn(0);
 	ui.SelectedItems_tableWidget->hideColumn(5);
 
+	ui.HWiNFO_tableWidget->horizontalHeader()->setSectionsMovable(true);
+	ui.OHM_tableWidget->horizontalHeader()->setSectionsMovable(true);
+	ui.SelectedItems_tableWidget->horizontalHeader()->setSectionsMovable(true);
+
 	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
 }
