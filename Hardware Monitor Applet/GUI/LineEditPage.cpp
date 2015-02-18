@@ -73,6 +73,8 @@ void LineEditPage::initializePage()
 	
 	while (i != items.constEnd())
 	{
+		HardwareSensor sensor = Data::Instance()->translateLine(i.value());
+
 		QTableWidgetItem * idItem = new QTableWidgetItem();
 		QTableWidgetItem * nameItem = new QTableWidgetItem();
 		QTableWidgetItem * systemItem = new QTableWidgetItem();
@@ -80,6 +82,7 @@ void LineEditPage::initializePage()
 		QTableWidgetItem * precisionItem = new QTableWidgetItem();
 		QTableWidgetItem * symbolItem = new QTableWidgetItem();
 		QTableWidgetItem * unitItem = new QTableWidgetItem();
+		QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 
 		idItem->setText(i.value().identifier);
 		nameItem->setText(i.value().name);
@@ -88,6 +91,7 @@ void LineEditPage::initializePage()
 		precisionItem->setText(QString::number(i.value().precision));
 		symbolItem->setText(i.key());
 		unitItem->setText(QString(i.value().addUnit ? "True" : "False"));
+		unitStringItem->setText(sensor.unit);
 
 		ui.Data_tableWidget->setItem(newRow, 0, idItem);
 		ui.Data_tableWidget->setItem(newRow, 1, symbolItem);
@@ -96,6 +100,7 @@ void LineEditPage::initializePage()
 		ui.Data_tableWidget->setItem(newRow, 4, valueItem);
 		ui.Data_tableWidget->setItem(newRow, 5, precisionItem);
 		ui.Data_tableWidget->setItem(newRow, 6, unitItem);
+		ui.Data_tableWidget->setItem(newRow, 7, unitStringItem);
 		
 		++i;
 		newRow++;

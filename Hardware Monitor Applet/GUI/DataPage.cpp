@@ -65,6 +65,8 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 	{
 		ui.SelectedItems_tableWidget->insertRow(row);
 
+		HardwareSensor sensor = Data::Instance()->translateLine(line.query);
+
 		QTableWidgetItem * idItem = new QTableWidgetItem();
 		QTableWidgetItem * nameItem = new QTableWidgetItem();
 		QTableWidgetItem * systemItem = new QTableWidgetItem();
@@ -72,6 +74,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 		QTableWidgetItem * precisionItem = new QTableWidgetItem();
 		QTableWidgetItem * symbolItem = new QTableWidgetItem();
 		QTableWidgetItem * unitItem = new QTableWidgetItem();
+		QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 
 		idItem->setText(line.query.identifier);
 		nameItem->setText(line.query.name);
@@ -80,6 +83,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 		precisionItem->setText(QString::number(line.query.precision));
 		symbolItem->setText("");
 		unitItem->setText(QString(line.query.addUnit ? "True" : "False"));
+		unitStringItem->setText(sensor.unit);
 
 		ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
 		ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
@@ -88,6 +92,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 		ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
 		ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
 		ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
+		ui.SelectedItems_tableWidget->setItem(row, 7, unitStringItem);
 
 		row += 1;
 	}
@@ -204,6 +209,9 @@ void DataPage::addButtonClicked()
 			queryItem.precision = ui.Precision_spinBox->value();
 			queryItem.addUnit = ui.unit_checkBox->isChecked();
 
+			HardwareSensor sensor = Data::Instance()->translateLine(queryItem);
+
+
 			if (isUnique(queryItem))
 			{
 				ui.SelectedItems_tableWidget->insertRow(newRow);
@@ -215,6 +223,7 @@ void DataPage::addButtonClicked()
 				QTableWidgetItem * precisionItem = new QTableWidgetItem();
 				QTableWidgetItem * symbolItem = new QTableWidgetItem();
 				QTableWidgetItem * unitItem = new QTableWidgetItem();
+				QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 
 				idItem->setText(queryItem.identifier);
 				nameItem->setText(queryItem.name);
@@ -223,6 +232,7 @@ void DataPage::addButtonClicked()
 				precisionItem->setText(QString::number(queryItem.precision));
 				symbolItem->setText(foundNextSymbol());
 				unitItem->setText(QString(ui.unit_checkBox->isChecked() ? "True" : "False"));
+				unitStringItem->setText(sensor.unit);
 
 				ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
 				ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
@@ -231,6 +241,7 @@ void DataPage::addButtonClicked()
 				ui.SelectedItems_tableWidget->setItem(newRow, 4, precisionItem);
 				ui.SelectedItems_tableWidget->setItem(newRow, 5, symbolItem);
 				ui.SelectedItems_tableWidget->setItem(newRow, 6, unitItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 7, unitStringItem);
 
 				newRow += 1;
 			}
@@ -278,14 +289,14 @@ QString DataPage::foundNextSymbol()
 
 	for (int i = 0; i < symbolList.size(); i++)
 	{
-		QString symbol = '$' + QString::number(i+1);
+		QString symbol = '$' + QString::number(i+10);
 		if (!symbolList.contains(symbol))
 		{
 			return symbol;
 		}
 	}
 
-	return '$' + QString::number(ui.SelectedItems_tableWidget->rowCount());
+	return '$' + QString::number(ui.SelectedItems_tableWidget->rowCount()+9);
 }
 
 QMap<QString, Query> DataPage::getData()
