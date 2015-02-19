@@ -360,6 +360,8 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 		{
 			ui.SelectedItems_tableWidget->insertRow(row);
 
+			HardwareSensor sensor = Data::Instance()->translateLine(i.value());
+
 			QTableWidgetItem * idItem = new QTableWidgetItem();
 			QTableWidgetItem * nameItem = new QTableWidgetItem();
 			QTableWidgetItem * systemItem = new QTableWidgetItem();
@@ -367,6 +369,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			QTableWidgetItem * precisionItem = new QTableWidgetItem();
 			QTableWidgetItem * symbolItem = new QTableWidgetItem();
 			QTableWidgetItem * unitItem = new QTableWidgetItem();
+			QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 
 			idItem->setText(i.value().identifier);
 			nameItem->setText(i.value().name);
@@ -375,6 +378,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			precisionItem->setText(QString::number(i.value().precision));
 			symbolItem->setText(i.key());
 			unitItem->setText(QString(i.value().addUnit ? "True" : "False"));
+			unitStringItem->setText(sensor.unit);
 
 			ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
 			ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
@@ -383,6 +387,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
 			ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
 			ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
+			ui.SelectedItems_tableWidget->setItem(row, 7, unitStringItem);
 
 			row += 1;
 			++i;

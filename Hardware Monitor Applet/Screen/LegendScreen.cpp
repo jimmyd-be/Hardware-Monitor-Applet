@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------
 // LegendScreen methods
 //-----------------------------------------------------------------
-LegendScreen::LegendScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr)
+LegendScreen::LegendScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr), settings_({ 0 })
 {
 	plot_ = new QCustomPlot();
 

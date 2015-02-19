@@ -23,9 +23,7 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 
 	if (parent != NULL)
 	{
-		setGeometry(parent->x() + parent->width() / 2 - width_ / 2,
-			parent->y() + parent->height() / 2 - height_ / 2,
-			width_, height_);
+		resize(parent->width()-30, parent->height()-30);
 	}
 	else
 	{

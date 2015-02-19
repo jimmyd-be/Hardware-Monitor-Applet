@@ -105,7 +105,7 @@ void MainWindow::openAboutWindow()
 
 void MainWindow::openScreenWizard()
 {
-	CreateScreenWizard * wizard = new CreateScreenWizard(logitech_);
+	CreateScreenWizard * wizard = new CreateScreenWizard(logitech_, this);
 	wizard->exec();
 	
 	delete wizard;

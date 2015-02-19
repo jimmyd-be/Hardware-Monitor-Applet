@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------
 // GraphScreen methods
 //-----------------------------------------------------------------
-GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr), legendScreen_(nullptr), legendOpen_(false)
+GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr), legendScreen_(nullptr), legendOpen_(false), settings_({0})
 {
 	legendScreen_ = new LegendScreen(logitech, "Legend " + name);
 
