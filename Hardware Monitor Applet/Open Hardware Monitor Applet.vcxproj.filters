@@ -77,15 +77,6 @@
     <ClCompile Include="Logitech.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\QSingleApplication\qtlocalpeer.cpp">
-      <Filter>external\qtsingleapplication</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qtlocalpeer.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qtlocalpeer.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="external\Logitech\EZ_LCD.cpp">
       <Filter>external\Logitech</Filter>
     </ClCompile>
@@ -151,15 +142,6 @@
     </ClCompile>
     <ClCompile Include="external\Logitech\LCDUI\LCDText.cpp">
       <Filter>external\Logitech\LCDUI</Filter>
-    </ClCompile>
-    <ClCompile Include="external\QSingleApplication\qtsingleapplication.cpp">
-      <Filter>external\qtsingleapplication</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qtsingleapplication.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qtsingleapplication.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Tools\HWiNFO.cpp">
       <Filter>Tools</Filter>
@@ -350,16 +332,34 @@
     <ClCompile Include="Screen\LegendScreen.cpp">
       <Filter>Screen</Filter>
     </ClCompile>
+    <ClCompile Include="external\QSingleApplication\SingleApplication.cpp">
+      <Filter>external\qtsingleapplication</Filter>
+    </ClCompile>
+    <ClCompile Include="external\QSingleApplication\localserver.cpp">
+      <Filter>external\qtsingleapplication</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_localserver.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_localserver.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SingleApplication.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SingleApplication.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Controller.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Controller.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="external\QSingleApplication\qtlocalpeer.h">
-      <Filter>external\qtsingleapplication</Filter>
-    </CustomBuild>
-    <CustomBuild Include="external\QSingleApplication\qtsingleapplication.h">
-      <Filter>external\qtsingleapplication</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\mainwindow.ui">
       <Filter>Form Files</Filter>
@@ -459,6 +459,15 @@
     </CustomBuild>
     <CustomBuild Include="GUI\AboutDialog.h">
       <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="external\QSingleApplication\localserver.h">
+      <Filter>external\qtsingleapplication</Filter>
+    </CustomBuild>
+    <CustomBuild Include="external\QSingleApplication\SingleApplication.h">
+      <Filter>external\qtsingleapplication</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Controller.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -586,9 +595,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Logitech.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_GraphPageWidget.h">

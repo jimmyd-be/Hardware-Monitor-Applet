@@ -1,5 +1,5 @@
 #include <QtWidgets/QApplication>
-#include <external\QSingleApplication\qtsingleapplication.h>
+#include <external\QSingleApplication\singleapplication.h>
 #include "Controller.h"
 #include <QTextCodec>
 
@@ -11,13 +11,15 @@ int main(int argc, char *argv[])
 
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
-	QtSingleApplication a(argc, argv);
+	QApplication a(argc, argv);
 
-	if (a.isRunning())
+	SingleApplication* singleApp = new SingleApplication();
+
+	if (singleApp->isRunning())
 	{
-		if (QtSingleApplication::arguments().size() > 1 && QtSingleApplication::arguments().at(1) == "settings")
+		if (QApplication::arguments().size() > 1)
 		{
-			a.sendMessage(QString("OpenSettings"), 5000);
+			singleApp->sendMessage(QApplication::arguments().at(1));
 			return 0;
 		}
 		else
@@ -27,9 +29,9 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		controller = new Controller(&a);
+		controller = new Controller(&a, singleApp);
 
-		if (QtSingleApplication::arguments().size() > 1 && QtSingleApplication::arguments().at(1) == "settings")
+		if (QApplication::arguments().size() > 1 && QApplication::arguments().at(1) == "settings")
 		{
 			controller->openSettingsScreen();
 		}
@@ -43,6 +45,12 @@ int main(int argc, char *argv[])
 	{
 		delete controller;
 		controller = nullptr;
+	}
+
+	if (singleApp != nullptr)
+	{
+		delete singleApp;
+		singleApp = nullptr;
 	}
 
 	CoUninitialize();

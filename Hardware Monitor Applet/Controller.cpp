@@ -15,9 +15,9 @@
 //-----------------------------------------------------------------
 // Controller methods
 //-----------------------------------------------------------------
-Controller::Controller(QtSingleApplication* app) : mainWindow_(nullptr), settings_(nullptr), app_(app)
+Controller::Controller(QApplication* app, SingleApplication* singleApp) : mainWindow_(nullptr), settings_(nullptr), app_(app), singleApp_(singleApp)
 {
-	QObject::connect(app, SIGNAL(messageReceived(const QString &)), this, SLOT(vMessageReceivedFromOtherInst(const QString &)));
+	connect(singleApp_, SIGNAL(messageReceivedSignal(QString)), this, SLOT(messageReceivedFromOtherInst(QString)));
 	
 	logitech_ = new Logitech();
 	logitech_->initKeyboard();
@@ -45,9 +45,16 @@ Controller::~Controller()
 	}
 }
 
-void Controller::vMessageReceivedFromOtherInst(const QString &  msg)
+void Controller::messageReceivedFromOtherInst(QString message)
 {
-	openSettingsScreen();
+	if (message == "Settings")
+	{
+		openSettingsScreen();
+	}
+	else if (message == "Quit")
+	{
+		quitApplication();
+	}
 }
 
 void Controller::openSettingsScreen()

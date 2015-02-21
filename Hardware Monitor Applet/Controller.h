@@ -7,7 +7,7 @@
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "external\QSingleApplication\qtsingleapplication.h"
+#include "external\QSingleApplication\singleapplication.h"
 #include "GUI\mainwindow.h"
 #include "Logitech.h"
 #include "Screen\StartScreen.h"
@@ -19,13 +19,13 @@
 //-----------------------------------------------------------------
 class Controller: public QObject
 {
-	//Q_OBJECT
+	Q_OBJECT
 public:
 		
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Controller(QtSingleApplication*);
+	Controller(QApplication*, SingleApplication*);
 
 	//---------------------------
 	// Destructor
@@ -47,11 +47,12 @@ private:
 	MainWindow * mainWindow_;
 	Logitech * logitech_;
 	Settings * settings_;
-	QtSingleApplication * app_;
+	QApplication * app_;
+	SingleApplication * singleApp_;
 
 
 protected slots:
-	void vMessageReceivedFromOtherInst(const QString &  msg);
+	void messageReceivedFromOtherInst(QString);
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
