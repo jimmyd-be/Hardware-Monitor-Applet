@@ -33,7 +33,7 @@ void Settings::releaseResources()
 	}
 }
 
-Settings::Settings() : logitech_(nullptr), generalSettings_(GeneralSettings{TemperatureType::Celsius})
+Settings::Settings() : logitech_(nullptr), generalSettings_(GeneralSettings{ TemperatureType::Celsius })
 {
 	QString fileName = Defines::getSettingsFolder() + "/settings.ini";
 	settings_ = new QSettings(fileName, QSettings::IniFormat);
@@ -57,6 +57,8 @@ void Settings::setTemperature(TemperatureType temp)
 
 TemperatureType Settings::getTemperature()
 {
+	loadGeneralSettings();
+
 	return generalSettings_.temperature;
 }
 
@@ -69,6 +71,8 @@ void Settings::setAutoStart(bool autostart)
 
 bool Settings::getAutoStart()
 {
+	loadGeneralSettings();
+
 	return generalSettings_.autoStart;
 }
 

@@ -31,8 +31,10 @@ SingleApplication::SingleApplication() : socket_(nullptr), server_(nullptr), isR
  */
 SingleApplication::~SingleApplication()
 {
+	
   if (server_ != nullptr)
   {
+	  server_->terminate();
 	  delete server_;
 	  server_ = nullptr;
   }
