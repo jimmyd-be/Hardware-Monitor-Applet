@@ -35,6 +35,16 @@ struct Query{
 	QueryValue value;
 	int precision;
 	bool addUnit;
+
+	bool operator == (const Query& rhs)
+	{
+		return system == rhs.system &&
+			identifier == rhs.identifier &&
+			name == rhs.name &&
+			value == rhs.value &&
+			precision == rhs.precision &&
+			addUnit == rhs.addUnit;
+	}
 };
 
 struct LineText{

@@ -20,6 +20,7 @@ public:
 	bool validatePage();
 
 	QMap<QString, Query> getData();
+	QList<Query> getDataList();
 
 protected:
 	int nextId() const;

@@ -32,7 +32,6 @@ private slots:
 	void titleCheckBoxChanged();
 
 private:
-	//void loadData(QList<GraphLine>, GraphSettings);
 	void fillinData();
 	void removeData();
 
@@ -43,4 +42,7 @@ private:
 	QVector<GraphPageLineWidget *> widgetItems_;	
 	QFont titleFont_;
 	QColor titleColor_;
+
+	QList<GraphLine> oldLines_;
+	GraphSettings oldSettings_;
 };

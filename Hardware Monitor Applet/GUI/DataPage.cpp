@@ -334,6 +334,37 @@ QMap<QString, Query> DataPage::getData()
 	return returnMap;
 }
 
+QList<Query> DataPage::getDataList()
+{
+	QList<Query> list;
+
+	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
+	{
+		Query queryItem;
+
+		QTableWidget * widget = ui.SelectedItems_tableWidget;
+
+		queryItem.identifier = widget->item(row, 0)->text();
+		queryItem.system = Defines::translateMonitorSystemEnum(widget->item(row, 1)->text());
+		queryItem.name = widget->item(row, 2)->text();
+		queryItem.value = Defines::translateQueryValueEnum(widget->item(row, 3)->text());
+		queryItem.precision = widget->item(row, 4)->text().toInt();
+
+		if (widget->item(row, 6)->text() == "True")
+		{
+			queryItem.addUnit = true;
+		}
+		else
+		{
+			queryItem.addUnit = false;
+		}
+
+		list.append(queryItem);
+	}
+
+	return list;
+}
+
 int DataPage::nextId() const
 {
 	if (screenTypePage_->getScreenType() == ScreenType::Normal)

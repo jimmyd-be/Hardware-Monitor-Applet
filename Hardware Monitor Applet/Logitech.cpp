@@ -53,7 +53,6 @@ bool Logitech::initKeyboard()
 		if (lcd_.IsDeviceAvailable(LG_COLOR))
 		{
 			keyboardType_ = KeyboardTypes::Color;
-			
 		}
 
 		else if (lcd_.IsDeviceAvailable(LG_MONOCHROME))
@@ -233,6 +232,11 @@ void Logitech::changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<Q
 void Logitech::deleteScreen(QString name)
 {
 	Screen * oldScreen = getScreenData(name);
+
+	if (oldScreen == currentScreen_)
+	{
+		changeCurrentScreen(PageDirection::Previous);
+	}
 
 	int position = screenList_.indexOf(oldScreen);
 

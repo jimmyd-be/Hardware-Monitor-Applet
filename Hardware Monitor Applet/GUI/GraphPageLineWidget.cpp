@@ -31,6 +31,34 @@ GraphPageLineWidget::GraphPageLineWidget(QString symbol, Query query, QWidget *p
 	connect(Color_pushButton, SIGNAL(clicked()), this, SLOT(openColorPicker()));
 }
 
+GraphPageLineWidget::GraphPageLineWidget(GraphLine line, QWidget *parent)
+	: QWidget(parent)
+{
+	setupUi(this);
+
+	Id_label->hide();
+	Symbol_label->hide();
+	System_label->hide();
+
+	Label_lineEdit->setText(line.text);
+
+	Id_label->setText(line.query.identifier);
+	Symbol_label->setText(line.text);
+	System_label->setText(Defines::translateMonitorSystemEnum(line.query.system));
+	Name_label->setText(line.query.name);
+	Value_label->setText(Defines::translateQueryValueEnum(line.query.value));
+
+	color_ = line.color;
+
+	palette_.setColor(QPalette::Window, color_);
+	palette_.setColor(QPalette::WindowText, color_);
+
+	Color_label->setAutoFillBackground(true);
+	Color_label->setPalette(palette_);
+
+	connect(Color_pushButton, SIGNAL(clicked()), this, SLOT(openColorPicker()));
+}
+
 GraphPageLineWidget::~GraphPageLineWidget()
 {
 	
