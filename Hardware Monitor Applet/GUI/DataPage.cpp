@@ -257,7 +257,10 @@ void DataPage::removeButtonClicked()
 {
 	QList<QTableWidgetItem*> items = ui.SelectedItems_tableWidget->selectedItems();
 
-	ui.SelectedItems_tableWidget->removeRow(items[0]->row());
+	if (items.size() > 0)
+	{
+		ui.SelectedItems_tableWidget->removeRow(items[0]->row());
+	}
 }
 
 bool DataPage::isUnique(Query item)

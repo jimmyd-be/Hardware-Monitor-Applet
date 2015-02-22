@@ -30,7 +30,7 @@
       </size>
      </property>
      <property name="dragEnabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
     </widget>
    </item>

@@ -3,6 +3,7 @@
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "ui_LineEditPageLineWidget.h"
+#include "QShortcut.h"
 #include "../Defines.h"
 
 

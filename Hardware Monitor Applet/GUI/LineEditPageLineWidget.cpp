@@ -8,6 +8,14 @@ LineEditPageLineWidget::LineEditPageLineWidget(QString text, QWidget *parent)
 
 	ui.lineEdit->setText(text);
 
+	QShortcut pasteShortcut(QKeySequence(tr("Ctrl+V")), ui.lineEdit);
+	QShortcut cutShortcut(QKeySequence(tr("Ctrl+X")), ui.lineEdit);
+	QShortcut copyShortcut(QKeySequence(tr("Ctrl+C")), ui.lineEdit);
+
+	connect(&copyShortcut, SIGNAL(activated()), ui.lineEdit, SLOT(ui.lineEdit->copy()));
+	connect(&cutShortcut, SIGNAL(activated()), ui.lineEdit, SLOT(ui.lineEdit->cut()));
+	connect(&pasteShortcut, SIGNAL(activated()), ui.lineEdit, SLOT(ui.lineEdit->paste()));
+
 }
 
 LineEditPageLineWidget::~LineEditPageLineWidget()
