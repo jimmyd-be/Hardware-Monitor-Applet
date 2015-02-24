@@ -30,6 +30,7 @@ private slots:
 	void openFontDialog();
 	void openColorDialog();
 	void titleCheckBoxChanged();
+	void yAxisBoxChanged();
 
 private:
 	void fillinData();

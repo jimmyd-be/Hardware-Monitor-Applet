@@ -68,7 +68,12 @@ void GraphScreen::draw()
 		{
 			plot_->xAxis->setRange(0, settings_.range);
 		}
-		plot_->yAxis->rescale();
+
+		if (settings_.yMaxRange == -1 && settings_.yMinRange == -1)
+		{
+			plot_->yAxis->rescale();
+		}
+		
 		plot_->replot();
 
 		QPixmap pixmap = plot_->toPixmap(320, 240, 1);
@@ -136,6 +141,11 @@ void GraphScreen::setSettings(GraphSettings settings)
 		plotTitle->setTextColor(settings.titleColor);
 
 		plot_->plotLayout()->addElement(0, 0, plotTitle);
+	}
+
+	if (settings_.yMaxRange != -1 && settings_.yMinRange != -1)
+	{
+		plot_->yAxis->setRange(settings_.yMinRange, settings_.yMaxRange);
 	}
 }
 

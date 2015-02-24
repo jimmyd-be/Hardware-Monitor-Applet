@@ -86,6 +86,24 @@ void GraphPage::titleCheckBoxChanged()
 	}
 }
 
+void GraphPage::yAxisBoxChanged()
+{
+	if (ui.YRange_checkBox->isChecked())
+	{
+		ui.minRange_label->setDisabled(true);
+		ui.minRange_spinBox->setDisabled(true);
+		ui.maxRange_label->setDisabled(true);
+		ui.maxRange_spinBox->setDisabled(true);
+	}
+	else
+	{
+		ui.minRange_label->setDisabled(false);
+		ui.minRange_spinBox->setDisabled(false);
+		ui.maxRange_label->setDisabled(false);
+		ui.maxRange_spinBox->setDisabled(false);
+	}
+}
+
 int GraphPage::nextId() const
 {
 	return -1;
@@ -138,6 +156,22 @@ void GraphPage::fillinData()
 		ui.fontTitle_pushButton->setDisabled(true);
 		ui.colorTitle_pushButton->setDisabled(true);
 	}
+
+	if (oldSettings_.yMaxRange != -1 && oldSettings_.yMinRange != -1)
+	{
+		ui.minRange_label->setDisabled(false);
+		ui.minRange_spinBox->setDisabled(false);
+		ui.maxRange_label->setDisabled(false);
+		ui.maxRange_spinBox->setDisabled(false);
+
+		ui.YRange_checkBox->setChecked(false);
+		ui.minRange_spinBox->setValue(oldSettings_.yMinRange);
+		ui.maxRange_spinBox->setValue(oldSettings_.yMaxRange);
+	}
+	else
+	{
+		ui.YRange_checkBox->setChecked(true);
+	}
 }
 
 void GraphPage::removeData()
@@ -188,6 +222,25 @@ GraphSettings GraphPage::getGraphSettings()
 	{
 		settings.titleColor = titleColor_;
 		settings.titleFont = titleFont_;
+	}
+
+	if (!ui.YRange_checkBox->isChecked())
+	{
+		if (ui.maxRange_spinBox->value() >= ui.minRange_spinBox->value())
+		{
+			settings.yMinRange = ui.minRange_spinBox->value();
+			settings.yMaxRange = ui.maxRange_spinBox->value();
+		}
+		else
+		{
+			settings.yMaxRange = ui.minRange_spinBox->value();
+			settings.yMinRange = ui.maxRange_spinBox->value();
+		}
+	}
+	else
+	{
+		settings.yMinRange = -1;
+		settings.yMaxRange = -1;
 	}
 
 	settings.range = ui.Range_spinBox->value();
