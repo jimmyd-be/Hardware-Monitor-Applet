@@ -79,6 +79,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 		QTableWidgetItem * symbolItem = new QTableWidgetItem();
 		QTableWidgetItem * unitItem = new QTableWidgetItem();
 		QTableWidgetItem * unitStringItem = new QTableWidgetItem();
+		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
 		idItem->setText(line.query.identifier);
 		nameItem->setText(line.query.name);
@@ -88,6 +89,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 		symbolItem->setText("");
 		unitItem->setText(QString(line.query.addUnit ? "True" : "False"));
 		unitStringItem->setText(sensor.unit);
+		hardwareItem->setText(sensor.hardware);
 
 		ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
 		ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
@@ -97,6 +99,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 		ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
 		ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
 		ui.SelectedItems_tableWidget->setItem(row, 7, unitStringItem);
+		ui.SelectedItems_tableWidget->setItem(row, 8, hardwareItem);
 
 		row += 1;
 	}
@@ -147,18 +150,21 @@ void DataPage::loadData(MonitorSystem system)
 		QTableWidgetItem * minItem = new QTableWidgetItem();
 		QTableWidgetItem * maxItem = new QTableWidgetItem();
 		QTableWidgetItem * currentItem = new QTableWidgetItem();
+		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
 		idItem->setText(sensor.id);
 		nameItem->setText(sensor.name);
 		minItem->setText(QString::number(sensor.min, 'f', 2) + sensor.unit);
 		maxItem->setText(QString::number(sensor.max, 'f', 2) + sensor.unit);
 		currentItem->setText(QString::number(sensor.value, 'f', 2) + sensor.unit);
+		hardwareItem->setText(sensor.hardware);
 
 		widget->setItem(row, 0, idItem);
-		widget->setItem(row, 1, nameItem);
-		widget->setItem(row, 2, minItem);
-		widget->setItem(row, 3, maxItem);
-		widget->setItem(row, 4, currentItem);
+		widget->setItem(row, 1, hardwareItem);
+		widget->setItem(row, 2, nameItem);
+		widget->setItem(row, 3, minItem);
+		widget->setItem(row, 4, maxItem);
+		widget->setItem(row, 5, currentItem);
 	}
 }
 
@@ -203,7 +209,7 @@ void DataPage::addButtonClicked()
 
 	for (QTableWidgetItem * item : selectedItems)
 	{
-		if (!(screenTypePage_->getScreenType() == ScreenType::Graph && item->column() == 1))
+		if (!(screenTypePage_->getScreenType() == ScreenType::Graph && item->column() == 1 && item->column() == 2))
 		{
 			Query queryItem;
 			queryItem.identifier = tableWidget->item(item->row(), 0)->text();
@@ -214,7 +220,6 @@ void DataPage::addButtonClicked()
 			queryItem.addUnit = ui.unit_checkBox->isChecked();
 
 			HardwareSensor sensor = Data::Instance()->translateLine(queryItem);
-
 
 			if (isUnique(queryItem))
 			{
@@ -228,6 +233,7 @@ void DataPage::addButtonClicked()
 				QTableWidgetItem * symbolItem = new QTableWidgetItem();
 				QTableWidgetItem * unitItem = new QTableWidgetItem();
 				QTableWidgetItem * unitStringItem = new QTableWidgetItem();
+				QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
 				idItem->setText(queryItem.identifier);
 				nameItem->setText(queryItem.name);
@@ -237,6 +243,7 @@ void DataPage::addButtonClicked()
 				symbolItem->setText(foundNextSymbol());
 				unitItem->setText(QString(ui.unit_checkBox->isChecked() ? "True" : "False"));
 				unitStringItem->setText(sensor.unit);
+				hardwareItem->setText(sensor.hardware);
 
 				ui.SelectedItems_tableWidget->setItem(newRow, 0, idItem);
 				ui.SelectedItems_tableWidget->setItem(newRow, 1, systemItem);
@@ -246,6 +253,7 @@ void DataPage::addButtonClicked()
 				ui.SelectedItems_tableWidget->setItem(newRow, 5, symbolItem);
 				ui.SelectedItems_tableWidget->setItem(newRow, 6, unitItem);
 				ui.SelectedItems_tableWidget->setItem(newRow, 7, unitStringItem);
+				ui.SelectedItems_tableWidget->setItem(newRow, 8, hardwareItem);
 
 				newRow += 1;
 			}
@@ -404,6 +412,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			QTableWidgetItem * symbolItem = new QTableWidgetItem();
 			QTableWidgetItem * unitItem = new QTableWidgetItem();
 			QTableWidgetItem * unitStringItem = new QTableWidgetItem();
+			QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
 			idItem->setText(i.value().identifier);
 			nameItem->setText(i.value().name);
@@ -413,6 +422,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			symbolItem->setText(i.key());
 			unitItem->setText(QString(i.value().addUnit ? "True" : "False"));
 			unitStringItem->setText(sensor.unit);
+			hardwareItem->setText(sensor.hardware);
 
 			ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
 			ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
@@ -422,6 +432,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
 			ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
 			ui.SelectedItems_tableWidget->setItem(row, 7, unitStringItem);
+			ui.SelectedItems_tableWidget->setItem(row, 8, hardwareItem);
 
 			row += 1;
 			++i;

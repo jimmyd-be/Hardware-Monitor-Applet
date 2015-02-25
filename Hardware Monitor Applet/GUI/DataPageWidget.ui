@@ -39,6 +39,11 @@
          </column>
          <column>
           <property name="text">
+           <string>Hardware</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>Name</string>
           </property>
          </column>
@@ -74,6 +79,11 @@
          <column>
           <property name="text">
            <string>Id</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Hardware</string>
           </property>
          </column>
          <column>
@@ -270,6 +280,11 @@
      <column>
       <property name="text">
        <string>Unit</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Hardware</string>
       </property>
      </column>
     </widget>

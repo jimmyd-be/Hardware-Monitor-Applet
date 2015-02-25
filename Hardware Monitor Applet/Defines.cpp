@@ -69,6 +69,9 @@ QString Defines::translateQueryValueEnum(QueryValue value)
 	case QueryValue::Name:
 		return "Name";
 		break;
+	case QueryValue::Hardware:
+		return "Hardware";
+		break;
 	};
 
 	return "";
@@ -107,6 +110,10 @@ QueryValue Defines::translateQueryValueEnum(QString string)
 		else if (string == "Name")
 		{
 			value = QueryValue::Name;
+		}
+		else if (string == "Hardware")
+		{
+			value = QueryValue::Hardware;
 		}
 
 		return value;

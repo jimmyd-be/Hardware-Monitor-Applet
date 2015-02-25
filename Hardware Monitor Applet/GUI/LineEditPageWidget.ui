@@ -143,11 +143,6 @@
        </column>
        <column>
         <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Precision</string>
         </property>
        </column>
@@ -159,6 +154,11 @@
        <column>
         <property name="text">
          <string>Unit</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Hardware</string>
         </property>
        </column>
       </widget>

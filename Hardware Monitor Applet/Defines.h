@@ -21,7 +21,7 @@
 
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, Legend, No};
-enum QueryValue {Name, Current, Max, Min};
+enum QueryValue {Name, Current, Max, Min, Hardware};
 enum MonitorSystem { OHM, HWiNFO, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum TemperatureType { Celsius, Fahrenheit };
@@ -82,6 +82,7 @@ struct HardwareSensor{
 	double max;
 	double min;
 	QString unit;
+	QString hardware;
 };
 
 struct CustomSettings

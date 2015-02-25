@@ -60,13 +60,13 @@ private:
 	void connect();
 	float transformData(float, QString);
 	QString getUnit(QString);
+	QString findHardware(QString);
 
 	//--------------------------
 	// Datamembers
 	//--------------------------
 	IWbemLocator *pLoc_;
 	IWbemServices *pSvc_;
-	IEnumWbemClassObject* pEnumerator_;
 	IWbemClassObject *pclsObj_;
 	HRESULT hres_;
 	Settings * settings_;
