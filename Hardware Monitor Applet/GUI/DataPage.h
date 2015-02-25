@@ -33,6 +33,7 @@ private:
 	void loadData(MonitorSystem);
 	void clearData(MonitorSystem system);
 	bool isUnique(Query);
+	void insertLineToSelectedData(int row, QString id, QString name, QString system, QString value, QString precision, QString symbol, QString unit, QString unitString, QString hardware);
 
 	QString foundNextSymbol();
 

@@ -143,6 +143,11 @@
        </column>
        <column>
         <property name="text">
+         <string>Value</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>Precision</string>
         </property>
        </column>
