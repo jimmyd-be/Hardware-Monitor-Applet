@@ -278,26 +278,26 @@ HardwareSensor WMI::getData(Query query)
 
 	if (pSvc_ != 0)
 	{
-		IEnumWbemClassObject* pEnumerator_ = nullptr;
+		IEnumWbemClassObject* pEnumerator = nullptr;
 
 		hres_ = pSvc_->ExecQuery(
 			bstr_t("WQL"),
 			bstr_t(queryString.c_str()),
 			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
 			NULL,
-			&pEnumerator_);
+			&pEnumerator);
 
 		if (!FAILED(hres_))
 		{
 			ULONG uReturn = 0;
 			CIMTYPE pType;
 
-			while (pEnumerator_)
+			while (pEnumerator)
 			{
 				QString sensorType = "";
 				QString hardwareIdentifier = "";
 
-				HRESULT hr = pEnumerator_->Next(WBEM_INFINITE, 1,
+				HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
 					&pclsObj_, &uReturn);
 
 				if (0 == uReturn)
@@ -389,7 +389,7 @@ HardwareSensor WMI::getData(Query query)
 
 
 			}
-			pEnumerator_->Release();
+			pEnumerator->Release();
 		}
 	}
 
@@ -464,23 +464,23 @@ QString WMI::findHardware(QString identifier)
 
 	if (pSvc_ != 0)
 	{
-		IEnumWbemClassObject* pEnumerator_ = nullptr;
+		IEnumWbemClassObject* pEnumerator = nullptr;
 
 		hres_ = pSvc_->ExecQuery(
 			bstr_t("WQL"),
 			bstr_t(queryString.c_str()),
 			WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
 			NULL,
-			&pEnumerator_);
+			&pEnumerator);
 
 		if (!FAILED(hres_))
 		{
 			ULONG uReturn = 0;
 			CIMTYPE pType;
 
-			while (pEnumerator_)
+			while (pEnumerator)
 			{
-				HRESULT hr = pEnumerator_->Next(WBEM_INFINITE, 1,
+				HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
 					&pclsObj_, &uReturn);
 
 				if (0 == uReturn)
@@ -506,7 +506,7 @@ QString WMI::findHardware(QString identifier)
 				VariantClear(&vtProp);
 				uReturn = 0;
 			}
-			pEnumerator_->Release();
+			pEnumerator->Release();
 		}
 	}
 

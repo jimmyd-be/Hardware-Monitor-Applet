@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../mainwindow.qrc">
+    <normaloff>:/MainWindow/Resources/Logo.ico</normaloff>:/MainWindow/Resources/Logo.ico</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -381,7 +385,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../mainwindow.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Hardware Monitor Applet Settings</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../mainwindow.qrc">
+    <normaloff>:/MainWindow/Resources/Logo.ico</normaloff>:/MainWindow/Resources/Logo.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>

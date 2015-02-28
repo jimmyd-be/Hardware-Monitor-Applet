@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../mainwindow.qrc">
+    <normaloff>:/MainWindow/Resources/Logo.ico</normaloff>:/MainWindow/Resources/Logo.ico</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QLabel" name="label_5">
@@ -81,18 +85,21 @@
         <widget class="QLabel" name="label_6">
          <property name="minimumSize">
           <size>
-           <width>96</width>
-           <height>96</height>
+           <width>150</width>
+           <height>150</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>96</width>
-           <height>96</height>
+           <width>150</width>
+           <height>150</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-image: url(:/MainWindow/Resources/Logo.png);</string>
+          <string notr="true">
+
+border-image: url(:/MainWindow/Resources/Logo.ico) 0 0 0 0 stretch stretch;
+</string>
          </property>
          <property name="text">
           <string/>
