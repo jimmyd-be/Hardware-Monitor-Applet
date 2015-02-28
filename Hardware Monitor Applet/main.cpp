@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	{
 		controller = new Controller(&a, singleApp);
 
-		if (QApplication::arguments().size() > 1 && QApplication::arguments().at(1) == "settings")
+		if (QApplication::arguments().size() > 1 && QApplication::arguments().at(1) == "Settings")
 		{
 			controller->openSettingsScreen();
 		}
