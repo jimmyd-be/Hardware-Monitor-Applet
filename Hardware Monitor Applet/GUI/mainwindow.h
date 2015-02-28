@@ -33,6 +33,7 @@ protected:
 private:
 	void fillinPages();
 	void removePages();
+	QList<Screen *> sortScreenList(QList<Screen*>);
 	
 	Ui::MainWindowClass ui;
 	Logitech * logitech_;

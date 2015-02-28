@@ -42,7 +42,7 @@ public:
 	bool initKeyboard();
 
 	KeyboardTypes getKeyboardType();
-	QVector<Screen *> getScreenList();
+	QList<Screen *> getScreenList();
 
 	void createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines, QList<CustomSettings> settings);
 	void createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines);
@@ -81,7 +81,7 @@ private:
 	
 	CEzLcd lcd_;
 
-	QVector<Screen *> screenList_;
+	QList<Screen *> screenList_;
 	QList<Screen *> mainOrder_;
 	QMap<QString, QList<Screen *>> subOrder_;
 	

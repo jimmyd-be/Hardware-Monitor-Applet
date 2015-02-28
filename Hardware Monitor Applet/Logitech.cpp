@@ -80,7 +80,7 @@ KeyboardTypes Logitech::getKeyboardType()
 	return keyboardType_;
 }
 
-QVector<Screen *> Logitech::getScreenList()
+QList<Screen *> Logitech::getScreenList()
 {
 	return screenList_;
 }

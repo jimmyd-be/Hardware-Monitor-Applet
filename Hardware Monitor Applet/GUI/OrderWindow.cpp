@@ -37,7 +37,7 @@ OrderWindow::~OrderWindow()
 
 void OrderWindow::fillinCreatedScreenList()
 {
-	QVector<Screen*> screenList = logitech_->getScreenList();
+	QList<Screen*> screenList = logitech_->getScreenList();
 
 	for (Screen * screen : screenList)
 	{

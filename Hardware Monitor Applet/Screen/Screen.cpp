@@ -33,6 +33,7 @@ Screen::~Screen()
 	}
 }
 
+
 ScreenType Screen::getScreenType()
 {
 	return ScreenType::No;

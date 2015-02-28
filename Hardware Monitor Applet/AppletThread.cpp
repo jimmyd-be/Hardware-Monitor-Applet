@@ -159,7 +159,7 @@ void AppletThread::updatePage()
 {
 	Screen * currentScreen = logitech_->getCurrentScreen();
 
-	QVector<Screen *> allScreens = logitech_->getScreenList();
+	QList<Screen *> allScreens = logitech_->getScreenList();
 
 	for (Screen * screen : allScreens)
 	{

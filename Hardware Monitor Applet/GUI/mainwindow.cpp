@@ -137,7 +137,7 @@ void MainWindow::settingsChanged()
 
 void MainWindow::fillinPages()
 {
-	QVector<Screen *> pages = logitech_->getScreenList();
+	QList<Screen *> pages = sortScreenList(logitech_->getScreenList());
 
 	for (int i = 0; i < pages.size(); i++)
 	{
@@ -147,6 +147,31 @@ void MainWindow::fillinPages()
 
 		widgetList_.append(widget);
 	}
+}
+
+QList<Screen *> MainWindow::sortScreenList(QList<Screen*> list)
+{
+	for (int i = 0; i < list.size(); i++)
+	{
+		int min = i;
+
+		for (int j = i + 1; j < list.size(); j++)
+		{
+			QString test = list[min]->getName();
+			QString test2 = list[j]->getName();
+
+			if (QString::compare(list[min]->getName(), list[j]->getName(), Qt::CaseInsensitive) > 0)
+			{
+				min = j;
+			}
+		}
+
+		Screen * temp = list[i];
+		list[i] = list[min];
+		list[min] = temp;
+	}
+
+	return list;
 }
 
 void MainWindow::removePages()

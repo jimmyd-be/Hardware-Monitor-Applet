@@ -294,7 +294,7 @@ void Settings::saveSettings()
 
 		saveGeneralSettings();
 
-		QVector<Screen*> screens = logitech_->getScreenList();
+		QList<Screen*> screens = logitech_->getScreenList();
 
 		settings_->beginWriteArray("pages");
 

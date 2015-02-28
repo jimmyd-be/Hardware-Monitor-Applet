@@ -1,7 +1,7 @@
 #include "IntroPage.h"
 
 
-IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *parent)
+IntroPage::IntroPage(QList<Screen *> screenList, KeyboardTypes type, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenNames_(screenList), keyboardType_(type), oldPagename_("")
 {
 	setTitle(tr("Introduction"));
@@ -15,7 +15,7 @@ IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QWidget *
 	setLayout(layout_);
 }
 
-IntroPage::IntroPage(QVector<Screen *> screenList, KeyboardTypes type, QString name, QWidget *parent)
+IntroPage::IntroPage(QList<Screen *> screenList, KeyboardTypes type, QString name, QWidget *parent)
 	: QWizardPage(parent), widget_(nullptr), layout_(nullptr), screenNames_(screenList), keyboardType_(type), oldPagename_(name)
 {
 	setTitle(tr("Introduction"));
