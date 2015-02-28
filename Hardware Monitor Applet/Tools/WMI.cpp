@@ -278,7 +278,7 @@ HardwareSensor WMI::getData(Query query)
 
 	if (pSvc_ != 0)
 	{
-		IEnumWbemClassObject* pEnumerator_;
+		IEnumWbemClassObject* pEnumerator_ = nullptr;
 
 		hres_ = pSvc_->ExecQuery(
 			bstr_t("WQL"),
@@ -464,7 +464,7 @@ QString WMI::findHardware(QString identifier)
 
 	if (pSvc_ != 0)
 	{
-		IEnumWbemClassObject* pEnumerator_;
+		IEnumWbemClassObject* pEnumerator_ = nullptr;
 
 		hres_ = pSvc_->ExecQuery(
 			bstr_t("WQL"),

@@ -101,9 +101,17 @@ void BackgroundPage::radioButtonClicked()
 
 void BackgroundPage::browseButtonClicked()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Select Background"), "/", tr("Images (*.png *.jpg)"));
+	QFileDialog dialog(this, tr("Select Background"), "/", tr("Images (*.png *.jpg)"));
 
-	ui.Background_lineEdit->setText(fileName);
+	QStringList fileNames;
+
+	dialog.show();
+
+	if (dialog.exec())
+	{
+		fileNames = dialog.selectedFiles();
+		ui.Background_lineEdit->setText(fileNames[0]);
+	}
 
 	validatePage();
 }
