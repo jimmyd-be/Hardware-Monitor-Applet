@@ -183,7 +183,7 @@ void DataPage::addButtonClicked()
 		{
 			Query queryItem;
 			queryItem.identifier = tableWidget->item(item->row(), 0)->text();
-			queryItem.name = tableWidget->item(item->row(), 1)->text();
+			queryItem.name = tableWidget->item(item->row(), 2)->text();
 			queryItem.system = Defines::translateMonitorSystemEnum(system);
 			queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
 			queryItem.precision = ui.Precision_spinBox->value();
@@ -191,7 +191,7 @@ void DataPage::addButtonClicked()
 
 			HardwareSensor sensor = Data::Instance()->translateLine(queryItem);
 
-			if (isUnique(queryItem))
+			if (isUnique(queryItem, sensor))
 			{
 				insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system, tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(), QString(ui.unit_checkBox->isChecked() ? "True" : "False"), sensor.unit, sensor.hardware);
 
@@ -211,7 +211,7 @@ void DataPage::removeButtonClicked()
 	}
 }
 
-bool DataPage::isUnique(Query item)
+bool DataPage::isUnique(Query item, HardwareSensor sensor)
 {
 	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
 	{
@@ -222,7 +222,8 @@ bool DataPage::isUnique(Query item)
 			widget->item(row, 2)->text() == item.name &&
 			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value) &&
 			widget->item(row, 4)->text() == QString::number(item.precision) &&
-			widget->item(row, 6)->text() == QString(item.addUnit ? "True" : "False"))
+			widget->item(row, 6)->text() == QString(item.addUnit ? "True" : "False") &&
+			widget->item(row, 8)->text() == sensor.hardware)
 		{
 			return false;
 		}
