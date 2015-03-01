@@ -9,9 +9,6 @@ AboutDialog::AboutDialog(QWidget *parent)
 	ui.label_2->setTextInteractionFlags(Qt::TextBrowserInteraction);
 	ui.label_2->setOpenExternalLinks(true);
 
-	ui.label_3->setTextInteractionFlags(Qt::TextBrowserInteraction);
-	ui.label_3->setOpenExternalLinks(true);
-
 	connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(ui.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 

@@ -25,7 +25,7 @@ Defines::~Defines()
 
 QString Defines::getSettingsFolder()
 {
-	QString directory = QDir::homePath() + "/AppData/Roaming/HMApplet";
+	QString directory = QDir::homePath() + "/AppData/Roaming/Hardware Monitor Applet";
 
 	QDir dir(directory);
 

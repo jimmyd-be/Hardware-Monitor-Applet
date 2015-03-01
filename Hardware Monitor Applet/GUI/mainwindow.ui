@@ -212,7 +212,7 @@ QPushButton:hover {
   </action>
   <action name="actionClose">
    <property name="text">
-    <string>Close</string>
+    <string>Go to background</string>
    </property>
   </action>
   <action name="actionCelsius">

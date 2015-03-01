@@ -6,12 +6,30 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>539</width>
-    <height>362</height>
+    <width>540</width>
+    <height>310</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>540</width>
+    <height>310</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>540</width>
+    <height>310</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>About</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../mainwindow.qrc">
@@ -73,10 +91,13 @@
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -85,14 +106,14 @@
         <widget class="QLabel" name="label_6">
          <property name="minimumSize">
           <size>
-           <width>150</width>
-           <height>150</height>
+           <width>130</width>
+           <height>130</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>150</width>
-           <height>150</height>
+           <width>130</width>
+           <height>130</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -137,31 +158,6 @@ border-image: url(:/MainWindow/Resources/Logo.ico) 0 0 0 0 stretch stretch;
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Developed by: JimmyD</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
@@ -169,46 +165,7 @@ border-image: url(:/MainWindow/Resources/Logo.ico) 0 0 0 0 stretch stretch;
           </font>
          </property>
          <property name="text">
-          <string>&lt;a href=&quot;http://www.hwinfo.com/&quot;&gt;HWiNFO&lt;/a&gt; is a trademark of Martin Malík</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>&lt;a href=&quot;http://openhardwaremonitor.org/&quot;&gt;Open Hardware Monitor&lt;/a&gt; is a trademark of Michael Möller</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>All other trademarks are the property of their respective owners.</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::AutoText</enum>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Developed by: JimmyD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;a href=&quot;http://www.hwinfo.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;HWiNFO&lt;/span&gt;&lt;/a&gt; is a trademark of Martin Malík&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://openhardwaremonitor.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Open Hardware Monitor&lt;/span&gt;&lt;/a&gt; is a trademark of Michael Möller&lt;/p&gt;&lt;p&gt;All other trademarks are the property of their respective owners.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -221,11 +178,20 @@ border-image: url(:/MainWindow/Resources/Logo.ico) 0 0 0 0 stretch stretch;
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
