@@ -154,7 +154,7 @@ void NormalScreen::drawMonochrome()
 			break;
 		}
 
-		HANDLE lineHandle = lcd_->AddCustomText(objectType, custom.font.pointSize(), aligment, 320, (LPCTSTR)custom.font.family().utf16(), custom.font.bold());
+		HANDLE lineHandle = lcd_->AddCustomText(objectType, custom.font.pointSize(), aligment, 160, (LPCTSTR)custom.font.family().utf16(), custom.font.bold());
 
 		textPosition += custom.lineSpacing;
 

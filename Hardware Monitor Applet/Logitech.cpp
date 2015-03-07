@@ -223,8 +223,6 @@ void Logitech::changeScreenOrder(QList<QString> mainOrder, QMap<QString, QList<Q
 	{
 		currentScreen_ = mainOrder_[0];
 		currentMainScreen_ = mainOrder_[0];
-
-		closeStartScreen();
 	}
 
 }
@@ -278,6 +276,7 @@ void Logitech::deleteScreen(QString name)
 	{
 		openStartScreen();
 	}
+
 }
 
 Screen * Logitech::getScreenData(QString name)
@@ -379,8 +378,6 @@ void Logitech::changeCurrentScreen(PageDirection direction)
 
 		currentScreen_ = subScreen.at(currentPosition);
 	}
-
-	lcd_.ShowPage(getCurrentScreen()->getPage());
 }
 
 void Logitech::openStartScreen()
@@ -391,13 +388,4 @@ void Logitech::openStartScreen()
 	}
 
 	currentScreen_ = startscreen_;
-}
-
-void Logitech::closeStartScreen()
-{
-	/*if (startscreen_ != nullptr)
-	{
-		delete startscreen_;
-		startscreen_ = nullptr;
-	}*/
 }

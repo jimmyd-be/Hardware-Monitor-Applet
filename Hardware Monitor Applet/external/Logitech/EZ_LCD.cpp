@@ -497,24 +497,25 @@ HRESULT CEzLcd::ModifyControlsOnPage(CEzLcdPage* page)
 */
 HRESULT CEzLcd::ShowPage(CEzLcdPage* page)
 {
-    LCD_PAGE_LIST& PageList = GetPageList();
+	if (page != nullptr)
+	{
+		LCD_PAGE_LIST& PageList = GetPageList();
 
-    // Do we have this page, if not return error
- /*   if (pageNumber >= (INT)(PageList.size()))
-    {
-        return E_FAIL;
-    }*/
+		SetActivePage(page);
 
-  //  LCD_PAGE_LIST::iterator it = PageList.begin();
-    //SetActivePage(*(it + pageNumber));
+		m_pCurrentOutput->ShowPage(GetActivePage());
 
-	SetActivePage(page);
+		LCD_PAGE_LIST::iterator i = find(PageList.begin(), PageList.end(), page);
 
-    m_pCurrentOutput->ShowPage(GetActivePage());
-
-	LCD_PAGE_LIST::iterator i = find(PageList.begin(), PageList.end(), page);
-
-	SetCurrentPageNumberShown((i - PageList.begin()));
+		if (i != PageList.end())
+		{
+			SetCurrentPageNumberShown((i - PageList.begin()));
+		}
+	}
+	else
+	{
+		return E_FAIL;
+	}
 
     return S_OK;
 }

@@ -154,6 +154,7 @@ HANDLE CEzLcdPage::AddCustomText(LGObjectType type, int Fontsize, INT alignment,
 		AddObject(pRightFocusText_);
 
 		return pRightFocusText_;
+		break;
 	default:
 		LCDUITRACE(_T("ERROR: trying to add text object with undefined type\n"));
 	}

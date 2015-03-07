@@ -237,10 +237,10 @@ QString DataPage::foundNextSymbol()
 {
 	QList<QString> symbolList;
 
-	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount()-1; row++)
-	{
-		QTableWidget * widget = ui.SelectedItems_tableWidget;
+	QTableWidget * widget = ui.SelectedItems_tableWidget;
 
+	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
+	{
 		symbolList.append(widget->item(row, 5)->text());
 	}
 
@@ -253,18 +253,20 @@ QString DataPage::foundNextSymbol()
 		}
 	}
 
-	return '$' + QString::number(ui.SelectedItems_tableWidget->rowCount()+9);
+	return '$' + QString::number(ui.SelectedItems_tableWidget->rowCount()+10);
 }
 
 QMap<QString, Query> DataPage::getData()
 {
 	QMap<QString, Query> returnMap;
 
-	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
+	int rowcount = ui.SelectedItems_tableWidget->rowCount();
+
+	QTableWidget * widget = ui.SelectedItems_tableWidget;
+
+	for (int row = 0; row < widget->rowCount(); row++)
 	{
 		Query queryItem;
-
-		QTableWidget * widget = ui.SelectedItems_tableWidget;
 
 		queryItem.identifier = widget->item(row, 0)->text();
 		queryItem.system = Defines::translateMonitorSystemEnum(widget->item(row, 1)->text());

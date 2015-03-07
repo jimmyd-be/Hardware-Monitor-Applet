@@ -63,7 +63,7 @@ void StartScreen::drawColor()
 	lcd_->SetTextFontColor(line4, RGB(255, 255, 255));
 	lcd_->SetText(line4, _T("create new screens"));
 
-	if (line1 == nullptr || line2 == nullptr || line3 == nullptr || line4 == nullptr)
+	/*if (line1 == nullptr || line2 == nullptr || line3 == nullptr || line4 == nullptr)
 	{
 		firstStart_ = true;
 	}
@@ -75,7 +75,7 @@ void StartScreen::drawColor()
 		lineHandles_.append(line4);
 
 		firstStart_ = false;
-	}
+	}*/
 }
 
 void StartScreen::drawMonochrome()
@@ -84,13 +84,34 @@ void StartScreen::drawMonochrome()
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 
+	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
+	lcd_->SetOrigin(line1, 0, 0);
+	lcd_->SetText(line1, _T("Thanks for using"));
+
+	HANDLE line2 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
+	lcd_->SetOrigin(line2, 0, 9);
+	lcd_->SetText(line2, _T("Hardware Monitor Applet"));
+
+	HANDLE line3 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
+	lcd_->SetOrigin(line3, 0, 18);
+	lcd_->SetText(line3, _T("Open settings to"));
+
+	HANDLE line4 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
+	lcd_->SetOrigin(line4, 0, 27);
+	lcd_->SetText(line4, _T("create new screens"));
+
+	lineHandles_.append(line1);
+	lineHandles_.append(line2);
+	lineHandles_.append(line3);
+	lineHandles_.append(line4);
+
 	firstStart_ = false;
 }
 
 void StartScreen::draw()
 {
-	if (firstStart_)
-	{
+	//if (firstStart_)
+	//{
 		if (lcd_->IsDeviceAvailable(LG_COLOR))
 		{
 			drawColor();
@@ -100,5 +121,6 @@ void StartScreen::draw()
 		{
 			drawMonochrome();
 		}
-	}
+		/*firstStart_ = false;
+	}*/
 }

@@ -67,7 +67,6 @@ private:
 	QList<LineText> optimizeLines(QList<LineText>);
 
 	void openStartScreen();
-	void closeStartScreen();
 
 	// -------------------------
 	// Datamembers
