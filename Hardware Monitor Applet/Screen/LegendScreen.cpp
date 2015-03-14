@@ -48,8 +48,6 @@ ScreenType LegendScreen::getScreenType()
 
 void LegendScreen::draw()
 {
-	lcd_->ShowPage(screenPage_);
-
 	lcd_->ModifyControlsOnPage(screenPage_);
 	lcd_->ModifyDisplay(LG_COLOR);
 
@@ -69,6 +67,8 @@ void LegendScreen::draw()
 		lcd_->SetTextFontColor(lineHandle, RGB(graphData_[i].color.red(), graphData_[i].color.green(), graphData_[i].color.blue()));
 		lcd_->SetText(lineHandle, (LPCTSTR)(graphData_[i].text + " (" + sensor.unit + ")").utf16());
 	}
+
+	lcd_->ShowPage(screenPage_);
 }
 
 void LegendScreen::update()

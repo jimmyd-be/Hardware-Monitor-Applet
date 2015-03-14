@@ -20,6 +20,8 @@ public:
 
 protected:
 	int nextId() const;
+	void copy();
+	void cut();
 
 private:
 	Ui::IntroPageWidget ui;

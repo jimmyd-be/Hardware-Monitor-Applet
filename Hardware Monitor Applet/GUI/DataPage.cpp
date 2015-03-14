@@ -260,8 +260,6 @@ QMap<QString, Query> DataPage::getData()
 {
 	QMap<QString, Query> returnMap;
 
-	int rowcount = ui.SelectedItems_tableWidget->rowCount();
-
 	QTableWidget * widget = ui.SelectedItems_tableWidget;
 
 	for (int row = 0; row < widget->rowCount(); row++)

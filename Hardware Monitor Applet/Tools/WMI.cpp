@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
 // WMI Object
-// C++ Source - WMI.cpp - version v1.0 (2012-08-01)
+// C++ Source - WMI.cpp - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
 
 //-----------------------------------------------------------------
@@ -12,6 +12,10 @@
 //-----------------------------------------------------------------
 // WMI methods
 //-----------------------------------------------------------------
+
+/// <summary>
+/// Initializes a new instance of the <see cref="WMI"/> class.
+/// </summary>
 WMI::WMI()
 {
 	pLoc_ = 0;
@@ -24,6 +28,9 @@ WMI::WMI()
 
 }
 
+/// <summary>
+/// Finalizes an instance of the <see cref="WMI"/> class.
+/// </summary>
 WMI::~WMI(void)
 {
 	if (pSvc_ != 0)
@@ -41,6 +48,9 @@ WMI::~WMI(void)
 	CoUninitialize();
 }
 
+/// <summary>
+/// Connect the application with the Hardware Monitor WMI database
+/// </summary>
 void WMI::connect()
 {
 	// Initialize COM. ------------------------------------------
@@ -124,6 +134,12 @@ void WMI::connect()
 	}
 }
 
+/// <summary>
+/// Query all sensor information
+/// </summary>
+/// <returns>
+/// QVector<HardwareSensor> list of all HardwareSensor
+///</returns>
 QVector<HardwareSensor> WMI::getAllSensors()
 {
 	QVector<HardwareSensor> sensors;
@@ -265,11 +281,20 @@ QVector<HardwareSensor> WMI::getAllSensors()
 	return sensors;
 }
 
+/// <summary>
+/// Gets the monitor system.
+/// </summary>
+/// <returns>MonitorSystem</returns>
 MonitorSystem WMI::getMonitorSystem()
 {
 	return MonitorSystem::OHM;
 }
 
+/// <summary>
+/// Get the queried data from incomming query
+/// </summary>
+/// <param name="query">The query of the requested data.</param>
+/// <returns>HardwareSensor</returns>
 HardwareSensor WMI::getData(Query query)
 {
 	HardwareSensor returnValue;
@@ -396,6 +421,11 @@ HardwareSensor WMI::getData(Query query)
 	return returnValue;
 }
 
+/// <summary>
+/// Get the unit for a sensor type
+/// </summary>
+/// <param name="sensorType">Type of the sensor.</param>
+/// <returns>The unit for that specific type of sensor</returns>
 QString WMI::getUnit(QString sensorType)
 {
 	if (sensorType == "Fan")
@@ -442,9 +472,15 @@ QString WMI::getUnit(QString sensorType)
 	return "";
 }
 
+/// <summary>
+/// Transforms the data to the correct unit.
+/// For example °C to °F and vice versa
+/// </summary>
+/// <param name="value">The value of that sensor type</param>
+/// <param name="sensorType">Type of the sensor.</param>
+/// <returns>Calculated value</returns>
 float WMI::transformData(float value, QString sensorType)
 {
-
 	if (sensorType == "Temperature")
 	{
 		if (settings_->getTemperature() == TemperatureType::Fahrenheit)
@@ -456,6 +492,11 @@ float WMI::transformData(float value, QString sensorType)
 	return value;
 }
 
+/// <summary>
+/// Queried the hardware details from the WMI database by Identifier.
+/// </summary>
+/// <param name="identifier">The identifier of the hardware</param>
+/// <returns>The name of the queried hardware</returns>
 QString WMI::findHardware(QString identifier)
 {
 	string queryString = "select * from Hardware WHERE Identifier = '" + identifier.toStdString() + "'";

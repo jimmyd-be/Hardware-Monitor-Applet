@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
 // MonitorTool File
-// C++ Source - MonitorTool.cpp - version 0.1 (2013/06/13)
+// C++ Source - MonitorTool.cpp - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
 
 //-----------------------------------------------------------------
@@ -11,12 +11,12 @@
 // Defines
 //-----------------------------------------------------------------
 
-
 //-----------------------------------------------------------------
 // MonitorTool methods
 //-----------------------------------------------------------------
 MonitorTool::MonitorTool()
 {
+	//Nothing to be created
 }
 
 MonitorTool::~MonitorTool()
@@ -31,11 +31,20 @@ QVector<HardwareSensor> MonitorTool::getAllSensors()
 	return sensors;
 }
 
+/// <summary>
+/// Gets the monitor system.
+/// </summary>
+/// <returns>MonitorSystem::NONE</returns>
 MonitorSystem MonitorTool::getMonitorSystem()
 {
 	return MonitorSystem::NONE;
 }
 
+/// <summary>
+/// Gets the data from the query
+/// </summary>
+/// <param name="query">The query</param>
+/// <returns>Empty HardwareSensor</returns>
 HardwareSensor MonitorTool::getData(Query query)
 {
 	HardwareSensor emptySensor = {0};

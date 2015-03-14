@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
 // MonitorTool File
-// C++ Header - MonitorTool.h - version 0.1 (2013/06/13)
+// C++ Header - MonitorTool.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
 #pragma once
 
@@ -36,8 +36,7 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	
-	
+
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

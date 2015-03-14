@@ -205,6 +205,8 @@ void NormalScreen::draw()
 	{
 		lcd_->SetText(screenLines_[i].textHandle, (LPCTSTR)lines[i].utf16());
 	}
+
+	lcd_->ShowPage(screenPage_);
 }
 
 void NormalScreen::update()

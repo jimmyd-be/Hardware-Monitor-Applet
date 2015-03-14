@@ -66,11 +66,12 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 	{
 		ui.statusBar->showMessage(tr("Connected to: Logitech monochrome (G15, G15s, G510) keyboard"));
 	}
-	else
+	else if (type == KeyboardTypes::Color)
 	{
 		ui.statusBar->showMessage(tr("Connected to: Logitech color (G19, G19s) keyboard"));
 	}
 
+	ui.statusBar->show();
 }
 
 void MainWindow::closeEvent(QCloseEvent * event)

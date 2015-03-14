@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
 // Data File
-// C++ Source - Data.cpp - version 0.1 (2013/06/13)
+// C++ Source - Data.cpp - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
 
 //-----------------------------------------------------------------
@@ -16,6 +16,12 @@ Data * Data::dataInstance = nullptr;
 //-----------------------------------------------------------------
 // Data methods
 //-----------------------------------------------------------------
+
+/// <summary>
+/// Create only one instance of this class.
+/// Will create the object if no exist.
+/// </summary>
+/// <returns>Data Object</returns>
 Data * Data::Instance()
 {
 	if (dataInstance == nullptr)   // Only allow one instance of class to be generated.
@@ -25,6 +31,9 @@ Data * Data::Instance()
 	return dataInstance;
 }
 
+/// <summary>
+/// Removes the instance.
+/// </summary>
 void Data::removeInstance()
 {
 	if (dataInstance != nullptr)
@@ -34,6 +43,9 @@ void Data::removeInstance()
 	}
 }
 
+/// <summary>
+/// Initialize some required requirements.
+/// </summary>
 Data::Data()
 {
 	MonitorTool * wmi = new WMI();
@@ -43,6 +55,9 @@ Data::Data()
 	tools_.append(hwinfo);
 }
 
+/// <summary>
+/// Finalizes an instance of the <see cref="Data"/> class.
+/// </summary>
 Data::~Data()
 {
 	for (MonitorTool * monitorSystem : tools_)
@@ -57,6 +72,11 @@ Data::~Data()
 	tools_.clear();
 }
 
+/// <summary>
+/// Gets all the sensor data from one specific Monitor system.
+/// </summary>
+/// <param name="system">The monitor system</param>
+/// <returns>A list of all the sensor data from that Monitor system</returns>
 QVector<HardwareSensor> Data::getAllData(MonitorSystem system)
 {
 	QVector<HardwareSensor> emptyVector;
@@ -72,6 +92,11 @@ QVector<HardwareSensor> Data::getAllData(MonitorSystem system)
 	return emptyVector;
 }
 
+/// <summary>
+/// Translates the line text to a queried value.
+/// </summary>
+/// <param name="lines">The lines</param>
+/// <returns>QStringList with all the translated values in it</returns>
 QStringList Data::translateLines(QList<LineText> lines)
 {
 	QStringList returnValue;
@@ -96,6 +121,11 @@ QStringList Data::translateLines(QList<LineText> lines)
 	return returnValue;
 }
 
+/// <summary>
+/// Translates the graph text to a queried value.
+/// </summary>
+/// <param name="lines">The lines.</param>
+/// <returns>List of the translated values</returns>
 QList<double> Data::translateLines(QList<GraphLine> lines)
 {
 	QList<double> returnValue;
@@ -120,12 +150,16 @@ QList<double> Data::translateLines(QList<GraphLine> lines)
 			returnValue.append(sensor.min);
 			break;
 		}
-
 	}
 
 	return returnValue;
 }
 
+/// <summary>
+/// Queries the sensor data from the map.
+/// </summary>
+/// <param name="map">The map.</param>
+/// <returns>The result of the query of the full map</returns>
 QMap<QString, QString> Data::queryMapData(QMap<QString, Query> map)
 {
 	QMap<QString, QString> returnmap;
@@ -169,6 +203,11 @@ QMap<QString, QString> Data::queryMapData(QMap<QString, Query> map)
 	return returnmap;
 }
 
+/// <summary>
+/// Gets the monitor tool object by the MonitorSystem enum.
+/// </summary>
+/// <param name="system">The monitorSystem name</param>
+/// <returns>The MonitorTool object</returns>
 MonitorTool * Data::getMonitorTool(MonitorSystem system)
 {
 	for (MonitorTool * tool : tools_)
@@ -183,6 +222,11 @@ MonitorTool * Data::getMonitorTool(MonitorSystem system)
 }
 
 
+/// <summary>
+/// Translates the line.
+/// </summary>
+/// <param name="query">The query</param>
+/// <returns>Hardware sensor data</returns>
 HardwareSensor Data::translateLine(Query query)
 {
 	return getMonitorTool(query.system)->getData(query);;

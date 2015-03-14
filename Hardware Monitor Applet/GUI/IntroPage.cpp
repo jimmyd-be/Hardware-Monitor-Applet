@@ -46,6 +46,17 @@ IntroPage::~IntroPage()
 	}
 }
 
+
+void IntroPage::copy()
+{
+
+}
+
+void IntroPage::cut()
+{
+	copy();
+}
+
 bool IntroPage::validatePage()
 {
 	if (ui.ScreenName_lineEdit->text().isEmpty())

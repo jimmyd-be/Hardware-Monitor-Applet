@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------
 // Data File
-// C++ Header - Data.h - version 0.1 (2013/06/13)
+// C++ Header - Data.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
 #pragma once
 
@@ -49,8 +49,6 @@ private:
 	MonitorTool * getMonitorTool(MonitorSystem);
 
 	static Data* dataInstance;
-
-	
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
