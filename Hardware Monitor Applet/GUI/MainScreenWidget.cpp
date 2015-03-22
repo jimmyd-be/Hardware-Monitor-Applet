@@ -50,7 +50,11 @@ void MainScreenWidget::editpage()
 	CreateScreenWizard * wizard = new CreateScreenWizard(logitech_, ScreenName_Label->text());
 	wizard->exec();
 
-	delete wizard;
+	if (wizard != nullptr)
+	{
+		delete wizard;
+		wizard = nullptr;
+	}
 
 	Settings::getInstance()->saveSettings();
 

@@ -200,7 +200,6 @@ void NormalScreen::draw()
 		lcd_->ModifyDisplay(LG_MONOCHROME);
 	}
 
-
 	for (int i = 0; i < screenLines_.size(); i++)
 	{
 		lcd_->SetText(screenLines_[i].textHandle, (LPCTSTR)lines[i].utf16());

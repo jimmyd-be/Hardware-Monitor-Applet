@@ -16,6 +16,7 @@ GraphPage::GraphPage(DataPage* page, QWidget *parent)
 	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
 	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
 	connect(ui.title_checkBox, SIGNAL(stateChanged(int)), this, SLOT(titleCheckBoxChanged()));
+	connect(ui.YRange_checkBox, SIGNAL(stateChanged(int)), this, SLOT(yAxisBoxChanged()));
 }
 
 GraphPage::GraphPage(DataPage* page, QList<GraphLine> lines, GraphSettings settings, QWidget *parent)
@@ -34,6 +35,7 @@ GraphPage::GraphPage(DataPage* page, QList<GraphLine> lines, GraphSettings setti
 	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
 	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
 	connect(ui.title_checkBox, SIGNAL(stateChanged(int)), this, SLOT(titleCheckBoxChanged()));
+	connect(ui.YRange_checkBox, SIGNAL(stateChanged(int)), this, SLOT(yAxisBoxChanged()));
 }
 
 GraphPage::~GraphPage()
