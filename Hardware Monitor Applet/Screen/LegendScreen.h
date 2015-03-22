@@ -50,6 +50,7 @@ private:
 	HANDLE bitmapHandle_;
 	HBITMAP bitmap_;
 	GraphSettings settings_;
+	bool firstrun_;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
