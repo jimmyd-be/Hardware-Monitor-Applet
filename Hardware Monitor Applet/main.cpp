@@ -5,6 +5,9 @@
 
 #include <GUI\mainwindow.h>
 
+//Leak detector
+//#include <vld.h>
+
 int main(int argc, char *argv[])
 {
 	Controller * controller = nullptr;

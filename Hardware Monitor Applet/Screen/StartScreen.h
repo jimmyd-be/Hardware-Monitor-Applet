@@ -39,9 +39,6 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-
-	QList<HANDLE> lineHandles_;
-	
 	
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.

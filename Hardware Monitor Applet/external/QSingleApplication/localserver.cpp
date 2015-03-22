@@ -20,6 +20,12 @@ LocalServer::~LocalServer()
 {
   server_->close();
 
+  if (server_ != nullptr)
+  {
+	  delete server_;
+	  server_ = nullptr;
+  }
+
   for (QLocalSocket* client: clients)
   {
 	  client->close();
