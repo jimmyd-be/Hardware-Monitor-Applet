@@ -42,8 +42,6 @@ void AppletThread::run()
 				time_ = 0;
 			}
 
-			//lcd_->ShowPage(logitech_->getCurrentScreen()->getPage());
-
 			lcd_->Update();
 
 		}

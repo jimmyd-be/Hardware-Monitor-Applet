@@ -276,6 +276,7 @@ void Settings::saveGeneralSettings()
 
 	settings_->setValue("Temperature", Defines::translateTemperatureEnum(generalSettings_.temperature));
 	settings_->setValue("AutoStart", generalSettings_.autoStart);
+	settings_->setValue("Language", generalSettings_.language);
 
 	settings_->endGroup();
 }
@@ -284,6 +285,7 @@ void Settings::loadGeneralSettings()
 {
 	generalSettings_.temperature = Defines::translateTemperatureEnum(settings_->value("General/Temperature").toString());
 	generalSettings_.autoStart = settings_->value("General/AutoStart").toBool();
+	generalSettings_.language = settings_->value("General/Language").toString();
 }
 
 void Settings::saveSettings()
@@ -534,4 +536,16 @@ QList<CustomSettings> Settings::loadCustomSettings()
 void Settings::setLogitech(Logitech * logitech)
 {
 	logitech_ = logitech;
+}
+
+void Settings::setLanguage(QString language)
+{
+	generalSettings_.language = language;
+
+	saveSettings();
+}
+
+QString Settings::getLanguage()
+{
+	return generalSettings_.language;
 }

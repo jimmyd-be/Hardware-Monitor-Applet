@@ -45,10 +45,10 @@ private:
 	// Datamembers
 	// -------------------------
 	QList<GraphLine> graphData_;
-	QCustomPlot * plot_;
+	//QCustomPlot * plot_;
 	int Xpos_;
-	HANDLE bitmapHandle_;
-	HBITMAP bitmap_;
+	//HANDLE bitmapHandle_;
+	//HBITMAP bitmap_;
 	GraphSettings settings_;
 	bool firstrun_;
 

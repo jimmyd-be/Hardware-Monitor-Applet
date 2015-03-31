@@ -39,6 +39,9 @@ public:
 	void setAutoStart(bool);
 	bool getAutoStart();
 
+	void setLanguage(QString);
+	QString getLanguage();
+
 protected:
 	//---------------------------
 	// Constructor(s)

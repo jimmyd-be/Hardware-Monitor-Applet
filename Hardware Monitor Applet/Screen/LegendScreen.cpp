@@ -16,29 +16,13 @@
 //-----------------------------------------------------------------
 // LegendScreen methods
 //-----------------------------------------------------------------
-LegendScreen::LegendScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr), settings_({ 0 }), firstrun_(true)
+LegendScreen::LegendScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), settings_({ 0 }), firstrun_(true)
 {
-	plot_ = new QCustomPlot();
-
-	plot_->plotLayout()->insertRow(0);
-	plot_->plotLayout()->addElement(0, 0, new QCPPlotTitle(plot_, name));
-
 	setBackground("");
 }
 
 LegendScreen::~LegendScreen()
 {
-	if (plot_ != nullptr)
-	{
-		delete plot_;
-		plot_ = nullptr;
-	}
-
-	if (bitmap_ != nullptr)
-	{
-		DeleteObject(bitmap_);
-		bitmap_ = nullptr;
-	}
 }
 
 ScreenType LegendScreen::getScreenType()

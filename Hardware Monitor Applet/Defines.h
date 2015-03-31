@@ -98,6 +98,7 @@ struct GeneralSettings
 {
 	TemperatureType temperature;
 	bool autoStart;
+	QString language;
 };
 
 const QChar degreeChar(0260);

@@ -405,6 +405,7 @@ INT CEzLcd::RemovePage(CEzLcdPage* pageNumber)
 		PageList.erase(i);
 	}
 
+
     // If there are any pages, the first one is the active page
     if (PageList.size())
     {

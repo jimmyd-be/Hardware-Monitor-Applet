@@ -61,7 +61,7 @@ void Controller::openSettingsScreen()
 {
 	if (mainWindow_ == nullptr)
 	{
-		mainWindow_ = new MainWindow(logitech_, this);
+		mainWindow_ = new MainWindow(app_, logitech_, this);
 	}
 
 	mainWindow_->showMaximized();

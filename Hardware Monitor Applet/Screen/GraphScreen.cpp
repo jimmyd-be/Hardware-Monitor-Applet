@@ -37,6 +37,12 @@ GraphScreen::~GraphScreen()
 		bitmap_ = nullptr;
 	}
 
+	if (bitmapHandle_ != nullptr)
+	{
+		DeleteObject(bitmapHandle_);
+		bitmapHandle_ = nullptr;
+	}
+
 	if (legendScreen_ != nullptr)
 	{
 		delete legendScreen_;
