@@ -517,7 +517,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/mainwindow.cpp" line="218"/>
+        <location filename="../GUI/mainwindow.cpp" line="219"/>
         <source>Current Language changed to %1</source>
         <translation type="unfinished"></translation>
     </message>

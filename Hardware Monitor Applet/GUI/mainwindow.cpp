@@ -79,6 +79,7 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 void MainWindow::closeEvent(QCloseEvent * event)
 {
 	closeWindow();
+	event->ignore();
 }
 
 void MainWindow::closeWindow()
