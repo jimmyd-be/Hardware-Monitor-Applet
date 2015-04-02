@@ -43,26 +43,11 @@ void StartScreen::drawColor()
 
 	setBackground("");
 
-	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
+	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320, 5);
 	lcd_->SetOrigin(line1, 0, 17);
 	lcd_->SetTextFontColor(line1, RGB(255, 255, 255));
-	lcd_->SetText(line1, _T("Thanks for using"));
-
-	HANDLE line2 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line2, 0, 17 * 3);
-	lcd_->SetTextFontColor(line2, RGB(255, 255, 255));
-	lcd_->SetText(line2, _T("Hardware Monitor Applet"));
-
-	HANDLE line3 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line3, 0, 17 * 5);
-	lcd_->SetTextFontColor(line3, RGB(255, 255, 255));
-	lcd_->SetText(line3, _T("Open settings to"));
-
-	HANDLE line4 = lcd_->AddText(LG_STATIC_TEXT, LG_MEDIUM, DT_CENTER, 320);
-	lcd_->SetOrigin(line4, 0, 17 * 6);
-	lcd_->SetTextFontColor(line4, RGB(255, 255, 255));
-	lcd_->SetText(line4, _T("create new screens"));
-
+	lcd_->SetText(line1, (LPCTSTR)QObject::tr("Thanks for using Hardware Monitor Applet.\nOpen settings to create new screens").utf16());
+	 
 	firstStart_ = false;
 }
 
@@ -72,21 +57,9 @@ void StartScreen::drawMonochrome()
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
 
-	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
+	HANDLE line1 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160, 5);
 	lcd_->SetOrigin(line1, 0, 0);
-	lcd_->SetText(line1, _T("Thanks for using"));
-
-	HANDLE line2 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
-	lcd_->SetOrigin(line2, 0, 9);
-	lcd_->SetText(line2, _T("Hardware Monitor Applet"));
-
-	HANDLE line3 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
-	lcd_->SetOrigin(line3, 0, 18);
-	lcd_->SetText(line3, _T("Open settings to"));
-
-	HANDLE line4 = lcd_->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 160);
-	lcd_->SetOrigin(line4, 0, 27);
-	lcd_->SetText(line4, _T("create new screens"));
+	lcd_->SetText(line1, (LPCTSTR)QObject::tr("Thanks for using Hardware Monitor Applet. Open settings to create new screens").utf16());
 
 	firstStart_ = false;
 }

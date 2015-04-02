@@ -517,7 +517,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/mainwindow.cpp" line="219"/>
+        <location filename="../GUI/mainwindow.cpp" line="218"/>
         <source>Current Language changed to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -695,6 +695,20 @@
         <location filename="../GUI/OrderWindow.ui" line="335"/>
         <location filename="../GUI/OrderWindow.ui" line="355"/>
         <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../Screen/StartScreen.cpp" line="49"/>
+        <source>Thanks for using Hardware Monitor Applet.
+Open settings to create new screens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Screen/StartScreen.cpp" line="62"/>
+        <source>Thanks for using Hardware Monitor Applet. Open settings to create new screens</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

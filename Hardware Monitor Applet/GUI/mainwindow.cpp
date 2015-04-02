@@ -215,7 +215,6 @@ void MainWindow::loadLanguage(const QString& rLanguage)
 		QLocale::setDefault(locale);
 		QString languageName = QLocale::languageToString(locale.language());
 		switchTranslator(m_translator, QString("HMA_%1.qm").arg(rLanguage));
-		switchTranslator(m_translatorQt, QString("qt_%1.qm").arg(rLanguage));
 		ui.statusBar->showMessage(tr("Current Language changed to %1").arg(languageName));
 
 		Settings::getInstance()->setLanguage(rLanguage);
@@ -228,7 +227,7 @@ void MainWindow::switchTranslator(QTranslator& translator, const QString& filena
 	qApp_->removeTranslator(&translator);
 
 	// load the new translator
-	if (translator.load(filename))
+	if (translator.load(QApplication::applicationDirPath() + "/Languages/" + filename))
 	{
 		qApp_->installTranslator(&translator);
 	}

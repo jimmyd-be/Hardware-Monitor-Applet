@@ -6,17 +6,17 @@
     <message>
         <location filename="../GUI/AboutDialog.ui" line="32"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Over HMA</translation>
     </message>
     <message>
         <location filename="../GUI/AboutDialog.ui" line="49"/>
         <source>Hardware Monitor Applet 3.0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../GUI/AboutDialog.ui" line="168"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Developed by: JimmyD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;a href=&quot;http://www.hwinfo.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;HWiNFO&lt;/span&gt;&lt;/a&gt; is a trademark of Martin Malík&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://openhardwaremonitor.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Open Hardware Monitor&lt;/span&gt;&lt;/a&gt; is a trademark of Michael Möller&lt;/p&gt;&lt;p&gt;All other trademarks are the property of their respective owners.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ontwikkeld door: JimmyD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;a href=&quot;http://www.hwinfo.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;HWiNFO&lt;/span&gt;&lt;/a&gt; is een handelsmerk van Martin Malík&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://openhardwaremonitor.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Open Hardware Monitor&lt;/span&gt;&lt;/a&gt; is een handelmerk van Michael Möller&lt;/p&gt;&lt;p&gt;Alle andere handelsmerken en geregistreerde handelsmerken zijn eigendom van hun respectievelijke eigenaren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -25,17 +25,17 @@
         <location filename="../GUI/BackgroundPage.cpp" line="7"/>
         <location filename="../GUI/BackgroundPage.cpp" line="27"/>
         <source>Background selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Achtergrond selectie</translation>
     </message>
     <message>
         <location filename="../GUI/BackgroundPage.cpp" line="104"/>
         <source>Select Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een achtergrond</translation>
     </message>
     <message>
         <location filename="../GUI/BackgroundPage.cpp" line="104"/>
         <source>Images (*.png *.jpg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen  (*.png *.jpg)</translation>
     </message>
 </context>
 <context>
@@ -517,7 +517,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/mainwindow.cpp" line="219"/>
+        <location filename="../GUI/mainwindow.cpp" line="218"/>
         <source>Current Language changed to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -573,7 +573,7 @@
     <message>
         <location filename="../GUI/mainwindow.ui" line="206"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Over HMA</translation>
     </message>
     <message>
         <location filename="../GUI/mainwindow.ui" line="211"/>
@@ -695,6 +695,20 @@
         <location filename="../GUI/OrderWindow.ui" line="335"/>
         <location filename="../GUI/OrderWindow.ui" line="355"/>
         <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../Screen/StartScreen.cpp" line="49"/>
+        <source>Thanks for using Hardware Monitor Applet.
+Open settings to create new screens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Screen/StartScreen.cpp" line="62"/>
+        <source>Thanks for using Hardware Monitor Applet. Open settings to create new screens</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
