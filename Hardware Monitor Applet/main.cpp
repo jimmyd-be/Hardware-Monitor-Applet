@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
 
 	QApplication a(argc, argv);
 
+	a.setWindowIcon(QIcon(":/MainWindow/Resources/Logo.ico"));
+
 	SingleApplication* singleApp = new SingleApplication();
 
 	if (singleApp->isRunning())

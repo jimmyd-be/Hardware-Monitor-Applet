@@ -292,7 +292,6 @@ void MainWindow::slotLanguageChanged(QAction* action)
 	{
 		// load the language dependant on the action content
 		loadLanguage(action->data().toString());
-		setWindowIcon(action->icon());
 	}
 }
 
