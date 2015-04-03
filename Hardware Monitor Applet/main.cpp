@@ -11,6 +11,7 @@
 
 int main(int argc, char *argv[])
 {
+
 	Controller * controller = nullptr;
 
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);

@@ -53,17 +53,17 @@
     <message>
         <location filename="../GUI/BackgroundPageWidget.ui" line="71"/>
         <source>Default background</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard achtergrond</translation>
     </message>
     <message>
         <location filename="../GUI/BackgroundPageWidget.ui" line="114"/>
         <source>Custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigen achtergrond</translation>
     </message>
     <message>
         <location filename="../GUI/BackgroundPageWidget.ui" line="161"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Bladeren</translation>
     </message>
 </context>
 <context>
@@ -357,17 +357,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="172"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="175"/>
         <source>Auto Y-axis range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="201"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="204"/>
         <source>Min range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="237"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="240"/>
         <source>Max range</source>
         <translation type="unfinished"></translation>
     </message>

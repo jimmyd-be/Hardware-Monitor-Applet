@@ -371,7 +371,7 @@ CEzLcdPage* CEzLcd::AddNewPage()
     LCD_PAGE_LIST& PageList = GetPageList();
     PageList.push_back(page_);
 
-	return page_;// (INT)PageList.size();
+	return page_;
 }
 
 /****f* LCD.SDK/RemovePage(INT.pageNumber)

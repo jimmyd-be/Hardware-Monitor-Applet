@@ -357,17 +357,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="172"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="175"/>
         <source>Auto Y-axis range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="201"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="204"/>
         <source>Min range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="237"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="240"/>
         <source>Max range</source>
         <translation type="unfinished"></translation>
     </message>
