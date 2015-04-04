@@ -42,26 +42,26 @@
     <name>BackgroundPageWidget</name>
     <message>
         <location filename="../GUI/BackgroundPageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Change background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/BackgroundPageWidget.ui" line="33"/>
+        <location filename="../GUI/BackgroundPageWidget.ui" line="37"/>
         <source>Use the default background or select a custom made one. The background must be 320px X 240px.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/BackgroundPageWidget.ui" line="71"/>
+        <location filename="../GUI/BackgroundPageWidget.ui" line="75"/>
         <source>Default background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/BackgroundPageWidget.ui" line="114"/>
+        <location filename="../GUI/BackgroundPageWidget.ui" line="118"/>
         <source>Custom background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/BackgroundPageWidget.ui" line="161"/>
+        <location filename="../GUI/BackgroundPageWidget.ui" line="165"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
@@ -91,42 +91,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="20"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="24"/>
         <source>Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="28"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="32"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="33"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="37"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="38"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="42"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="46"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="50"/>
         <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="53"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="57"/>
         <source>Font Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="79"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="83"/>
         <source>Text scrolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageLineWidget.ui" line="89"/>
+        <location filename="../GUI/CustomizePageLineWidget.ui" line="93"/>
         <source>Line spacing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -135,51 +135,51 @@
     <name>CustomizePageWidget</name>
     <message>
         <location filename="../GUI/CustomizePageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Customize page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="33"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="37"/>
         <source>Customize the lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="58"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="62"/>
         <source>General settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="66"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="70"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="71"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="75"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="76"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="80"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="84"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="88"/>
         <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="91"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="95"/>
         <source>Font Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="98"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="102"/>
         <source>Text scrolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/CustomizePageWidget.ui" line="108"/>
+        <location filename="../GUI/CustomizePageWidget.ui" line="112"/>
         <source>Line spacing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -196,97 +196,97 @@
     <name>DataPageWidget</name>
     <message>
         <location filename="../GUI/DataPageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Pick data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="24"/>
+        <location filename="../GUI/DataPageWidget.ui" line="28"/>
         <source>HWiNFO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="37"/>
-        <location filename="../GUI/DataPageWidget.ui" line="81"/>
-        <location filename="../GUI/DataPageWidget.ui" line="247"/>
+        <location filename="../GUI/DataPageWidget.ui" line="41"/>
+        <location filename="../GUI/DataPageWidget.ui" line="85"/>
+        <location filename="../GUI/DataPageWidget.ui" line="251"/>
         <source>Id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="42"/>
-        <location filename="../GUI/DataPageWidget.ui" line="86"/>
-        <location filename="../GUI/DataPageWidget.ui" line="287"/>
+        <location filename="../GUI/DataPageWidget.ui" line="46"/>
+        <location filename="../GUI/DataPageWidget.ui" line="90"/>
+        <location filename="../GUI/DataPageWidget.ui" line="291"/>
         <source>Hardware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="47"/>
-        <location filename="../GUI/DataPageWidget.ui" line="91"/>
-        <location filename="../GUI/DataPageWidget.ui" line="257"/>
+        <location filename="../GUI/DataPageWidget.ui" line="51"/>
+        <location filename="../GUI/DataPageWidget.ui" line="95"/>
+        <location filename="../GUI/DataPageWidget.ui" line="261"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="52"/>
-        <location filename="../GUI/DataPageWidget.ui" line="96"/>
+        <location filename="../GUI/DataPageWidget.ui" line="56"/>
+        <location filename="../GUI/DataPageWidget.ui" line="100"/>
         <source>Min</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="57"/>
-        <location filename="../GUI/DataPageWidget.ui" line="101"/>
+        <location filename="../GUI/DataPageWidget.ui" line="61"/>
+        <location filename="../GUI/DataPageWidget.ui" line="105"/>
         <source>Max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="62"/>
-        <location filename="../GUI/DataPageWidget.ui" line="106"/>
+        <location filename="../GUI/DataPageWidget.ui" line="66"/>
+        <location filename="../GUI/DataPageWidget.ui" line="110"/>
         <source>Current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="71"/>
+        <location filename="../GUI/DataPageWidget.ui" line="75"/>
         <source>OHM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="133"/>
+        <location filename="../GUI/DataPageWidget.ui" line="137"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="156"/>
-        <location filename="../GUI/DataPageWidget.ui" line="267"/>
+        <location filename="../GUI/DataPageWidget.ui" line="160"/>
+        <location filename="../GUI/DataPageWidget.ui" line="271"/>
         <source>Precision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="186"/>
-        <location filename="../GUI/DataPageWidget.ui" line="277"/>
+        <location filename="../GUI/DataPageWidget.ui" line="190"/>
+        <location filename="../GUI/DataPageWidget.ui" line="281"/>
         <source>Add unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="212"/>
+        <location filename="../GUI/DataPageWidget.ui" line="216"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="252"/>
+        <location filename="../GUI/DataPageWidget.ui" line="256"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="262"/>
+        <location filename="../GUI/DataPageWidget.ui" line="266"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="272"/>
+        <location filename="../GUI/DataPageWidget.ui" line="276"/>
         <source>Symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/DataPageWidget.ui" line="282"/>
+        <location filename="../GUI/DataPageWidget.ui" line="286"/>
         <source>Unit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -328,46 +328,46 @@
     <name>GraphPageWidget</name>
     <message>
         <location filename="../GUI/GraphPageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Change Graph settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="33"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="37"/>
         <source>Give every dataline a label and color. This will be used in the graph to add to the legend.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="71"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="75"/>
         <source>Enable title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="81"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="85"/>
         <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="88"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="92"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="125"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="129"/>
         <source>Graph range (seconds)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="175"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="179"/>
         <source>Auto Y-axis range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="204"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="208"/>
         <source>Min range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/GraphPageWidget.ui" line="240"/>
+        <location filename="../GUI/GraphPageWidget.ui" line="244"/>
         <source>Max range</source>
         <translation type="unfinished"></translation>
     </message>
@@ -385,16 +385,16 @@
     <name>IntroPageWidget</name>
     <message>
         <location filename="../GUI/IntroPageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Intro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/IntroPageWidget.ui" line="33"/>
+        <location filename="../GUI/IntroPageWidget.ui" line="37"/>
         <source>This wizard will walk you trought some easy steps for making a rich screen for the Logitech keyboards.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/IntroPageWidget.ui" line="74"/>
+        <location filename="../GUI/IntroPageWidget.ui" line="78"/>
         <source>Screen name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -425,61 +425,61 @@
     <name>LineEditPageWidget</name>
     <message>
         <location filename="../GUI/LineEditPageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Screen  Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="36"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="40"/>
         <source>Add text and data to a line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="69"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="73"/>
         <source>Add line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="126"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="130"/>
         <source>Id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="131"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="135"/>
         <source>Symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="136"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="140"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="141"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="145"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="146"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="150"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="151"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="155"/>
         <source>Precision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="156"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="160"/>
         <source>Add Unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="161"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="165"/>
         <source>Unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/LineEditPageWidget.ui" line="166"/>
+        <location filename="../GUI/LineEditPageWidget.ui" line="170"/>
         <source>Hardware</source>
         <translation type="unfinished"></translation>
     </message>
@@ -655,7 +655,7 @@
     <name>OrderWindow</name>
     <message>
         <location filename="../GUI/OrderWindow.ui" line="14"/>
-        <source>Dialog</source>
+        <source>Order Logitech screens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -725,21 +725,21 @@ Open settings to create new screens</source>
     <name>ScreenTypePageWidget</name>
     <message>
         <location filename="../GUI/ScreenTypePageWidget.ui" line="14"/>
-        <source>Form</source>
+        <source>Select screen type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/ScreenTypePageWidget.ui" line="33"/>
+        <location filename="../GUI/ScreenTypePageWidget.ui" line="37"/>
         <source>Select a screentype that you want to create.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/ScreenTypePageWidget.ui" line="73"/>
+        <location filename="../GUI/ScreenTypePageWidget.ui" line="77"/>
         <source>Normal text screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/ScreenTypePageWidget.ui" line="102"/>
+        <location filename="../GUI/ScreenTypePageWidget.ui" line="106"/>
         <source>Graph screen</source>
         <translation type="unfinished"></translation>
     </message>

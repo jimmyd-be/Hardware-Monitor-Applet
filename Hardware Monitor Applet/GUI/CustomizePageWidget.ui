@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Customize page</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../mainwindow.qrc">
+    <normaloff>:/MainWindow/Resources/icon.png</normaloff>:/MainWindow/Resources/icon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -152,6 +156,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../mainwindow.qrc"/>
+ </resources>
  <connections/>
 </ui>

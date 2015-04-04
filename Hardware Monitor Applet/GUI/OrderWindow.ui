@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Order Logitech screens</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../mainwindow.qrc">
-    <normaloff>:/MainWindow/Resources/Logo.ico</normaloff>:/MainWindow/Resources/Logo.ico</iconset>
+    <normaloff>:/MainWindow/Resources/icon.png</normaloff>:/MainWindow/Resources/icon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>

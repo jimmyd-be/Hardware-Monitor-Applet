@@ -375,9 +375,6 @@
     <CustomBuild Include="GUI\MainScreenWidget.h">
       <Filter>GUI</Filter>
     </CustomBuild>
-    <CustomBuild Include="GUI\SortScreenDialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="GUI\SortScreenDialog.h">
       <Filter>GUI</Filter>
     </CustomBuild>
@@ -473,6 +470,9 @@
     </CustomBuild>
     <CustomBuild Include="Controller.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\SortScreenDialog.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -575,9 +575,6 @@
     <ClInclude Include="GeneratedFiles\ui_MainScreenWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_SortScreenDialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_IntroPageWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -640,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="resource1.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SortScreenDialog.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
