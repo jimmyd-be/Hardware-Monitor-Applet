@@ -295,7 +295,7 @@
     <name>GraphPage</name>
     <message>
         <location filename="../GUI/GraphPage.cpp" line="6"/>
-        <location filename="../GUI/GraphPage.cpp" line="25"/>
+        <location filename="../GUI/GraphPage.cpp" line="27"/>
         <source>Graph settings</source>
         <translation type="unfinished"></translation>
     </message>

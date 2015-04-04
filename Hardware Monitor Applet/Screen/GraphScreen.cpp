@@ -75,7 +75,7 @@ void GraphScreen::draw()
 			plot_->xAxis->setRange(0, settings_.range);
 		}
 
-		if (settings_.yMaxRange == -1 && settings_.yMinRange == -1)
+		if (settings_.yAutoRange)
 		{
 			plot_->yAxis->rescale();
 		}

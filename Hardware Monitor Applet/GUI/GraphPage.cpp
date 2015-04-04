@@ -13,6 +13,8 @@ GraphPage::GraphPage(DataPage* page, QWidget *parent)
 	layout_->addWidget(widget_);
 	setLayout(layout_);
 
+	ui.YRange_checkBox->setChecked(true);
+
 	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
 	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
 	connect(ui.title_checkBox, SIGNAL(stateChanged(int)), this, SLOT(titleCheckBoxChanged()));
@@ -31,6 +33,8 @@ GraphPage::GraphPage(DataPage* page, QList<GraphLine> lines, GraphSettings setti
 	layout_ = new QVBoxLayout();
 	layout_->addWidget(widget_);
 	setLayout(layout_);
+
+	ui.YRange_checkBox->setChecked(true);
 
 	connect(ui.fontTitle_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
 	connect(ui.colorTitle_pushButton, SIGNAL(clicked()), this, SLOT(openColorDialog()));
@@ -159,7 +163,7 @@ void GraphPage::fillinData()
 		ui.colorTitle_pushButton->setDisabled(true);
 	}
 
-	if (oldSettings_.yMaxRange != -1 && oldSettings_.yMinRange != -1)
+	if (!oldSettings_.yAutoRange)
 	{
 		ui.minRange_label->setDisabled(false);
 		ui.minRange_spinBox->setDisabled(false);
@@ -238,11 +242,14 @@ GraphSettings GraphPage::getGraphSettings()
 			settings.yMaxRange = ui.minRange_spinBox->value();
 			settings.yMinRange = ui.maxRange_spinBox->value();
 		}
+
+		settings.yAutoRange = false;
 	}
 	else
 	{
-		settings.yMinRange = -1;
-		settings.yMaxRange = -1;
+		settings.yAutoRange = true;
+		settings.yMinRange = 0;
+		settings.yMaxRange = 0;
 	}
 
 	settings.range = ui.Range_spinBox->value();

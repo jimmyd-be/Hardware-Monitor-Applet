@@ -167,6 +167,7 @@ void Settings::loadGraphScreenSettings(QString name, QString background, ScreenT
 	graphSetting.range = settings_->value("Range").toInt();
 	graphSetting.yMinRange = settings_->value("YMinRange").toInt();
 	graphSetting.yMaxRange = settings_->value("YMaxRange").toInt();
+	graphSetting.yAutoRange = settings_->value("YAutoRange").toBool();
 
 	QColor fontcolor;
 	fontcolor.setRed(settings_->value("TitleColorRed").toInt());
@@ -376,6 +377,7 @@ void Settings::saveGraphScreenSettings(GraphScreen * screen)
 	settings_->setValue("Range", screen->getGraphSettings().range);
 	settings_->setValue("YMinRange", screen->getGraphSettings().yMinRange);
 	settings_->setValue("YMaxRange", screen->getGraphSettings().yMaxRange);
+	settings_->setValue("YAutoRange", screen->getGraphSettings().yAutoRange);
 
 	settings_->setValue("TitleColorRed", screen->getGraphSettings().titleColor.red());
 	settings_->setValue("TitleColorBlue", screen->getGraphSettings().titleColor.blue());

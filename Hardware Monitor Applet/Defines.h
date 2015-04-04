@@ -63,6 +63,7 @@ struct GraphSettings{
 	int range;
 	int yMinRange;
 	int yMaxRange;
+	bool yAutoRange;
 	bool addTitle;
 	QFont titleFont;
 	QColor titleColor;
