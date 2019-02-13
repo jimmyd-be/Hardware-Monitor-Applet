@@ -64,3 +64,8 @@ Hardware Monitor Applet is an applet that usses the LCD from some Logitech gamin
 #### OHMA Version 0.1.0 (04-08-2012) 
 
 I'm happy to announce you the first release of the applet for Open Hardware Monitor. This release is only tested on Logitech G15. Logitech G19 support will be added later.
+
+## Screenshots
+[Graph screen](https://github.com/lonelobo0070/Hardware-Monitor-Applet/blob/master/Resources/Screenshots/Graph%20screen.png)  
+[Stast screen](https://github.com/lonelobo0070/Hardware-Monitor-Applet/blob/master/Resources/Screenshots/NormalScreen.png)  
+[Settings](https://github.com/lonelobo0070/Hardware-Monitor-Applet/blob/master/Resources/Screenshots/settings.png)  
