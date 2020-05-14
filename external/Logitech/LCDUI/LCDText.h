@@ -21,6 +21,8 @@
 #define _LCDTEXT_H_INCLUDED_ 
 
 #include "LCDBase.h"
+#include <string>
+#include <windows.h>
 
 class CLCDText : public CLCDBase
 {

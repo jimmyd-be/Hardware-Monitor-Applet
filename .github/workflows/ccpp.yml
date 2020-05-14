@@ -1,0 +1,41 @@
+name: Hardware Monitor Applet
+
+on: [push]
+
+jobs:
+  x64:
+    runs-on: windows-2016
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Enable developer command prompt
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        toolset: '14.16'
+        arch: 'x64'
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v1
+      with:
+        path: ../Qt
+        key: ${{ runner.os }}-QtCache
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        arch: 'win64_msvc2017_64'
+        host: 'windows'
+        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+    - name: Qmake HWA
+      run: qmake Hardware-Monitor-Applet.pro -spec win32-msvc
+      env:
+        QMakeSpec: win32-msvc
+    - name: Nmake
+      run: nmake /A
+    - name: Package with binaries
+      run: windeployqt release
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: X64
+        path: ${{ github.workspace }}\release\**
+      

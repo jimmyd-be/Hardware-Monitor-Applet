@@ -28,7 +28,7 @@
  *******
  */
 
-#include "LCDUI.h"
+#include <external/Logitech/LCDUI/LCDUI.h>
 #include "EZ_LCD.h"
 #include "EZ_LCD_Page.h"
 

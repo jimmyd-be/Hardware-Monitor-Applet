@@ -65,7 +65,7 @@ class CLCDSkinnedProgressBar;
 // all header files
 //************************************************************************
 
-#include <lglcd.h>
+#include <external/Logitech/lglcd.h>
 #include "LCDBase.h"
 #include "LCDCollection.h"
 #include "LCDPage.h"

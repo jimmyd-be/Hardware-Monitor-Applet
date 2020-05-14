@@ -15,9 +15,9 @@
 
 
 #include "EZ_LCD_Defines.h"
-#include "LCDPage.h"
+#include "LCDUI/LCDPage.h"
 
-#include "LCDUI.h"
+#include "LCDUI/LCDUI.h"
 
 class CEzLcd;
 
