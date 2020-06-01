@@ -13,18 +13,18 @@
 #include <QScrollArea>
 #include "AboutDialog.h"
 
-class Controller;
 
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	MainWindow(QApplication* application, Logitech * logitech, Controller * controller, QWidget *parent = 0);
+    MainWindow(Logitech * logitech, QWidget *parent = 0);
 	~MainWindow();
 
 	void keyboardChanged(KeyboardTypes);
 
+public slots:
 	void refreshPages();
 
 protected:
@@ -44,7 +44,6 @@ private:
 	Logitech * logitech_;
 	QApplication * qApp_;
 	QVector<MainScreenWidget *> widgetList_;
-	Controller * controller_;
 	QActionGroup * degreeGroup_;
 	QActionGroup * autoStartGroup_;
 

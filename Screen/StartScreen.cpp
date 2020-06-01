@@ -15,9 +15,15 @@
 //-----------------------------------------------------------------
 // StartScreen methods
 //-----------------------------------------------------------------
+#ifdef __linux__
+StartScreen::StartScreen(QString name) : Screen(name)
+{
+}
+#elif _WIN32
 StartScreen::StartScreen(CEzLcd * logitech, QString name) : Screen(logitech, name)
 {
 }
+#endif
 
 StartScreen::~StartScreen()
 {
@@ -37,6 +43,7 @@ void StartScreen::update()
 
 void StartScreen::drawColor()
 {
+    #ifdef _WIN32
 	lcd_->ModifyControlsOnPage(screenPage_);
 
 	lcd_->ModifyDisplay(LG_COLOR);
@@ -49,10 +56,12 @@ void StartScreen::drawColor()
 	lcd_->SetText(line1, (LPCTSTR)QObject::tr("Thanks for using Hardware Monitor Applet.\nOpen settings to create new screens").utf16());
 	 
 	firstStart_ = false;
+#endif
 }
 
 void StartScreen::drawMonochrome()
 {
+    #ifdef _WIN32
 	lcd_->ModifyControlsOnPage(screenPage_);
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
@@ -62,10 +71,12 @@ void StartScreen::drawMonochrome()
 	lcd_->SetText(line1, (LPCTSTR)QObject::tr("Thanks for using Hardware Monitor Applet. Open settings to create new screens").utf16());
 
 	firstStart_ = false;
+#endif
 }
 
 void StartScreen::draw()
 {
+    #ifdef _WIN32
 	if (firstStart_)
 	{
 		if (lcd_->IsDeviceAvailable(LG_COLOR))
@@ -81,4 +92,5 @@ void StartScreen::draw()
 	}
 
 	lcd_->ShowPage(screenPage_);
+#endif
 }

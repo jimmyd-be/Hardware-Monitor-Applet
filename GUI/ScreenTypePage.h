@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCREENTYPEPAGE_H
+#define SCREENTYPEPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
@@ -25,3 +26,4 @@ private:
 	QVBoxLayout *layout_;
 
 };
+#endif

@@ -1,8 +1,7 @@
 #include "mainwindow.h"
-#include "../Controller.h"
 
-MainWindow::MainWindow(QApplication* application, Logitech * logitech, Controller * controller, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr)
+MainWindow::MainWindow(Logitech * logitech,QWidget *parent)
+    : QMainWindow(parent), logitech_(logitech), degreeGroup_(nullptr)
 {
 	ui.setupUi(this);
 
@@ -84,17 +83,24 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
 void MainWindow::closeWindow()
 {
-	controller_->closeSettingsScreen();
+    //controller_->closeSettingsScreen();
+
+#ifdef __linux__
+    QApplication::quit();
+#elif _WIN32
+    hide();
+#endif
 }
 
 void MainWindow::closeProgram()
 {
-	controller_->quitApplication();
+    QApplication::quit();
+    //controller_->quitApplication();
 }
 
 void MainWindow::reportIssue()
 {
-	QUrl url("https://bitbucket.org/jimmyD/hardware-monitor-applet-for-logitech-lcd/issues?status=new&status=open");
+    QUrl url("https://github.com/lonelobo0070/Hardware-Monitor-Applet/issues");
 	QDesktopServices::openUrl(url);
 }
 
@@ -145,7 +151,9 @@ void MainWindow::fillinPages()
 
 	for (int i = 0; i < pages.size(); i++)
 	{
-		MainScreenWidget * widget = new MainScreenWidget(this, logitech_, pages[i]->getName(), pages[i]->getScreenType(), logitech_->isScreenActive(pages[i]->getName()));
+        MainScreenWidget * widget = new MainScreenWidget(logitech_, pages[i]->getName(), pages[i]->getScreenType(), logitech_->isScreenActive(pages[i]->getName()));
+
+        connect(widget, SIGNAL(refreshMainWindow()), this, SLOT((refreshPages())));
 
 		ui.ScreenList_Layout->addWidget(widget);
 

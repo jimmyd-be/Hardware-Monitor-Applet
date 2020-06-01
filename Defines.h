@@ -2,15 +2,20 @@
 // Defines File
 // C++ Header - Defines.h - version 0.1 (2014/08/31)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef DEFINES_H
+#define DEFINES_H
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
+
+#ifdef _WIN32
 #include <external\Logitech\EZ_LCD.h>
+#include <QtWinExtras\qwinfunctions.h>
+#endif
+
 #include <qdir.h>
 #include <qpixmap.h>
-#include <QtWinExtras\qwinfunctions.h>
 #include <QVector>
 #include <qactiongroup.h>
 #include <qobject.h>
@@ -50,7 +55,7 @@ struct Query{
 struct LineText{
 	QString text;
 	QMap<QString, Query> queryMap;
-	HANDLE textHandle;
+    //HANDLE textHandle;
 };
 
 struct GraphLine{
@@ -135,3 +140,4 @@ class Defines
 		//---------------------------
 		~Defines();
 };
+#endif

@@ -47,9 +47,9 @@ QString Defines::translateMonitorSystemEnum(MonitorSystem system)
 	case MonitorSystem::OHM:
 		return "OHM";
 		break;
+     default:
+        return "NONE";
 	};
-
-	return "NONE";
 }
 
 QString Defines::translateQueryValueEnum(QueryValue value)

@@ -16,10 +16,17 @@
 //-----------------------------------------------------------------
 // LegendScreen methods
 //-----------------------------------------------------------------
+#ifdef __linux__
+LegendScreen::LegendScreen(QString name) : Screen(name), Xpos_(0), settings_({ 0 }), firstrun_(true)
+{
+    setBackground("");
+}
+#elif _WIN32
 LegendScreen::LegendScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), settings_({ 0 }), firstrun_(true)
 {
-	setBackground("");
+    setBackground("");
 }
+#endif
 
 LegendScreen::~LegendScreen()
 {
@@ -32,6 +39,7 @@ ScreenType LegendScreen::getScreenType()
 
 void LegendScreen::draw()
 {
+    #ifdef _WIN32
 	if (firstrun_)
 	{
 		lcd_->ModifyControlsOnPage(screenPage_);
@@ -56,6 +64,7 @@ void LegendScreen::draw()
 		firstrun_ = false;
 	}
 	lcd_->ShowPage(screenPage_);
+#endif
 }
 
 void LegendScreen::update()

@@ -2,7 +2,8 @@
 // StartScreen File
 // C++ Header - StartScreen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef STARTSCREEN_H
+#define STARTSCREEN_H
 
 //-----------------------------------------------------------------
 // Include Files
@@ -19,7 +20,12 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	StartScreen(CEzLcd*, QString);
+#ifdef __linux__
+    StartScreen(QString);
+#elif _WIN32
+    StartScreen(CEzLcd*, QString);
+#endif
+
 
 	//---------------------------
 	// Destructor
@@ -49,3 +55,4 @@ private:
 	StartScreen(const StartScreen& t);
 	StartScreen& operator=(const StartScreen& t);
 };
+#endif

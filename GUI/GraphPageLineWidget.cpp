@@ -1,7 +1,5 @@
 #include "GraphPageLineWidget.h"
 
-#include "mainwindow.h"
-
 GraphPageLineWidget::GraphPageLineWidget(QString symbol, Query query, QWidget *parent)
 	: QWidget(parent)
 {

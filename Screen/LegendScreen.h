@@ -2,7 +2,8 @@
 // LegendScreen File
 // C++ Header - LegendScreen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef LEDGENDSCREEN_H
+#define LEDGENDSCREEN_H
 
 //-----------------------------------------------------------------
 // Include Files
@@ -19,7 +20,12 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	LegendScreen(CEzLcd *, QString);
+
+#ifdef __linux__
+    LegendScreen(QString);
+#elif _WIN32
+    LegendScreen(CEzLcd *, QString);
+#endif
 
 	//---------------------------
 	// Destructor
@@ -60,3 +66,4 @@ private:
 	LegendScreen(const LegendScreen& t);
 	LegendScreen& operator=(const LegendScreen& t);
 };
+#endif

@@ -1,9 +1,10 @@
-#pragma once
+#ifndef CUSTOMIZEPAGELINEWIDGET_H
+#define CUSTOMIZEPAGELINEWIDGET_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "ui_CustomizePageLineWidget.h"
-#include "../Screen\Screen.h"
+#include "../Screen/Screen.h"
 #include "../Defines.h"
 #include <QFontDialog>
 #include <qcolordialog.h>
@@ -43,3 +44,4 @@ private:
 	QColor color_;
 	QPalette palette_;
 };
+#endif

@@ -2,15 +2,16 @@
 // Controller File
 // C++ Header - Controller.h - version 0.1 (2014/08/31)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "external\QSingleApplication\singleapplication.h"
-#include "GUI\mainwindow.h"
+#include <external/QSingleApplication/SingleApplication.h>
+#include "GUI/mainwindow.h"
 #include "Logitech.h"
-#include "Screen\StartScreen.h"
+#include "Screen/StartScreen.h"
 #include "Settings.h"
 
 
@@ -44,7 +45,7 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	MainWindow * mainWindow_;
+    MainWindow * mainWindow_;
 	Logitech * logitech_;
 	Settings * settings_;
 	QApplication * app_;
@@ -62,3 +63,4 @@ protected slots:
 	//Controller(const Controller& t);
 	//Controller& operator=(const Controller& t);
 };
+#endif

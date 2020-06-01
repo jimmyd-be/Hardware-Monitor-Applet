@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CREATESCREENWIZARD_H
+#define CREATESCREENWIZARD_H
 
 #include "qwizard.h"
 #include "IntroPage.h"
@@ -42,3 +43,4 @@ private:
 	int width_ = 900;
 	int height_ = 800;
 };
+#endif

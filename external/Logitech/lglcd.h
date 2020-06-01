@@ -23,6 +23,8 @@
 
 */
 
+#ifdef _WIN32
+
 #ifndef _LGLCD_H_INCLUDED_
 #define _LGLCD_H_INCLUDED_
 
@@ -454,3 +456,4 @@ DWORD WINAPI lgLcdSetAsLCDForegroundApp(IN int device, IN int foregroundYesNoFla
 #endif // _LGLCD_H_INCLUDED_
 
 //** end of lglcd.h ***************************************************
+#endif

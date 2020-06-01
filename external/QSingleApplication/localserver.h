@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOCALSERVER_H
+#define LOCALSERVER_H
 
 #include <QThread>
 #include <QVector>
@@ -32,3 +33,4 @@ private:
   void onCMD(QString data);
 
 };
+#endif

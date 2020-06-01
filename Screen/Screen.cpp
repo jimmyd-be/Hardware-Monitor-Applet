@@ -15,15 +15,23 @@
 //-----------------------------------------------------------------
 // Screen methods
 //-----------------------------------------------------------------
+#ifdef __linux__
+Screen::Screen( QString name) : name_(name), backgroundString_(""), firstStart_(true)
+{
+    data_ = Data::Instance();
+}
+#elif _WIN32
 Screen::Screen(CEzLcd * logitech, QString name) : lcd_(logitech), background_(nullptr), name_(name), backgroundString_(""), firstStart_(true)
 {
-	data_ = Data::Instance();
+    data_ = Data::Instance();
 
-	screenPage_ = lcd_->AddNewPage();
+    screenPage_ = lcd_->AddNewPage();
 }
+#endif
 
 Screen::~Screen()
 {
+    #ifdef _WIN32
 	lcd_->RemovePage(screenPage_);
 
 	if (background_ != nullptr)
@@ -31,6 +39,7 @@ Screen::~Screen()
 		DeleteObject(background_);
 		background_ = nullptr;
 	}
+#endif
 }
 
 
@@ -66,6 +75,7 @@ QString Screen::getName()
 
 void Screen::setBackground(QString background)
 {
+    #ifdef _WIN32
 	lcd_->ModifyControlsOnPage(screenPage_);
 	lcd_->ModifyDisplay(LG_COLOR);
 
@@ -89,6 +99,7 @@ void Screen::setBackground(QString background)
 
 		lcd_->SetBackground(background_);
 	}
+#endif
 }
 
 QString Screen::getBackground()
@@ -96,7 +107,9 @@ QString Screen::getBackground()
 	return backgroundString_;
 }
 
+#ifdef _WIN32
 CEzLcdPage* Screen::getPage()
 {
 	return screenPage_;
 }
+#endif

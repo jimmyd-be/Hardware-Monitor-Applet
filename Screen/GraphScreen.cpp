@@ -16,12 +16,21 @@
 //-----------------------------------------------------------------
 // GraphScreen methods
 //-----------------------------------------------------------------
+#ifdef __linux__
+GraphScreen::GraphScreen(QString name) : Screen(name), Xpos_(0), legendScreen_(nullptr), legendOpen_(false), settings_({0})
+{
+    legendScreen_ = new LegendScreen("Legend " + name);
+
+    plot_ = new QCustomPlot();
+}
+#elif _WIN32
 GraphScreen::GraphScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), bitmapHandle_(nullptr), bitmap_(nullptr), legendScreen_(nullptr), legendOpen_(false), settings_({0})
 {
-	legendScreen_ = new LegendScreen(logitech, "Legend " + name);
+    legendScreen_ = new LegendScreen(logitech, "Legend " + name);
 
-	plot_ = new QCustomPlot();
+    plot_ = new QCustomPlot();
 }
+#endif
 
 GraphScreen::~GraphScreen()
 {
@@ -31,6 +40,7 @@ GraphScreen::~GraphScreen()
 		plot_ = nullptr;
 	}
 
+    #ifdef _WIN32
 	if (bitmap_ != nullptr)
 	{
 		DeleteObject(bitmap_);
@@ -42,6 +52,7 @@ GraphScreen::~GraphScreen()
 		DeleteObject(bitmapHandle_);
 		bitmapHandle_ = nullptr;
 	}
+    #endif
 
 	if (legendScreen_ != nullptr)
 	{
@@ -57,6 +68,7 @@ ScreenType GraphScreen::getScreenType()
 
 void GraphScreen::draw()
 {
+    #ifdef _WIN32
 	if (legendOpen_)
 	{
 		legendScreen_->draw();
@@ -100,6 +112,7 @@ void GraphScreen::draw()
 
 		lcd_->ShowPage(screenPage_);
 	}
+#endif
 }
 
 void GraphScreen::update()

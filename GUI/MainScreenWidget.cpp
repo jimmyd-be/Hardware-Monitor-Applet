@@ -1,9 +1,7 @@
 #include "MainScreenWidget.h"
 
-#include "mainwindow.h"
-
-MainScreenWidget::MainScreenWidget(MainWindow * mainWindow, Logitech * logitech, QString name, ScreenType type, bool active, QWidget *parent)
-	: QWidget(parent), logitech_(logitech), mainWindow_(mainWindow)
+MainScreenWidget::MainScreenWidget(Logitech * logitech, QString name, ScreenType type, bool active, QWidget *parent)
+    : QWidget(parent), logitech_(logitech)
 {
 	setupUi(this);
 
@@ -42,7 +40,7 @@ void MainScreenWidget::removePage()
 
 	Settings::getInstance()->saveSettings();
 
-	mainWindow_->refreshPages();
+    emit refreshMainWindow();
 }
 
 void MainScreenWidget::editpage()
@@ -58,5 +56,5 @@ void MainScreenWidget::editpage()
 
 	Settings::getInstance()->saveSettings();
 
-	mainWindow_->refreshPages();
+    emit refreshMainWindow();
 }

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GRAPHPAGELINEWIDGET_H
+#define GRAPHPAGELINEWIDGET_H
+
 #include "../Defines.h"
 #include <QColorDialog>
 #include "ui_GraphPageLineWidget.h"
@@ -28,3 +30,4 @@ private:
 	QColor color_;
 };
 
+#endif

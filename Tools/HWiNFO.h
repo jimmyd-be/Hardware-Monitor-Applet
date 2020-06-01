@@ -2,6 +2,7 @@
 // HWinfo File
 // C++ Header - HWinfo.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
+#ifdef _WIN32
 #pragma once
 
 #include "../Defines.h"
@@ -55,3 +56,4 @@ private:
 	HWinfo(const HWinfo& t);
 	HWinfo& operator=(const HWinfo& t);
 };
+#endif

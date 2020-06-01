@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef SINGLEAPPLICATION_H
+#define SINGLEAPPLICATION_H
 #include "localserver.h"
 
 #include <QLocalSocket>
@@ -29,4 +29,4 @@ private:
   bool isRunning_;
 
 };
-
+#endif

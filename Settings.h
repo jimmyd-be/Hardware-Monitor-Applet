@@ -1,8 +1,9 @@
+#ifndef SETTINGS_H
+#define SETTINGS_H
 //-----------------------------------------------------------------
 // Settings File
 // C++ Header - Settings.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
 
 //-----------------------------------------------------------------
 // Include Files
@@ -83,3 +84,5 @@ private:
 	Settings(const Settings& t);
 	Settings& operator=(const Settings& t);
 };
+
+#endif

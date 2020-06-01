@@ -15,10 +15,17 @@
 //-----------------------------------------------------------------
 // NormalScreen methods
 //-----------------------------------------------------------------
+#ifdef _WIN32
 NormalScreen::NormalScreen(CEzLcd * logitech, QString name) : Screen(logitech, name)
 {
-	// nothing to create
+    // nothing to create
 }
+#elif __linux__
+NormalScreen::NormalScreen(QString name) : Screen(name)
+{
+    // nothing to create
+}
+#endif
 
 NormalScreen::~NormalScreen()
 {
@@ -51,6 +58,7 @@ void NormalScreen::setSettings(QList<CustomSettings> settings)
 
 void NormalScreen::drawColor()
 {
+    #ifdef _WIN32
 	lcd_->ModifyControlsOnPage(screenPage_);
 
 	lcd_->ModifyDisplay(LG_COLOR);
@@ -110,10 +118,12 @@ void NormalScreen::drawColor()
 	}
 
 	lcd_->ShowPage(screenPage_);
+#endif
 }
 
 void NormalScreen::drawMonochrome()
 {
+    #ifdef _WIN32
 	lcd_->ModifyControlsOnPage(screenPage_);
 
 	lcd_->ModifyDisplay(LG_MONOCHROME);
@@ -168,11 +178,12 @@ void NormalScreen::drawMonochrome()
 
 		screenLines_[i].textHandle = lineHandle;
 	}
-
+#endif
 }
 
 void NormalScreen::draw()
 {
+    #ifdef _WIN32
 	if (firstStart_)
 	{
 		if (lcd_->IsDeviceAvailable(LG_COLOR))
@@ -206,6 +217,7 @@ void NormalScreen::draw()
 	}
 
 	lcd_->ShowPage(screenPage_);
+#endif
 }
 
 void NormalScreen::update()

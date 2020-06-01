@@ -2,7 +2,8 @@
 // GraphScreen File
 // C++ Header - GraphScreen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef GRAPHSCREEN_H
+#define GRAPHSCREEN_H
 
 //-----------------------------------------------------------------
 // Include Files
@@ -20,7 +21,12 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	GraphScreen(CEzLcd *, QString);
+
+#ifdef __linux__
+    GraphScreen(QString);
+#elif _WIN32
+    GraphScreen(CEzLcd *, QString);
+#endif
 
 	//---------------------------
 	// Destructor
@@ -56,8 +62,10 @@ private:
 	QList<GraphLine> graphData_;
 	QCustomPlot * plot_;
 	int Xpos_;
+    #ifdef _WIN32
 	HANDLE bitmapHandle_;
 	HBITMAP bitmap_;
+    #endif
 	LegendScreen * legendScreen_;
 	bool legendOpen_;
 	GraphSettings settings_;
@@ -70,3 +78,5 @@ private:
 	GraphScreen(const GraphScreen& t);
 	GraphScreen& operator=(const GraphScreen& t);
 };
+
+#endif

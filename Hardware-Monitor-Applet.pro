@@ -1,4 +1,8 @@
-QT       += core gui network winextras printsupport
+QT       += core gui network printsupport
+
+win32 {
+QT += winextras
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,22 +21,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 RC_ICONS = Logo/HWMA_Logo.ico
 
-
+win32 {
 SOURCES += \
-    AppletThread.cpp \
-    Controller.cpp \
-    Defines.cpp \
-    Logitech.cpp \
-    Screen/GraphScreen.cpp \
-    Screen/LegendScreen.cpp \
-    Screen/NormalScreen.cpp \
-    Screen/Screen.cpp \
-    Screen/StartScreen.cpp \
-    Settings.cpp \
-    Tools/Data.cpp \
-    Tools/HWiNFO.cpp \
-    Tools/MonitorTool.cpp \
-    Tools/WMI.cpp \
     external/Logitech/EZ_LCD.cpp \
     external/Logitech/EZ_LCD_Page.cpp \
     external/Logitech/LCDUI/LCDAnimatedBitmap.cpp \
@@ -55,60 +45,11 @@ SOURCES += \
     external/Logitech/LCDUI/LCDSkinnedProgressBar.cpp \
     external/Logitech/LCDUI/LCDStreamingText.cpp \
     external/Logitech/LCDUI/LCDText.cpp \
-    external/QCustomPlot/qcustomplot.cpp \
-    external/QSingleApplication/SingleApplication.cpp \
-    external/QSingleApplication/localserver.cpp \
-    main.cpp \
-    GUI/mainwindow.cpp \
-    GUI/AboutDialog.cpp \
-    GUI/BackgroundPage.cpp \
-    GUI/CreateScreenWizard.cpp \
-    GUI/CustomizePage.cpp \
-    GUI/CustomizePageLineWidget.cpp \
-    GUI/DataPage.cpp \
-    GUI/GraphPage.cpp \
-    GUI/GraphPageLineWidget.cpp \
-    GUI/IntroPage.cpp \
-    GUI/LineEditPage.cpp \
-    GUI/LineEditPageLineWidget.cpp \
-    GUI/MainScreenWidget.cpp \
-    GUI/mainwindow.cpp \
-    GUI/OrderWindow.cpp \
-    GUI/ScreenTypePage.cpp \
-    GUI/SortScreenDialog.cpp
+    Tools/WMI.cpp \
+    Tools/HWiNFO.cpp \
 
 HEADERS += \
-    AppletThread.h \
-    Controller.h \
-    Defines.h \
-    GUI/mainwindow.h \
-    GUI/AboutDialog.h \
-    GUI/BackgroundPage.h \
-    GUI/CreateScreenWizard.h \
-    GUI/CustomizePage.h \
-    GUI/CustomizePageLineWidget.h \
-    GUI/DataPage.h \
-    GUI/GraphPage.h \
-    GUI/GraphPageLineWidget.h \
-    GUI/IntroPage.h \
-    GUI/LineEditPage.h \
-    GUI/LineEditPageLineWidget.h \
-    GUI/MainScreenWidget.h \
-    GUI/mainwindow.h \
-    GUI/OrderWindow.h \
-    GUI/ScreenTypePage.h \
-    GUI/SortScreenDialog.h \ \
-    LegendScreen.h \
-    Logitech.h \
-    Screen/GraphScreen.h \
-    Screen/LegendScreen.h \
-    Screen/NormalScreen.h \
-    Screen/Screen.h \
-    Screen/StartScreen.h \
-    Settings.h \
-    Tools/Data.h \
     Tools/HWiNFO.h \
-    Tools/MonitorTool.h \
     Tools/WMI.h \
     external/HWiNFO/hwisenssm2.h \
     external/Logitech/lglcd.h \
@@ -136,6 +77,72 @@ HEADERS += \
     external/Logitech/LCDUI/LCDStreamingText.h \
     external/Logitech/LCDUI/LCDText.h \
     external/Logitech/LCDUI/LCDUI.h \
+}
+
+SOURCES += \
+    AppletThread.cpp \
+    Controller.cpp \
+    Defines.cpp \
+    Logitech.cpp \
+    Screen/GraphScreen.cpp \
+    Screen/LegendScreen.cpp \
+    Screen/NormalScreen.cpp \
+    Screen/Screen.cpp \
+    Screen/StartScreen.cpp \
+    Settings.cpp \
+    Tools/Data.cpp \
+    Tools/MonitorTool.cpp \
+    external/QCustomPlot/qcustomplot.cpp \
+    external/QSingleApplication/SingleApplication.cpp \
+    external/QSingleApplication/localserver.cpp \
+    main.cpp \
+    GUI/AboutDialog.cpp \
+    GUI/BackgroundPage.cpp \
+    GUI/CreateScreenWizard.cpp \
+    GUI/CustomizePage.cpp \
+    GUI/CustomizePageLineWidget.cpp \
+    GUI/DataPage.cpp \
+    GUI/GraphPage.cpp \
+    GUI/GraphPageLineWidget.cpp \
+    GUI/IntroPage.cpp \
+    GUI/LineEditPage.cpp \
+    GUI/LineEditPageLineWidget.cpp \
+    GUI/MainScreenWidget.cpp \
+    GUI/mainwindow.cpp \
+    GUI/OrderWindow.cpp \
+    GUI/ScreenTypePage.cpp \
+    GUI/SortScreenDialog.cpp
+
+HEADERS += \
+    AppletThread.h \
+    Controller.h \
+    Defines.h \
+    GUI/AboutDialog.h \
+    GUI/BackgroundPage.h \
+    GUI/CreateScreenWizard.h \
+    GUI/CustomizePage.h \
+    GUI/CustomizePageLineWidget.h \
+    GUI/DataPage.h \
+    GUI/GraphPage.h \
+    GUI/GraphPageLineWidget.h \
+    GUI/IntroPage.h \
+    GUI/LineEditPage.h \
+    GUI/LineEditPageLineWidget.h \
+    GUI/MainScreenWidget.h \
+    GUI/mainwindow.h \
+    GUI/OrderWindow.h \
+    GUI/ScreenTypePage.h \
+    GUI/SortScreenDialog.h \ \
+    LegendScreen.h \
+    Logitech.h \
+    Screen/GraphScreen.h \
+    Screen/LegendScreen.h \
+    Screen/NormalScreen.h \
+    Screen/Screen.h \
+    Screen/StartScreen.h \
+    Settings.h \
+    Tools/Data.h \
+    Tools/MonitorTool.h \
     external/QCustomPlot/qcustomplot.h \
     external/QSingleApplication/SingleApplication.h \
     external/QSingleApplication/localserver.h
@@ -167,6 +174,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RESOURCES = mainwindow.qrc
 
 DISTFILES += \
     Languages/en.png \

@@ -2,12 +2,15 @@
 // WMI Object
 // C++ Header - WMI.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
+#ifdef _WIN32
 
 #pragma once
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
+#include <comdef.h>
+#include <Wbemidl.h>
 
 #include <iostream>
 #include <vector>
@@ -15,8 +18,6 @@
 #include <string>
 #include <algorithm>
 #include <ctime>
-#include <comdef.h>
-#include <Wbemidl.h>
 #include "../Defines.h"
 #include <iomanip>
 #include "MonitorTool.h"
@@ -79,3 +80,4 @@ private:
 	WMI(const WMI& t);
 	WMI& operator=(const WMI& t);
 };
+#endif

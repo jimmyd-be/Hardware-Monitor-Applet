@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ORDERWINDOW_H
+#define ORDERWINDOW_H
 
 #include "qguiapplication.h"
 #include "ui_OrderWindow.h"
@@ -44,3 +45,4 @@ private:
 	QList<QString> mainOrder_;
 
 };
+#endif

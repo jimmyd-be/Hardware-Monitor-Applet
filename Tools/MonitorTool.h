@@ -2,8 +2,8 @@
 // MonitorTool File
 // C++ Header - MonitorTool.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
-#pragma once
-
+#ifndef MONITORTOOL_H
+#define MONITORTOOL_H
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
@@ -46,3 +46,4 @@ private:
 	MonitorTool(const MonitorTool& t);
 	MonitorTool& operator=(const MonitorTool& t);
 };
+#endif

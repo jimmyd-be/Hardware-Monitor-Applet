@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DATAPAGE_H
+#define DATAPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
@@ -46,3 +47,4 @@ private:
 	void addButtonClicked();
 	void removeButtonClicked();
 };
+#endif

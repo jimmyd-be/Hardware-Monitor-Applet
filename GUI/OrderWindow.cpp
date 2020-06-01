@@ -1,6 +1,5 @@
 #include "OrderWindow.h"
 
-
 OrderWindow::OrderWindow(Logitech * logitech, QWidget *parent)
 	: QDialog(parent), logitech_(logitech)
 {

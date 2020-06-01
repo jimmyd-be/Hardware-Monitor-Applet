@@ -24,12 +24,14 @@ Logitech::Logitech() : keyboardType_(KeyboardTypes::None), time_(0), thread_(nul
 
 Logitech::~Logitech()
 {
+    #ifdef _WIN32
 	if (thread_ != nullptr)
 	{
 		thread_->terminate();
 		delete thread_;
 		thread_ = nullptr;
 	}
+#endif
 
 	if (startscreen_ != nullptr)
 	{
@@ -39,13 +41,16 @@ Logitech::~Logitech()
 
 	for (int i = 0; i < screenList_.length(); i++)
 	{
+        #ifdef _WIN32
 		lcd_.RemovePage(screenList_[i]->getPage());
+        #endif
 		delete screenList_[i];
 	}	
 }
 
 bool Logitech::initKeyboard()
 {
+    #ifdef _WIN32
 	HRESULT hRes = lcd_.Initialize(_T("Hardware Monitor Applet"), LG_DUAL_MODE, Settings::getInstance()->getAutoStart(), TRUE);
 
 	if (hRes == S_OK)
@@ -73,6 +78,10 @@ bool Logitech::initKeyboard()
 	}
 
 	return false;
+#elif __linux__
+    keyboardType_ = KeyboardTypes::Color;
+    return true;
+#endif
 }
 
 KeyboardTypes Logitech::getKeyboardType()
@@ -92,7 +101,12 @@ Screen * Logitech::getCurrentScreen()
 
 void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QMap<QString, Query> dataList, QStringList lines, QList<CustomSettings> settings)
 {
-	NormalScreen * screen = new NormalScreen(&lcd_, name);
+#ifdef __linux__
+    NormalScreen * screen = new NormalScreen(name);
+#elif _WIN32
+    NormalScreen * screen = new NormalScreen(&lcd_, name);
+#endif
+
 	screen->setBackground(background);
 	screen->setData(optimizeLines(optimizeData(lines, dataList)));
 	screen->setSettings(settings);
@@ -102,7 +116,11 @@ void Logitech::createNormalScreen(QString name, QString background, ScreenType t
 
 void Logitech::createNormalScreen(QString name, QString background, ScreenType type, QList<LineText> lines)
 {
-	NormalScreen * screen = new NormalScreen(&lcd_, name);
+#ifdef __linux__
+    NormalScreen * screen = new NormalScreen(name);
+#elif _WIN32
+    NormalScreen * screen = new NormalScreen(&lcd_, name);
+#endif
 	screen->setBackground(background);
 	screen->setData(lines);
 
@@ -130,7 +148,12 @@ void Logitech::creategraphScreen(QString name, QString background, ScreenType ty
 		++i;
 	}
 
-	GraphScreen * screen = new GraphScreen(&lcd_, name);
+#ifdef __linux__
+    GraphScreen * screen = new GraphScreen(name);
+#elif _WIN32
+    GraphScreen * screen = new GraphScreen(&lcd_, name);
+#endif
+
 	screen->setBackground(background);
 	screen->setData(linesList);
 	screen->setSettings(settings);
@@ -140,7 +163,11 @@ void Logitech::creategraphScreen(QString name, QString background, ScreenType ty
 
 void Logitech::creategraphScreen(QString name, QString background, ScreenType type, QList<GraphLine> graphData, GraphSettings settings)
 {
-	GraphScreen * screen = new GraphScreen(&lcd_, name);
+#ifdef __linux__
+    GraphScreen * screen = new GraphScreen(name);
+#elif _WIN32
+    GraphScreen * screen = new GraphScreen(&lcd_, name);
+#endif
 	screen->setBackground(background);
 
 	screen->setData(graphData);
@@ -382,10 +409,12 @@ void Logitech::changeCurrentScreen(PageDirection direction)
 
 void Logitech::openStartScreen()
 {
+    #ifdef _WIN32
 	if (startscreen_ == nullptr)
 	{
-		startscreen_ = new StartScreen(&lcd_, "StartScreen");
+        startscreen_ = new StartScreen(&lcd_, "StartScreen");
 	}
 
 	currentScreen_ = startscreen_;
+    #endif
 }
