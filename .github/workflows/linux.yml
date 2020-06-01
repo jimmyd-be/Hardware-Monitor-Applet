@@ -21,7 +21,7 @@ jobs:
         host: 'linux'
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
     - name: Qmake HWA
-      run: qmake Hardware-Monitor-Applet.pro -spec win32-msvc
+      run: qmake Hardware-Monitor-Applet.pro
     - name: Make
       run: make clean
     - name: Package with binaries
