@@ -23,10 +23,10 @@ jobs:
     - name: Qmake HWA
       run: qmake Hardware-Monitor-Applet.pro
     - name: Make
-      run: make clean
+      run: make
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: X64_linux
-        path: ${{ github.workspace }}\release\**
+        path: ${{ github.workspace }}\**
       
