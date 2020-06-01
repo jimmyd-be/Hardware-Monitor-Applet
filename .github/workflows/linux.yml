@@ -28,5 +28,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: X64_linux
-        path: ${{ github.workspace }}\**
+        path: ${{ github.workspace }}/
       
