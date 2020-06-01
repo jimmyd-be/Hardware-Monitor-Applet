@@ -24,8 +24,6 @@ jobs:
       run: qmake Hardware-Monitor-Applet.pro
     - name: Make
       run: make clean
-    - name: Package with binaries
-      run: windeployqt release
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
