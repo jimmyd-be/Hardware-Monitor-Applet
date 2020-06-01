@@ -55,7 +55,9 @@ struct Query{
 struct LineText{
 	QString text;
 	QMap<QString, Query> queryMap;
-    //HANDLE textHandle;
+    #ifdef _WIN32
+    HANDLE textHandle;
+    #endif
 };
 
 struct GraphLine{
