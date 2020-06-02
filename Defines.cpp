@@ -25,8 +25,12 @@ Defines::~Defines()
 
 QString Defines::getSettingsFolder()
 {
-	QString directory = QDir::homePath() + "/AppData/Roaming/Hardware Monitor Applet";
-
+    QString directory;
+    #ifdef _WIN32
+    directory = QDir::homePath() + "/AppData/Roaming/Hardware Monitor Applet";
+    #elif __linux__
+    directory = QDir::home().absolutePath() + "/.config/HWA";
+    #endif
 	QDir dir(directory);
 
 	if (!dir.exists())

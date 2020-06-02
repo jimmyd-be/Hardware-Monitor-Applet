@@ -12,6 +12,7 @@
 #include <QDesktopServices>
 #include <QScrollArea>
 #include "AboutDialog.h"
+#include <GUI/influxdbdialog.h>
 
 
 class MainWindow : public QMainWindow
@@ -39,7 +40,7 @@ private:
 	void createLanguageMenu();
 	void switchTranslator(QTranslator& translator, const QString& filename);
 	void changeEvent(QEvent*);
-	
+
 	Ui::MainWindowClass ui;
 	Logitech * logitech_;
 	QApplication * qApp_;
@@ -60,6 +61,7 @@ private slots:
 	void settingsChanged();
 	void reportIssue();
 	void openAboutWindow();
+    void openInfluxDialog();
 
 	void slotLanguageChanged(QAction* action);
 }; 

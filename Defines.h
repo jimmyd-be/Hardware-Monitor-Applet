@@ -102,11 +102,21 @@ struct CustomSettings
 	int lineSpacing;
 };
 
+
+struct InfluxDbSettings
+{
+    QString hostname;
+    int port;
+    QString username;
+    QString password;
+};
+
 struct GeneralSettings
 {
 	TemperatureType temperature;
 	bool autoStart;
 	QString language;
+        InfluxDbSettings influxDbSettings;
 };
 
 const QChar degreeChar(0260);

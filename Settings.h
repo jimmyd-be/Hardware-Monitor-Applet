@@ -43,6 +43,9 @@ public:
 	void setLanguage(QString);
 	QString getLanguage();
 
+    void setInfluxSettings(InfluxDbSettings);
+    InfluxDbSettings getInfluxSettings();
+
 protected:
 	//---------------------------
 	// Constructor(s)

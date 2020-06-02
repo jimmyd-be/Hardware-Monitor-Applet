@@ -83,6 +83,7 @@ SOURCES += \
     AppletThread.cpp \
     Controller.cpp \
     Defines.cpp \
+    GUI/influxdbdialog.cpp \
     Logitech.cpp \
     Screen/GraphScreen.cpp \
     Screen/LegendScreen.cpp \
@@ -129,6 +130,7 @@ HEADERS += \
     GUI/LineEditPage.h \
     GUI/LineEditPageLineWidget.h \
     GUI/MainScreenWidget.h \
+    GUI/influxdbdialog.h \
     GUI/mainwindow.h \
     GUI/OrderWindow.h \
     GUI/ScreenTypePage.h \
@@ -148,6 +150,7 @@ HEADERS += \
     external/QSingleApplication/localserver.h
 
 FORMS += \
+    GUI/influxdbdialog.ui \
     GUI/mainwindow.ui \
     GUI/AboutDialog.ui \
     GUI/BackgroundPageWidget.ui \

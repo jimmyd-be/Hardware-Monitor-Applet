@@ -279,6 +279,11 @@ void Settings::saveGeneralSettings()
 	settings_->setValue("AutoStart", generalSettings_.autoStart);
 	settings_->setValue("Language", generalSettings_.language);
 
+    settings_->setValue("influxPort", generalSettings_.influxDbSettings.port);
+    settings_->setValue("influxUsername", generalSettings_.influxDbSettings.username);
+    settings_->setValue("influxPassword", generalSettings_.influxDbSettings.password);
+    settings_->setValue("influxHostname", generalSettings_.influxDbSettings.hostname);
+
 	settings_->endGroup();
 }
 
@@ -287,6 +292,15 @@ void Settings::loadGeneralSettings()
 	generalSettings_.temperature = Defines::translateTemperatureEnum(settings_->value("General/Temperature").toString());
 	generalSettings_.autoStart = settings_->value("General/AutoStart").toBool();
 	generalSettings_.language = settings_->value("General/Language").toString();
+
+    InfluxDbSettings influxSettings;
+
+    influxSettings.port =  settings_->value("influxPort").toInt();
+    influxSettings.username = settings_->value("influxUsername").toString();
+    influxSettings.password = settings_->value("influxPassword").toString();
+    influxSettings.hostname = settings_->value("influxHostname").toString();
+
+    generalSettings_.influxDbSettings = influxSettings;
 }
 
 void Settings::saveSettings()
@@ -550,4 +564,17 @@ void Settings::setLanguage(QString language)
 QString Settings::getLanguage()
 {
 	return generalSettings_.language;
+}
+
+void Settings::setInfluxSettings(InfluxDbSettings influxSettings)
+{
+    generalSettings_.influxDbSettings = influxSettings;
+
+    saveSettings();
+
+}
+
+InfluxDbSettings Settings::getInfluxSettings()
+{
+    return generalSettings_.influxDbSettings;
 }

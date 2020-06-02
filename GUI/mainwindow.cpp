@@ -35,6 +35,7 @@ MainWindow::MainWindow(Logitech * logitech,QWidget *parent)
 	connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(openAboutWindow()));
 	connect(ui.actionEnable, SIGNAL(triggered()), this, SLOT(settingsChanged()));
 	connect(ui.actionDisable, SIGNAL(triggered()), this, SLOT(settingsChanged()));
+    connect(ui.actionChange_InfluxDb_settings, SIGNAL(triggered()), this, SLOT(openInfluxDialog()));
 
 	fillinPages();
 }
@@ -73,6 +74,14 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 	}
 
 	ui.statusBar->show();
+}
+
+void MainWindow::openInfluxDialog()
+{
+    InfluxDbDialog * dialog = new InfluxDbDialog();
+    dialog->exec();
+
+    delete dialog;
 }
 
 void MainWindow::closeEvent(QCloseEvent * event)

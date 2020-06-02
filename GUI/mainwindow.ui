@@ -104,7 +104,7 @@ QPushButton:hover {
          <x>0</x>
          <y>0</y>
          <width>969</width>
-         <height>634</height>
+         <height>631</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -142,7 +142,7 @@ QPushButton:hover {
      <x>0</x>
      <y>0</y>
      <width>987</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -172,6 +172,7 @@ QPushButton:hover {
     </widget>
     <addaction name="menuTemperature_Unit"/>
     <addaction name="menuAutostart"/>
+    <addaction name="actionChange_InfluxDb_settings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -321,6 +322,11 @@ QPushButton:hover {
    </property>
    <property name="text">
     <string>Disable</string>
+   </property>
+  </action>
+  <action name="actionChange_InfluxDb_settings">
+   <property name="text">
+    <string>Change InfluxDb settings</string>
    </property>
   </action>
  </widget>
