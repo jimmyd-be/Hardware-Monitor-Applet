@@ -48,14 +48,17 @@ void Data::removeInstance()
 /// </summary>
 Data::Data()
 {
-#ifdef __linux__
-#elif _WIN32
+#ifdef _WIN32
     MonitorTool * wmi = new WMI();
     MonitorTool * hwinfo = new HWinfo();
 
     tools_.append(wmi);
     tools_.append(hwinfo);
 #endif
+
+    MonitorTool * influx = new InfluxDb();
+
+    tools_.append(influx);
 
 }
 

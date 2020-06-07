@@ -16,6 +16,8 @@
 #include "WMI.h"
 #endif
 
+#include "influxdb.h"
+
 #include "MonitorTool.h"
 
 //-----------------------------------------------------------------

@@ -50,12 +50,19 @@ void DataPage::makeWindow()
 
 	ui.HWiNFO_tableWidget->hideColumn(0);
 	ui.OHM_tableWidget->hideColumn(0);
+    ui.Influx_tableWidget->hideColumn(0);
 	ui.SelectedItems_tableWidget->hideColumn(0);
 	ui.SelectedItems_tableWidget->hideColumn(5);
 
 	ui.HWiNFO_tableWidget->horizontalHeader()->setSectionsMovable(true);
 	ui.OHM_tableWidget->horizontalHeader()->setSectionsMovable(true);
+    ui.Influx_tableWidget->horizontalHeader()->setSectionsMovable(true);
 	ui.SelectedItems_tableWidget->horizontalHeader()->setSectionsMovable(true);
+
+    #ifdef __linux__
+    ui.TabWidget->removeTab(0);
+    ui.TabWidget->removeTab(0);
+    #endif
 
 	connect(ui.Add_pushButton, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(ui.Remove_pushButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
@@ -82,11 +89,15 @@ bool DataPage::validatePage()
 
 void DataPage::initializePage()
 {
+#ifdef _WIN32
 	clearData(MonitorSystem::HWiNFO);
 	clearData(MonitorSystem::OHM);
 
 	loadData(MonitorSystem::HWiNFO);
 	loadData(MonitorSystem::OHM);
+#endif
+    clearData(MonitorSystem::INFLUXDB);
+    loadData(MonitorSystem::INFLUXDB);
 
 	if (screenTypePage_->getScreenType() == ScreenType::Graph)
 	{
@@ -108,6 +119,10 @@ void DataPage::loadData(MonitorSystem system)
 	{
 		widget = ui.OHM_tableWidget;
 	}
+    else if(system == MonitorSystem::INFLUXDB)
+    {
+        widget = ui.Influx_tableWidget;
+    }
 
 	for (int row = 0; row < data.size(); row++)
 	{
@@ -150,6 +165,10 @@ void DataPage::clearData(MonitorSystem system)
 	{
 		widget = ui.OHM_tableWidget;
 	}
+    else if(system == MonitorSystem::INFLUXDB)
+    {
+        widget = ui.Influx_tableWidget;
+    }
 
 	widget->clearContents();
 }
@@ -169,13 +188,20 @@ void DataPage::addButtonClicked()
 
 		system = Defines::translateMonitorSystemEnum(MonitorSystem::OHM);
 	}
-	else if (ui.TabWidget->currentWidget() == ui.HWiNFOTab)
-	{
-		selectedItems = ui.HWiNFO_tableWidget->selectedItems();
-		tableWidget = ui.HWiNFO_tableWidget;
+    else if (ui.TabWidget->currentWidget() == ui.HWiNFOTab)
+    {
+        selectedItems = ui.HWiNFO_tableWidget->selectedItems();
+        tableWidget = ui.HWiNFO_tableWidget;
 
-		system = Defines::translateMonitorSystemEnum(MonitorSystem::HWiNFO);
-	}
+        system = Defines::translateMonitorSystemEnum(MonitorSystem::HWiNFO);
+    }
+    else if (ui.TabWidget->currentWidget() == ui.InfluxTab)
+    {
+        selectedItems = ui.Influx_tableWidget->selectedItems();
+        tableWidget = ui.Influx_tableWidget;
+
+        system = Defines::translateMonitorSystemEnum(MonitorSystem::INFLUXDB);
+    }
 
 	for (QTableWidgetItem * item : selectedItems)
 	{

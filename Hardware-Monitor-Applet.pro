@@ -93,6 +93,7 @@ SOURCES += \
     Settings.cpp \
     Tools/Data.cpp \
     Tools/MonitorTool.cpp \
+    Tools/influxdb.cpp \
     external/QCustomPlot/qcustomplot.cpp \
     external/QSingleApplication/SingleApplication.cpp \
     external/QSingleApplication/localserver.cpp \
@@ -145,6 +146,7 @@ HEADERS += \
     Settings.h \
     Tools/Data.h \
     Tools/MonitorTool.h \
+    Tools/influxdb.h \
     external/QCustomPlot/qcustomplot.h \
     external/QSingleApplication/SingleApplication.h \
     external/QSingleApplication/localserver.h

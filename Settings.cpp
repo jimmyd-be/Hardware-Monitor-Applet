@@ -283,6 +283,7 @@ void Settings::saveGeneralSettings()
     settings_->setValue("influxUsername", generalSettings_.influxDbSettings.username);
     settings_->setValue("influxPassword", generalSettings_.influxDbSettings.password);
     settings_->setValue("influxHostname", generalSettings_.influxDbSettings.hostname);
+    settings_->setValue("influxDatabase", generalSettings_.influxDbSettings.database);
 
 	settings_->endGroup();
 }
@@ -299,6 +300,7 @@ void Settings::loadGeneralSettings()
     influxSettings.username = settings_->value("influxUsername").toString();
     influxSettings.password = settings_->value("influxPassword").toString();
     influxSettings.hostname = settings_->value("influxHostname").toString();
+    influxSettings.database = settings_->value("influxDatabase").toString();
 
     generalSettings_.influxDbSettings = influxSettings;
 }

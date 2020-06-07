@@ -27,7 +27,7 @@
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, Legend, No};
 enum QueryValue {Name, Current, Max, Min, Hardware};
-enum MonitorSystem { OHM, HWiNFO, NONE };
+enum MonitorSystem { OHM, HWiNFO, INFLUXDB, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
@@ -109,6 +109,7 @@ struct InfluxDbSettings
     int port;
     QString username;
     QString password;
+    QString database;
 };
 
 struct GeneralSettings
@@ -116,7 +117,7 @@ struct GeneralSettings
 	TemperatureType temperature;
 	bool autoStart;
 	QString language;
-        InfluxDbSettings influxDbSettings;
+    InfluxDbSettings influxDbSettings;
 };
 
 const QChar degreeChar(0260);
