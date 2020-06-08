@@ -25,8 +25,7 @@ private:
 
     QUrl getUrl(QString query);
 
-private slots:
-    void readData(QNetworkReply*);
+    QVector<QString> readMeasurements(QNetworkReply*);
 
 };
 

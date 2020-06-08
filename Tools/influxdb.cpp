@@ -34,6 +34,23 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
     timer.start(1000);
     loop.exec();
 
+    QVector<QString> measurements = readMeasurements(reply);
+
+    for(int i = 0; i < measurements.size(); i++)
+    {
+        HardwareSensor sensor;
+        sensor.hardware = measurements[i];
+
+        //TODO query for columns of the measurements
+    }
+
+    delete reply;
+    return sensors;
+}
+
+QVector<QString> InfluxDb::readMeasurements(QNetworkReply* reply)
+{
+    QVector<QString> response;
     if(reply->error() == QNetworkReply::NoError)
     {
         QString response = reply->readAll();
@@ -49,9 +66,7 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
         {
             qDebug() << result[i].toArray()[0].toString();
 
-            HardwareSensor sensor;
-            sensor.hardware = result[i].toArray()[0].toString();
-            sensors.append(sensor);
+            response.append(result[i].toArray()[0].toString());
         }
     }
     else // handle error
@@ -59,13 +74,7 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
       qDebug() << reply->errorString();
     }
 
-    delete reply;
-    return sensors;
-}
-
-void InfluxDb::readData(QNetworkReply* reply)
-{
-
+  return response;
 }
 
 MonitorSystem InfluxDb::getMonitorSystem()
