@@ -1,7 +1,7 @@
 QT       += core gui network printsupport
 
 win32 {
-QT += winextras
+    QT += winextras
 }
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -20,6 +20,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 RC_ICONS = Logo/HWMA_Logo.ico
+
 
 win32 {
 SOURCES += \
@@ -84,13 +85,13 @@ SOURCES += \
     Controller.cpp \
     Defines.cpp \
     GUI/influxdbdialog.cpp \
+    HwaSettings.cpp \
     Logitech.cpp \
     Screen/GraphScreen.cpp \
     Screen/LegendScreen.cpp \
     Screen/NormalScreen.cpp \
     Screen/Screen.cpp \
     Screen/StartScreen.cpp \
-    Settings.cpp \
     Tools/Data.cpp \
     Tools/MonitorTool.cpp \
     Tools/influxdb.cpp \
@@ -136,6 +137,7 @@ HEADERS += \
     GUI/OrderWindow.h \
     GUI/ScreenTypePage.h \
     GUI/SortScreenDialog.h \ \
+    HwaSettings.h \
     LegendScreen.h \
     Logitech.h \
     Screen/GraphScreen.h \
@@ -143,7 +145,6 @@ HEADERS += \
     Screen/NormalScreen.h \
     Screen/Screen.h \
     Screen/StartScreen.h \
-    Settings.h \
     Tools/Data.h \
     Tools/MonitorTool.h \
     Tools/influxdb.h \

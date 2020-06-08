@@ -1,12 +1,33 @@
 #ifndef INFLUXDB_H
 #define INFLUXDB_H
 
-#include "MonitorTool.h"
 
-class InfluxDb : public MonitorTool
+#include "MonitorTool.h"
+#include <QUrl>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QDebug>
+
+class InfluxDb : private QObject, public MonitorTool
 {
+    Q_OBJECT
+
 public:
-    InfluxDb();
+    InfluxDb(QObject * parent = nullptr);
+    ~InfluxDb();
+
+    QVector<HardwareSensor> getAllSensors();
+    MonitorSystem getMonitorSystem();
+    HardwareSensor getData(Query query);
+
+private:
+    QNetworkAccessManager * manager;
+
+    QUrl getUrl(QString query);
+
+private slots:
+    void readData(QNetworkReply*);
+
 };
 
 #endif // INFLUXDB_H

@@ -17,13 +17,13 @@ MainWindow::MainWindow(Logitech * logitech,QWidget *parent)
 	autoStartGroup_->addAction(ui.actionEnable);
 	autoStartGroup_->addAction(ui.actionDisable);
 
-	if (Settings::getInstance()->getTemperature() == TemperatureType::Fahrenheit)
+	if (HwaSettings::getInstance()->getTemperature() == TemperatureType::Fahrenheit)
 	{
 		ui.actionFahrenheit->setChecked(true);
 	}
 
-	ui.actionEnable->setChecked(Settings::getInstance()->getAutoStart());
-	ui.actionDisable->setChecked(!Settings::getInstance()->getAutoStart());
+	ui.actionEnable->setChecked(HwaSettings::getInstance()->getAutoStart());
+	ui.actionDisable->setChecked(!HwaSettings::getInstance()->getAutoStart());
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
 	connect(ui.Order_pushButton, SIGNAL(clicked()), this, SLOT(openOrderWindow()));
@@ -136,20 +136,20 @@ void MainWindow::settingsChanged()
 {
 	if (ui.actionCelsius->isChecked())
 	{
-		Settings::getInstance()->setTemperature(TemperatureType::Celsius);
+		HwaSettings::getInstance()->setTemperature(TemperatureType::Celsius);
 	}
 	else if (ui.actionFahrenheit->isChecked())
 	{
-		Settings::getInstance()->setTemperature(TemperatureType::Fahrenheit);
+		HwaSettings::getInstance()->setTemperature(TemperatureType::Fahrenheit);
 	}
 
 	if (ui.actionEnable->isChecked())
 	{
-		Settings::getInstance()->setAutoStart(true);
+		HwaSettings::getInstance()->setAutoStart(true);
 	}
 	else if (ui.actionDisable->isChecked())
 	{
-		Settings::getInstance()->setAutoStart(false);
+		HwaSettings::getInstance()->setAutoStart(false);
 	}
 
 }
@@ -235,7 +235,7 @@ void MainWindow::loadLanguage(const QString& rLanguage)
 		switchTranslator(m_translator, QString("HMA_%1.qm").arg(rLanguage));
 		ui.statusBar->showMessage(tr("Current Language changed to %1").arg(languageName));
 
-		Settings::getInstance()->setLanguage(rLanguage);
+		HwaSettings::getInstance()->setLanguage(rLanguage);
 	}
 }
 
@@ -259,7 +259,7 @@ void MainWindow::createLanguageMenu()
 
 	connect(langGroup, SIGNAL(triggered(QAction *)), this, SLOT(slotLanguageChanged(QAction *)));
 
-	QString defaultLocale = Settings::getInstance()->getLanguage();
+	QString defaultLocale = HwaSettings::getInstance()->getLanguage();
 	
 	// format systems language
 	if (defaultLocale.isEmpty())

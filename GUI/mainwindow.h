@@ -7,7 +7,7 @@
 #include "../Logitech.h"
 #include "SortScreenDialog.h"
 #include "MainScreenWidget.h"
-#include "../Settings.h"
+#include "../HwaSettings.h"
 #include "OrderWindow.h"
 #include <QDesktopServices>
 #include <QScrollArea>

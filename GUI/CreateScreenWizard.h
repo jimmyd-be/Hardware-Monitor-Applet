@@ -10,7 +10,7 @@
 #include "CustomizePage.h"
 #include "GraphPage.h"
 #include "../Logitech.h"
-#include "../Settings.h"
+#include "../HwaSettings.h"
 
 class CreateScreenWizard : public QWizard
 {

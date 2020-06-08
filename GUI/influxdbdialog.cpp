@@ -7,7 +7,7 @@ InfluxDbDialog::InfluxDbDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    InfluxDbSettings settings = Settings::getInstance()->getInfluxSettings();
+    InfluxDbSettings settings = HwaSettings::getInstance()->getInfluxSettings();
 
     ui->port->setValue(settings.port);
     ui->username->setText(settings.username);
@@ -33,7 +33,7 @@ void InfluxDbDialog::accept()
     settings.hostname = ui->hostname->text();
     settings.database = ui->database->text();
 
-    Settings::getInstance()->setInfluxSettings(settings);
+    HwaSettings::getInstance()->setInfluxSettings(settings);
 
     this->close();
 }

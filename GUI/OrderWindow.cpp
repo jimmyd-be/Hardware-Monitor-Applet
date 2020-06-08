@@ -272,7 +272,7 @@ void OrderWindow::accept()
 
 	logitech_->changeScreenOrder(mainOrder_, subOrder_);
 
-	Settings::getInstance()->saveSettings();
+	HwaSettings::getInstance()->saveSettings();
 
 	hide();
 }

@@ -7,7 +7,7 @@
 // Include Files
 //-----------------------------------------------------------------
 #include "Logitech.h"
-#include "Settings.h"
+#include "HwaSettings.h"
 #include "AppletThread.h"
 
 //-----------------------------------------------------------------

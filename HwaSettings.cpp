@@ -6,25 +6,25 @@
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "Settings.h"
+#include "HwaSettings.h"
 
 //-----------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------
-Settings* Settings::singleton_ = nullptr;
+HwaSettings* HwaSettings::singleton_ = nullptr;
 
 //-----------------------------------------------------------------
 // Settings methods
 //-----------------------------------------------------------------
-Settings* Settings::getInstance()
+HwaSettings* HwaSettings::getInstance()
 {
 	if (singleton_ == nullptr)
-		singleton_ = new Settings();
+        singleton_ = new HwaSettings();
 
 	return singleton_;
 }
 
-void Settings::releaseResources()
+void HwaSettings::releaseResources()
 {
 	if (singleton_ != nullptr)
 	{
@@ -33,13 +33,13 @@ void Settings::releaseResources()
 	}
 }
 
-Settings::Settings() : logitech_(nullptr), generalSettings_(GeneralSettings{ TemperatureType::Celsius })
+HwaSettings::HwaSettings() : logitech_(nullptr), generalSettings_(GeneralSettings{ TemperatureType::Celsius })
 {
 	QString fileName = Defines::getSettingsFolder() + "/settings.ini";
 	settings_ = new QSettings(fileName, QSettings::IniFormat);
 }
 
-Settings::~Settings()
+HwaSettings::~HwaSettings()
 {
 	if (settings_ != nullptr)
 	{
@@ -48,35 +48,35 @@ Settings::~Settings()
 	}
 }
 
-void Settings::setTemperature(TemperatureType temp)
+void HwaSettings::setTemperature(TemperatureType temp)
 {
 	generalSettings_.temperature = temp;
 
 	saveSettings();
 }
 
-TemperatureType Settings::getTemperature()
+TemperatureType HwaSettings::getTemperature()
 {
 	loadGeneralSettings();
 
 	return generalSettings_.temperature;
 }
 
-void Settings::setAutoStart(bool autostart)
+void HwaSettings::setAutoStart(bool autostart)
 {
 	generalSettings_.autoStart = autostart;
 
 	saveSettings();
 }
 
-bool Settings::getAutoStart()
+bool HwaSettings::getAutoStart()
 {
 	loadGeneralSettings();
 
 	return generalSettings_.autoStart;
 }
 
-void Settings::loadSettings()
+void HwaSettings::loadSettings()
 {
 	loadGeneralSettings();
 
@@ -109,7 +109,7 @@ void Settings::loadSettings()
 	loadScreenOrder();
 }
 
-void Settings::loadNormalScreenSettings(QString name, QString background, ScreenType type)
+void HwaSettings::loadNormalScreenSettings(QString name, QString background, ScreenType type)
 {
 	QList<LineText> lines;
 	LineText text;
@@ -157,7 +157,7 @@ void Settings::loadNormalScreenSettings(QString name, QString background, Screen
 	settings_->endArray();
 }
 
-void Settings::loadGraphScreenSettings(QString name, QString background, ScreenType type)
+void HwaSettings::loadGraphScreenSettings(QString name, QString background, ScreenType type)
 {
 	QList<GraphLine> graphData;
 
@@ -216,12 +216,12 @@ void Settings::loadGraphScreenSettings(QString name, QString background, ScreenT
 	logitech_->creategraphScreen(name, background, type, graphData, graphSetting);
 }
 
-void Settings::loadScreenOrder()
+void HwaSettings::loadScreenOrder()
 {
 	logitech_->changeScreenOrder(loadMainScreenOrder(), loadSubScreenOrder());
 }
 
-QList<QString> Settings::loadMainScreenOrder()
+QList<QString> HwaSettings::loadMainScreenOrder()
 {
 	QList<QString> mainList;
 
@@ -239,7 +239,7 @@ QList<QString> Settings::loadMainScreenOrder()
 	return mainList;
 }
 
-QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
+QMap<QString, QList<QString>> HwaSettings::loadSubScreenOrder()
 {
 	QMap<QString, QList<QString>> subList;
 
@@ -271,7 +271,7 @@ QMap<QString, QList<QString>> Settings::loadSubScreenOrder()
 	return subList;
 }
 
-void Settings::saveGeneralSettings()
+void HwaSettings::saveGeneralSettings()
 {
 	settings_->beginGroup("General");
 
@@ -279,16 +279,19 @@ void Settings::saveGeneralSettings()
 	settings_->setValue("AutoStart", generalSettings_.autoStart);
 	settings_->setValue("Language", generalSettings_.language);
 
-    settings_->setValue("influxPort", generalSettings_.influxDbSettings.port);
-    settings_->setValue("influxUsername", generalSettings_.influxDbSettings.username);
-    settings_->setValue("influxPassword", generalSettings_.influxDbSettings.password);
-    settings_->setValue("influxHostname", generalSettings_.influxDbSettings.hostname);
-    settings_->setValue("influxDatabase", generalSettings_.influxDbSettings.database);
+    settings_->endGroup();
+    settings_->beginGroup("Influx");
+
+    settings_->setValue("Influx/influxPort", generalSettings_.influxDbSettings.port);
+    settings_->setValue("Influx/influxUsername", generalSettings_.influxDbSettings.username);
+    settings_->setValue("Influx/influxPassword", generalSettings_.influxDbSettings.password);
+    settings_->setValue("Influx/influxHostname", generalSettings_.influxDbSettings.hostname);
+    settings_->setValue("Influx/influxDatabase", generalSettings_.influxDbSettings.database);
 
 	settings_->endGroup();
 }
 
-void Settings::loadGeneralSettings()
+void HwaSettings::loadGeneralSettings()
 {
 	generalSettings_.temperature = Defines::translateTemperatureEnum(settings_->value("General/Temperature").toString());
 	generalSettings_.autoStart = settings_->value("General/AutoStart").toBool();
@@ -296,16 +299,16 @@ void Settings::loadGeneralSettings()
 
     InfluxDbSettings influxSettings;
 
-    influxSettings.port =  settings_->value("influxPort").toInt();
-    influxSettings.username = settings_->value("influxUsername").toString();
-    influxSettings.password = settings_->value("influxPassword").toString();
-    influxSettings.hostname = settings_->value("influxHostname").toString();
-    influxSettings.database = settings_->value("influxDatabase").toString();
+    influxSettings.port =  settings_->value("Influx/influxPort").toInt();
+    influxSettings.username = settings_->value("Influx/influxUsername").toString();
+    influxSettings.password = settings_->value("Influx/influxPassword").toString();
+    influxSettings.hostname = settings_->value("Influx/influxHostname").toString();
+    influxSettings.database = settings_->value("Influx/influxDatabase").toString();
 
     generalSettings_.influxDbSettings = influxSettings;
 }
 
-void Settings::saveSettings()
+void HwaSettings::saveSettings()
 {
 	if (logitech_ != nullptr)
 	{
@@ -344,7 +347,7 @@ void Settings::saveSettings()
 	}
 }
 
-void Settings::saveNormalScreenSettings(NormalScreen * screen)
+void HwaSettings::saveNormalScreenSettings(NormalScreen * screen)
 {
 	QList<LineText> lines = screen->getLines();
 
@@ -385,7 +388,7 @@ void Settings::saveNormalScreenSettings(NormalScreen * screen)
 	settings_->endArray();
 }
 
-void Settings::saveGraphScreenSettings(GraphScreen * screen)
+void HwaSettings::saveGraphScreenSettings(GraphScreen * screen)
 {
 	QList<GraphLine> graphData = screen->getData();
 
@@ -426,13 +429,13 @@ void Settings::saveGraphScreenSettings(GraphScreen * screen)
 	settings_->endArray();
 }
 
-void Settings::saveScreenOrder()
+void HwaSettings::saveScreenOrder()
 {
 	saveMainScreenOrder();
 	saveSubScreenOrder();
 }
 
-void Settings::saveMainScreenOrder()
+void HwaSettings::saveMainScreenOrder()
 {
 	QList<Screen*> mainList = logitech_->getMainOrder();
 
@@ -448,7 +451,7 @@ void Settings::saveMainScreenOrder()
 	settings_->endArray();
 }
 
-void Settings::saveSubScreenOrder()
+void HwaSettings::saveSubScreenOrder()
 {
 	QMap<QString, QList<Screen*>> subList = logitech_->getSubOrder();
 
@@ -483,7 +486,7 @@ void Settings::saveSubScreenOrder()
 	settings_->endArray();
 }
 
-void Settings::saveCustomSettings(NormalScreen * screen)
+void HwaSettings::saveCustomSettings(NormalScreen * screen)
 {
 	QList<CustomSettings> settingsList = screen->getSettings();
 
@@ -512,7 +515,7 @@ void Settings::saveCustomSettings(NormalScreen * screen)
 	settings_->endArray();
 }
 
-QList<CustomSettings> Settings::loadCustomSettings()
+QList<CustomSettings> HwaSettings::loadCustomSettings()
 {
 	int size = settings_->beginReadArray("CustomSettings");
 
@@ -551,24 +554,24 @@ QList<CustomSettings> Settings::loadCustomSettings()
 	return customList;
 }
 
-void Settings::setLogitech(Logitech * logitech)
+void HwaSettings::setLogitech(Logitech * logitech)
 {
 	logitech_ = logitech;
 }
 
-void Settings::setLanguage(QString language)
+void HwaSettings::setLanguage(QString language)
 {
 	generalSettings_.language = language;
 
 	saveSettings();
 }
 
-QString Settings::getLanguage()
+QString HwaSettings::getLanguage()
 {
 	return generalSettings_.language;
 }
 
-void Settings::setInfluxSettings(InfluxDbSettings influxSettings)
+void HwaSettings::setInfluxSettings(InfluxDbSettings influxSettings)
 {
     generalSettings_.influxDbSettings = influxSettings;
 
@@ -576,7 +579,7 @@ void Settings::setInfluxSettings(InfluxDbSettings influxSettings)
 
 }
 
-InfluxDbSettings Settings::getInfluxSettings()
+InfluxDbSettings HwaSettings::getInfluxSettings()
 {
     return generalSettings_.influxDbSettings;
 }

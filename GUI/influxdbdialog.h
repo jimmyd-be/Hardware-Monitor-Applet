@@ -2,7 +2,7 @@
 #define INFLUXDBDIALOG_H
 
 #include <QDialog>
-#include <Settings.h>
+#include <HwaSettings.h>
 #include <Defines.h>
 
 namespace Ui {

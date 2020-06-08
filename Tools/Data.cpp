@@ -56,7 +56,7 @@ Data::Data()
     tools_.append(hwinfo);
 #endif
 
-    MonitorTool * influx = new InfluxDb();
+    MonitorTool * influx = new InfluxDb(nullptr);
 
     tools_.append(influx);
 
