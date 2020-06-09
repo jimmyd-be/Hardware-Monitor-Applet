@@ -25,7 +25,7 @@ private:
 
     QUrl getUrl(QString query);
 
-    QVector<QString> readMeasurements(QNetworkReply*);
+    QVector<QString> readValues(QNetworkReply*);
 
 };
 

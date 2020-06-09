@@ -4,9 +4,6 @@
 InfluxDb::InfluxDb(QObject * parent): QObject(parent)
 {
     manager = new QNetworkAccessManager(this);
-
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(readData(QNetworkReply*)));
-
 }
 
 
@@ -21,25 +18,30 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
     QVector<HardwareSensor> sensors;
 
     // curl -G 'http://localhost:8086/query?pretty=true' --data-urlencode "db=telegraf" --data-urlencode "q=show measurements"
-    QNetworkRequest request(getUrl("show MEASUREMENTS"));
+    QNetworkRequest request(getUrl("show series"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QNetworkReply * reply = manager->get(request);
 
     QTimer timer;
-    timer.setSingleShot(true);
     QEventLoop loop;
-    connect( manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(&QEventLoop::quit));
-    connect( &timer, &QTimer::timeout, &loop, &QEventLoop::quit );
-    timer.start(1000);
+    connect( manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+    connect(&timer, SIGNAL(&QTimer::timeout), &loop, SLOT(quit()));;
+    timer.start(60000);
     loop.exec();
 
-    QVector<QString> measurements = readMeasurements(reply);
+    QVector<QString> measurements = readValues(reply);
 
     for(int i = 0; i < measurements.size(); i++)
     {
         HardwareSensor sensor;
-        sensor.hardware = measurements[i];
+
+        QString value = measurements[i];
+
+        sensor.hardware = value.mid(0, value.indexOf(','));
+        sensor.name = value.mid(value.indexOf(',')+1);
+
+        sensors.append(sensor);
 
         //TODO query for columns of the measurements
     }
@@ -48,9 +50,10 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
     return sensors;
 }
 
-QVector<QString> InfluxDb::readMeasurements(QNetworkReply* reply)
+QVector<QString> InfluxDb::readValues(QNetworkReply* reply)
 {
-    QVector<QString> response;
+    QVector<QString> values;
+
     if(reply->error() == QNetworkReply::NoError)
     {
         QString response = reply->readAll();
@@ -64,9 +67,7 @@ QVector<QString> InfluxDb::readMeasurements(QNetworkReply* reply)
 
         for(int i = 0; i < result.size(); i++)
         {
-            qDebug() << result[i].toArray()[0].toString();
-
-            response.append(result[i].toArray()[0].toString());
+            values.append(result[i].toArray()[0].toString());
         }
     }
     else // handle error
@@ -74,7 +75,7 @@ QVector<QString> InfluxDb::readMeasurements(QNetworkReply* reply)
       qDebug() << reply->errorString();
     }
 
-  return response;
+  return values;
 }
 
 MonitorSystem InfluxDb::getMonitorSystem()
