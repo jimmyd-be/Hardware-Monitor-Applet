@@ -22,7 +22,7 @@
 /// </summary>
 HWinfo::HWinfo()
 {
-	settings_ = Settings::getInstance();
+    settings_ = HwaSettings::getInstance();
 }
 
 /// <summary>

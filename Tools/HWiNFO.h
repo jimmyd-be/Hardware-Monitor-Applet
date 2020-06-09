@@ -17,7 +17,7 @@
 // HWinfo Class
 //-----------------------------------------------------------------
 
-class Settings;
+class HwaSettings;
 
 class HWinfo: public MonitorTool
 {
@@ -44,7 +44,7 @@ private:
 	// Datamembers
 	// -------------------------
 	QMap<QString, QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT>> cacheMap_;
-	Settings * settings_;
+    HwaSettings * settings_;
 
 	double transformData(double, SENSOR_READING_TYPE, QString);
 	

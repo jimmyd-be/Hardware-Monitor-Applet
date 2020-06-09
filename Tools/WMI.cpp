@@ -22,7 +22,7 @@ WMI::WMI()
 	pSvc_ = 0;
 	pclsObj_ = 0;
 
-	settings_ = Settings::getInstance();
+    settings_ = HwaSettings::getInstance();
 
 	connect();
 
