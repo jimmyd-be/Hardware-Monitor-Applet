@@ -27,6 +27,7 @@ private:
 
     QVector<QString> readValues(QNetworkReply*);
 
+    QNetworkReply * sendQuery(QString);
 };
 
 #endif // INFLUXDB_H

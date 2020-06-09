@@ -13,12 +13,9 @@ InfluxDb::~InfluxDb()
 }
 
 
-QVector<HardwareSensor> InfluxDb::getAllSensors()
+QNetworkReply * InfluxDb::sendQuery(QString query)
 {
-    QVector<HardwareSensor> sensors;
-
-    // curl -G 'http://localhost:8086/query?pretty=true' --data-urlencode "db=telegraf" --data-urlencode "q=show measurements"
-    QNetworkRequest request(getUrl("show series"));
+    QNetworkRequest request(getUrl(query));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QNetworkReply * reply = manager->get(request);
@@ -26,22 +23,48 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
     QTimer timer;
     QEventLoop loop;
     connect( manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
-    connect(&timer, SIGNAL(&QTimer::timeout), &loop, SLOT(quit()));;
+    connect(&timer, SIGNAL(&QTimer::timeout()), &loop, SLOT(quit()));;
     timer.start(60000);
     loop.exec();
 
+    return reply;
+}
+
+QVector<HardwareSensor> InfluxDb::getAllSensors()
+{
+    QVector<HardwareSensor> sensors;
+
+    QNetworkReply * reply = sendQuery("show series");
+
     QVector<QString> measurements = readValues(reply);
+
+    QString sensorName;
 
     for(int i = 0; i < measurements.size(); i++)
     {
-        HardwareSensor sensor;
-
         QString value = measurements[i];
 
-        sensor.hardware = value.mid(0, value.indexOf(','));
-        sensor.name = value.mid(value.indexOf(',')+1);
+        QString hardware = value.mid(0, value.indexOf(','));
+        QString name = value.mid(value.indexOf(',')+1);
 
-        sensors.append(sensor);
+        if(hardware != sensorName)
+        {
+            sensorName = hardware;
+
+            QNetworkReply * fieldReply = sendQuery("show field keys from " + hardware);
+
+            QVector<QString> fields = readValues(fieldReply);
+
+            for(int j=0; j < fields.size(); j++)
+            {
+                HardwareSensor sensor;
+                sensor.hardware = hardware;
+                sensor.name = name;
+                sensor.field = fields[j];
+
+                sensors.append(sensor);
+            }
+        }
 
         //TODO query for columns of the measurements
     }
@@ -77,6 +100,8 @@ QVector<QString> InfluxDb::readValues(QNetworkReply* reply)
 
   return values;
 }
+
+
 
 MonitorSystem InfluxDb::getMonitorSystem()
 {

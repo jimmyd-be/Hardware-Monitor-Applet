@@ -91,6 +91,7 @@ struct HardwareSensor{
 	double min;
 	QString unit;
 	QString hardware;
+        QString field;
 };
 
 struct CustomSettings

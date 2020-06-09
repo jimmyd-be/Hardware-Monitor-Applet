@@ -51,6 +51,8 @@ QString Defines::translateMonitorSystemEnum(MonitorSystem system)
 	case MonitorSystem::OHM:
 		return "OHM";
 		break;
+     case MonitorSystem::INFLUXDB:
+        return "InfluxDb";
      default:
         return "NONE";
 	};
@@ -91,6 +93,10 @@ MonitorSystem Defines::translateMonitorSystemEnum(QString string)
 	{
 		return MonitorSystem::OHM;
 	}
+    else if(string == "InfluxDb")
+    {
+        return MonitorSystem::INFLUXDB;
+    }
 
 	return MonitorSystem::NONE;
 }

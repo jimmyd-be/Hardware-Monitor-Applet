@@ -110,6 +110,7 @@ void DataPage::loadData(MonitorSystem system)
 	QVector<HardwareSensor> data = Data::Instance()->getAllData(system);
 
 	QTableWidget * widget = nullptr;
+    bool addExtraField = false;
 
 	if (system == MonitorSystem::HWiNFO)
 	{
@@ -122,6 +123,7 @@ void DataPage::loadData(MonitorSystem system)
     else if(system == MonitorSystem::INFLUXDB)
     {
         widget = ui.Influx_tableWidget;
+        addExtraField = true;
     }
 
 	for (int row = 0; row < data.size(); row++)
@@ -137,6 +139,7 @@ void DataPage::loadData(MonitorSystem system)
 		QTableWidgetItem * currentItem = new QTableWidgetItem();
 		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
+
 		idItem->setText(sensor.id);
 		nameItem->setText(sensor.name);
 		minItem->setText(QString::number(sensor.min, 'f', 2) + sensor.unit);
@@ -144,12 +147,19 @@ void DataPage::loadData(MonitorSystem system)
 		currentItem->setText(QString::number(sensor.value, 'f', 2) + sensor.unit);
 		hardwareItem->setText(sensor.hardware);
 
+
 		widget->setItem(row, 0, idItem);
 		widget->setItem(row, 1, hardwareItem);
 		widget->setItem(row, 2, nameItem);
 		widget->setItem(row, 3, minItem);
 		widget->setItem(row, 4, maxItem);
 		widget->setItem(row, 5, currentItem);
+
+        if(addExtraField) {
+            QTableWidgetItem * fieldItem = new QTableWidgetItem();
+            fieldItem->setText(sensor.field);
+            widget->setItem(row, 6, fieldItem);
+        }
 	}
 }
 
