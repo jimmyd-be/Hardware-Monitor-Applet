@@ -51,7 +51,7 @@ Logitech::~Logitech()
 bool Logitech::initKeyboard()
 {
     #ifdef _WIN32
-	HRESULT hRes = lcd_.Initialize(_T("Hardware Monitor Applet"), LG_DUAL_MODE, Settings::getInstance()->getAutoStart(), TRUE);
+    HRESULT hRes = lcd_.Initialize(_T("Hardware Monitor Applet"), LG_DUAL_MODE, HwaSettings::getInstance()->getAutoStart(), TRUE);
 
 	if (hRes == S_OK)
 	{
