@@ -24,6 +24,22 @@ DataPage::DataPage(ScreenTypePage* type, QList<GraphLine> data, QWidget *parent)
 
 DataPage::~DataPage()
 {
+    for(int i =0; i < ui.SelectedItems_tableWidget->rowCount(); i++)
+    {
+        delete ui.SelectedItems_tableWidget->cellWidget(i, 3);
+    }
+
+    for(int i =0; i < ui.SelectedItems_tableWidget->rowCount(); i++)
+    {
+        QWidget * fieldWidget = ui.SelectedItems_tableWidget->cellWidget(i, 8);
+
+        if(fieldWidget != nullptr)
+        {
+            delete fieldWidget;
+        }
+    }
+
+
 	if (widget_ == nullptr)
 	{
 		delete widget_;
@@ -76,7 +92,7 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 	{
 		HardwareSensor sensor = Data::Instance()->translateLine(line.query);
 
-		insertLineToSelectedData(row, line.query.identifier, line.query.name, Defines::translateMonitorSystemEnum(line.query.system), Defines::translateQueryValueEnum(line.query.value), QString::number(line.query.precision), "", QString(line.query.addUnit ? "True" : "False"), sensor.unit, sensor.hardware);
+        insertLineToSelectedData(row, line.query.identifier, line.query.name, Defines::translateMonitorSystemEnum(line.query.system), Defines::translateQueryValueEnum(line.query.value), QString::number(line.query.precision), "", sensor.unit, sensor.hardware);
 
 		row += 1;
 	}
@@ -98,16 +114,11 @@ void DataPage::initializePage()
 #endif
     clearData(MonitorSystem::INFLUXDB);
     loadData(MonitorSystem::INFLUXDB);
-
-	if (screenTypePage_->getScreenType() == ScreenType::Graph)
-	{
-		ui.Precision_spinBox->setDisabled(true);
-	}
 }
 
 void DataPage::loadData(MonitorSystem system)
 {
-	QVector<HardwareSensor> data = Data::Instance()->getAllData(system);
+    data = Data::Instance()->getAllData(system);
 
 	QTableWidget * widget = nullptr;
     bool addExtraField = false;
@@ -139,7 +150,6 @@ void DataPage::loadData(MonitorSystem system)
 		QTableWidgetItem * currentItem = new QTableWidgetItem();
 		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
-
 		idItem->setText(sensor.id);
 		nameItem->setText(sensor.name);
 		minItem->setText(QString::number(sensor.min, 'f', 2) + sensor.unit);
@@ -147,19 +157,12 @@ void DataPage::loadData(MonitorSystem system)
 		currentItem->setText(QString::number(sensor.value, 'f', 2) + sensor.unit);
 		hardwareItem->setText(sensor.hardware);
 
-
 		widget->setItem(row, 0, idItem);
 		widget->setItem(row, 1, hardwareItem);
 		widget->setItem(row, 2, nameItem);
 		widget->setItem(row, 3, minItem);
 		widget->setItem(row, 4, maxItem);
 		widget->setItem(row, 5, currentItem);
-
-        if(addExtraField) {
-            QTableWidgetItem * fieldItem = new QTableWidgetItem();
-            fieldItem->setText(sensor.field);
-            widget->setItem(row, 6, fieldItem);
-        }
 	}
 }
 
@@ -222,14 +225,14 @@ void DataPage::addButtonClicked()
 			queryItem.name = tableWidget->item(item->row(), 2)->text();
 			queryItem.system = Defines::translateMonitorSystemEnum(system);
 			queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
-			queryItem.precision = ui.Precision_spinBox->value();
-			queryItem.addUnit = ui.unit_checkBox->isChecked();
+            queryItem.precision = 0;
+            queryItem.hardware = tableWidget->item(item->row(), 1)->text();
 
 			HardwareSensor sensor = Data::Instance()->translateLine(queryItem);
 
 			if (isUnique(queryItem, sensor))
 			{
-				insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system, tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(), QString(ui.unit_checkBox->isChecked() ? "True" : "False"), sensor.unit, sensor.hardware);
+                insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system, tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(), sensor.unit, tableWidget->item(item->row(), 1)->text());
 
 				newRow += 1;
 			}
@@ -247,6 +250,7 @@ void DataPage::removeButtonClicked()
 	}
 }
 
+//TODO check if this method can be deleted
 bool DataPage::isUnique(Query item, HardwareSensor sensor)
 {
 	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
@@ -258,9 +262,8 @@ bool DataPage::isUnique(Query item, HardwareSensor sensor)
 			widget->item(row, 2)->text() == item.name &&
 			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value) &&
 			widget->item(row, 4)->text() == QString::number(item.precision) &&
-			widget->item(row, 6)->text() == QString(item.addUnit ? "True" : "False") &&
-			widget->item(row, 7)->text() == sensor.unit &&
-			widget->item(row, 8)->text() == sensor.hardware)
+            widget->item(row, 6)->text() == sensor.unit &&
+            widget->item(row, 7)->text() == sensor.hardware)
 		{
 			return false;
 		}
@@ -307,15 +310,9 @@ QMap<QString, Query> DataPage::getData()
 		queryItem.name = widget->item(row, 2)->text();
 		queryItem.value = Defines::translateQueryValueEnum(widget->item(row, 3)->text());
 		queryItem.precision = widget->item(row, 4)->text().toInt();
-
-		if (widget->item(row, 6)->text() == "True")
-		{
-			queryItem.addUnit = true;
-		}
-		else
-		{
-			queryItem.addUnit = false;
-		}
+        queryItem.unit = widget->item(row, 5)->text();
+        queryItem.hardware = widget->item(row, 6)->text();
+        queryItem.field = widget->item(row, 7)->text();
 
 		returnMap.insert(widget->item(row, 5)->text(), queryItem);
 	}
@@ -338,15 +335,6 @@ QList<Query> DataPage::getDataList()
 		queryItem.name = widget->item(row, 2)->text();
 		queryItem.value = Defines::translateQueryValueEnum(widget->item(row, 3)->text());
 		queryItem.precision = widget->item(row, 4)->text().toInt();
-
-		if (widget->item(row, 6)->text() == "True")
-		{
-			queryItem.addUnit = true;
-		}
-		else
-		{
-			queryItem.addUnit = false;
-		}
 
 		list.append(queryItem);
 	}
@@ -381,7 +369,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 			HardwareSensor sensor = Data::Instance()->translateLine(i.value());
 
 			insertLineToSelectedData(row, i.value().identifier, i.value().name, Defines::translateMonitorSystemEnum(i.value().system), Defines::translateQueryValueEnum(i.value().value),
-				QString::number(i.value().precision), i.key(), QString(i.value().addUnit ? "True" : "False"), sensor.unit, sensor.hardware);
+                QString::number(i.value().precision), i.key(), sensor.unit, sensor.hardware);
 
 			row += 1;
 			++i;
@@ -389,7 +377,7 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 	}
 }
 
-void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QString system, QString value, QString precision, QString symbol, QString unit, QString unitString, QString hardware)
+void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QString system, QString value, QString precision, QString symbol, QString unitString, QString hardware)
 {
 	ui.SelectedItems_tableWidget->insertRow(row);
 
@@ -399,9 +387,9 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
 	QTableWidgetItem * valueItem = new QTableWidgetItem();
 	QTableWidgetItem * precisionItem = new QTableWidgetItem();
 	QTableWidgetItem * symbolItem = new QTableWidgetItem();
-	QTableWidgetItem * unitItem = new QTableWidgetItem();
 	QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 	QTableWidgetItem * hardwareItem = new QTableWidgetItem();
+    QTableWidgetItem * fieldItem = new QTableWidgetItem();
 
 	idItem->setText(id);
 	nameItem->setText(name);
@@ -409,9 +397,12 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
 	valueItem->setText(value);
 	precisionItem->setText(precision);
 	symbolItem->setText(symbol);
-	unitItem->setText(unit);
 	unitStringItem->setText(unitString);
 	hardwareItem->setText(hardware);
+
+    systemItem->setFlags(systemItem->flags() & ~Qt::ItemIsEditable);
+    hardwareItem->setFlags(hardwareItem->flags() & ~Qt::ItemIsEditable);
+    nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
 
 	ui.SelectedItems_tableWidget->setItem(row, 0, idItem);
 	ui.SelectedItems_tableWidget->setItem(row, 1, systemItem);
@@ -419,7 +410,40 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
 	ui.SelectedItems_tableWidget->setItem(row, 3, valueItem);
 	ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
 	ui.SelectedItems_tableWidget->setItem(row, 5, symbolItem);
-	ui.SelectedItems_tableWidget->setItem(row, 6, unitItem);
-	ui.SelectedItems_tableWidget->setItem(row, 7, unitStringItem);
-	ui.SelectedItems_tableWidget->setItem(row, 8, hardwareItem);
+    ui.SelectedItems_tableWidget->setItem(row, 6, unitStringItem);
+    ui.SelectedItems_tableWidget->setItem(row, 7, hardwareItem);
+    ui.SelectedItems_tableWidget->setItem(row, 8, fieldItem);
+
+    if(system == "InfluxDb")
+    {
+        QVector<QString> fields;
+
+        for(int i = 0; i < data.size(); i++)
+        {
+            if(data[i].name == name && fields.indexOf(data[i].hardware) == -1)
+            {
+                fields.append(data[i].field);
+            }
+        }
+
+
+        QComboBox* fieldCombo = new QComboBox(this);
+        for(int i = 0; i < fields.size(); i++)
+        {
+            fieldCombo->addItem(fields[i]);
+        }
+
+        ui.SelectedItems_tableWidget->setCellWidget(row, 8, fieldCombo);
+    }
+
+
+
+     QComboBox *editor = new QComboBox(this);
+     editor->addItem("Name");
+     editor->addItem("Min");
+     editor->addItem("Current");
+     editor->addItem("Max");
+
+     ui.SelectedItems_tableWidget->setCellWidget(row, 3, editor);
+
 }

@@ -39,17 +39,20 @@ struct Query{
 	QString name;
 	QueryValue value;
 	int precision;
-	bool addUnit;
+        QString hardware;
+        QString field;
+        QString unit;
 
 	bool operator == (const Query& rhs)
 	{
-		return system == rhs.system &&
-			identifier == rhs.identifier &&
-			name == rhs.name &&
-			value == rhs.value &&
-			precision == rhs.precision &&
-			addUnit == rhs.addUnit;
-	}
+            return system == rhs.system &&
+                    identifier == rhs.identifier &&
+                    name == rhs.name &&
+                    value == rhs.value &&
+                    precision == rhs.precision &&
+                    hardware == rhs.hardware &&
+                    field == rhs.hardware;
+    }
 };
 
 struct LineText{

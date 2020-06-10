@@ -197,7 +197,7 @@ QMap<QString, QString> Data::queryMapData(QMap<QString, Query> map)
 			break;
 		}
 
-		if (query.addUnit && query.value != QueryValue::Name)
+        if (query.value != QueryValue::Name)
 		{
 			value += sensor.unit;
 		}

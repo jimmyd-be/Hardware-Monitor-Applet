@@ -139,7 +139,9 @@ void HwaSettings::loadNormalScreenSettings(QString name, QString background, Scr
 			query.name = settings_->value("name").toString();
 			query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
 			query.precision = settings_->value("precision").toInt();
-			query.addUnit = settings_->value("addUnit").toBool();
+            query.hardware = settings_->value("hadware").toString();
+            query.unit = settings_->value("unit").toString();
+            query.field = settings_->value("field").toString();
 
 			queryMap.insert(key, query);
 		}
@@ -198,7 +200,6 @@ void HwaSettings::loadGraphScreenSettings(QString name, QString background, Scre
 		query.name = settings_->value("name").toString();
 		query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
 		query.precision = settings_->value("precision").toInt();
-		query.addUnit = settings_->value("addUnit").toBool();
 
 		line.query = query;
 
@@ -282,11 +283,11 @@ void HwaSettings::saveGeneralSettings()
     settings_->endGroup();
     settings_->beginGroup("Influx");
 
-    settings_->setValue("Influx/influxPort", generalSettings_.influxDbSettings.port);
-    settings_->setValue("Influx/influxUsername", generalSettings_.influxDbSettings.username);
-    settings_->setValue("Influx/influxPassword", generalSettings_.influxDbSettings.password);
-    settings_->setValue("Influx/influxHostname", generalSettings_.influxDbSettings.hostname);
-    settings_->setValue("Influx/influxDatabase", generalSettings_.influxDbSettings.database);
+    settings_->setValue("influxPort", generalSettings_.influxDbSettings.port);
+    settings_->setValue("influxUsername", generalSettings_.influxDbSettings.username);
+    settings_->setValue("influxPassword", generalSettings_.influxDbSettings.password);
+    settings_->setValue("influxHostname", generalSettings_.influxDbSettings.hostname);
+    settings_->setValue("influxDatabase", generalSettings_.influxDbSettings.database);
 
 	settings_->endGroup();
 }
@@ -377,7 +378,9 @@ void HwaSettings::saveNormalScreenSettings(NormalScreen * screen)
 			settings_->setValue("name", k.value().name);
 			settings_->setValue("value", k.value().value);
 			settings_->setValue("precision", k.value().precision);
-			settings_->setValue("addUnit", k.value().addUnit);
+            settings_->setValue("unit", k.value().unit);
+            settings_->setValue("hadware", k.value().hardware);
+            settings_->setValue("field", k.value().field);
 
 			index++;
 			++k;
@@ -419,7 +422,6 @@ void HwaSettings::saveGraphScreenSettings(GraphScreen * screen)
 		settings_->setValue("name", graphData[i].query.name);
 		settings_->setValue("value", graphData[i].query.value);
 		settings_->setValue("precision", graphData[i].query.precision);
-		settings_->setValue("addUnit", graphData[i].query.addUnit);
 
 		settings_->setValue("ColorRed", graphData[i].color.red());
 		settings_->setValue("ColorGreen", graphData[i].color.green());

@@ -23,7 +23,7 @@ QNetworkReply * InfluxDb::sendQuery(QString query)
     QTimer timer;
     QEventLoop loop;
     connect( manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
-    connect(&timer, SIGNAL(&QTimer::timeout()), &loop, SLOT(quit()));;
+    connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));;
     timer.start(60000);
     loop.exec();
 
@@ -65,8 +65,6 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
                 sensors.append(sensor);
             }
         }
-
-        //TODO query for columns of the measurements
     }
 
     delete reply;
