@@ -106,6 +106,8 @@ MonitorSystem HWinfo::getMonitorSystem()
 /// <returns>HardwareSensor details</returns>
 HardwareSensor HWinfo::getData(Query query)
 {
+    //TODO add support for new system without HardwareSensor OR Query
+
 	HardwareSensor returnValue;
 
 	if (cacheMap_.contains(query.identifier))

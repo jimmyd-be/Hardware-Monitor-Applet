@@ -26,12 +26,14 @@
 
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, Legend, No};
-enum QueryValue {Name, Current, Max, Min, Hardware};
 enum MonitorSystem { OHM, HWiNFO, INFLUXDB, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
 enum PageDirection {Next, Previous, Up, Down};
+
+//TODO remove Name & hardware -> users  can manually type this in the lineEditor
+enum QueryValue {Name, Current, Max, Min, Hardware};
 
 struct Query{
 	MonitorSystem system;
@@ -54,6 +56,8 @@ struct Query{
                     field == rhs.hardware;
     }
 };
+
+//TODO remove HardwareSensor OR Query
 
 struct HardwareSensor{
         QString id;

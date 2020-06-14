@@ -297,6 +297,7 @@ MonitorSystem WMI::getMonitorSystem()
 /// <returns>HardwareSensor</returns>
 HardwareSensor WMI::getData(Query query)
 {
+    //TODO add support for new system without HardwareSensor OR Query
 	HardwareSensor returnValue;
 
 	string queryString = "select * from Sensor WHERE Identifier = '" + query.identifier.toStdString() + "'";

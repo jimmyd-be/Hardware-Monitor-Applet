@@ -108,6 +108,8 @@ MonitorSystem InfluxDb::getMonitorSystem()
 
 HardwareSensor InfluxDb::getData(Query query)
 {
+    //TODO query to InfluxDB system to get results
+
     HardwareSensor sensor;
 
     sensor.hardware =query.hardware;
