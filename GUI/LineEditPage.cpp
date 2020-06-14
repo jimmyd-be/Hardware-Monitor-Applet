@@ -87,6 +87,7 @@ void LineEditPage::initializePage()
 		QTableWidgetItem * symbolItem = new QTableWidgetItem();
 		QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
+        QTableWidgetItem * fieldItem = new QTableWidgetItem();
 
 		idItem->setText(i.value().identifier);
 		nameItem->setText(i.value().name);
@@ -96,6 +97,7 @@ void LineEditPage::initializePage()
 		symbolItem->setText(i.key());
 		unitStringItem->setText(sensor.unit);
 		hardwareItem->setText(sensor.hardware);
+        fieldItem->setText(sensor.field);
 
 		ui.Data_tableWidget->setItem(newRow, 0, idItem);
 		ui.Data_tableWidget->setItem(newRow, 1, symbolItem);
@@ -105,6 +107,7 @@ void LineEditPage::initializePage()
 		ui.Data_tableWidget->setItem(newRow, 5, precisionItem);
         ui.Data_tableWidget->setItem(newRow, 6, unitStringItem);
         ui.Data_tableWidget->setItem(newRow, 7, hardwareItem);
+        ui.Data_tableWidget->setItem(newRow, 8, fieldItem);
 		
 		++i;
 		newRow++;

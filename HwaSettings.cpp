@@ -139,7 +139,7 @@ void HwaSettings::loadNormalScreenSettings(QString name, QString background, Scr
 			query.name = settings_->value("name").toString();
 			query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
 			query.precision = settings_->value("precision").toInt();
-            query.hardware = settings_->value("hadware").toString();
+            query.hardware = settings_->value("hardware").toString();
             query.unit = settings_->value("unit").toString();
             query.field = settings_->value("field").toString();
 
@@ -379,7 +379,7 @@ void HwaSettings::saveNormalScreenSettings(NormalScreen * screen)
 			settings_->setValue("value", k.value().value);
 			settings_->setValue("precision", k.value().precision);
             settings_->setValue("unit", k.value().unit);
-            settings_->setValue("hadware", k.value().hardware);
+            settings_->setValue("hardware", k.value().hardware);
             settings_->setValue("field", k.value().field);
 
 			index++;

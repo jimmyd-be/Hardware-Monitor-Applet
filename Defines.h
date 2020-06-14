@@ -55,6 +55,17 @@ struct Query{
     }
 };
 
+struct HardwareSensor{
+        QString id;
+        QString name;
+        double value;
+        double max;
+        double min;
+        QString unit;
+        QString hardware;
+        QString field;
+};
+
 struct LineText{
 	QString text;
 	QMap<QString, Query> queryMap;
@@ -84,17 +95,6 @@ struct AppletFont{
 	int height;
 	double lineSpace;
 	QColor color;
-};
-
-struct HardwareSensor{
-	QString id;
-	QString name;
-	double value;
-	double max;
-	double min;
-	QString unit;
-	QString hardware;
-        QString field;
 };
 
 struct CustomSettings

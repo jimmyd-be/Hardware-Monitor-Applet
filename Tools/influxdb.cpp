@@ -109,6 +109,14 @@ MonitorSystem InfluxDb::getMonitorSystem()
 HardwareSensor InfluxDb::getData(Query query)
 {
     HardwareSensor sensor;
+
+    sensor.hardware =query.hardware;
+    sensor.unit = query.unit;
+    sensor.field= query.field;
+    sensor.name = query.name;
+    sensor.value = query.value;
+    sensor.field = query.field;
+
     return sensor;
 }
 

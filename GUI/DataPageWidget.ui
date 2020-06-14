@@ -246,11 +246,6 @@
      </column>
      <column>
       <property name="text">
-       <string>Symbol</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>Unit</string>
       </property>
      </column>
@@ -262,6 +257,11 @@
      <column>
       <property name="text">
        <string>Field</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Symbol</string>
       </property>
      </column>
     </widget>
