@@ -307,7 +307,7 @@ QMap<QString, Query> DataPage::getData()
 		queryItem.identifier = widget->item(row, 0)->text();
 		queryItem.system = Defines::translateMonitorSystemEnum(widget->item(row, 1)->text());
 		queryItem.name = widget->item(row, 2)->text();
-		queryItem.value = Defines::translateQueryValueEnum(widget->item(row, 3)->text());
+        queryItem.value = Defines::translateQueryValueEnum( ((QComboBox*) widget->cellWidget(row, 3))->currentText());
 		queryItem.precision = widget->item(row, 4)->text().toInt();
         queryItem.unit = widget->item(row, 5)->text();
         queryItem.hardware = widget->item(row, 6)->text();
@@ -394,6 +394,7 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
     QTableWidgetItem * symbolItem = new QTableWidgetItem();
     QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 	QTableWidgetItem * hardwareItem = new QTableWidgetItem();
+    QTableWidgetItem * fieldItem = new QTableWidgetItem();
 
 	idItem->setText(id);
 	nameItem->setText(name);
@@ -416,11 +417,10 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
 	ui.SelectedItems_tableWidget->setItem(row, 4, precisionItem);
     ui.SelectedItems_tableWidget->setItem(row, 5, unitStringItem);
     ui.SelectedItems_tableWidget->setItem(row, 6, hardwareItem);
-
+    ui.SelectedItems_tableWidget->setItem(row, 7, fieldItem);
      ui.SelectedItems_tableWidget->setItem(row, 8, symbolItem);
     if(system == "InfluxDb")
     {
-        QTableWidgetItem * fieldItem = new QTableWidgetItem();
 
         if(data.isEmpty())
         {
@@ -451,7 +451,9 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
             fieldCombo->setCurrentIndex(indexField);
         }
     }
-
+     else {
+        fieldItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
+    }
      QComboBox *editor = new QComboBox(this);
      editor->addItem("Name");
      editor->addItem("Min");
