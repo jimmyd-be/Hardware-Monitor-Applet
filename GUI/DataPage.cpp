@@ -67,7 +67,7 @@ void DataPage::makeWindow()
 	ui.OHM_tableWidget->hideColumn(0);
     ui.Influx_tableWidget->hideColumn(0);
 	ui.SelectedItems_tableWidget->hideColumn(0);
-	ui.SelectedItems_tableWidget->hideColumn(5);
+    //ui.SelectedItems_tableWidget->hideColumn(5);
 
 	ui.HWiNFO_tableWidget->horizontalHeader()->setSectionsMovable(true);
 	ui.OHM_tableWidget->horizontalHeader()->setSectionsMovable(true);

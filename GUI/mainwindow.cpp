@@ -5,6 +5,11 @@ MainWindow::MainWindow(Logitech * logitech,QWidget *parent)
 {
 	ui.setupUi(this);
 
+#ifdef __linux__
+    ui.menuAutostart->setDisabled(true);
+    ui.actionClose->setDisabled(true);
+#endif
+
 	createLanguageMenu();
 
 	keyboardChanged(logitech->getKeyboardType());
