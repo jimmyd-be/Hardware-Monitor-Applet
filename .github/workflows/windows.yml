@@ -20,7 +20,7 @@ jobs:
         path: ../Qt
         key: ${{ runner.os }}-QtCache
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v2.7.1
       with:
         arch: 'win64_msvc2017_64'
         host: 'windows'
