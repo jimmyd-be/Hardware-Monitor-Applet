@@ -8,18 +8,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Cache Qt
-      id: cache-qt
-      uses: actions/cache@v1
-      with:
-        path: ../Qt
-        key: ${{ runner.os }}-QtCache
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v2
-      with:
-        arch: 'win64_mingw73'
-        host: 'linux'
-        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+    - name: Install QT
+      run: sudo apt-get install qt5-default
     - name: Qmake HWA
       run: qmake Hardware-Monitor-Applet.pro
     - name: Make
