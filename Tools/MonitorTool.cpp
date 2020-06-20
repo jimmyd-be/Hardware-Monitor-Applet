@@ -47,6 +47,7 @@ MonitorSystem MonitorTool::getMonitorSystem()
 /// <returns>Empty HardwareSensor</returns>
 HardwareSensor MonitorTool::getData(Query query)
 {
+    //TODO change return type to double
 	HardwareSensor emptySensor = {0};
 	return emptySensor;
 }

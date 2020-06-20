@@ -99,6 +99,32 @@ QVector<QString> InfluxDb::readValues(QNetworkReply* reply)
   return values;
 }
 
+double InfluxDb::readQueryValue(QNetworkReply* reply)
+{
+    double value = 0;
+
+    if(reply->error() == QNetworkReply::NoError)
+    {
+        QString response = reply->readAll();
+
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(response.toUtf8());
+        QJsonObject root = jsonResponse.object();
+
+        QJsonObject results = root.value(QString("results")).toArray()[0].toObject();
+
+        QJsonArray result = results.value(QString("series")).toArray()[0].toObject().value("values").toArray();
+
+        value = result[0].toArray()[1].toDouble();
+
+    }
+    else // handle error
+    {
+      qDebug() << reply->errorString();
+    }
+
+  return value;
+}
+
 
 
 MonitorSystem InfluxDb::getMonitorSystem()
@@ -108,7 +134,30 @@ MonitorSystem InfluxDb::getMonitorSystem()
 
 HardwareSensor InfluxDb::getData(Query query)
 {
-    //TODO query to InfluxDB system to get results
+    QMap<QString, QString> arguments = parseQueryArguments(query);
+
+    query.field = "usage_system";
+    query.hardware = "cpu";
+
+    QString queryString = QString("SELECT last(\"") + query.field + "\") FROM " + query.hardware +" WHERE (";
+
+    QMap<QString, QString>::const_iterator i = arguments.constBegin();
+    while (i != arguments.constEnd()) {
+        if(i != arguments.constBegin())
+        {
+            queryString += " AND ";
+        }
+
+       queryString += ("\"" + i.key()+ "\"='" + i.value() + "'");
+        ++i;
+    }
+
+    queryString += ")";
+
+    qDebug() << "Query: " << queryString;
+
+    QNetworkReply * reply = sendQuery(queryString);
+    double measurements = readQueryValue(reply);
 
     HardwareSensor sensor;
 
@@ -120,6 +169,21 @@ HardwareSensor InfluxDb::getData(Query query)
     sensor.field = query.field;
 
     return sensor;
+}
+
+QMap<QString, QString> InfluxDb::parseQueryArguments(Query query)
+{
+    QMap<QString, QString> argumentList;
+
+    QStringList pieces = query.name.split( "," );
+
+    for(int i=0; i< pieces.size(); i++)
+    {
+        QStringList keyvalue = pieces[i].split( "=" );
+        argumentList.insert(keyvalue[0], keyvalue[1]);
+    }
+
+    return argumentList;
 }
 
 QUrl InfluxDb::getUrl(QString query)

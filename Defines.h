@@ -31,9 +31,7 @@ enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Pag
 enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
 enum PageDirection {Next, Previous, Up, Down};
-
-//TODO remove Name & hardware -> users  can manually type this in the lineEditor
-enum QueryValue {Name, Current, Max, Min, Hardware};
+enum QueryValue {Current, Max, Min};
 
 struct Query{
 	MonitorSystem system;

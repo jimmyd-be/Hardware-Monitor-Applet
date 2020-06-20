@@ -26,8 +26,10 @@ private:
     QUrl getUrl(QString query);
 
     QVector<QString> readValues(QNetworkReply*);
+    double readQueryValue(QNetworkReply*);
 
     QNetworkReply * sendQuery(QString);
+    QMap<QString, QString> parseQueryArguments(Query query);
 };
 
 #endif // INFLUXDB_H

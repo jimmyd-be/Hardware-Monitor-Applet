@@ -149,8 +149,6 @@ QList<double> Data::translateLines(QList<GraphLine> lines)
 
 		switch (query.value)
 		{
-		case Name:
-			returnValue.append(0);
 		case Current:
 			returnValue.append(sensor.value);
 			break;
@@ -187,9 +185,6 @@ QMap<QString, QString> Data::queryMapData(QMap<QString, Query> map)
 
 		switch (query.value)
 		{
-		case Name:
-			value = sensor.name;
-			break;
 		case Current:
 			value = QString::number(sensor.value, 'f', query.precision);
 			break;
@@ -201,10 +196,8 @@ QMap<QString, QString> Data::queryMapData(QMap<QString, Query> map)
 			break;
 		}
 
-        if (query.value != QueryValue::Name)
-		{
-			value += sensor.unit;
-		}
+        value += sensor.unit;
+
 
 		returnmap.insert(i.key(), value);
 

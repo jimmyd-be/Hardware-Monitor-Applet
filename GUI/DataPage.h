@@ -34,7 +34,6 @@ private:
 	void loadSelecteddata(QList<GraphLine>);
 	void loadData(MonitorSystem);
 	void clearData(MonitorSystem system);
-	bool isUnique(Query, HardwareSensor);
     void insertLineToSelectedData(int row, QString id, QString name, QString system, QString value, QString precision, QString symbol, QString unitString, QString hardware, QString field);
 
 	QString foundNextSymbol();

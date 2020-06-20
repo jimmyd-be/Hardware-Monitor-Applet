@@ -246,28 +246,6 @@ void DataPage::removeButtonClicked()
 	}
 }
 
-//TODO check if this method can be deleted
-bool DataPage::isUnique(Query item, HardwareSensor sensor)
-{
-	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
-	{
-		QTableWidget * widget = ui.SelectedItems_tableWidget;
-
-		if (widget->item(row, 0)->text() == item.identifier &&
-			widget->item(row, 1)->text() == Defines::translateMonitorSystemEnum(item.system) &&
-			widget->item(row, 2)->text() == item.name &&
-			widget->item(row, 3)->text() == Defines::translateQueryValueEnum(item.value) &&
-			widget->item(row, 4)->text() == QString::number(item.precision) &&
-            widget->item(row, 6)->text() == sensor.unit &&
-            widget->item(row, 7)->text() == sensor.hardware)
-		{
-			return false;
-		}
-	}
-
-	return true;
-}
-
 QString DataPage::foundNextSymbol()
 {
 	QList<QString> symbolList;
