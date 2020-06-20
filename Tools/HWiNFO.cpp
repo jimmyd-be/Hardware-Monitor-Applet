@@ -36,7 +36,7 @@ HWinfo::~HWinfo()
 /// <summary>
 /// Query all the sensor details.
 /// </summary>
-/// <returns>List of HardwareSensor details</returns>
+/// <returns>List of Queries details</returns>
 QVector<Query> HWinfo::getAllSensors()
 {
     QVector<Query> sensors;
@@ -50,7 +50,7 @@ QVector<Query> HWinfo::getAllSensors()
 		// loop through all available readings
 		for (DWORD dwReading = 0; dwReading < pHWiNFOMemory->dwNumReadingElements; dwReading++)
 		{
-			HardwareSensor sensor;
+            Query sensor;
 			PHWiNFO_SENSORS_READING_ELEMENT reading = (PHWiNFO_SENSORS_READING_ELEMENT)((BYTE*)pHWiNFOMemory +
 				pHWiNFOMemory->dwOffsetOfReadingSection +
 				(pHWiNFOMemory->dwSizeOfReadingElement * dwReading));
