@@ -167,7 +167,7 @@ void MainWindow::fillinPages()
 	{
         MainScreenWidget * widget = new MainScreenWidget(logitech_, pages[i]->getName(), pages[i]->getScreenType(), logitech_->isScreenActive(pages[i]->getName()));
 
-        connect(widget, SIGNAL(refreshMainWindow()), this, SLOT((refreshPages())));
+        connect(widget, SIGNAL(refreshMainWindow()), this, SLOT(refreshPages()));
 
 		ui.ScreenList_Layout->addWidget(widget);
 

@@ -200,8 +200,10 @@ void HwaSettings::loadGraphScreenSettings(QString name, QString background, Scre
 		query.name = settings_->value("name").toString();
 		query.value = Defines::translateQueryValueEnum(settings_->value("value").toString());
 		query.precision = settings_->value("precision").toInt();
+        query.field = settings_->value("field").toString();
+        query.unit = settings_->value("unit").toString();
 
-		line.query = query;
+        line.query = query;
 
 		color.setRed(settings_->value("ColorRed").toInt());
 		color.setGreen(settings_->value("ColorGreen").toInt());
@@ -422,6 +424,8 @@ void HwaSettings::saveGraphScreenSettings(GraphScreen * screen)
 		settings_->setValue("name", graphData[i].query.name);
 		settings_->setValue("value", graphData[i].query.value);
 		settings_->setValue("precision", graphData[i].query.precision);
+        settings_->setValue("field", graphData[i].query.field);
+        settings_->setValue("unit", graphData[i].query.unit);
 
 		settings_->setValue("ColorRed", graphData[i].color.red());
 		settings_->setValue("ColorGreen", graphData[i].color.green());

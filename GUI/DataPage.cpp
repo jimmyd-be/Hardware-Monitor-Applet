@@ -305,7 +305,10 @@ QList<Query> DataPage::getDataList()
 		queryItem.precision = widget->item(row, 4)->text().toInt();
         queryItem.unit = widget->item(row, 5)->text();
         queryItem.hardware = widget->item(row, 6)->text();
-        queryItem.field = widget->item(row, 7)->text();
+
+        if(widget->cellWidget(row, 7) != nullptr) {
+            queryItem.field = ((QComboBox*) widget->cellWidget(row, 7))->currentText();
+        }
 
 		list.append(queryItem);
 	}

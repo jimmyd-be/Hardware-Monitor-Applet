@@ -106,8 +106,6 @@ QVector<Query> Data::getAllData(MonitorSystem system)
 /// <returns>QStringList with all the translated values in it</returns>
 QStringList Data::translateLines(QList<LineText> lines)
 {
-    //TODO add support for new system without HardwareSensor OR Query
-
 	QStringList returnValue;
 
 	for (LineText text : lines)
@@ -137,8 +135,6 @@ QStringList Data::translateLines(QList<LineText> lines)
 /// <returns>List of the translated values</returns>
 QList<double> Data::translateLines(QList<GraphLine> lines)
 {
-    //TODO add support for new system without HardwareSensor OR Query
-
 	QList<double> returnValue;
 
 	for (GraphLine line : lines)

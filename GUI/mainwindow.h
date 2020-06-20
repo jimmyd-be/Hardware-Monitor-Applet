@@ -25,9 +25,6 @@ public:
 
 	void keyboardChanged(KeyboardTypes);
 
-public slots:
-	void refreshPages();
-
 protected:
 	void closeEvent(QCloseEvent * event);
 
@@ -52,6 +49,9 @@ private:
 	QTranslator     m_translatorQt; /**< contains the translations for qt */
 	QString         m_currLang;     /**< contains the currently loaded language */
 	QString         m_langPath;     /**< Path of language files. This is always fixed to /languages. */
+
+public slots:
+    void refreshPages();
 
 private slots:
 	void openScreenWizard();
