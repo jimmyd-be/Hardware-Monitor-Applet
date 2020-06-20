@@ -229,12 +229,9 @@ void DataPage::addButtonClicked()
 
 			HardwareSensor sensor = Data::Instance()->translateLine(queryItem);
 
-			if (isUnique(queryItem, sensor))
-			{
-                insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system, tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(), sensor.unit, tableWidget->item(item->row(), 1)->text(), sensor.field);
+            insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system, tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(), sensor.unit, tableWidget->item(item->row(), 1)->text(), sensor.field);
 
-				newRow += 1;
-			}
+            newRow += 1;
 		}
 	}
 }
@@ -279,7 +276,7 @@ QString DataPage::foundNextSymbol()
 
 	for (int row = 0; row < ui.SelectedItems_tableWidget->rowCount(); row++)
 	{
-		symbolList.append(widget->item(row, 5)->text());
+        symbolList.append(widget->item(row, 8)->text());
 	}
 
 	for (int i = 0; i < symbolList.size(); i++)
