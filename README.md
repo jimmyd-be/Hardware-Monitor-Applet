@@ -5,13 +5,24 @@
 Hardware Monitor Applet is an applet that usses the LCD from some Logitech gaming keyboards (eg. G15, G19, G910). This applet uses the information comming from Open Hardware Monitor or HWiNFO and displays it on the LCD. The Applet can only be used on a Windows operating system.
 
 ## System requirements
+### Windows
 - Operating system: Vista (SP2), 7 (SP1), 8 (8.1), 10
 - Logitech keyboard: G13, G15, G510, G19, G910
 - [Logitech Gaming Software (8.52 or higher)](https://support.logitech.com/nl_be/Product/gaming-software)
 - [Visual C++ Redistributable for Visual Studio 2013](http://www.microsoft.com/en-us/download/details.aspx?id=40784)
 - [HWiNFO32/64](http://www.hwinfo.com/) OR [Open Hardware Monitor](http://openhardwaremonitor.org/)
 
+## Linux
+- Logitech keyboard: G19
+- Required software: [G19Daemon](https://github.com/mortendynamite/g19daemon)
+- [InfluxDb](https://www.influxdata.com/)
+
 ## Changelog
+### HMA Version 2.0 (TBA)
+- Add Linux support
+- Add InfluxDB support
+- Some GUI changes
+
 ### HMA Version 1.0 (04-04-2015)
 - Renamed application from 'Open Hardware Monitor Applet' to 'Hardware Monitor Applet'.
 - Renewed full source code
@@ -20,10 +31,10 @@ Hardware Monitor Applet is an applet that usses the LCD from some Logitech gamin
 - Added Graph screen for G19 users.
 - Multi Language support
 
-### Depricated 
+### Deprecated
 
 #### OHM Version 0.2.5 (14-09-2013)
-  - Update to VS2013
+- Update to VS2013
 - Added GPU Load (for NVidia cards) and added GPU Memory Load
 - Fixed HD crash bug
 - Added log file when somethings goes wrong

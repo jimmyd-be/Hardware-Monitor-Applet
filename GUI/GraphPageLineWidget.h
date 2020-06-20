@@ -26,6 +26,7 @@ private slots:
 private:
 	int randInt(int low, int high);
 
+    Query query_;
 	QPalette palette_;
 	QColor color_;
 };

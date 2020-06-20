@@ -22,7 +22,7 @@ Controller::Controller(QApplication* app, SingleApplication* singleApp) : mainWi
 	logitech_ = new Logitech();
 	logitech_->initKeyboard();
 
-	settings_ = Settings::getInstance();
+	settings_ = HwaSettings::getInstance();
 	settings_->setLogitech(logitech_);
 
 	settings_->loadSettings();

@@ -6,7 +6,7 @@
 #pragma once
 
 #include "../Defines.h"
-#include <external/HWiNFO/hwisenssm2.h>
+#include "../external/HWiNFO/hwisenssm2.h"
 #include "MonitorTool.h"
 
 //-----------------------------------------------------------------
@@ -17,7 +17,7 @@
 // HWinfo Class
 //-----------------------------------------------------------------
 
-class Settings;
+class HwaSettings;
 
 class HWinfo: public MonitorTool
 {
@@ -35,16 +35,16 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	QVector<HardwareSensor> getAllSensors();
+    QVector<Query> getAllSensors();
 	MonitorSystem getMonitorSystem();
-	HardwareSensor getData(Query);
+    double getData(Query);
 
 private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
 	QMap<QString, QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT>> cacheMap_;
-	Settings * settings_;
+    HwaSettings * settings_;
 
 	double transformData(double, SENSOR_READING_TYPE, QString);
 	

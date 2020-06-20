@@ -12,20 +12,21 @@
 #include <QSettings>
 #include "Logitech.h"
 
+
 //-----------------------------------------------------------------
 // Settings Class
 //-----------------------------------------------------------------
-class Settings
+class HwaSettings
 {
 public:
 
-	static Settings* getInstance();
+    static HwaSettings* getInstance();
 	static void releaseResources();
 
 	//---------------------------
 	// Destructor
 	//---------------------------
-	virtual ~Settings();
+    virtual ~HwaSettings();
 
 	//---------------------------
 	// General Methods
@@ -43,11 +44,14 @@ public:
 	void setLanguage(QString);
 	QString getLanguage();
 
+    void setInfluxSettings(InfluxDbSettings);
+    InfluxDbSettings getInfluxSettings();
+
 protected:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Settings();
+    HwaSettings();
 
 private:
 	void saveNormalScreenSettings(NormalScreen *);
@@ -72,7 +76,7 @@ private:
 	QSettings * settings_;
 	Logitech * logitech_;
 
-	static Settings* singleton_;
+    static HwaSettings* singleton_;
 
 	GeneralSettings generalSettings_;
 	
@@ -81,8 +85,8 @@ private:
 	// If you get a linker error from one of these functions, your class is internally trying to use them. This is
 	// an error in your class, these declarations are deliberately made without implementation because they should never be used.
 	// -------------------------
-	Settings(const Settings& t);
-	Settings& operator=(const Settings& t);
+    HwaSettings(const HwaSettings& t);
+    HwaSettings& operator=(const HwaSettings& t);
 };
 
 #endif

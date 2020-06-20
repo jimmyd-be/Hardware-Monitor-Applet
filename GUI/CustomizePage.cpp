@@ -43,6 +43,13 @@ void CustomizePage::initWindow()
 
 	ui.setupUi(widget_);
 
+#ifdef _WIN32
+ui.textScrolling->setEnabled(false);
+connect(ui.textScrolling, SIGNAL(stateChanged(int)), this, SLOT(textScrollingChanged()));
+#elif __linux__
+ui.textScrolling->setDisabled(true);
+#endif
+
 	layout_ = new QVBoxLayout;
 	layout_->addWidget(widget_);
 	setLayout(layout_);
@@ -50,14 +57,13 @@ void CustomizePage::initWindow()
 	ui.Alligment_comboBox->setEnabled(false);
 	ui.Font_pushButton->setEnabled(false);
 	ui.FontColor_pushButton->setEnabled(false);
-	ui.textScrolling->setEnabled(false);
+
 	ui.LineSpace_spinBox->setEnabled(false);
 	ui.lineSpacing_Label->setEnabled(false);
 
 	connect(ui.GeneralSettings_checkBox, SIGNAL(toggled(bool)), this, SLOT(generalSettingsChanged()));
 	connect(ui.Font_pushButton, SIGNAL(clicked()), this, SLOT(openFontDialog()));
 	connect(ui.Alligment_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(alligmentChanged()));
-	connect(ui.textScrolling, SIGNAL(stateChanged(int)), this, SLOT(textScrollingChanged()));
 	connect(ui.LineSpace_spinBox, SIGNAL(valueChanged(int)), this, SLOT(lineSpaceChanged()));
 
 	if (lcdType_ == KeyboardTypes::Color)
@@ -149,9 +155,12 @@ void CustomizePage::generalSettingsChanged()
 	ui.Alligment_comboBox->setEnabled(ui.GeneralSettings_checkBox->isChecked());
 	ui.Font_pushButton->setEnabled(ui.GeneralSettings_checkBox->isChecked());
 	ui.FontColor_pushButton->setEnabled(ui.GeneralSettings_checkBox->isChecked());
-	ui.textScrolling->setEnabled(ui.GeneralSettings_checkBox->isChecked());
 	ui.LineSpace_spinBox->setEnabled(ui.GeneralSettings_checkBox->isChecked());
-	ui.lineSpacing_Label->setEnabled(ui.GeneralSettings_checkBox->isChecked());
+    ui.lineSpacing_Label->setEnabled(ui.GeneralSettings_checkBox->isChecked());
+
+#ifdef _WIN32
+    ui.textScrolling->setEnabled(ui.GeneralSettings_checkBox->isChecked());
+#endif
 }
 
 void CustomizePage::openFontDialog()

@@ -12,7 +12,7 @@
 #include "GUI/mainwindow.h"
 #include "Logitech.h"
 #include "Screen/StartScreen.h"
-#include "Settings.h"
+#include "HwaSettings.h"
 
 
 //-----------------------------------------------------------------
@@ -47,7 +47,7 @@ private:
 	// -------------------------
     MainWindow * mainWindow_;
 	Logitech * logitech_;
-	Settings * settings_;
+	HwaSettings * settings_;
 	QApplication * app_;
 	SingleApplication * singleApp_;
 

@@ -157,17 +157,17 @@
        </column>
        <column>
         <property name="text">
-         <string>Add Unit</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Unit</string>
         </property>
        </column>
        <column>
         <property name="text">
          <string>Hardware</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Field</string>
         </property>
        </column>
       </widget>

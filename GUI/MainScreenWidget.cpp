@@ -38,7 +38,7 @@ void MainScreenWidget::removePage()
 {
 	logitech_->deleteScreen(ScreenName_Label->text());
 
-	Settings::getInstance()->saveSettings();
+	HwaSettings::getInstance()->saveSettings();
 
     emit refreshMainWindow();
 }
@@ -54,7 +54,7 @@ void MainScreenWidget::editpage()
 		wizard = nullptr;
 	}
 
-	Settings::getInstance()->saveSettings();
+	HwaSettings::getInstance()->saveSettings();
 
     emit refreshMainWindow();
 }

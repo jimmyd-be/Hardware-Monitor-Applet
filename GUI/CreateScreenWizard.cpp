@@ -175,7 +175,7 @@ void CreateScreenWizard::accept()
 		logitech_->creategraphScreen(introPage_->getPageName(), background, screenTypePage_->getScreenType(), graphPage_->getValues(), graphPage_->getColors(), graphPage_->getGraphSettings());
 	}
 
-	Settings::getInstance()->saveSettings();
+	HwaSettings::getInstance()->saveSettings();
 
 	QDialog::accept();
 }

@@ -16,7 +16,7 @@
 #include "Screen/GraphScreen.h"
 
 
-class Settings;
+class HwaSettings;
 class AppletThread;
 
 //-----------------------------------------------------------------

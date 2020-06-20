@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 
 
-	SingleApplication* singleApp = new SingleApplication();
+    SingleApplication* singleApp = new SingleApplication();
 #ifdef _WIN32
 	if (singleApp->isRunning())
 	{

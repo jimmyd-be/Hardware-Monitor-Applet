@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Hardware Monitor Applet Configurator
+Comment=Configurator for Hardware Monitor plugin of G19Daemon
+Terminal=false
+Exec=Hardware-Monitor-Applet
+Icon=icon
+Categories=Settings;

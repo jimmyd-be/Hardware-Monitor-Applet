@@ -6,7 +6,7 @@
 #include "../Screen/Screen.h"
 #include "qdialog.h"
 #include "../Logitech.h"
-#include "../Settings.h"
+#include "../HwaSettings.h"
 
 class OrderWindow: public QDialog
 {

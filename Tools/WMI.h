@@ -29,7 +29,7 @@
 # pragma comment(lib, "wbemuuid.lib")
 using namespace std;
 
-class Settings;
+class HwaSettings;
 
 //-----------------------------------------------------------------
 // WMI Class
@@ -50,9 +50,9 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	QVector<HardwareSensor> getAllSensors();
+    QVector<Query> getAllSensors();
 	MonitorSystem getMonitorSystem();
-	HardwareSensor getData(Query);
+    double getData(Query);
 
 private:
 	//---------------------------
@@ -70,7 +70,7 @@ private:
 	IWbemServices *pSvc_;
 	IWbemClassObject *pclsObj_;
 	HRESULT hres_;
-	Settings * settings_;
+    HwaSettings * settings_;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
