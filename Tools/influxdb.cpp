@@ -38,8 +38,6 @@ QVector<Query> InfluxDb::getAllSensors()
 
     QVector<QString> measurements = readValues(reply);
 
-    QString sensorName;
-
     for(int i = 0; i < measurements.size(); i++)
     {
         QString value = measurements[i];
@@ -47,23 +45,18 @@ QVector<Query> InfluxDb::getAllSensors()
         QString hardware = value.mid(0, value.indexOf(','));
         QString name = value.mid(value.indexOf(',')+1);
 
-        if(hardware != sensorName)
+        QNetworkReply * fieldReply = sendQuery("show field keys from " + hardware);
+
+        QVector<QString> fields = readValues(fieldReply);
+
+        for(int j=0; j < fields.size(); j++)
         {
-            sensorName = hardware;
+            Query sensor;
+            sensor.hardware = hardware;
+            sensor.name = name;
+            sensor.field = fields[j];
 
-            QNetworkReply * fieldReply = sendQuery("show field keys from " + hardware);
-
-            QVector<QString> fields = readValues(fieldReply);
-
-            for(int j=0; j < fields.size(); j++)
-            {
-                Query sensor;
-                sensor.hardware = hardware;
-                sensor.name = name;
-                sensor.field = fields[j];
-
-                sensors.append(sensor);
-            }
+            sensors.append(sensor);
         }
     }
 
