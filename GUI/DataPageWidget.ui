@@ -51,21 +51,6 @@
            <string>Name</string>
           </property>
          </column>
-         <column>
-          <property name="text">
-           <string>Min</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Max</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Current</string>
-          </property>
-         </column>
         </widget>
        </item>
       </layout>
@@ -93,21 +78,6 @@
          <column>
           <property name="text">
            <string>Name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Min</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Max</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Current</string>
           </property>
          </column>
         </widget>

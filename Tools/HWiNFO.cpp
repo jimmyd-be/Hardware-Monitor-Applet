@@ -37,9 +37,9 @@ HWinfo::~HWinfo()
 /// Query all the sensor details.
 /// </summary>
 /// <returns>List of HardwareSensor details</returns>
-QVector<HardwareSensor> HWinfo::getAllSensors()
+QVector<Query> HWinfo::getAllSensors()
 {
-	QVector<HardwareSensor> sensors;
+    QVector<Query> sensors;
 
 	HANDLE hHWiNFOMemory = OpenFileMapping(FILE_MAP_READ, FALSE, _T(HWiNFO_SENSORS_MAP_FILE_NAME2));
 	if (hHWiNFOMemory)
@@ -99,42 +99,29 @@ MonitorSystem HWinfo::getMonitorSystem()
 	return MonitorSystem::HWiNFO;
 }
 
-/// <summary>
-/// Query the sensor data by providing the query.
-/// </summary>
-/// <param name="query">The query</param>
-/// <returns>HardwareSensor details</returns>
-HardwareSensor HWinfo::getData(Query query)
+
+double HWinfo::getData(Query query)
 {
     //TODO add support for new system without HardwareSensor OR Query
 
-	HardwareSensor returnValue;
+    double returnValue;
 
 	if (cacheMap_.contains(query.identifier))
 	{
 		QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT> reading = cacheMap_.value(query.identifier);
 
-		returnValue.value = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
-		returnValue.max = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
-		returnValue.min = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
-		returnValue.name = reading.first->szLabelUser;
-		returnValue.hardware = reading.second->szSensorNameUser;
-
-		if (reading.first->tReading == SENSOR_READING_TYPE::SENSOR_TYPE_TEMP)
-		{
-			if (settings_->getTemperature() == TemperatureType::Celsius)
-			{
-				returnValue.unit = QString("%1C").arg(degreeChar);
-			}
-			else if (settings_->getTemperature() == TemperatureType::Fahrenheit)
-			{
-				returnValue.unit = QString("%1F").arg(degreeChar);
-			}
-		}
-		else
-		{
-			returnValue.unit = reading.first->szUnit;
-		}
+        if(query.value == QueryValue.Current)
+        {
+            returnValue = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
+        }
+        else if (query.value == QueryValue.Max)
+        {
+            returnValue = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
+        }
+        else if(query.value == QueryValue.Min)
+        {
+            returnValue = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
+        }
 	}
 	else
 	{
@@ -159,28 +146,18 @@ HardwareSensor HWinfo::getData(Query query)
 				{
 					cacheMap_.insert(query.identifier, QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT>(reading, sensorHW));
 
-					returnValue.value = transformData(reading->Value, reading->tReading, reading->szUnit);
-					returnValue.max = transformData(reading->ValueMax, reading->tReading, reading->szUnit);
-					returnValue.min = transformData(reading->ValueMin, reading->tReading, reading->szUnit);
-					returnValue.name = reading->szLabelUser;
-
-					returnValue.hardware = sensorHW->szSensorNameUser;
-
-					if (reading->tReading == SENSOR_READING_TYPE::SENSOR_TYPE_TEMP)
-					{
-						if (settings_->getTemperature() == TemperatureType::Celsius)
-						{
-							returnValue.unit = QString("%1C").arg(degreeChar);
-						}
-						else if (settings_->getTemperature() == TemperatureType::Fahrenheit)
-						{
-							returnValue.unit = QString("%1F").arg(degreeChar);
-						}
-					}
-					else
-					{
-						returnValue.unit = reading->szUnit;
-					}
+                    if(query.value == QueryValue.Current)
+                    {
+                        returnValue = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
+                    }
+                    else if (query.value == QueryValue.Max)
+                    {
+                        returnValue = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
+                    }
+                    else if(query.value == QueryValue.Min)
+                    {
+                        returnValue = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
+                    }
 					break;
 				}
 

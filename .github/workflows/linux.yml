@@ -1,4 +1,4 @@
-name: Hardware Monitor Applet (Linux)
+name: Linux
 
 on: [push]
 

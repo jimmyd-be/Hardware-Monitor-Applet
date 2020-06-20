@@ -77,7 +77,7 @@ void LineEditPage::initializePage()
 	
 	while (i != items.constEnd())
 	{
-		HardwareSensor sensor = Data::Instance()->translateLine(i.value());
+        //HardwareSensor sensor = Data::Instance()->translateLine(i.value());
 
 		QTableWidgetItem * idItem = new QTableWidgetItem();
 		QTableWidgetItem * nameItem = new QTableWidgetItem();
@@ -95,9 +95,9 @@ void LineEditPage::initializePage()
 		valueItem->setText(Defines::translateQueryValueEnum(i.value().value));
 		precisionItem->setText(QString::number(i.value().precision));
 		symbolItem->setText(i.key());
-		unitStringItem->setText(sensor.unit);
-		hardwareItem->setText(sensor.hardware);
-        fieldItem->setText(sensor.field);
+        unitStringItem->setText(i.value().unit);
+        hardwareItem->setText(i.value().hardware);
+        fieldItem->setText(i.value().field);
 
 		ui.Data_tableWidget->setItem(newRow, 0, idItem);
 		ui.Data_tableWidget->setItem(newRow, 1, symbolItem);

@@ -89,9 +89,10 @@ void DataPage::loadSelecteddata(QList<GraphLine> data)
 
 	for (GraphLine line : data)
 	{
-		HardwareSensor sensor = Data::Instance()->translateLine(line.query);
+        //HardwareSensor sensor = Data::Instance()->translateLine(line.query);
 
-        insertLineToSelectedData(row, line.query.identifier, line.query.name, Defines::translateMonitorSystemEnum(line.query.system), Defines::translateQueryValueEnum(line.query.value), QString::number(line.query.precision), "", sensor.unit, sensor.hardware, sensor.field);
+        insertLineToSelectedData(row, line.query.identifier, line.query.name, Defines::translateMonitorSystemEnum(line.query.system),
+                                 Defines::translateQueryValueEnum(line.query.value), QString::number(line.query.precision), "", line.query.unit, line.query.hardware, line.query.field);
 
 		row += 1;
 	}
@@ -120,7 +121,6 @@ void DataPage::loadData(MonitorSystem system)
     data = Data::Instance()->getAllData(system);
 
 	QTableWidget * widget = nullptr;
-    bool addExtraField = false;
 
 	if (system == MonitorSystem::HWiNFO)
 	{
@@ -133,35 +133,25 @@ void DataPage::loadData(MonitorSystem system)
     else if(system == MonitorSystem::INFLUXDB)
     {
         widget = ui.Influx_tableWidget;
-        addExtraField = true;
     }
 
 	for (int row = 0; row < data.size(); row++)
 	{
-		HardwareSensor sensor = data[row];
+        Query sensor = data[row];
 
 		widget->insertRow(row);
 
 		QTableWidgetItem * idItem = new QTableWidgetItem();
 		QTableWidgetItem * nameItem = new QTableWidgetItem();
-		QTableWidgetItem * minItem = new QTableWidgetItem();
-		QTableWidgetItem * maxItem = new QTableWidgetItem();
-		QTableWidgetItem * currentItem = new QTableWidgetItem();
-		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
+        QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
-		idItem->setText(sensor.id);
+        idItem->setText(sensor.identifier);
 		nameItem->setText(sensor.name);
-		minItem->setText(QString::number(sensor.min, 'f', 2) + sensor.unit);
-		maxItem->setText(QString::number(sensor.max, 'f', 2) + sensor.unit);
-		currentItem->setText(QString::number(sensor.value, 'f', 2) + sensor.unit);
 		hardwareItem->setText(sensor.hardware);
 
 		widget->setItem(row, 0, idItem);
 		widget->setItem(row, 1, hardwareItem);
 		widget->setItem(row, 2, nameItem);
-		widget->setItem(row, 3, minItem);
-		widget->setItem(row, 4, maxItem);
-		widget->setItem(row, 5, currentItem);
 	}
 }
 
@@ -227,9 +217,10 @@ void DataPage::addButtonClicked()
             queryItem.precision = 0;
             queryItem.hardware = tableWidget->item(item->row(), 1)->text();
 
-			HardwareSensor sensor = Data::Instance()->translateLine(queryItem);
 
-            insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system, tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(), sensor.unit, tableWidget->item(item->row(), 1)->text(), sensor.field);
+            insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system,
+                                     tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(),
+                                     queryItem.unit, tableWidget->item(item->row(), 1)->text(), queryItem.field);
 
             newRow += 1;
 		}
@@ -346,10 +337,8 @@ void DataPage::loadSelecteddata(QList<LineText> data)
 
 		while (i != line.queryMap.constEnd())
 		{	
-			HardwareSensor sensor = Data::Instance()->translateLine(i.value());
-
 			insertLineToSelectedData(row, i.value().identifier, i.value().name, Defines::translateMonitorSystemEnum(i.value().system), Defines::translateQueryValueEnum(i.value().value),
-                QString::number(i.value().precision), i.key(), sensor.unit, sensor.hardware, sensor.field);
+                QString::number(i.value().precision), i.key(), i.value().unit, i.value().hardware, i.value().field);
 
 			row += 1;
 			++i;
@@ -430,7 +419,6 @@ void DataPage::insertLineToSelectedData(int row,  QString id, QString name, QStr
         fieldItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
     }
      QComboBox *editor = new QComboBox(this);
-     editor->addItem("Name");
      editor->addItem("Min");
      editor->addItem("Current");
      editor->addItem("Max");

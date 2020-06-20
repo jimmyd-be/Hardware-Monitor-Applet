@@ -1,4 +1,4 @@
-name: Hardware Monitor Applet
+name: Windows
 
 on: [push]
 
@@ -25,6 +25,7 @@ jobs:
         version: 5.12.9
         arch: 'win64_msvc2017_64'
         host: 'windows'
+        mirror: http://mirrors.ocf.berkeley.edu/qt/
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
     - name: Qmake HWA
       run: qmake Hardware-Monitor-Applet.pro -spec win32-msvc

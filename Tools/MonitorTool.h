@@ -28,9 +28,9 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	virtual QVector<HardwareSensor> getAllSensors();
+    virtual QVector<Query> getAllSensors();
 	virtual MonitorSystem getMonitorSystem();
-	virtual HardwareSensor getData(Query);
+    virtual double getData(Query);
 
 private:
 	// -------------------------

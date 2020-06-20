@@ -42,7 +42,7 @@ private:
 	QWidget *widget_;
 	QVBoxLayout *layout_;
 	ScreenTypePage *  screenTypePage_;
-    QVector<HardwareSensor> data;
+    QVector<Query> data;
 
 	private slots:
 	void addButtonClicked();

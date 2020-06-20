@@ -39,9 +39,9 @@ struct Query{
 	QString name;
 	QueryValue value;
 	int precision;
-        QString hardware;
-        QString field;
-        QString unit;
+    QString hardware;
+    QString field;
+    QString unit;
 
 	bool operator == (const Query& rhs)
 	{
@@ -51,21 +51,9 @@ struct Query{
                     value == rhs.value &&
                     precision == rhs.precision &&
                     hardware == rhs.hardware &&
-                    field == rhs.hardware;
+                    field == rhs.hardware &&
+                    unit == rhs.unit;
     }
-};
-
-//TODO remove HardwareSensor OR Query
-
-struct HardwareSensor{
-        QString id;
-        QString name;
-        double value;
-        double max;
-        double min;
-        QString unit;
-        QString hardware;
-        QString field;
 };
 
 struct LineText{

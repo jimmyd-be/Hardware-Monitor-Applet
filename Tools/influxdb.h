@@ -16,9 +16,9 @@ public:
     InfluxDb(QObject * parent = nullptr);
     ~InfluxDb();
 
-    QVector<HardwareSensor> getAllSensors();
+    QVector<Query> getAllSensors();
     MonitorSystem getMonitorSystem();
-    HardwareSensor getData(Query query);
+    double getData(Query query);
 
 private:
     QNetworkAccessManager * manager;

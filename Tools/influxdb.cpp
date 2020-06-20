@@ -30,9 +30,9 @@ QNetworkReply * InfluxDb::sendQuery(QString query)
     return reply;
 }
 
-QVector<HardwareSensor> InfluxDb::getAllSensors()
+QVector<Query> InfluxDb::getAllSensors()
 {
-    QVector<HardwareSensor> sensors;
+    QVector<Query> sensors;
 
     QNetworkReply * reply = sendQuery("show series");
 
@@ -57,7 +57,7 @@ QVector<HardwareSensor> InfluxDb::getAllSensors()
 
             for(int j=0; j < fields.size(); j++)
             {
-                HardwareSensor sensor;
+                Query sensor;
                 sensor.hardware = hardware;
                 sensor.name = name;
                 sensor.field = fields[j];
@@ -132,7 +132,7 @@ MonitorSystem InfluxDb::getMonitorSystem()
     return MonitorSystem::INFLUXDB;
 }
 
-HardwareSensor InfluxDb::getData(Query query)
+double InfluxDb::getData(Query query)
 {
     QMap<QString, QString> arguments = parseQueryArguments(query);
 
@@ -157,18 +157,8 @@ HardwareSensor InfluxDb::getData(Query query)
     qDebug() << "Query: " << queryString;
 
     QNetworkReply * reply = sendQuery(queryString);
-    double measurements = readQueryValue(reply);
 
-    HardwareSensor sensor;
-
-    sensor.hardware =query.hardware;
-    sensor.unit = query.unit;
-    sensor.field= query.field;
-    sensor.name = query.name;
-    sensor.value = query.value;
-    sensor.field = query.field;
-
-    return sensor;
+    return readQueryValue(reply);
 }
 
 QMap<QString, QString> InfluxDb::parseQueryArguments(Query query)

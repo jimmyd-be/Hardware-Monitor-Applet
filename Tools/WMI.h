@@ -50,9 +50,9 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	QVector<HardwareSensor> getAllSensors();
+    QVector<Query> getAllSensors();
 	MonitorSystem getMonitorSystem();
-	HardwareSensor getData(Query);
+    double getData(Query);
 
 private:
 	//---------------------------

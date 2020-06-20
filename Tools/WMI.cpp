@@ -138,11 +138,11 @@ void WMI::connect()
 /// Query all sensor information
 /// </summary>
 /// <returns>
-/// QVector<HardwareSensor> list of all HardwareSensor
+/// QVector<Query> list of all HardwareSensor
 ///</returns>
-QVector<HardwareSensor> WMI::getAllSensors()
+QVector<Query> WMI::getAllSensors()
 {
-	QVector<HardwareSensor> sensors;
+    QVector<Query> sensors;
 
 	string query = "select * from Sensor";
 
@@ -164,7 +164,7 @@ QVector<HardwareSensor> WMI::getAllSensors()
 
 			while (pEnumerator_)
 			{
-				HardwareSensor currentSensor;
+                Query currentSensor;
 				QString sensorType = "";
 				QString hardwareIdentifier = "";
 
@@ -295,10 +295,9 @@ MonitorSystem WMI::getMonitorSystem()
 /// </summary>
 /// <param name="query">The query of the requested data.</param>
 /// <returns>HardwareSensor</returns>
-HardwareSensor WMI::getData(Query query)
+double WMI::getData(Query query)
 {
-    //TODO add support for new system without HardwareSensor OR Query
-	HardwareSensor returnValue;
+   double returnValue;
 
 	string queryString = "select * from Sensor WHERE Identifier = '" + query.identifier.toStdString() + "'";
 
@@ -346,73 +345,49 @@ HardwareSensor WMI::getData(Query query)
 					hr = 0;
 				}
 
-				stemp = _T("Max");
+                if(query.value == QueryValue.Current)
+                {
+                    stemp = _T("Value");
 
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+                    hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
-				if (!FAILED(hr))
-				{
-					returnValue.max = transformData(vtProp.fltVal, sensorType);
+                    if (!FAILED(hr))
+                    {
+                        returnValue = transformData(vtProp.fltVal, sensorType);
 
-					hr = 0;
-				}
+                        hr = 0;
+                    }
+                }
+                else if (query.value == QueryValue.Max)
+                {
+                    stemp = _T("Max");
 
-				stemp = _T("Min");
+                    hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
+                    if (!FAILED(hr))
+                    {
+                        returnValue = transformData(vtProp.fltVal, sensorType);
 
-				if (!FAILED(hr))
-				{
-					returnValue.min = transformData(vtProp.fltVal, sensorType);
+                        hr = 0;
+                    }
+                }
+                else if(query.value == QueryValue.Min)
+                {
+                    stemp = _T("Min");
 
-					hr = 0;
-				}
+                    hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
-				stemp = _T("Value");
+                    if (!FAILED(hr))
+                    {
+                        returnValue = transformData(vtProp.fltVal, sensorType);
 
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
-				{
-					returnValue.value = transformData(vtProp.fltVal, sensorType);
-
-					hr = 0;
-				}
-
-				stemp = _T("Name");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
-				{
-					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-					returnValue.name = QString::fromStdString(string(ws.begin(), ws.end()));
-					ws.clear();
-
-					hr = 0;
-				}
-
-				stemp = _T("Parent");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
-				{
-					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-					hardwareIdentifier = QString::fromStdString(string(ws.begin(), ws.end()));
-					ws.clear();
-
-					hr = 0;
-				}
-
-				returnValue.hardware = findHardware(hardwareIdentifier);
+                        hr = 0;
+                    }
+                }
 
 				VariantClear(&vtProp);
 				uReturn = 0;
 				pclsObj_->Release();
-
-				returnValue.unit = getUnit(sensorType);
-
 
 			}
 			pEnumerator->Release();
