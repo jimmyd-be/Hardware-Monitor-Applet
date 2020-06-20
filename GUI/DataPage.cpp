@@ -135,23 +135,47 @@ void DataPage::loadData(MonitorSystem system)
         widget = ui.Influx_tableWidget;
     }
 
-	for (int row = 0; row < data.size(); row++)
+    QVector<Query> uniqueList;
+
+    //Remove duplication in table
+    for(int i = 0; i < data.count(); i++)
+    {
+        bool alreadyInList = false;
+        for(int j = 0; j < uniqueList.count(); j++)
+        {
+            Query first = data[i];
+            Query second = uniqueList[j];
+            if(first.identifier == second.identifier &&
+                    first.name == second.name &&
+                    first.hardware == second.hardware)
+            {
+                alreadyInList = true;
+            }
+
+        }
+        if(!alreadyInList){
+            uniqueList.append(data[i]);
+        }
+    }
+
+
+    for (int row = 0; row < uniqueList.size(); row++)
 	{
-        Query sensor = data[row];
+        Query sensor = uniqueList[row];
 
-		widget->insertRow(row);
+        widget->insertRow(row);
 
-		QTableWidgetItem * idItem = new QTableWidgetItem();
-		QTableWidgetItem * nameItem = new QTableWidgetItem();
+        QTableWidgetItem * idItem = new QTableWidgetItem();
+        QTableWidgetItem * nameItem = new QTableWidgetItem();
         QTableWidgetItem * hardwareItem = new QTableWidgetItem();
 
         idItem->setText(sensor.identifier);
-		nameItem->setText(sensor.name);
-		hardwareItem->setText(sensor.hardware);
+        nameItem->setText(sensor.name);
+        hardwareItem->setText(sensor.hardware);
 
-		widget->setItem(row, 0, idItem);
-		widget->setItem(row, 1, hardwareItem);
-		widget->setItem(row, 2, nameItem);
+        widget->setItem(row, 0, idItem);
+        widget->setItem(row, 1, hardwareItem);
+        widget->setItem(row, 2, nameItem);
 	}
 }
 
