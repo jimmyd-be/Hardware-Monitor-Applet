@@ -136,10 +136,23 @@ double InfluxDb::getData(Query query)
 {
     QMap<QString, QString> arguments = parseQueryArguments(query);
 
-    query.field = "usage_system";
-    query.hardware = "cpu";
+    QString function;
 
-    QString queryString = QString("SELECT last(\"") + query.field + "\") FROM " + query.hardware +" WHERE (";
+    switch (query.value)
+    {
+        case  QueryValue::Current:
+            function = "last";
+            break;
+        case QueryValue::Min:
+            function = "min";
+            break;
+        case QueryValue::Max:
+            function = "max";
+            break;
+    }
+
+
+    QString queryString = QString("SELECT " + function + "(\"") + query.field + "\") FROM " + query.hardware +" WHERE (";
 
     QMap<QString, QString>::const_iterator i = arguments.constBegin();
     while (i != arguments.constEnd()) {
