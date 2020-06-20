@@ -185,7 +185,7 @@ QVector<Query> WMI::getAllSensors()
 				if (!FAILED(hr))
 				{
 					wstring ws(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
-					currentSensor.id = QString::fromStdString(string(ws.begin(), ws.end()));
+                    currentSensor.identifier = QString::fromStdString(string(ws.begin(), ws.end()));
 					ws.clear();
 
 					hr = 0;
@@ -204,40 +204,7 @@ QVector<Query> WMI::getAllSensors()
 					hr = 0;
 				}
 
-				stemp = _T("Max");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
-				{
-					currentSensor.max = transformData(vtProp.fltVal, sensorType);
-
-					hr = 0;
-				}
-
-				stemp = _T("Min");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
-				{
-					currentSensor.min = transformData(vtProp.fltVal, sensorType);
-
-					hr = 0;
-				}
-
-				stemp = _T("Value");
-
-				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
-
-				if (!FAILED(hr))
-				{
-					currentSensor.value = transformData(vtProp.fltVal, sensorType);
-
-					hr = 0;
-				}
-
-				stemp = _T("Name");
+                stemp = _T("Name");
 
 				hr = pclsObj_->Get(stemp.c_str(), 0, &vtProp, &pType, 0);
 
@@ -345,7 +312,7 @@ double WMI::getData(Query query)
 					hr = 0;
 				}
 
-                if(query.value == QueryValue.Current)
+                if(query.value == QueryValue::Current)
                 {
                     stemp = _T("Value");
 
@@ -358,7 +325,7 @@ double WMI::getData(Query query)
                         hr = 0;
                     }
                 }
-                else if (query.value == QueryValue.Max)
+                else if (query.value == QueryValue::Max)
                 {
                     stemp = _T("Max");
 
@@ -371,7 +338,7 @@ double WMI::getData(Query query)
                         hr = 0;
                     }
                 }
-                else if(query.value == QueryValue.Min)
+                else if(query.value == QueryValue::Min)
                 {
                     stemp = _T("Min");
 
@@ -450,7 +417,7 @@ QString WMI::getUnit(QString sensorType)
 
 /// <summary>
 /// Transforms the data to the correct unit.
-/// For example °C to °F and vice versa
+/// For example ï¿½C to ï¿½F and vice versa
 /// </summary>
 /// <param name="value">The value of that sensor type</param>
 /// <param name="sensorType">Type of the sensor.</param>

@@ -6,7 +6,7 @@
 #pragma once
 
 #include "../Defines.h"
-#include <external/HWiNFO/hwisenssm2.h>
+#include "../external/HWiNFO/hwisenssm2.h"
 #include "MonitorTool.h"
 
 //-----------------------------------------------------------------

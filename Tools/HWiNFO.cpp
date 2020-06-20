@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "HWinfo.h"
+#include "HWiNFO.h"
 #include "../HwaSettings.h"
 
 //-----------------------------------------------------------------
@@ -59,7 +59,7 @@ QVector<Query> HWinfo::getAllSensors()
 					pHWiNFOMemory->dwOffsetOfSensorSection +
 					(pHWiNFOMemory->dwSizeOfSensorElement * reading->dwSensorIndex));
 
-			sensor.id = QString::fromStdString(to_string(sensorHW->dwSensorID) + "/" + to_string(reading->dwReadingID) + "/" + to_string(sensorHW->dwSensorInst));
+            sensor.identifier = QString::fromStdString(to_string(sensorHW->dwSensorID) + "/" + to_string(reading->dwReadingID) + "/" + to_string(sensorHW->dwSensorInst));
 			sensor.name = reading->szLabelUser;
 			sensor.hardware = sensorHW->szSensorNameUser;
 
@@ -76,10 +76,6 @@ QVector<Query> HWinfo::getAllSensors()
 					sensor.unit = QString("%1F").arg(degreeChar);
 				}
 			}
-
-			sensor.max = reading->ValueMax;
-			sensor.min = reading->ValueMin;
-			sensor.value = reading->Value;
 
 			sensors.push_back(sensor);
 		}
@@ -108,15 +104,15 @@ double HWinfo::getData(Query query)
 	{
 		QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT> reading = cacheMap_.value(query.identifier);
 
-        if(query.value == QueryValue.Current)
+        if(query.value == QueryValue::Current)
         {
             returnValue = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
         }
-        else if (query.value == QueryValue.Max)
+        else if (query.value == QueryValue::Max)
         {
             returnValue = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
         }
-        else if(query.value == QueryValue.Min)
+        else if(query.value == QueryValue::Min)
         {
             returnValue = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
         }
@@ -144,17 +140,17 @@ double HWinfo::getData(Query query)
 				{
 					cacheMap_.insert(query.identifier, QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT>(reading, sensorHW));
 
-                    if(query.value == QueryValue.Current)
+                    if(query.value == QueryValue::Current)
                     {
-                        returnValue = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
+                        returnValue = transformData(reading->Value, reading->tReading, reading->szUnit);
                     }
-                    else if (query.value == QueryValue.Max)
+                    else if (query.value == QueryValue::Max)
                     {
-                        returnValue = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
+                        returnValue = transformData(reading->ValueMax, reading->tReading, reading->szUnit);
                     }
-                    else if(query.value == QueryValue.Min)
+                    else if(query.value == QueryValue::Min)
                     {
-                        returnValue = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
+                        returnValue = transformData(reading->ValueMin, reading->tReading, reading->szUnit);
                     }
 					break;
 				}
@@ -168,7 +164,7 @@ double HWinfo::getData(Query query)
 
 /// <summary>
 /// Transforms the data into a specific unit.
-/// For example transform °C to °F and vice versa.
+/// For example transform ï¿½C to ï¿½F and vice versa.
 /// </summary>
 /// <param name="value">The value.</param>
 /// <param name="type">The type.</param>
