@@ -43,3 +43,7 @@ Hardware Monitor Applet/Tools/HWiNFO.cpp
 Hardware Monitor Applet/Tools/HWiNFO.h
 Hardware Monitor Applet/Hardware Monitor Applet.sln.GhostDoc.xml
 *.qm
+
+*.AppImage
+
+moc_predefs.h

@@ -10,13 +10,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install QT
       run: sudo apt-get install qt5-default
-    - name: Qmake HWA
-      run: qmake Hardware-Monitor-Applet.pro
-    - name: Make
-      run: make
+    - name: Build
+      run: sh ./build.sh
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: X64_linux
-        path: ${{ github.workspace }}/
+        path: ${{ github.workspace }}/Hardware_Monitor_Applet_Configurator*.AppImage
       
