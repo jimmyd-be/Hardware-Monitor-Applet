@@ -6,6 +6,10 @@ CustomizePageLineWidget::CustomizePageLineWidget(KeyboardTypes type, QString tex
 {
 	ui.setupUi(this);
 
+#ifdef __linux__
+    ui.textScrolling->setDisabled(true);
+#endif
+
 	ui.text_label->setText(text);
 
 	palette_.setColor(QPalette::Window, color_);
@@ -30,6 +34,10 @@ CustomizePageLineWidget::CustomizePageLineWidget(KeyboardTypes type, QString tex
 	: QWidget(parent), color_(Qt::white)
 {
 	ui.setupUi(this);
+
+#ifdef __linux__
+    ui.textScrolling->setDisabled(true);
+#endif
 
 	ui.text_label->setText(text);
 	ui.LineSpace_spinBox->setValue(custom.lineSpacing);
