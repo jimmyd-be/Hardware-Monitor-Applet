@@ -29,11 +29,13 @@ jobs:
       run: windeployqt release
     - name: Download Visual C redistribution
       run: Invoke-WebRequest https://aka.ms/vs/16/release/vc_redist.x64.exe -OutFile .\release\vcredist_x64.exe
+    - name: Clean release directory
+      run: del release\*.obj && del release\*.cpp
     - name: Create Installer
       run: ISCC.exe "HWMA_setup.iss"
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: X64
-        path: ${{ github.workspace }}\release\**
+        path: ${{ github.workspace }}\build\installer\*.exe
       
