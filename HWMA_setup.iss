@@ -55,7 +55,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Place all x64 files here
 Source: "release\Hardware-Monitor-Applet.exe"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion  overwritereadonly
 Source: "release\*"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
-Source: "release\VC_redist.x64.exe"; DestDir: {tmp}; Check: Is64BitInstallMode; Flags: deleteafterinstall
+Source: "release\vcredist_x64.exe"; DestDir: {tmp}; Check: Is64BitInstallMode; Flags: deleteafterinstall
 
 ; Place all x86 files here, first one should be marked 'solidbreak'
 ;Source: "E:\Downloads\Hardware Monitor Applet\X86\Hardware Monitor Applet.exe"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly solidbreak
@@ -86,7 +86,7 @@ Name: "{app}\Quit"; Filename: "{app}\Hardware-Monitor-Applet.exe"; Parameters:" 
 [Run]
 ;StatusMsg: "Installing Microsoft Visual C++ 2013 Redistributable Package v12.0.30501..."
 ;Filename: "{tmp}\vcredist_x86.exe"; Check: not Is64BitInstallMode; Parameters: "{tmp}\vcredist_x86.exe /q /norestart "
-Filename: "{tmp}\VC_redist.x64.exe"; Check: Is64BitInstallMode; Parameters: "{tmp}\VC_redist.x64.exe /q /norestart "
+Filename: "{tmp}\vcredist_x64.exe"; Check: Is64BitInstallMode; Parameters: "{tmp}\vcredist_x64.exe /q /norestart "
 
 ;StatusMsg: "Starting Hardware Monitor Applet Settings Application..."
 Filename: "{app}\Hardware-Monitor-Applet"; Description: "{cm:LaunchProgram,Hardware Monitor Applet Settings}"; Flags: nowait postinstall skipifsilent; Parameters:" Settings"
