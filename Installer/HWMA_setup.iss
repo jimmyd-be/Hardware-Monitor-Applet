@@ -7,23 +7,24 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{3263A9C9-C0E1-4BA7-88F4-A1525C050900}
 AppName=Hardware Monitor Applet
-AppVersion=1.0
+AppVersion=2.0
 AppVerName=Hardware Monitor Applet
 AppPublisher=JimmyD.
-AppPublisherURL=https://bitbucket.org/jimmyD/open-hardware-monitor-applet
-AppSupportURL=https://bitbucket.org/jimmyD/open-hardware-monitor-applet
-AppUpdatesURL=https://bitbucket.org/jimmyD/open-hardware-monitor-applet
+AppPublisherURL=https://github.com/lonelobo0070/Hardware-Monitor-Applet/releases
+AppSupportURL=https://github.com/lonelobo0070/Hardware-Monitor-Applet/issues
+AppUpdatesURL=https://github.com/lonelobo0070/Hardware-Monitor-Applet/releases
 DefaultDirName={pf}\Hardware Monitor Applet
 DefaultGroupName=Hardware Monitor Applet
 AllowNoIcons=yes
 LicenseFile=E:\Downloads\Hardware Monitor Applet\license.txt
 InfoBeforeFile=E:\Downloads\Hardware Monitor Applet\ReadMe.txt
-OutputDir=E:\Downloads\Hardware Monitor Applet
-OutputBaseFilename=HMA_v1.0_Setup
+OutputDir={SourcePath}\build\installer
+OutputBaseFilename=HMA_v2.0_Setup
 Compression=lzma2/max 
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64
 UninstallDisplayIcon={app}\Hardware Monitor Applet.exe
+ArchitecturesAllowed=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -59,20 +60,20 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; Place all x64 files here
-Source: "E:\Downloads\Hardware Monitor Applet\X64\Hardware Monitor Applet.exe"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion  overwritereadonly
-Source: "E:\Downloads\Hardware Monitor Applet\X64\*"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
-Source: "E:\Downloads\Hardware Monitor Applet\vcredist_x64.exe"; DestDir: {tmp}; Check: Is64BitInstallMode; Flags: deleteafterinstall
+Source: "{SourcePath}\..\release\Hardware Monitor Applet.exe"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion  overwritereadonly
+Source: "{SourcePath}\..\release\*"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
+Source: "{SourcePath}\..\release\vcredist_x64.exe"; DestDir: {tmp}; Check: Is64BitInstallMode; Flags: deleteafterinstall
 
 ; Place all x86 files here, first one should be marked 'solidbreak'
-Source: "E:\Downloads\Hardware Monitor Applet\X86\Hardware Monitor Applet.exe"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly solidbreak
-Source: "E:\Downloads\Hardware Monitor Applet\X86\*"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
-Source: "E:\Downloads\Hardware Monitor Applet\vcredist_x86.exe"; DestDir: {tmp}; Check: not Is64BitInstallMode; Flags: deleteafterinstall
+;Source: "E:\Downloads\Hardware Monitor Applet\X86\Hardware Monitor Applet.exe"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly solidbreak
+;Source: "E:\Downloads\Hardware Monitor Applet\X86\*"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
+;Source: "E:\Downloads\Hardware Monitor Applet\vcredist_x86.exe"; DestDir: {tmp}; Check: not Is64BitInstallMode; Flags: deleteafterinstall
 
 ; Place all common files here, first one should be marked 'solidbreak'
-Source: "E:\Downloads\Hardware Monitor Applet\ReadMe.txt"; DestDir: "{app}"; Flags: ignoreversion  overwritereadonly solidbreak
-Source: "E:\Downloads\Hardware Monitor Applet\license.txt"; DestDir: "{app}"; Flags: ignoreversion  overwritereadonly
-Source: "E:\Downloads\Hardware Monitor Applet\G15.ttf"; DestDir: "{fonts}"; FontInstall: "G15"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "E:\Downloads\Hardware Monitor Applet\settings.ini"; DestDir: {userappdata}\Hardware Monitor Applet
+Source: "{SourcePath}\ReadMe.txt"; DestDir: "{app}"; Flags: ignoreversion  overwritereadonly solidbreak
+Source: "{SourcePath}\license.txt"; DestDir: "{app}"; Flags: ignoreversion  overwritereadonly
+Source: "{SourcePath}\G15.ttf"; DestDir: "{fonts}"; FontInstall: "G15"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "{SourcePath}\settings.ini"; DestDir: {userappdata}\Hardware Monitor Applet
 
 [Icons]
 ; start menu
@@ -91,7 +92,7 @@ Name: "{app}\Quit"; Filename: "{app}\Hardware Monitor Applet.exe"; Parameters:" 
 
 [Run]
 ;StatusMsg: "Installing Microsoft Visual C++ 2013 Redistributable Package v12.0.30501..."
-Filename: "{tmp}\vcredist_x86.exe"; Check: not Is64BitInstallMode; Parameters: "{tmp}\vcredist_x86.exe /q /norestart "
+;Filename: "{tmp}\vcredist_x86.exe"; Check: not Is64BitInstallMode; Parameters: "{tmp}\vcredist_x86.exe /q /norestart "
 Filename: "{tmp}\vcredist_x64.exe"; Check: Is64BitInstallMode; Parameters: "{tmp}\vcredist_x64.exe /q /norestart "
 
 ;StatusMsg: "Starting Hardware Monitor Applet Settings Application..."
