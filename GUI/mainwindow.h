@@ -7,25 +7,23 @@
 #include "../Logitech.h"
 #include "SortScreenDialog.h"
 #include "MainScreenWidget.h"
-#include "../Settings.h"
+#include "../HwaSettings.h"
 #include "OrderWindow.h"
 #include <QDesktopServices>
 #include <QScrollArea>
 #include "AboutDialog.h"
+#include <GUI/influxdbdialog.h>
 
-class Controller;
 
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	MainWindow(QApplication* application, Logitech * logitech, Controller * controller, QWidget *parent = 0);
+    MainWindow(Logitech * logitech, QWidget *parent = 0);
 	~MainWindow();
 
 	void keyboardChanged(KeyboardTypes);
-
-	void refreshPages();
 
 protected:
 	void closeEvent(QCloseEvent * event);
@@ -35,23 +33,15 @@ private:
 	void removePages();
 	QList<Screen *> sortScreenList(QList<Screen*>);
 
-	void loadLanguage(const QString& rLanguage);
-	void createLanguageMenu();
-	void switchTranslator(QTranslator& translator, const QString& filename);
-	void changeEvent(QEvent*);
-	
 	Ui::MainWindowClass ui;
 	Logitech * logitech_;
 	QApplication * qApp_;
 	QVector<MainScreenWidget *> widgetList_;
-	Controller * controller_;
 	QActionGroup * degreeGroup_;
 	QActionGroup * autoStartGroup_;
 
-	QTranslator     m_translator;   /**< contains the translations for this application */
-	QTranslator     m_translatorQt; /**< contains the translations for qt */
-	QString         m_currLang;     /**< contains the currently loaded language */
-	QString         m_langPath;     /**< Path of language files. This is always fixed to /languages. */
+public slots:
+    void refreshPages();
 
 private slots:
 	void openScreenWizard();
@@ -61,8 +51,8 @@ private slots:
 	void settingsChanged();
 	void reportIssue();
 	void openAboutWindow();
+    void openInfluxDialog();
 
-	void slotLanguageChanged(QAction* action);
 }; 
 
 #endif // MAINWINDOW_H

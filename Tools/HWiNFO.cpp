@@ -6,8 +6,8 @@
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
-#include "HWinfo.h"
-#include "../Settings.h"
+#include "HWiNFO.h"
+#include "../HwaSettings.h"
 
 //-----------------------------------------------------------------
 // Defines
@@ -22,7 +22,7 @@
 /// </summary>
 HWinfo::HWinfo()
 {
-	settings_ = Settings::getInstance();
+    settings_ = HwaSettings::getInstance();
 }
 
 /// <summary>
@@ -36,10 +36,10 @@ HWinfo::~HWinfo()
 /// <summary>
 /// Query all the sensor details.
 /// </summary>
-/// <returns>List of HardwareSensor details</returns>
-QVector<HardwareSensor> HWinfo::getAllSensors()
+/// <returns>List of Queries details</returns>
+QVector<Query> HWinfo::getAllSensors()
 {
-	QVector<HardwareSensor> sensors;
+    QVector<Query> sensors;
 
 	HANDLE hHWiNFOMemory = OpenFileMapping(FILE_MAP_READ, FALSE, _T(HWiNFO_SENSORS_MAP_FILE_NAME2));
 	if (hHWiNFOMemory)
@@ -50,7 +50,7 @@ QVector<HardwareSensor> HWinfo::getAllSensors()
 		// loop through all available readings
 		for (DWORD dwReading = 0; dwReading < pHWiNFOMemory->dwNumReadingElements; dwReading++)
 		{
-			HardwareSensor sensor;
+            Query sensor;
 			PHWiNFO_SENSORS_READING_ELEMENT reading = (PHWiNFO_SENSORS_READING_ELEMENT)((BYTE*)pHWiNFOMemory +
 				pHWiNFOMemory->dwOffsetOfReadingSection +
 				(pHWiNFOMemory->dwSizeOfReadingElement * dwReading));
@@ -59,7 +59,7 @@ QVector<HardwareSensor> HWinfo::getAllSensors()
 					pHWiNFOMemory->dwOffsetOfSensorSection +
 					(pHWiNFOMemory->dwSizeOfSensorElement * reading->dwSensorIndex));
 
-			sensor.id = QString::fromStdString(to_string(sensorHW->dwSensorID) + "/" + to_string(reading->dwReadingID) + "/" + to_string(sensorHW->dwSensorInst));
+            sensor.identifier = QString::fromStdString(to_string(sensorHW->dwSensorID) + "/" + to_string(reading->dwReadingID) + "/" + to_string(sensorHW->dwSensorInst));
 			sensor.name = reading->szLabelUser;
 			sensor.hardware = sensorHW->szSensorNameUser;
 
@@ -76,10 +76,6 @@ QVector<HardwareSensor> HWinfo::getAllSensors()
 					sensor.unit = QString("%1F").arg(degreeChar);
 				}
 			}
-
-			sensor.max = reading->ValueMax;
-			sensor.min = reading->ValueMin;
-			sensor.value = reading->Value;
 
 			sensors.push_back(sensor);
 		}
@@ -99,40 +95,27 @@ MonitorSystem HWinfo::getMonitorSystem()
 	return MonitorSystem::HWiNFO;
 }
 
-/// <summary>
-/// Query the sensor data by providing the query.
-/// </summary>
-/// <param name="query">The query</param>
-/// <returns>HardwareSensor details</returns>
-HardwareSensor HWinfo::getData(Query query)
+
+double HWinfo::getData(Query query)
 {
-	HardwareSensor returnValue;
+    double returnValue;
 
 	if (cacheMap_.contains(query.identifier))
 	{
 		QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT> reading = cacheMap_.value(query.identifier);
 
-		returnValue.value = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
-		returnValue.max = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
-		returnValue.min = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
-		returnValue.name = reading.first->szLabelUser;
-		returnValue.hardware = reading.second->szSensorNameUser;
-
-		if (reading.first->tReading == SENSOR_READING_TYPE::SENSOR_TYPE_TEMP)
-		{
-			if (settings_->getTemperature() == TemperatureType::Celsius)
-			{
-				returnValue.unit = QString("%1C").arg(degreeChar);
-			}
-			else if (settings_->getTemperature() == TemperatureType::Fahrenheit)
-			{
-				returnValue.unit = QString("%1F").arg(degreeChar);
-			}
-		}
-		else
-		{
-			returnValue.unit = reading.first->szUnit;
-		}
+        if(query.value == QueryValue::Current)
+        {
+            returnValue = transformData(reading.first->Value, reading.first->tReading, reading.first->szUnit);
+        }
+        else if (query.value == QueryValue::Max)
+        {
+            returnValue = transformData(reading.first->ValueMax, reading.first->tReading, reading.first->szUnit);
+        }
+        else if(query.value == QueryValue::Min)
+        {
+            returnValue = transformData(reading.first->ValueMin, reading.first->tReading, reading.first->szUnit);
+        }
 	}
 	else
 	{
@@ -157,28 +140,18 @@ HardwareSensor HWinfo::getData(Query query)
 				{
 					cacheMap_.insert(query.identifier, QPair<PHWiNFO_SENSORS_READING_ELEMENT, PHWiNFO_SENSORS_SENSOR_ELEMENT>(reading, sensorHW));
 
-					returnValue.value = transformData(reading->Value, reading->tReading, reading->szUnit);
-					returnValue.max = transformData(reading->ValueMax, reading->tReading, reading->szUnit);
-					returnValue.min = transformData(reading->ValueMin, reading->tReading, reading->szUnit);
-					returnValue.name = reading->szLabelUser;
-
-					returnValue.hardware = sensorHW->szSensorNameUser;
-
-					if (reading->tReading == SENSOR_READING_TYPE::SENSOR_TYPE_TEMP)
-					{
-						if (settings_->getTemperature() == TemperatureType::Celsius)
-						{
-							returnValue.unit = QString("%1C").arg(degreeChar);
-						}
-						else if (settings_->getTemperature() == TemperatureType::Fahrenheit)
-						{
-							returnValue.unit = QString("%1F").arg(degreeChar);
-						}
-					}
-					else
-					{
-						returnValue.unit = reading->szUnit;
-					}
+                    if(query.value == QueryValue::Current)
+                    {
+                        returnValue = transformData(reading->Value, reading->tReading, reading->szUnit);
+                    }
+                    else if (query.value == QueryValue::Max)
+                    {
+                        returnValue = transformData(reading->ValueMax, reading->tReading, reading->szUnit);
+                    }
+                    else if(query.value == QueryValue::Min)
+                    {
+                        returnValue = transformData(reading->ValueMin, reading->tReading, reading->szUnit);
+                    }
 					break;
 				}
 
@@ -191,7 +164,7 @@ HardwareSensor HWinfo::getData(Query query)
 
 /// <summary>
 /// Transforms the data into a specific unit.
-/// For example transform °C to °F and vice versa.
+/// For example transform ï¿½C to ï¿½F and vice versa.
 /// </summary>
 /// <param name="value">The value.</param>
 /// <param name="type">The type.</param>

@@ -1,7 +1,8 @@
-#pragma once
+#ifndef SORTSCREENDIALOG_H
+#define SORTSCREENDIALOG_H
 #include "Defines.h"
 #include "qdialog.h"
-#include "Screen\Screen.h"
+#include <Screen/Screen.h>
 #include <QMessageBox>
 #include "ui_SortScreenDialog.h"
 
@@ -20,4 +21,4 @@ private slots:
 private:
 	Ui::SortScreenDialog ui;
 };
-
+#endif

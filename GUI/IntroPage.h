@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INTROPAGE_H
+#define INTROPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
@@ -31,3 +32,4 @@ private:
 	KeyboardTypes keyboardType_;
 	QString oldPagename_;
 };
+#endif

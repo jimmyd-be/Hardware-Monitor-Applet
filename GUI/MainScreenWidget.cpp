@@ -1,9 +1,7 @@
 #include "MainScreenWidget.h"
 
-#include "mainwindow.h"
-
-MainScreenWidget::MainScreenWidget(MainWindow * mainWindow, Logitech * logitech, QString name, ScreenType type, bool active, QWidget *parent)
-	: QWidget(parent), logitech_(logitech), mainWindow_(mainWindow)
+MainScreenWidget::MainScreenWidget(Logitech * logitech, QString name, ScreenType type, bool active, QWidget *parent)
+    : QWidget(parent), logitech_(logitech)
 {
 	setupUi(this);
 
@@ -40,9 +38,9 @@ void MainScreenWidget::removePage()
 {
 	logitech_->deleteScreen(ScreenName_Label->text());
 
-	Settings::getInstance()->saveSettings();
+	HwaSettings::getInstance()->saveSettings();
 
-	mainWindow_->refreshPages();
+    emit refreshMainWindow();
 }
 
 void MainScreenWidget::editpage()
@@ -56,7 +54,7 @@ void MainScreenWidget::editpage()
 		wizard = nullptr;
 	}
 
-	Settings::getInstance()->saveSettings();
+	HwaSettings::getInstance()->saveSettings();
 
-	mainWindow_->refreshPages();
+    emit refreshMainWindow();
 }

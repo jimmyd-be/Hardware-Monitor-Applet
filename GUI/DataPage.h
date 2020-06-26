@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DATAPAGE_H
+#define DATAPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
@@ -6,6 +7,7 @@
 #include "../Tools/Data.h"
 #include "../Defines.h"
 #include "ScreenTypePage.h"
+#include <QComboBox>
 
 class DataPage: public QWizardPage
 {
@@ -32,8 +34,7 @@ private:
 	void loadSelecteddata(QList<GraphLine>);
 	void loadData(MonitorSystem);
 	void clearData(MonitorSystem system);
-	bool isUnique(Query, HardwareSensor);
-	void insertLineToSelectedData(int row, QString id, QString name, QString system, QString value, QString precision, QString symbol, QString unit, QString unitString, QString hardware);
+    void insertLineToSelectedData(int row, QString id, QString name, QString system, QString value, QString precision, QString symbol, QString unitString, QString hardware, QString field);
 
 	QString foundNextSymbol();
 
@@ -41,8 +42,10 @@ private:
 	QWidget *widget_;
 	QVBoxLayout *layout_;
 	ScreenTypePage *  screenTypePage_;
+    QVector<Query> data;
 
 	private slots:
 	void addButtonClicked();
 	void removeButtonClicked();
 };
+#endif

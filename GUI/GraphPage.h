@@ -1,10 +1,11 @@
-#pragma once
+#ifndef GRAPHPAGE_H
+#define GRAPHPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "ui_GraphPageWidget.h"
 #include "GraphPageLineWidget.h"
-#include "QBoxLayout.h"
+#include <QBoxLayout>
 #include "../Defines.h"
 #include "DataPage.h"
 #include "QFontDialog"
@@ -47,3 +48,4 @@ private:
 	QList<GraphLine> oldLines_;
 	GraphSettings oldSettings_;
 };
+#endif

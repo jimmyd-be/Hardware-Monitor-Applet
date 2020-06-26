@@ -1,9 +1,10 @@
-#pragma once
+#ifndef LINEEDITPAGELINEWIDGET_H
+#define LINEEDITPAGELINEWIDGET_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
 #include "ui_LineEditPageLineWidget.h"
-#include "QShortcut.h"
+#include <QShortcut>
 #include "../Defines.h"
 
 
@@ -21,3 +22,4 @@ private:
 
 	Ui::LineEditPageLineWidget ui;
 };
+#endif

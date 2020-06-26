@@ -1,0 +1,20 @@
+name: Linux
+
+on: [push]
+
+jobs:
+  x64:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install QT
+      run: sudo apt-get install qt5-default
+    - name: Build
+      run: sh ./build.sh
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: X64_linux
+        path: ${{ github.workspace }}/Hardware_Monitor_Applet_Configurator*.AppImage
+      

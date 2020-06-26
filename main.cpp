@@ -1,9 +1,7 @@
 #include <QtWidgets/QApplication>
-#include <external\QSingleApplication\singleapplication.h>
+#include <external/QSingleApplication/SingleApplication.h>
 #include "Controller.h"
 #include <QTextCodec>
-
-#include <GUI\mainwindow.h>
 
 //Leak detector
 //#include <vld.h>
@@ -12,13 +10,14 @@ int main(int argc, char *argv[])
 {
 
 	Controller * controller = nullptr;
-
+#ifdef _WIN32
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
-
+#endif
 	QApplication a(argc, argv);
 
-	SingleApplication* singleApp = new SingleApplication();
 
+    SingleApplication* singleApp = new SingleApplication();
+#ifdef _WIN32
 	if (singleApp->isRunning())
 	{
 		if (QApplication::arguments().size() > 1)
@@ -41,6 +40,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
+ #elif __linux__
+    controller = new Controller(&a, singleApp);
+    controller->openSettingsScreen();
+#endif
+
 	a.exec();
 
 	Data::removeInstance();
@@ -56,8 +60,8 @@ int main(int argc, char *argv[])
 		delete singleApp;
 		singleApp = nullptr;
 	}
-
+#ifdef _WIN32
 	CoUninitialize();
-
+#endif
 	return 0;
 }

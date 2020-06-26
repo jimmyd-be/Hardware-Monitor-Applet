@@ -1,11 +1,12 @@
-#pragma once
+#ifndef ORDERWINDOW_H
+#define ORDERWINDOW_H
 
 #include "qguiapplication.h"
 #include "ui_OrderWindow.h"
 #include "../Screen/Screen.h"
 #include "qdialog.h"
 #include "../Logitech.h"
-#include "../Settings.h"
+#include "../HwaSettings.h"
 
 class OrderWindow: public QDialog
 {
@@ -44,3 +45,4 @@ private:
 	QList<QString> mainOrder_;
 
 };
+#endif

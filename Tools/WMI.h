@@ -2,12 +2,15 @@
 // WMI Object
 // C++ Header - WMI.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
+#ifdef _WIN32
 
 #pragma once
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
+#include <comdef.h>
+#include <Wbemidl.h>
 
 #include <iostream>
 #include <vector>
@@ -15,8 +18,6 @@
 #include <string>
 #include <algorithm>
 #include <ctime>
-#include <comdef.h>
-#include <Wbemidl.h>
 #include "../Defines.h"
 #include <iomanip>
 #include "MonitorTool.h"
@@ -28,7 +29,7 @@
 # pragma comment(lib, "wbemuuid.lib")
 using namespace std;
 
-class Settings;
+class HwaSettings;
 
 //-----------------------------------------------------------------
 // WMI Class
@@ -49,9 +50,9 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	QVector<HardwareSensor> getAllSensors();
+    QVector<Query> getAllSensors();
 	MonitorSystem getMonitorSystem();
-	HardwareSensor getData(Query);
+    double getData(Query);
 
 private:
 	//---------------------------
@@ -69,7 +70,7 @@ private:
 	IWbemServices *pSvc_;
 	IWbemClassObject *pclsObj_;
 	HRESULT hres_;
-	Settings * settings_;
+    HwaSettings * settings_;
 
 	// -------------------------
 	// Disabling default copy constructor and default assignment operator.
@@ -79,3 +80,4 @@ private:
 	WMI(const WMI& t);
 	WMI& operator=(const WMI& t);
 };
+#endif

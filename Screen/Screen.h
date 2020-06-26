@@ -2,7 +2,8 @@
 // Screen File
 // C++ Header - Screen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef SCREEN_H
+#define SCREEN_H
 
 //-----------------------------------------------------------------
 // Include Files
@@ -19,7 +20,13 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
-	Screen(CEzLcd*, QString name);
+
+#ifdef __linux__
+    Screen(QString name);
+#elif _WIN32
+    Screen(CEzLcd*, QString name);
+
+#endif
 
 	//---------------------------
 	// Destructor
@@ -37,22 +44,26 @@ public:
 	virtual void openCustomScreen();
 
 	virtual void setBackground(QString background);
-
+#ifdef _WIN32
 	CEzLcdPage* getPage();
+#endif
 
 	QString getBackground();
 
 protected:
 	// -------------------------
 	// Datamembers
-	// -------------------------	
-	CEzLcd * lcd_;
-	HBITMAP background_;
+    // -------------------------
+
+#ifdef _WIN32
+    CEzLcd * lcd_;
+    HBITMAP background_;
+    CEzLcdPage* screenPage_;
+#endif
+
 	QString name_;
 	QString backgroundString_;
 	bool firstStart_;
-
-	CEzLcdPage* screenPage_;
 	Data * data_;
 
 private:
@@ -65,3 +76,4 @@ private:
 	Screen(const Screen& t);
 	Screen& operator=(const Screen& t);
 };
+#endif

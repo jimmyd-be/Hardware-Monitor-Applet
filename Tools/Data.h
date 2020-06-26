@@ -2,14 +2,23 @@
 // Data File
 // C++ Header - Data.h - version v1.0 (2015-03-14)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef DATA_H
+#define DATA_H
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
 #include "../Defines.h"
+
+#ifdef __linux__
+#elif _WIN32
 #include "HWiNFO.h"
 #include "WMI.h"
+#endif
+
+#include "influxdb.h"
+
+#include "MonitorTool.h"
 
 //-----------------------------------------------------------------
 // Data Class
@@ -28,11 +37,11 @@ public:
 	//---------------------------
 	// General Methods
 	//---------------------------
-	QVector<HardwareSensor> getAllData(MonitorSystem system);
+    QVector<Query> getAllData(MonitorSystem system);
 	QStringList translateLines(QList<LineText>);
 	QList<double> translateLines(QList<GraphLine>);
 
-	HardwareSensor translateLine(Query);
+    double translateLine(Query);
 
 private:
 	//---------------------------
@@ -58,3 +67,4 @@ private:
 	Data(const Data& t);
 	Data& operator=(const Data& t);
 };
+#endif

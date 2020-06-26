@@ -1,12 +1,14 @@
 #include "mainwindow.h"
-#include "../Controller.h"
 
-MainWindow::MainWindow(QApplication* application, Logitech * logitech, Controller * controller, QWidget *parent)
-	: QMainWindow(parent), logitech_(logitech), controller_(controller), degreeGroup_(nullptr)
+MainWindow::MainWindow(Logitech * logitech,QWidget *parent)
+    : QMainWindow(parent), logitech_(logitech), degreeGroup_(nullptr)
 {
 	ui.setupUi(this);
 
-	createLanguageMenu();
+#ifdef __linux__
+    ui.menuAutostart->setDisabled(true);
+    ui.actionClose->setDisabled(true);
+#endif
 
 	keyboardChanged(logitech->getKeyboardType());
 
@@ -18,13 +20,13 @@ MainWindow::MainWindow(QApplication* application, Logitech * logitech, Controlle
 	autoStartGroup_->addAction(ui.actionEnable);
 	autoStartGroup_->addAction(ui.actionDisable);
 
-	if (Settings::getInstance()->getTemperature() == TemperatureType::Fahrenheit)
+	if (HwaSettings::getInstance()->getTemperature() == TemperatureType::Fahrenheit)
 	{
 		ui.actionFahrenheit->setChecked(true);
 	}
 
-	ui.actionEnable->setChecked(Settings::getInstance()->getAutoStart());
-	ui.actionDisable->setChecked(!Settings::getInstance()->getAutoStart());
+	ui.actionEnable->setChecked(HwaSettings::getInstance()->getAutoStart());
+	ui.actionDisable->setChecked(!HwaSettings::getInstance()->getAutoStart());
 
 	connect(ui.AddScreen_Button, SIGNAL(clicked()), this, SLOT(openScreenWizard()));
 	connect(ui.Order_pushButton, SIGNAL(clicked()), this, SLOT(openOrderWindow()));
@@ -36,6 +38,7 @@ MainWindow::MainWindow(QApplication* application, Logitech * logitech, Controlle
 	connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(openAboutWindow()));
 	connect(ui.actionEnable, SIGNAL(triggered()), this, SLOT(settingsChanged()));
 	connect(ui.actionDisable, SIGNAL(triggered()), this, SLOT(settingsChanged()));
+    connect(ui.actionChange_InfluxDb_settings, SIGNAL(triggered()), this, SLOT(openInfluxDialog()));
 
 	fillinPages();
 }
@@ -76,6 +79,14 @@ void MainWindow::keyboardChanged(KeyboardTypes type)
 	ui.statusBar->show();
 }
 
+void MainWindow::openInfluxDialog()
+{
+    InfluxDbDialog * dialog = new InfluxDbDialog();
+    dialog->exec();
+
+    delete dialog;
+}
+
 void MainWindow::closeEvent(QCloseEvent * event)
 {
 	closeWindow();
@@ -84,17 +95,24 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
 void MainWindow::closeWindow()
 {
-	controller_->closeSettingsScreen();
+    //controller_->closeSettingsScreen();
+
+#ifdef __linux__
+    QApplication::quit();
+#elif _WIN32
+    hide();
+#endif
 }
 
 void MainWindow::closeProgram()
 {
-	controller_->quitApplication();
+    QApplication::quit();
+    //controller_->quitApplication();
 }
 
 void MainWindow::reportIssue()
 {
-	QUrl url("https://bitbucket.org/jimmyD/hardware-monitor-applet-for-logitech-lcd/issues?status=new&status=open");
+    QUrl url("https://github.com/lonelobo0070/Hardware-Monitor-Applet/issues");
 	QDesktopServices::openUrl(url);
 }
 
@@ -121,20 +139,20 @@ void MainWindow::settingsChanged()
 {
 	if (ui.actionCelsius->isChecked())
 	{
-		Settings::getInstance()->setTemperature(TemperatureType::Celsius);
+		HwaSettings::getInstance()->setTemperature(TemperatureType::Celsius);
 	}
 	else if (ui.actionFahrenheit->isChecked())
 	{
-		Settings::getInstance()->setTemperature(TemperatureType::Fahrenheit);
+		HwaSettings::getInstance()->setTemperature(TemperatureType::Fahrenheit);
 	}
 
 	if (ui.actionEnable->isChecked())
 	{
-		Settings::getInstance()->setAutoStart(true);
+		HwaSettings::getInstance()->setAutoStart(true);
 	}
 	else if (ui.actionDisable->isChecked())
 	{
-		Settings::getInstance()->setAutoStart(false);
+		HwaSettings::getInstance()->setAutoStart(false);
 	}
 
 }
@@ -145,7 +163,9 @@ void MainWindow::fillinPages()
 
 	for (int i = 0; i < pages.size(); i++)
 	{
-		MainScreenWidget * widget = new MainScreenWidget(this, logitech_, pages[i]->getName(), pages[i]->getScreenType(), logitech_->isScreenActive(pages[i]->getName()));
+        MainScreenWidget * widget = new MainScreenWidget(logitech_, pages[i]->getName(), pages[i]->getScreenType(), logitech_->isScreenActive(pages[i]->getName()));
+
+        connect(widget, SIGNAL(refreshMainWindow()), this, SLOT(refreshPages()));
 
 		ui.ScreenList_Layout->addWidget(widget);
 
@@ -207,114 +227,3 @@ void MainWindow::openOrderWindow()
 	delete window;
 }
 
-void MainWindow::loadLanguage(const QString& rLanguage)
-{
-	if (m_currLang != rLanguage)
-	{
-		m_currLang = rLanguage;
-		QLocale locale = QLocale(m_currLang);
-		QLocale::setDefault(locale);
-		QString languageName = QLocale::languageToString(locale.language());
-		switchTranslator(m_translator, QString("HMA_%1.qm").arg(rLanguage));
-		ui.statusBar->showMessage(tr("Current Language changed to %1").arg(languageName));
-
-		Settings::getInstance()->setLanguage(rLanguage);
-	}
-}
-
-void MainWindow::switchTranslator(QTranslator& translator, const QString& filename)
-{
-	// remove the old translator
-	qApp_->removeTranslator(&translator);
-
-	// load the new translator
-	if (translator.load(QApplication::applicationDirPath() + "/Languages/" + filename))
-	{
-		qApp_->installTranslator(&translator);
-	}
-}
-
-// we create the menu entries dynamically, dependant on the existing translations.
-void MainWindow::createLanguageMenu()
-{
-	QActionGroup* langGroup = new QActionGroup(ui.menuLanguage);
-	langGroup->setExclusive(true);
-
-	connect(langGroup, SIGNAL(triggered(QAction *)), this, SLOT(slotLanguageChanged(QAction *)));
-
-	QString defaultLocale = Settings::getInstance()->getLanguage();
-	
-	// format systems language
-	if (defaultLocale.isEmpty())
-	{
-		defaultLocale = QLocale::system().name();       // e.g. "de_DE"
-		defaultLocale.truncate(defaultLocale.lastIndexOf('_')); // e.g. "de"
-	}
-
-	m_langPath = QApplication::applicationDirPath();
-	m_langPath.append("/Languages");
-	QDir dir(m_langPath);
-	QStringList fileNames = dir.entryList(QStringList("HMA_*.qm"));
-
-	for (int i = 0; i < fileNames.size(); ++i)
-	{
-		// get locale extracted by filename
-		QString locale;
-		locale = fileNames[i];                  // "TranslationExample_de.qm"
-		locale.truncate(locale.lastIndexOf('.'));   // "TranslationExample_de"
-		locale.remove(0, locale.indexOf('_') + 1);   // "de"
-
-		QString lang = QLocale::languageToString(QLocale(locale).language());
-		QIcon ico(QString("%1/%2.png").arg(m_langPath).arg(locale));
-
-		QAction *action = new QAction(ico, lang, this);
-		action->setCheckable(true);
-		action->setData(locale);
-
-		ui.menuLanguage->addAction(action);
-		langGroup->addAction(action);
-
-		// set default translators and language checked
-		if (defaultLocale == locale)
-		{
-			action->setChecked(true);
-			slotLanguageChanged(action);
-		}
-	}
-
-	connect(langGroup, SIGNAL(triggered(QAction *)), this, SLOT(slotLanguageChanged(QAction *)));
-}
-
-// Called every time, when a menu entry of the language menu is called
-void MainWindow::slotLanguageChanged(QAction* action)
-{
-	if (0 != action)
-	{
-		// load the language dependant on the action content
-		loadLanguage(action->data().toString());
-	}
-}
-
-void MainWindow::changeEvent(QEvent* event)
-{
-	if (0 != event)
-	{
-		switch (event->type())
-		{
-			// this event is send if a translator is loaded
-		case QEvent::LanguageChange:
-			ui.retranslateUi(this);
-			break;
-			// this event is send, if the system, language changes
-		case QEvent::LocaleChange:
-		{
-			QString locale = QLocale::system().name();
-			locale.truncate(locale.lastIndexOf('_'));
-			loadLanguage(locale);
-		}
-		break;
-		}
-	}
-
-	QMainWindow::changeEvent(event);
-}

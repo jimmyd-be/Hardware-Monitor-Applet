@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GRAPHPAGELINEWIDGET_H
+#define GRAPHPAGELINEWIDGET_H
+
 #include "../Defines.h"
 #include <QColorDialog>
 #include "ui_GraphPageLineWidget.h"
@@ -24,7 +26,9 @@ private slots:
 private:
 	int randInt(int low, int high);
 
+    Query query_;
 	QPalette palette_;
 	QColor color_;
 };
 
+#endif

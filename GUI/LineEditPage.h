@@ -1,8 +1,9 @@
-#pragma once
+#ifndef LINEEDITPAGE_H
+#define LINEEDITPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
-#include "Ui_LineEditPageWidget.h"
+#include "ui_LineEditPageWidget.h"
 #include "LineEditPageLineWidget.h"
 #include "DataPage.h"
 
@@ -29,7 +30,7 @@ private:
 	void loadLines(QList<LineText> lines);
 	void removeLines();
 	
-	Ui::LineEditPageWidget ui;
+    Ui::LineEditPageWidget ui;
 	QWidget *widget_;
 	QVBoxLayout *layout_;
 
@@ -37,3 +38,4 @@ private:
 
 	DataPage * dataPage_;
 };
+#endif

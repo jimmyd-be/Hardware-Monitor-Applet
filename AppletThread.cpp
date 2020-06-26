@@ -1,3 +1,4 @@
+#ifdef _WIN32
 //-----------------------------------------------------------------
 // AppletThread File
 // C++ Source - AppletThread.cpp - version 0.1 (2013/06/13)
@@ -166,3 +167,4 @@ void AppletThread::updatePage()
 	}
 	currentScreen->draw();
 }
+#endif

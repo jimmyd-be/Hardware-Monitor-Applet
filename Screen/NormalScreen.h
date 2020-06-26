@@ -2,7 +2,8 @@
 // NormalScreen File
 // C++ Header - NormalScreen.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef NORMALSCREEN_H
+#define NORMALSCREEN_H
 
 //-----------------------------------------------------------------
 // Include Files
@@ -18,7 +19,12 @@ public:
 	//---------------------------
 	// Constructor(s)
 	//---------------------------
+
+#ifdef _WIN32
 	NormalScreen(CEzLcd*, QString);
+#elif __linux__
+    NormalScreen(QString);
+#endif
 
 	//---------------------------
 	// Destructor
@@ -57,3 +63,5 @@ private:
 	NormalScreen(const NormalScreen& t);
 	NormalScreen& operator=(const NormalScreen& t);
 };
+
+#endif

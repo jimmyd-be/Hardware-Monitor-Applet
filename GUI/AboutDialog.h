@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
 #include "qguiapplication.h"
 #include "ui_AboutDialog.h"
@@ -22,3 +23,4 @@ private:
 	QWidget *widget_;
 
 };
+#endif

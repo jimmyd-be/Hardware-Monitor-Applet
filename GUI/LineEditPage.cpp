@@ -77,7 +77,7 @@ void LineEditPage::initializePage()
 	
 	while (i != items.constEnd())
 	{
-		HardwareSensor sensor = Data::Instance()->translateLine(i.value());
+        //HardwareSensor sensor = Data::Instance()->translateLine(i.value());
 
 		QTableWidgetItem * idItem = new QTableWidgetItem();
 		QTableWidgetItem * nameItem = new QTableWidgetItem();
@@ -85,9 +85,9 @@ void LineEditPage::initializePage()
 		QTableWidgetItem * valueItem = new QTableWidgetItem();
 		QTableWidgetItem * precisionItem = new QTableWidgetItem();
 		QTableWidgetItem * symbolItem = new QTableWidgetItem();
-		QTableWidgetItem * unitItem = new QTableWidgetItem();
 		QTableWidgetItem * unitStringItem = new QTableWidgetItem();
 		QTableWidgetItem * hardwareItem = new QTableWidgetItem();
+        QTableWidgetItem * fieldItem = new QTableWidgetItem();
 
 		idItem->setText(i.value().identifier);
 		nameItem->setText(i.value().name);
@@ -95,9 +95,9 @@ void LineEditPage::initializePage()
 		valueItem->setText(Defines::translateQueryValueEnum(i.value().value));
 		precisionItem->setText(QString::number(i.value().precision));
 		symbolItem->setText(i.key());
-		unitItem->setText(QString(i.value().addUnit ? "True" : "False"));
-		unitStringItem->setText(sensor.unit);
-		hardwareItem->setText(sensor.hardware);
+        unitStringItem->setText(i.value().unit);
+        hardwareItem->setText(i.value().hardware);
+        fieldItem->setText(i.value().field);
 
 		ui.Data_tableWidget->setItem(newRow, 0, idItem);
 		ui.Data_tableWidget->setItem(newRow, 1, symbolItem);
@@ -105,9 +105,9 @@ void LineEditPage::initializePage()
 		ui.Data_tableWidget->setItem(newRow, 3, systemItem);
 		ui.Data_tableWidget->setItem(newRow, 4, valueItem);
 		ui.Data_tableWidget->setItem(newRow, 5, precisionItem);
-		ui.Data_tableWidget->setItem(newRow, 6, unitItem);
-		ui.Data_tableWidget->setItem(newRow, 7, unitStringItem);
-		ui.Data_tableWidget->setItem(newRow, 8, hardwareItem);
+        ui.Data_tableWidget->setItem(newRow, 6, unitStringItem);
+        ui.Data_tableWidget->setItem(newRow, 7, hardwareItem);
+        ui.Data_tableWidget->setItem(newRow, 8, fieldItem);
 		
 		++i;
 		newRow++;

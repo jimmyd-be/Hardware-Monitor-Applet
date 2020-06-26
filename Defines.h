@@ -2,15 +2,20 @@
 // Defines File
 // C++ Header - Defines.h - version 0.1 (2014/08/31)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef DEFINES_H
+#define DEFINES_H
 
 //-----------------------------------------------------------------
 // Include Files
 //-----------------------------------------------------------------
+
+#ifdef _WIN32
 #include <external\Logitech\EZ_LCD.h>
+#include <QtWinExtras\qwinfunctions.h>
+#endif
+
 #include <qdir.h>
 #include <qpixmap.h>
-#include <QtWinExtras\qwinfunctions.h>
 #include <QVector>
 #include <qactiongroup.h>
 #include <qobject.h>
@@ -21,12 +26,12 @@
 
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, Legend, No};
-enum QueryValue {Name, Current, Max, Min, Hardware};
-enum MonitorSystem { OHM, HWiNFO, NONE };
+enum MonitorSystem { OHM, HWiNFO, INFLUXDB, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };
 enum PageDirection {Next, Previous, Up, Down};
+enum QueryValue {Current, Max, Min};
 
 struct Query{
 	MonitorSystem system;
@@ -34,23 +39,29 @@ struct Query{
 	QString name;
 	QueryValue value;
 	int precision;
-	bool addUnit;
+    QString hardware;
+    QString field;
+    QString unit;
 
 	bool operator == (const Query& rhs)
 	{
-		return system == rhs.system &&
-			identifier == rhs.identifier &&
-			name == rhs.name &&
-			value == rhs.value &&
-			precision == rhs.precision &&
-			addUnit == rhs.addUnit;
-	}
+            return system == rhs.system &&
+                    identifier == rhs.identifier &&
+                    name == rhs.name &&
+                    value == rhs.value &&
+                    precision == rhs.precision &&
+                    hardware == rhs.hardware &&
+                    field == rhs.hardware &&
+                    unit == rhs.unit;
+    }
 };
 
 struct LineText{
 	QString text;
 	QMap<QString, Query> queryMap;
-	HANDLE textHandle;
+    #ifdef _WIN32
+    HANDLE textHandle;
+    #endif
 };
 
 struct GraphLine{
@@ -76,16 +87,6 @@ struct AppletFont{
 	QColor color;
 };
 
-struct HardwareSensor{
-	QString id;
-	QString name;
-	double value;
-	double max;
-	double min;
-	QString unit;
-	QString hardware;
-};
-
 struct CustomSettings
 {
 	Alignment aligment;
@@ -95,11 +96,22 @@ struct CustomSettings
 	int lineSpacing;
 };
 
+
+struct InfluxDbSettings
+{
+    QString hostname;
+    int port;
+    QString username;
+    QString password;
+    QString database;
+};
+
 struct GeneralSettings
 {
 	TemperatureType temperature;
 	bool autoStart;
 	QString language;
+    InfluxDbSettings influxDbSettings;
 };
 
 const QChar degreeChar(0260);
@@ -135,3 +147,4 @@ class Defines
 		//---------------------------
 		~Defines();
 };
+#endif

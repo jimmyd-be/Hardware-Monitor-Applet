@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CUSTOMIZEPAGE_H
+#define CUSTOMIZEPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
@@ -48,3 +49,4 @@ private:
 	KeyboardTypes lcdType_;
 
 };
+#endif

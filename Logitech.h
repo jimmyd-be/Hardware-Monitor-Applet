@@ -1,8 +1,9 @@
+#ifndef LOGITECH_H
+#define LOGITECH_H
 //-----------------------------------------------------------------
 // Logitech File
 // C++ Header - Logitech.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
 
 //-----------------------------------------------------------------
 // Include Files
@@ -10,12 +11,12 @@
 
 #include "Defines.h"
 
-#include "Screen\StartScreen.h"
-#include "Screen\NormalScreen.h"
-#include "Screen\GraphScreen.h"
+#include "Screen/StartScreen.h"
+#include "Screen/NormalScreen.h"
+#include "Screen/GraphScreen.h"
 
 
-class Settings;
+class HwaSettings;
 class AppletThread;
 
 //-----------------------------------------------------------------
@@ -78,7 +79,9 @@ private:
 	Screen * currentScreen_;
 	Screen * currentMainScreen_;
 	
+    #ifdef _WIN32
 	CEzLcd lcd_;
+#endif
 
 	QList<Screen *> screenList_;
 	QList<Screen *> mainOrder_;
@@ -92,3 +95,5 @@ private:
 	Logitech(const Logitech& t);
 	Logitech& operator=(const Logitech& t);
 };
+
+#endif

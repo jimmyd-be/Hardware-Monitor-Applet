@@ -25,8 +25,12 @@ Defines::~Defines()
 
 QString Defines::getSettingsFolder()
 {
-	QString directory = QDir::homePath() + "/AppData/Roaming/Hardware Monitor Applet";
-
+    QString directory;
+    #ifdef _WIN32
+    directory = QDir::homePath() + "/AppData/Roaming/Hardware Monitor Applet";
+    #elif __linux__
+    directory = QDir::home().absolutePath() + "/.config/HWA";
+    #endif
 	QDir dir(directory);
 
 	if (!dir.exists())
@@ -47,9 +51,11 @@ QString Defines::translateMonitorSystemEnum(MonitorSystem system)
 	case MonitorSystem::OHM:
 		return "OHM";
 		break;
+     case MonitorSystem::INFLUXDB:
+        return "InfluxDb";
+     default:
+        return "NONE";
 	};
-
-	return "NONE";
 }
 
 QString Defines::translateQueryValueEnum(QueryValue value)
@@ -66,12 +72,6 @@ QString Defines::translateQueryValueEnum(QueryValue value)
 	case QueryValue::Min:
 		return "Min";
 		break;
-	case QueryValue::Name:
-		return "Name";
-		break;
-	case QueryValue::Hardware:
-		return "Hardware";
-		break;
 	};
 
 	return "";
@@ -87,6 +87,10 @@ MonitorSystem Defines::translateMonitorSystemEnum(QString string)
 	{
 		return MonitorSystem::OHM;
 	}
+    else if(string == "InfluxDb")
+    {
+        return MonitorSystem::INFLUXDB;
+    }
 
 	return MonitorSystem::NONE;
 }
@@ -106,14 +110,6 @@ QueryValue Defines::translateQueryValueEnum(QString string)
 		else if (string == "Min")
 		{
 			value = QueryValue::Min;
-		}
-		else if (string == "Name")
-		{
-			value = QueryValue::Name;
-		}
-		else if (string == "Hardware")
-		{
-			value = QueryValue::Hardware;
 		}
 
 		return value;

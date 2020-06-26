@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #ifndef _HWISENSSM2_H_INCLUDED_
 #define _HWISENSSM2_H_INCLUDED_
 
@@ -119,3 +121,5 @@ if (hHWiNFOMemory)
 }
 
 */
+#endif
+

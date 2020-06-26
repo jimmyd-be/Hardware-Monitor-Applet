@@ -1,4 +1,4 @@
-#include "singleapplication.h"
+#include "SingleApplication.h"
 
 /**
  * @brief SingleApplication::SingleApplication

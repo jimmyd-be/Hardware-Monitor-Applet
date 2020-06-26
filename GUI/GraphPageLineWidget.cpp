@@ -1,11 +1,11 @@
 #include "GraphPageLineWidget.h"
 
-#include "mainwindow.h"
-
 GraphPageLineWidget::GraphPageLineWidget(QString symbol, Query query, QWidget *parent)
 	: QWidget(parent)
 {
 	setupUi(this);
+
+    query_ = query;
 
 	Id_label->hide();
 	Symbol_label->hide();
@@ -86,15 +86,15 @@ QPair<QString, Query> GraphPageLineWidget::getValue()
 {
 	QPair<QString, Query> pair;
 	
-	Query query;
+    /*Query query;
 	query.identifier = Id_label->text();
 	query.system = Defines::translateMonitorSystemEnum(System_label->text());
 	query.name = Name_label->text();
 	query.value = Defines::translateQueryValueEnum(Value_label->text());
-	query.precision = 0;
+    query.precision = 0;*/
 
 	pair.first = Label_lineEdit->text();
-	pair.second = query;
+    pair.second = query_;
 
 	return pair;
 }

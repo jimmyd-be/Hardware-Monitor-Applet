@@ -1,4 +1,4 @@
-name: Hardware Monitor Applet
+name: Windows
 
 on: [push]
 
@@ -13,18 +13,12 @@ jobs:
       with:
         toolset: '14.16'
         arch: 'x64'
-    - name: Cache Qt
-      id: cache-qt
-      uses: actions/cache@v1
-      with:
-        path: ../Qt
-        key: ${{ runner.os }}-QtCache
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
+        version: 5.12.9
         arch: 'win64_msvc2017_64'
         host: 'windows'
-        cached: ${{ steps.cache-qt.outputs.cache-hit }}
     - name: Qmake HWA
       run: qmake Hardware-Monitor-Applet.pro -spec win32-msvc
       env:
@@ -33,9 +27,15 @@ jobs:
       run: nmake /A
     - name: Package with binaries
       run: windeployqt release
+    - name: Download Visual C redistribution
+      run: Invoke-WebRequest https://aka.ms/vs/16/release/vc_redist.x64.exe -OutFile .\release\vcredist_x64.exe
+    - name: Clean release directory
+      run: del release\*.obj && del release\*.cpp
+    - name: Create Installer
+      run: ISCC.exe HWMA_setup.iss
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: X64
-        path: ${{ github.workspace }}\release\**
+        path: ${{ github.workspace }}\build\installer\*.exe
       

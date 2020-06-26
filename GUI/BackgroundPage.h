@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BACKGROUNDPAGE_H
+#define BACKGROUNDPAGE_H
 
 #include "qwizard.h"
 #include "qguiapplication.h"
@@ -32,3 +33,4 @@ private slots:
 	void radioButtonClicked();
 	void browseButtonClicked();
 };
+#endif

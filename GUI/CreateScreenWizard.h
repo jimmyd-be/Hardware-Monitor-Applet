@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CREATESCREENWIZARD_H
+#define CREATESCREENWIZARD_H
 
 #include "qwizard.h"
 #include "IntroPage.h"
@@ -9,7 +10,7 @@
 #include "CustomizePage.h"
 #include "GraphPage.h"
 #include "../Logitech.h"
-#include "../Settings.h"
+#include "../HwaSettings.h"
 
 class CreateScreenWizard : public QWizard
 {
@@ -42,3 +43,4 @@ private:
 	int width_ = 900;
 	int height_ = 800;
 };
+#endif

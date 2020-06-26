@@ -1,8 +1,10 @@
+#ifdef _WIN32
 //-----------------------------------------------------------------
 // AppletThread File
 // C++ Header - AppletThread.h - version 0.1 (2013/06/13)
 //-----------------------------------------------------------------
-#pragma once
+#ifndef APPLETTHREAD_H
+#define APPLETTHREAD_H
 
 //-----------------------------------------------------------------
 // Include Files
@@ -58,3 +60,5 @@ private:
 	AppletThread(const AppletThread& t);
 	AppletThread& operator=(const AppletThread& t);
 };
+#endif
+#endif

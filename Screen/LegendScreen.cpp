@@ -16,10 +16,17 @@
 //-----------------------------------------------------------------
 // LegendScreen methods
 //-----------------------------------------------------------------
+#ifdef __linux__
+LegendScreen::LegendScreen(QString name) : Screen(name), Xpos_(0), settings_({ 0 }), firstrun_(true)
+{
+    setBackground("");
+}
+#elif _WIN32
 LegendScreen::LegendScreen(CEzLcd * logitech, QString name) : Screen(logitech, name), Xpos_(0), settings_({ 0 }), firstrun_(true)
 {
-	setBackground("");
+    setBackground("");
 }
+#endif
 
 LegendScreen::~LegendScreen()
 {
@@ -32,6 +39,7 @@ ScreenType LegendScreen::getScreenType()
 
 void LegendScreen::draw()
 {
+    #ifdef _WIN32
 	if (firstrun_)
 	{
 		lcd_->ModifyControlsOnPage(screenPage_);
@@ -44,18 +52,17 @@ void LegendScreen::draw()
 
 		for (int i = 0; i < graphData_.size(); i++)
 		{
-			HardwareSensor sensor = data_->translateLine(graphData_[i].query);
-
 			HANDLE lineHandle = lcd_->AddCustomText(LG_STATIC_TEXT, 14, DT_LEFT, 320, LG_FONT, false);
 
 			lcd_->SetOrigin(lineHandle, 0, (18 * (i + 1)) + 10);
 			lcd_->SetTextFontColor(lineHandle, RGB(graphData_[i].color.red(), graphData_[i].color.green(), graphData_[i].color.blue()));
-			lcd_->SetText(lineHandle, (LPCTSTR)(graphData_[i].text + " (" + sensor.unit + ")").utf16());
+            lcd_->SetText(lineHandle, (LPCTSTR)(graphData_[i].text + " (" + graphData_[i].query.unit + ")").utf16());
 		}
 
 		firstrun_ = false;
 	}
 	lcd_->ShowPage(screenPage_);
+#endif
 }
 
 void LegendScreen::update()

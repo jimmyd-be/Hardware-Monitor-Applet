@@ -104,7 +104,7 @@ QPushButton:hover {
          <x>0</x>
          <y>0</y>
          <width>969</width>
-         <height>634</height>
+         <height>631</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -136,13 +136,14 @@ QPushButton:hover {
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>987</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -172,6 +173,7 @@ QPushButton:hover {
     </widget>
     <addaction name="menuTemperature_Unit"/>
     <addaction name="menuAutostart"/>
+    <addaction name="actionChange_InfluxDb_settings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -180,17 +182,10 @@ QPushButton:hover {
     <addaction name="actionReport_a_bug"/>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuLanguage">
-    <property name="title">
-     <string>Language</string>
-    </property>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
-   <addaction name="menuLanguage"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionHelp">
    <property name="text">
     <string>Help</string>
@@ -321,6 +316,11 @@ QPushButton:hover {
    </property>
    <property name="text">
     <string>Disable</string>
+   </property>
+  </action>
+  <action name="actionChange_InfluxDb_settings">
+   <property name="text">
+    <string>Change InfluxDb settings</string>
    </property>
   </action>
  </widget>
