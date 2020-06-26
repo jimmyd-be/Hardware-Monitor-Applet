@@ -57,16 +57,14 @@ Source: "release\Hardware-Monitor-Applet.exe"; DestDir: "{app}"; Check: Is64BitI
 Source: "release\*"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
 Source: "release\vcredist_x64.exe"; DestDir: {tmp}; Check: Is64BitInstallMode; Flags: deleteafterinstall
 
-; Place all x86 files here, first one should be marked 'solidbreak'
-;Source: "E:\Downloads\Hardware Monitor Applet\X86\Hardware Monitor Applet.exe"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly solidbreak
-;Source: "E:\Downloads\Hardware Monitor Applet\X86\*"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion overwritereadonly recursesubdirs createallsubdirs
-;Source: "E:\Downloads\Hardware Monitor Applet\vcredist_x86.exe"; DestDir: {tmp}; Check: not Is64BitInstallMode; Flags: deleteafterinstall
-
 ; Place all common files here, first one should be marked 'solidbreak'
 Source: "README.md"; DestDir: "{app}"; Flags: ignoreversion  overwritereadonly solidbreak
 Source: "license.txt"; DestDir: "{app}"; Flags: ignoreversion  overwritereadonly
 Source: "G15.ttf"; DestDir: "{fonts}"; FontInstall: "G15"; Flags: onlyifdoesntexist uninsneveruninstall
-;Source: "settings.ini"; DestDir: {userappdata}\Hardware Monitor Applet
+
+; attempt to remove previous versions
+[InstallDelete]
+Type: filesandordirs; Name: {app}\*;
 
 [Icons]
 ; start menu
