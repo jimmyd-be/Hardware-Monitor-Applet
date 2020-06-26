@@ -7,6 +7,7 @@ Hardware Monitor Applet is an applet that usses the LCD from some Logitech gamin
 ## System requirements
 ### Windows
 - Operating system: Vista (SP2), 7 (SP1), 8 (8.1), 10
+- Version 2.0 does only support x64
 - Logitech keyboard: G13, G15, G510, G19, G910
 - [Logitech Gaming Software (8.52 or higher)](https://support.logitech.com/nl_be/Product/gaming-software)
 - [Visual C++ Redistributable for Visual Studio 2013](http://www.microsoft.com/en-us/download/details.aspx?id=40784)
@@ -16,6 +17,9 @@ Hardware Monitor Applet is an applet that usses the LCD from some Logitech gamin
 - Logitech keyboard: G19
 - Required software: [G19Daemon](https://github.com/mortendynamite/g19daemon)
 - [InfluxDb](https://www.influxdata.com/)
+
+## Manual
+Manual can be read on the [Manual page](manual.md).
 
 ## Changelog
 ### HMA Version 2.0 (TBA)
