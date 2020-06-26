@@ -5,6 +5,11 @@ CreateScreenWizard::CreateScreenWizard(Logitech * logitech, QWidget *parent)
 	introPage_(nullptr), backgroundPage_(nullptr), screenTypePage_(nullptr), dataPage_(nullptr), lineEditPage_(nullptr), graphPage_(nullptr), customizePage_(nullptr)
 {
 
+    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint |
+                                   Qt::WindowMinimizeButtonHint |
+                                   Qt::WindowMaximizeButtonHint |
+                                   Qt::WindowCloseButtonHint);
+
 	introPage_ = new IntroPage(logitech_->getScreenList(), logitech_->getKeyboardType());
 	backgroundPage_ = new BackgroundPage();
 	screenTypePage_ = new ScreenTypePage(logitech_->getKeyboardType());
