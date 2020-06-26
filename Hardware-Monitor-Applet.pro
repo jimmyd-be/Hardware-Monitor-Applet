@@ -171,10 +171,6 @@ FORMS += \
     GUI/ScreenTypePageWidget.ui \
     GUI/SortScreenDialog.ui
 
-TRANSLATIONS += \
-    Languages/HMA_en.ts \
-    Languages/HMA_nl.ts
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
