@@ -22,7 +22,11 @@ Hardware Monitor Applet is an applet that usses the LCD from some Logitech gamin
 Manual can be read on the [Manual page](manual.md).
 
 ## Changelog
-### HMA Version 2.0 (TBA)
+### HMA Version 2.1 (TBA)
+- Add bash command support in Linux
+- Fixed some bugs
+
+### HMA Version 2.0 (26-06-2020)
 - Add Linux support
 - Add InfluxDB support
 - Some GUI changes

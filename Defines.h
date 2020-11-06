@@ -26,7 +26,7 @@
 
 enum KeyboardTypes {Color, Monochrome, None};
 enum ScreenType {Normal, Graph, Start, Legend, No};
-enum MonitorSystem { OHM, HWiNFO, INFLUXDB, NONE };
+enum MonitorSystem { OHM, HWiNFO, INFLUXDB, COMMAND, NONE };
 enum Page{ Page_Intro, Page_Background, Page_Type, Page_Data, Page_LineEdit, Page_GraphEdit, Page_Customize };
 enum TemperatureType { Celsius, Fahrenheit };
 enum Alignment { Left, Center, Right };

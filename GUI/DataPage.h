@@ -44,7 +44,9 @@ private:
 	ScreenTypePage *  screenTypePage_;
     QVector<Query> data;
 
-	private slots:
+    void addLineToWidget(QTableWidget* tableWidget, QString system, int newRow, QList<QTableWidgetItem*> selectedItems);
+
+private slots:
 	void addButtonClicked();
 	void removeButtonClicked();
 };

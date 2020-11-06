@@ -17,6 +17,7 @@
 #endif
 
 #include "influxdb.h"
+#include "commandtool.h"
 
 #include "MonitorTool.h"
 
