@@ -54,12 +54,13 @@ Data::Data()
 
     tools_.append(wmi);
     tools_.append(hwinfo);
+#elif __LINUX__
+    CommandTool * commandTool = new CommandTool();
+    tools_.append(commandTool);
 #endif
 
     MonitorTool * influx = new InfluxDb(nullptr);
-
     tools_.append(influx);
-
 }
 
 /// <summary>

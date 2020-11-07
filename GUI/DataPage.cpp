@@ -199,6 +199,30 @@ void DataPage::clearData(MonitorSystem system)
 	widget->clearContents();
 }
 
+void DataPage::addLineToWidget(QTableWidget* tableWidget, QString system, int newRow, QList<QTableWidgetItem*> selectedItems)
+{
+    for (QTableWidgetItem * item : selectedItems)
+    {
+        if (!(screenTypePage_->getScreenType() == ScreenType::Graph && item->column() == 1 && item->column() == 2))
+        {
+            Query queryItem;
+            queryItem.identifier = tableWidget->item(item->row(), 0)->text();
+            queryItem.name = tableWidget->item(item->row(), 2)->text();
+            queryItem.system = Defines::translateMonitorSystemEnum(system);
+            queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
+            queryItem.precision = 0;
+            queryItem.hardware = tableWidget->item(item->row(), 1)->text();
+
+
+            insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system,
+                                     tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(),
+                                     queryItem.unit, tableWidget->item(item->row(), 1)->text(), queryItem.field);
+
+            newRow += 1;
+        }
+    }
+}
+
 void DataPage::addButtonClicked()
 {
 	QList<QTableWidgetItem*> selectedItems;
@@ -213,6 +237,8 @@ void DataPage::addButtonClicked()
 		tableWidget = ui.OHM_tableWidget;
 
 		system = Defines::translateMonitorSystemEnum(MonitorSystem::OHM);
+
+        addLineToWidget(tableWidget, system, newRow, selectedItems);
 	}
     else if (ui.TabWidget->currentWidget() == ui.HWiNFOTab)
     {
@@ -220,6 +246,8 @@ void DataPage::addButtonClicked()
         tableWidget = ui.HWiNFO_tableWidget;
 
         system = Defines::translateMonitorSystemEnum(MonitorSystem::HWiNFO);
+
+        addLineToWidget(tableWidget, system, newRow, selectedItems);
     }
     else if (ui.TabWidget->currentWidget() == ui.InfluxTab)
     {
@@ -227,28 +255,30 @@ void DataPage::addButtonClicked()
         tableWidget = ui.Influx_tableWidget;
 
         system = Defines::translateMonitorSystemEnum(MonitorSystem::INFLUXDB);
+
+        addLineToWidget(tableWidget, system, newRow, selectedItems);
+    }
+    else if(ui.TabWidget->currentWidget() == ui.CommandTab)
+    {
+        system = Defines::translateMonitorSystemEnum(MonitorSystem::COMMAND);
+
+        Query queryItem;
+        queryItem.identifier = "";
+        queryItem.name = ui.nameCommandLineEdit->text();
+        queryItem.system = Defines::translateMonitorSystemEnum(system);
+        queryItem.value = QueryValue::Current;
+        queryItem.precision = 0;
+        queryItem.hardware = ui.commandLineEdit->text();
+
+
+        insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system,
+                                 Defines::translateQueryValueEnum(queryItem.value), QString::number(queryItem.precision), foundNextSymbol(),
+                                 queryItem.unit, queryItem.hardware, queryItem.field);
+
+        newRow += 1;
     }
 
-	for (QTableWidgetItem * item : selectedItems)
-	{
-		if (!(screenTypePage_->getScreenType() == ScreenType::Graph && item->column() == 1 && item->column() == 2))
-		{
-			Query queryItem;
-			queryItem.identifier = tableWidget->item(item->row(), 0)->text();
-			queryItem.name = tableWidget->item(item->row(), 2)->text();
-			queryItem.system = Defines::translateMonitorSystemEnum(system);
-			queryItem.value = Defines::translateQueryValueEnum(tableWidget->horizontalHeaderItem(item->column())->text());
-            queryItem.precision = 0;
-            queryItem.hardware = tableWidget->item(item->row(), 1)->text();
 
-
-            insertLineToSelectedData(newRow, queryItem.identifier, queryItem.name, system,
-                                     tableWidget->horizontalHeaderItem(item->column())->text(), QString::number(queryItem.precision), foundNextSymbol(),
-                                     queryItem.unit, tableWidget->item(item->row(), 1)->text(), queryItem.field);
-
-            newRow += 1;
-		}
-	}
 }
 
 void DataPage::removeButtonClicked()

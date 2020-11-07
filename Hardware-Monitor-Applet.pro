@@ -94,6 +94,7 @@ SOURCES += \
     Screen/StartScreen.cpp \
     Tools/Data.cpp \
     Tools/MonitorTool.cpp \
+    Tools/commandtool.cpp \
     Tools/influxdb.cpp \
     external/QCustomPlot/qcustomplot.cpp \
     external/QSingleApplication/SingleApplication.cpp \
@@ -147,6 +148,7 @@ HEADERS += \
     Screen/StartScreen.h \
     Tools/Data.h \
     Tools/MonitorTool.h \
+    Tools/commandtool.h \
     Tools/influxdb.h \
     external/QCustomPlot/qcustomplot.h \
     external/QSingleApplication/SingleApplication.h \
