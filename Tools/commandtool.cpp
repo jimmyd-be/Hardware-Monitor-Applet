@@ -25,6 +25,8 @@ MonitorSystem CommandTool::getMonitorSystem()
 
 double CommandTool::getData(Query query)
 {
+#ifdef __LINUX__
+
     QString command = query.hardware;
 
     qDebug() << "Command: " << command;
@@ -39,5 +41,7 @@ double CommandTool::getData(Query query)
     qDebug() << "Command result: " << stdout;
 
     return stdout.toDouble();
-
+#else
+    return 0;
+#endif
 }
