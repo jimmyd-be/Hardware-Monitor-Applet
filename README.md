@@ -2,7 +2,7 @@
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
 # Hardware-Monitor-Applet
-Hardware Monitor Applet is an applet that usses the LCD from some Logitech gaming keyboards (eg. G15, G19, G910). This applet uses the information comming from Open Hardware Monitor or HWiNFO and displays it on the LCD. The Applet can only be used on a Windows operating system.
+Hardware Monitor Applet is an applet that usses the LCD from some Logitech gaming keyboards (eg. G15, G19, G910). This applet uses the information comming from Open Hardware Monitor or HWiNFO and displays it on the LCD. The Applet can be used on Linux and Windows.
 
 ## System requirements
 ### Windows
