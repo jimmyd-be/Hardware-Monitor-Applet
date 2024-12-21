@@ -4,16 +4,16 @@ on: [push]
 
 jobs:
   x64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     
     steps:
     - uses: actions/checkout@v2
     - name: Install QT
-      run: sudo apt-get install qt5-default
+      run: sudo apt-get install qt6-base-dev build-essential cmake
     - name: Build
       run: sh ./build.sh
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: X64_linux
         path: ${{ github.workspace }}/Hardware_Monitor_Applet_Configurator*.AppImage
