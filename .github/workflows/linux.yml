@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install QT
-      run: sudo apt-get install qt6-base-dev build-essential cmake qt6-base
+      run: sudo apt-get install qt6-base-dev build-essential cmake qt6-base qmake
     - name: Build
       run: sh ./build.sh
     - name: Upload artifact
