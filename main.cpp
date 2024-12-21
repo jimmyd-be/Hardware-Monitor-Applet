@@ -1,7 +1,7 @@
 #include <QtWidgets/QApplication>
 #include <external/QSingleApplication/SingleApplication.h>
 #include "Controller.h"
-#include <QTextCodec>
+// #include <QTextCodec>
 
 //Leak detector
 //#include <vld.h>

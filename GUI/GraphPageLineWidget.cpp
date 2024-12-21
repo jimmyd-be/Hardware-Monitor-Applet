@@ -1,5 +1,7 @@
 #include "GraphPageLineWidget.h"
 
+#include <qrandom.h>
+
 GraphPageLineWidget::GraphPageLineWidget(QString symbol, Query query, QWidget *parent)
 	: QWidget(parent)
 {
@@ -79,7 +81,7 @@ void GraphPageLineWidget::openColorPicker()
 int GraphPageLineWidget::randInt(int low, int high)
 {
 	// Random number between low and high
-	return qrand() % ((high + 1) - low) + low;
+	return QRandomGenerator::global()->generate() % ((high + 1) - low) + low;
 }
 
 QPair<QString, Query> GraphPageLineWidget::getValue()

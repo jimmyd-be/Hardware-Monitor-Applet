@@ -151,19 +151,16 @@ void GraphScreen::setSettings(GraphSettings settings)
 
 	legendScreen_->setSettings(settings_);
 
-	if (settings_.addTitle)
-	{
+	if (settings_.addTitle) {
 		plot_->plotLayout()->insertRow(0);
-		
-		QCPPlotTitle * plotTitle = new QCPPlotTitle(plot_, name_);
-		plotTitle->setFont(settings.titleFont);
-		plotTitle->setTextColor(settings.titleColor);
 
-		plot_->plotLayout()->addElement(0, 0, plotTitle);
+		auto * text = new QCPTextElement(plot_, name_, settings.titleFont);
+		text->setTextColor(settings.titleColor);
+
+		plot_->plotLayout()->addElement(0, 0, text);
 	}
 
-	if (settings_.yMaxRange != -1 && settings_.yMinRange != -1)
-	{
+	if (settings_.yMaxRange != -1 && settings_.yMinRange != -1) {
 		plot_->yAxis->setRange(settings_.yMinRange, settings_.yMaxRange);
 	}
 }

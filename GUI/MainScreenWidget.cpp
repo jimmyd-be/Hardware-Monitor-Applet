@@ -20,7 +20,7 @@ MainScreenWidget::MainScreenWidget(Logitech * logitech, QString name, ScreenType
 	}
 
 	QPalette p(palette());
-	p.setColor(QPalette::Background, Qt::white);
+	p.setColor(QPalette::Window, Qt::white);
 	setAutoFillBackground(true);
 	setPalette(p);
 
